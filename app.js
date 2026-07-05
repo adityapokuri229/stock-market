@@ -70,7 +70,7 @@
     // =================================================================
     async function loadGameData() {
         try {
-            const resp = await fetch('PRD/game_data.json');
+            const resp = await fetch('game_data.json');
             gameData = await resp.json();
             // Initialize price history arrays
             gameData.meta.tickers.forEach(tk => { priceHistory[tk] = []; });
