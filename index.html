@@ -3,1903 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPSTrade — Smart Stock Market Simulator</title>
-    <meta name="description" content="A premium stock market simulation platform for teams to practice trading strategies in real-time.">
+    <title>Chakravyuh — Trading Game</title>
+    <meta name="description" content="Chakravyuh: A real-time stock market trading simulation game with 10 Indian equities.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* ========================================
-           DESIGN TOKENS
-           ======================================== */
-        :root {
-            --bg-primary: #06090f;
-            --bg-secondary: #0c1117;
-            --bg-card: rgba(14, 20, 30, 0.65);
-            --bg-card-hover: rgba(20, 28, 42, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-border-hover: rgba(255, 255, 255, 0.12);
-            --text-primary: #f0f2f5;
-            --text-secondary: rgba(240, 242, 245, 0.55);
-            --text-muted: rgba(240, 242, 245, 0.35);
-            --accent: #34d399;
-            --accent-dim: rgba(52, 211, 153, 0.15);
-            --accent-glow: rgba(52, 211, 153, 0.25);
-            --accent-secondary: #38bdf8;
-            --accent-secondary-dim: rgba(56, 189, 248, 0.12);
-            --danger: #f87171;
-            --danger-dim: rgba(248, 113, 113, 0.12);
-            --warning: #fbbf24;
-            --warning-dim: rgba(251, 191, 36, 0.12);
-            --radius-sm: 10px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-xl: 24px;
-            --shadow-glow: 0 0 60px -12px rgba(52, 211, 153, 0.15);
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* ========================================
-           RESET & BASE
-           ======================================== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            min-height: 100vh;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        ::selection {
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.08);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.14);
-        }
-
-        /* ========================================
-           ANIMATED BACKGROUND
-           ======================================== */
-        .bg-mesh {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .bg-mesh::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            top: -25%;
-            left: -25%;
-            background:
-                radial-gradient(ellipse 600px 600px at 20% 20%, rgba(52, 211, 153, 0.07) 0%, transparent 70%),
-                radial-gradient(ellipse 500px 500px at 80% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 70%),
-                radial-gradient(ellipse 400px 400px at 50% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 70%),
-                radial-gradient(ellipse 700px 700px at 70% 60%, rgba(52, 211, 153, 0.03) 0%, transparent 70%);
-            animation: meshDrift 25s ease-in-out infinite alternate;
-        }
-
-        @keyframes meshDrift {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            33% { transform: translate(30px, -20px) rotate(1deg) scale(1.02); }
-            66% { transform: translate(-20px, 30px) rotate(-1deg) scale(0.98); }
-            100% { transform: translate(10px, -10px) rotate(0.5deg) scale(1.01); }
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .orb-1 {
-            width: 600px; height: 600px;
-            background: linear-gradient(135deg, #34d399, #38bdf8);
-            top: -200px; right: -150px;
-            animation: orbFloat1 20s ease-in-out infinite alternate;
-        }
-        .orb-2 {
-            width: 450px; height: 450px;
-            background: linear-gradient(135deg, #8b5cf6, #34d399);
-            bottom: -100px; left: -100px;
-            animation: orbFloat2 25s ease-in-out infinite alternate;
-        }
-        .orb-3 {
-            width: 350px; height: 350px;
-            background: linear-gradient(135deg, #38bdf8, #8b5cf6);
-            top: 40%; left: 60%;
-            animation: orbFloat3 18s ease-in-out infinite alternate;
-        }
-
-        @keyframes orbFloat1 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-80px, 60px); }
-        }
-        @keyframes orbFloat2 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, -80px); }
-        }
-        @keyframes orbFloat3 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-40px, -50px); }
-        }
-
-        /* ========================================
-           NOISE TEXTURE OVERLAY
-           ======================================== */
-        .noise-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.015;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 256px;
-        }
-
-        /* ========================================
-           LAYOUT
-           ======================================== */
-        .app-wrapper {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ========================================
-           HEADER / NAV
-           ======================================== */
-        .app-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 0 32px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(6, 9, 15, 0.7);
-            backdrop-filter: blur(24px) saturate(1.4);
-            -webkit-backdrop-filter: blur(24px) saturate(1.4);
-            border-bottom: 1px solid var(--glass-border);
-            transition: background var(--transition-fast);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            user-select: none;
-        }
-
-        .brand-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--bg-primary);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .brand-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 2px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-tab {
-            position: relative;
-            padding: 8px 22px;
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            border-radius: 9px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            transition: all var(--transition-fast);
-            overflow: hidden;
-        }
-
-        .nav-tab::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--accent-dim), var(--accent-secondary-dim));
-            opacity: 0;
-            transition: opacity var(--transition-fast);
-            border-radius: inherit;
-        }
-
-        .nav-tab:hover {
-            color: var(--text-secondary);
-        }
-        .nav-tab:hover::before {
-            opacity: 0.5;
-        }
-
-        .nav-tab.active {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        .nav-tab.active::before {
-            opacity: 1;
-        }
-
-        .user-badge {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px 6px 10px;
-            background: var(--accent-dim);
-            border: 1px solid rgba(52, 211, 153, 0.15);
-            border-radius: 100px;
-            font-size: 0.78rem;
-            color: var(--accent);
-            font-weight: 500;
-        }
-        .user-badge.show { display: flex; }
-
-        .user-badge-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 8px var(--accent);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        /* ========================================
-           TICKER TAPE
-           ======================================== */
-        .ticker-tape {
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid var(--glass-border);
-            height: 36px;
-            display: none;
-            align-items: center;
-            position: relative;
-        }
-        .ticker-tape.show { display: flex; }
-
-        .ticker-tape::before,
-        .ticker-tape::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 60px;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .ticker-tape::before {
-            left: 0;
-            background: linear-gradient(90deg, var(--bg-primary), transparent);
-        }
-        .ticker-tape::after {
-            right: 0;
-            background: linear-gradient(270deg, var(--bg-primary), transparent);
-        }
-
-        .ticker-track {
-            display: flex;
-            gap: 32px;
-            animation: tickerScroll 40s linear infinite;
-            white-space: nowrap;
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
-            flex-shrink: 0;
-        }
-
-        .ticker-symbol {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .ticker-price {
-            color: var(--text-secondary);
-        }
-
-        .ticker-change {
-            font-weight: 600;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .ticker-up {
-            color: var(--accent);
-            background: var(--accent-dim);
-        }
-        .ticker-down {
-            color: var(--danger);
-            background: var(--danger-dim);
-        }
-
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* ========================================
-           TAB CONTENT & TRANSITIONS
-           ======================================== */
-        .tab-content {
-            display: none;
-            padding: 36px 32px 60px;
-            max-width: 1100px;
-            margin: 0 auto;
-            width: 100%;
-            animation: pageEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
-        }
-        .tab-content.active { display: block; }
-
-        @keyframes pageEnter {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-                filter: blur(4px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
-        }
-
-        /* ========================================
-           GLASS CARD SYSTEM
-           ======================================== */
-        .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px) saturate(1.2);
-            -webkit-backdrop-filter: blur(20px) saturate(1.2);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            transition: all var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            pointer-events: none;
-        }
-
-        .card:hover {
-            border-color: var(--glass-border-hover);
-            background: var(--bg-card-hover);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .card-strong {
-            background: rgba(14, 20, 30, 0.8);
-            backdrop-filter: blur(30px) saturate(1.3);
-            -webkit-backdrop-filter: blur(30px) saturate(1.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-xl);
-        }
-
-        /* ========================================
-           LOGIN PAGE
-           ======================================== */
-        .login-page {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 120px);
-            padding: 40px 20px;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 48px 40px;
-            position: relative;
-        }
-
-        .login-container::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(52,211,153,0.15), transparent 40%, transparent 60%, rgba(56,189,248,0.1));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
-
-        .login-header .login-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px var(--accent-glow);
-        }
-
-        .login-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .login-header p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: all var(--transition-fast);
-            outline: none;
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .form-input:focus {
-            border-color: rgba(52, 211, 153, 0.3);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 0 3px var(--accent-dim), 0 0 30px -10px var(--accent-glow);
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--accent), #2dd4a8);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            margin-top: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .btn-primary:hover::before {
-            transform: translateX(100%);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .error-msg {
-            color: var(--danger);
-            font-size: 0.82rem;
-            margin-top: 16px;
-            text-align: center;
-            display: none;
-            padding: 10px;
-            background: var(--danger-dim);
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(248, 113, 113, 0.15);
-        }
-
-        /* ========================================
-           PORTFOLIO PAGE
-           ======================================== */
-        .portfolio-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .stat-card {
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            margin-bottom: 14px;
-        }
-
-        .stat-card .stat-label {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .stat-card .stat-value {
-            font-size: 1.7rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .stat-card .stat-detail {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        .stat-card-cash .stat-icon { background: var(--accent-dim); }
-        .stat-card-cash .stat-value { color: var(--accent); text-shadow: 0 0 40px var(--accent-glow); }
-
-        .stat-card-holdings .stat-icon { background: var(--accent-secondary-dim); }
-        .stat-card-holdings .stat-value { color: var(--accent-secondary); }
-
-        .stat-card-total .stat-icon { background: rgba(139, 92, 246, 0.12); }
-        .stat-card-total .stat-value { color: #a78bfa; }
-
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .title-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        /* ========================================
-           TABLES
-           ======================================== */
-        .table-wrapper {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            padding: 12px 20px;
-            text-align: left;
-            background: rgba(52, 211, 153, 0.04);
-            color: var(--text-muted);
-            font-size: 0.68rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .data-table td {
-            padding: 14px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-size: 0.88rem;
-            transition: background var(--transition-fast);
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .data-table tbody tr {
-            transition: background var(--transition-fast);
-        }
-
-        .data-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .gain-positive {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .gain-negative {
-            color: var(--danger);
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-        .badge-stock {
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-        .badge-etf {
-            background: var(--accent-secondary-dim);
-            color: var(--accent-secondary);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 80px 40px;
-            color: var(--text-muted);
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.4;
-        }
-
-        .empty-state p {
-            font-size: 0.95rem;
-            max-width: 320px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* ========================================
-           TRADE PAGE
-           ======================================== */
-        .trade-container {
-            max-width: 580px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-
-        .trade-header {
-            margin-bottom: 32px;
-        }
-
-        .trade-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-
-        .trade-header p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .trade-field {
-            margin-bottom: 20px;
-        }
-
-        .trade-field label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .trade-field select,
-        .trade-field input {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.92rem;
-            transition: all var(--transition-fast);
-            outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .trade-field select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2388888888' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            padding-right: 40px;
-            cursor: pointer;
-        }
-
-        .trade-field select:focus,
-        .trade-field input:focus {
-            border-color: rgba(52, 211, 153, 0.3);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 0 3px var(--accent-dim);
-        }
-
-        .trade-field select option {
-            background: #1a1f2e;
-            color: var(--text-primary);
-        }
-
-        .trade-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .symbol-lookup-wrapper {
-            position: relative;
-        }
-
-        .symbol-lookup-wrapper input {
-            padding-right: 40px;
-        }
-
-        .symbol-lookup-wrapper .search-icon {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            pointer-events: none;
-        }
-
-        .lookup-results {
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background: rgba(14, 20, 30, 0.96);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border-hover);
-            border-radius: var(--radius-sm);
-            max-height: 260px;
-            overflow-y: auto;
-            z-index: 100;
-            display: none;
-            box-shadow: 0 16px 48px -12px rgba(0,0,0,0.5);
-        }
-        .lookup-results.show { display: block; }
-
-        .lookup-item {
-            padding: 11px 16px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all var(--transition-fast);
-        }
-        .lookup-item:hover {
-            background: var(--accent-dim);
-        }
-        .lookup-item:last-child { border-bottom: none; }
-        .lookup-item .symbol { font-weight: 600; color: var(--text-primary); font-size: 0.88rem; }
-        .lookup-item .name { color: var(--text-muted); font-size: 0.78rem; }
-
-        .lookup-no-results {
-            padding: 16px;
-            color: var(--text-muted);
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        .show-max {
-            color: var(--accent);
-            font-size: 0.75rem;
-            cursor: pointer;
-            margin-top: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: 500;
-            transition: all var(--transition-fast);
-            opacity: 0.7;
-        }
-        .show-max:hover { opacity: 1; }
-
-        .trade-actions {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .btn-ghost {
-            padding: 13px;
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
-            border-color: var(--glass-border-hover);
-        }
-
-        .btn-accent {
-            padding: 13px;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(56, 189, 248, 0.1));
-            color: var(--accent);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-        .btn-accent:hover {
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(56, 189, 248, 0.15));
-            box-shadow: 0 8px 24px var(--accent-glow);
-            transform: translateY(-1px);
-        }
-
-        .trade-error {
-            color: var(--danger);
-            font-size: 0.82rem;
-            margin-top: 14px;
-            display: none;
-            padding: 10px 14px;
-            background: var(--danger-dim);
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(248, 113, 113, 0.12);
-        }
-
-        /* ========================================
-           ORDER PREVIEW
-           ======================================== */
-        .order-preview {
-            display: none;
-            margin-top: 24px;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--glass-border);
-            animation: slideUp 0.3s var(--transition-fast);
-        }
-        .order-preview.show { display: block; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .order-preview h3 {
-            margin-bottom: 16px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .order-preview-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .order-preview-row:last-of-type { border-bottom: none; }
-        .order-preview-label { color: var(--text-muted); font-size: 0.85rem; }
-        .order-preview-value { color: var(--text-primary); font-weight: 600; font-size: 0.88rem; }
-
-        .btn-confirm {
-            width: 100%;
-            margin-top: 16px;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--accent), #2dd4a8);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.92rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-        .btn-confirm:hover {
-            box-shadow: 0 8px 32px var(--accent-glow);
-            transform: translateY(-1px);
-        }
-
-        .btn-cancel-order {
-            width: 100%;
-            margin-top: 8px;
-            padding: 12px;
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-        .btn-cancel-order:hover {
-            color: var(--text-secondary);
-            border-color: var(--glass-border-hover);
-        }
-
-        /* ========================================
-           ORDER STATUS
-           ======================================== */
-        .order-status-section {
-            margin-top: 40px;
-            max-width: 580px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .status-pending {
-            color: var(--warning);
-            font-weight: 600;
-        }
-        .status-executed {
-            color: var(--accent);
-            font-weight: 600;
-        }
-        .status-rejected, .status-timeout {
-            color: var(--danger);
-            font-weight: 600;
-        }
-
-        /* ========================================
-           RESEARCH PAGE
-           ======================================== */
-        .research-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .research-search {
-            padding: 9px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.82rem;
-            width: 240px;
-            outline: none;
-            transition: all var(--transition-fast);
-        }
-        .research-search:focus {
-            border-color: rgba(52,211,153,0.3);
-            box-shadow: 0 0 0 3px var(--accent-dim);
-        }
-
-        .research-table .research-row {
-            cursor: pointer;
-        }
-        .research-table .research-row:hover td {
-            background: rgba(52, 211, 153, 0.03);
-        }
-
-        .company-overview {
-            display: none;
-        }
-        .company-overview.show { display: table-row; }
-        .company-overview td {
-            padding: 24px;
-            background: rgba(52, 211, 153, 0.02);
-            border-bottom: 1px solid var(--glass-border);
-            cursor: default;
-        }
-
-        .overview-content {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .overview-item { display: flex; flex-direction: column; }
-        .overview-label {
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-        .overview-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
-
-        .overview-desc {
-            margin-top: 16px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.7;
-        }
-
-        /* ========================================
-           MINI SPARKLINE
-           ======================================== */
-        .sparkline {
-            display: inline-block;
-            width: 60px;
-            height: 24px;
-            vertical-align: middle;
-        }
-
-        .sparkline svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ========================================
-           RESPONSIVE
-           ======================================== */
-        @media (max-width: 768px) {
-            .app-header {
-                padding: 0 16px;
-                height: 56px;
-            }
-            .brand-name { display: none; }
-            .nav-tab { padding: 7px 14px; font-size: 0.76rem; }
-            .tab-content { padding: 24px 16px 40px; }
-            .trade-row { grid-template-columns: 1fr; }
-            .trade-container { padding: 28px 24px; }
-            .portfolio-stats { grid-template-columns: 1fr; }
-            .login-container { padding: 36px 24px; }
-            .stat-card .stat-value { font-size: 1.4rem; }
-            .research-header { flex-direction: column; gap: 12px; align-items: stretch; }
-            .research-search { width: 100%; }
-        }
-
-        /* ========================================
-           TOAST NOTIFICATION
-           ======================================== */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            padding: 14px 20px;
-            background: rgba(14, 20, 30, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border-hover);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            font-weight: 500;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 16px 48px -12px rgba(0,0,0,0.5);
-            transform: translateY(120%);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .toast-success { border-left: 3px solid var(--accent); }
-        .toast-error { border-left: 3px solid var(--danger); }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Background layers -->
-    <div class="bg-mesh"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="noise-overlay"></div>
-
-    <div class="app-wrapper">
-        <!-- Header -->
-        <header class="app-header" id="app-header">
-            <div class="brand">
-                <div class="brand-icon">D</div>
-                <span class="brand-name">DPSTrade</span>
-            </div>
-            <nav class="nav-tabs" id="nav-tabs">
-                <button class="nav-tab active" data-tab="login" id="nav-login">Login</button>
-                <button class="nav-tab" data-tab="portfolio" id="nav-portfolio">Portfolio</button>
-                <button class="nav-tab" data-tab="trade" id="nav-trade">Trade</button>
-                <button class="nav-tab" data-tab="research" id="nav-research">Research</button>
-            </nav>
-            <div class="user-badge" id="user-badge">
-                <span class="user-badge-dot"></span>
-                <span id="user-badge-name"></span>
-            </div>
-        </header>
-
-        <!-- Ticker Tape -->
-        <div class="ticker-tape" id="ticker-tape">
-            <div class="ticker-track" id="ticker-track"></div>
+    <!-- Header -->
+    <header class="header" id="app-header">
+        <div class="header-brand">
+            <div class="logo">C</div>
+            Chakravyuh
         </div>
+        <nav class="header-nav" id="main-nav" style="display:none;">
+            <button class="nav-tab active" data-tab="trade">Trade</button>
+            <button class="nav-tab" data-tab="portfolio">Portfolio</button>
+            <button class="nav-tab" data-tab="research">Research</button>
+        </nav>
+        <div class="header-right">
+            <div class="game-timer" id="game-timer">
+                <div class="timer-item"><div class="timer-dot" id="timer-dot"></div></div>
+                <div class="timer-item">Session <strong id="timer-session">1</strong></div>
+                <div class="timer-item">Tick <strong id="timer-tick">0</strong>/120</div>
+                <div class="timer-item" id="timer-clock">20:00</div>
+            </div>
+            <div class="user-badge" id="user-badge">
+                <div class="user-avatar" id="user-avatar">A</div>
+                <span id="user-badge-name">Alpha</span>
+            </div>
+        </div>
+    </header>
 
+    <!-- Ticker Tape -->
+    <div class="ticker-tape" id="ticker-tape">
+        <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <div class="main-container">
         <!-- Login Page -->
         <div class="tab-content active" id="tab-login">
-            <div class="login-page">
-                <div class="login-container card-strong">
-                    <div class="login-header">
-                        <div class="login-icon">📈</div>
-                        <h2>Welcome Back</h2>
-                        <p>Sign in to your team trading account</p>
+            <div class="login-container">
+                <div class="login-title">Welcome to Chakravyuh</div>
+                <div class="login-subtitle">Enter your team credentials to begin trading</div>
+                <input type="text" class="login-field" id="team-name" placeholder="Team Name" autocomplete="off">
+                <input type="password" class="login-field" id="team-password" placeholder="Password">
+                <p class="login-error" id="login-error"></p>
+                <button class="btn-primary" id="login-btn">Enter the Arena →</button>
+            </div>
+        </div>
+
+        <!-- Game Controls (shown after login, before game starts) -->
+        <div class="game-controls-bar" id="game-controls">
+            <span class="game-status" id="game-status">Game ready. Press Start to begin.</span>
+            <button class="btn-start" id="btn-start-game">▶ START GAME</button>
+            <button class="btn-pause" id="btn-pause-game" style="display:none;">⏸ PAUSE</button>
+        </div>
+
+        <!-- Trade Tab -->
+        <div class="tab-content" id="tab-trade">
+            <div class="trade-layout">
+                <div class="trade-left">
+                    <!-- Order Widget -->
+                    <div class="card order-widget">
+                        <div class="section-title"><span class="title-dot"></span> Order Entry</div>
+                        <div class="order-row">
+                            <div class="order-field">
+                                <label>Ticker</label>
+                                <select id="order-ticker"></select>
+                            </div>
+                            <div class="order-field">
+                                <label>Action</label>
+                                <select id="order-action">
+                                    <option value="BUY">Buy</option>
+                                    <option value="SELL">Sell</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="order-row">
+                            <div class="order-field">
+                                <label>Quantity (Shares)</label>
+                                <input type="number" id="order-quantity" min="1" step="1" placeholder="0">
+                            </div>
+                            <div class="order-field">
+                                <label>Current Price</label>
+                                <input type="text" id="order-current-price" readonly style="opacity:0.6;">
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn-ghost" id="btn-clear">CLEAR</button>
+                            <button class="btn-accent" id="btn-confirm" disabled>CONFIRM ORDER →</button>
+                        </div>
+                        <div class="order-info" id="order-info"></div>
+                        <div class="order-error" id="order-error"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="team-name">Team Name</label>
-                        <input type="text" id="team-name" class="form-input" maxlength="50" placeholder="Enter team name" autocomplete="off">
+
+                    <!-- Price Action Chart -->
+                    <div class="card" style="flex:1; display:flex; flex-direction:column;">
+                        <div class="chart-header">
+                            <div class="section-title" style="margin-bottom:0;"><span class="title-dot"></span> Price Action — <span id="chart-ticker-label">TCS</span></div>
+                            <div class="chart-toggle">
+                                <button class="chart-toggle-btn active" data-chart="line">Line</button>
+                                <button class="chart-toggle-btn" data-chart="candle">Candle</button>
+                            </div>
+                        </div>
+                        <div class="price-chart-container">
+                            <canvas id="price-chart"></canvas>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="team-password">Password</label>
-                        <input type="password" id="team-password" class="form-input" maxlength="50" placeholder="Enter password">
+                </div>
+
+                <!-- News Widget -->
+                <div class="card news-widget">
+                    <div class="section-title"><span class="title-dot"></span> Live News Feed</div>
+                    <div class="news-feed" id="news-feed">
+                        <div class="news-empty">📡 Waiting for market to open...</div>
                     </div>
-                    <button class="btn-primary" id="login-btn">Sign In →</button>
-                    <p class="error-msg" id="login-error">Invalid team name or password</p>
                 </div>
             </div>
         </div>
 
-        <!-- Portfolio Page -->
+        <!-- Portfolio Tab -->
         <div class="tab-content" id="tab-portfolio">
-            <div class="portfolio-stats">
-                <div class="stat-card card stat-card-cash">
-                    <div class="stat-icon">💰</div>
+            <div class="stat-grid">
+                <div class="stat-card">
                     <div class="stat-label">Available Cash</div>
-                    <div class="stat-value" id="cash-amount">₹1,00,00,000.00</div>
+                    <div class="stat-value neutral" id="stat-cash">₹10,00,000</div>
                 </div>
-                <div class="stat-card card stat-card-holdings">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-label">Holdings Value</div>
-                    <div class="stat-value" id="holdings-value">₹0.00</div>
+                <div class="stat-card">
+                    <div class="stat-label">Unrealised Gain</div>
+                    <div class="stat-value neutral" id="stat-unrealised">₹0.00</div>
                 </div>
-                <div class="stat-card card stat-card-total">
-                    <div class="stat-icon">💎</div>
+                <div class="stat-card">
                     <div class="stat-label">Total Portfolio</div>
-                    <div class="stat-value" id="total-value">₹1,00,00,000.00</div>
-                    <div class="stat-detail" id="total-change"></div>
+                    <div class="stat-value neutral" id="stat-total">₹10,00,000</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Absolute Return %</div>
+                    <div class="stat-value neutral" id="stat-return">0.00%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Sharpe Ratio</div>
+                    <div class="stat-value neutral" id="stat-sharpe">0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">vs. Market Return %</div>
+                    <div class="stat-value neutral" id="stat-vsmarket">0.00%</div>
                 </div>
             </div>
 
-            <div id="holdings-container">
-                <div class="section-title">
-                    <span class="title-dot"></span>
-                    Your Holdings
+            <div class="equity-chart-card">
+                <div class="chart-header">
+                    <div class="section-title" style="margin-bottom:0;"><span class="title-dot"></span> Equity Value</div>
+                    <div style="display:flex;gap:14px;font-size:0.75rem;font-weight:600;">
+                        <span style="color:var(--text-primary);">● Portfolio</span>
+                        <span style="color:var(--danger);">● Market</span>
+                    </div>
                 </div>
-                <div class="table-wrapper" id="table-wrapper" style="display:none;">
-                    <table class="data-table" id="holdings-table">
-                        <thead>
-                            <tr>
-                                <th>Security</th>
-                                <th>% of Portfolio</th>
-                                <th>Price Bought</th>
-                                <th>Current Value</th>
-                                <th>Gain/Loss</th>
-                            </tr>
-                        </thead>
+                <canvas id="equity-chart" height="280"></canvas>
+            </div>
+
+            <div class="holdings-section card" style="margin-top:20px;">
+                <div class="section-title"><span class="title-dot"></span> Current Holdings</div>
+                <div id="holdings-empty" style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.85rem;">
+                    No positions yet. Start trading!
+                </div>
+                <div id="holdings-table-wrap" style="display:none;">
+                    <table class="data-table">
+                        <thead><tr>
+                            <th>Symbol</th><th>Shares</th><th>Avg Cost</th><th>Current</th><th>P&L %</th><th>Value</th>
+                        </tr></thead>
                         <tbody id="holdings-body"></tbody>
                     </table>
                 </div>
-                <div class="empty-state" id="empty-portfolio">
-                    <div class="empty-state-icon">📂</div>
-                    <p>Your portfolio is empty.<br>Start trading to build your holdings.</p>
-                </div>
             </div>
         </div>
 
-        <!-- Trade Page -->
-        <div class="tab-content" id="tab-trade">
-            <div class="trade-container card-strong">
-                <div class="trade-header">
-                    <h2>Place an Order</h2>
-                    <p>Execute market or limit orders on available securities</p>
-                </div>
-
-                <div class="trade-field">
-                    <label>Symbol</label>
-                    <div class="symbol-lookup-wrapper">
-                        <input type="text" id="symbol-input" class="form-input" placeholder="Search by symbol or company name..." maxlength="50" autocomplete="off">
-                        <span class="search-icon">🔍</span>
-                        <div class="lookup-results" id="lookup-results"></div>
-                    </div>
-                </div>
-
-                <div class="trade-row">
-                    <div class="trade-field">
-                        <label>Action</label>
-                        <select id="trade-action">
-                            <option value="Buy">Buy</option>
-                            <option value="Sell">Sell</option>
-                            <option value="Short Sell">Short Sell</option>
-                        </select>
-                    </div>
-                    <div class="trade-field">
-                        <label>Quantity</label>
-                        <input type="number" id="trade-quantity" min="1" max="999999" placeholder="0">
-                        <span class="show-max" id="show-max">⚡ Max</span>
-                    </div>
-                </div>
-
-                <div class="trade-row">
-                    <div class="trade-field">
-                        <label>Order Type</label>
-                        <select id="order-type">
-                            <option value="Market">Market</option>
-                            <option value="Limit">Limit</option>
-                        </select>
-                    </div>
-                    <div class="trade-field" id="limit-price-field" style="display: none;">
-                        <label>Limit Price (₹)</label>
-                        <input type="number" id="limit-price" min="0.01" max="999999.99" step="0.01" placeholder="0.00">
-                    </div>
-                </div>
-
-                <div class="trade-actions">
-                    <button class="btn-ghost" id="clear-btn">CLEAR</button>
-                    <button class="btn-accent" id="preview-btn">PREVIEW ORDER →</button>
-                </div>
-
-                <p class="trade-error" id="trade-error"></p>
-                <div class="order-preview" id="order-preview"></div>
-            </div>
-
-            <div class="order-status-section" id="order-status-section" style="display: none;">
-                <div class="section-title">
-                    <span class="title-dot"></span>
-                    Order History
-                </div>
-                <div class="table-wrapper">
-                    <table class="data-table order-status-table">
-                        <thead>
-                            <tr>
-                                <th>Symbol</th>
-                                <th>Action</th>
-                                <th>Qty</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="order-status-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Research Page -->
+        <!-- Research Tab -->
         <div class="tab-content" id="tab-research">
             <div class="research-header">
-                <div class="section-title" style="margin-bottom:0">
-                    <span class="title-dot"></span>
-                    Available Securities
-                </div>
+                <div class="section-title" style="margin-bottom:0;"><span class="title-dot"></span> Investable Universe</div>
                 <input type="text" class="research-search" id="research-search" placeholder="Filter securities...">
             </div>
-            <div class="table-wrapper">
+            <div class="card" style="padding:0; overflow:hidden;">
                 <table class="data-table research-table" id="research-table">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Company Name</th>
-                            <th>Price</th>
-                            <th>Change</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
+                    <thead><tr>
+                        <th>Ticker</th><th>Company Name</th><th>Price</th><th>Change</th><th>Type</th><th>Research</th>
+                    </tr></thead>
                     <tbody id="research-body"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- Research Modal -->
+    <div class="modal-overlay" id="research-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Stock Research</div>
+                <button class="modal-close" id="modal-close">✕</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <script>
-    // ===== DATA =====
-    const TEAMS = {
-        'alpha': 'pass123',
-        'beta': 'pass456',
-        'gamma': 'pass789'
-    };
-
-    const SECURITIES = [
-        { symbol: 'RELIANCE', name: 'Reliance Industries Ltd.', price: 2950.40, type: 'Stock', sector: 'Energy & Oil', marketCap: '₹19.9T', desc: 'India\'s largest private sector enterprise with businesses in energy, petrochemicals, retail, and digital services.', change: 1.42 },
-        { symbol: 'TCS', name: 'Tata Consultancy Services Ltd.', price: 3820.15, type: 'Stock', sector: 'Technology', marketCap: '₹13.8T', desc: 'A global IT services, consulting and business solutions organization headquartered in Mumbai.', change: -0.65 },
-        { symbol: 'HDFCBANK', name: 'HDFC Bank Ltd.', price: 1640.80, type: 'Stock', sector: 'Financial Services', marketCap: '₹12.4T', desc: 'India\'s leading private sector bank offering a wide range of retail and corporate banking products.', change: 0.89 },
-        { symbol: 'INFY', name: 'Infosys Ltd.', price: 1530.50, type: 'Stock', sector: 'Technology', marketCap: '₹6.3T', desc: 'A global leader in next-generation digital services and consulting solutions.', change: 1.12 },
-        { symbol: 'ICICIBANK', name: 'ICICI Bank Ltd.', price: 1115.60, type: 'Stock', sector: 'Financial Services', marketCap: '₹7.8T', desc: 'A leading private sector bank in India offering commercial and investment banking services.', change: 0.45 },
-        { symbol: 'BHARTIARTL', name: 'Bharti Airtel Ltd.', price: 1420.25, type: 'Stock', sector: 'Telecom', marketCap: '₹8.1T', desc: 'A leading global telecommunications company with operations in 17 countries.', change: 2.10 },
-        { symbol: 'SBI', name: 'State Bank of India', price: 840.40, type: 'Stock', sector: 'Financial Services', marketCap: '₹7.5T', desc: 'India\'s largest public sector bank with a legacy of over 200 years.', change: -1.23 },
-        { symbol: 'L&T', name: 'Larsen & Toubro Ltd.', price: 3540.90, type: 'Stock', sector: 'Engineering & Construction', marketCap: '₹4.8T', desc: 'An Indian multinational conglomerate engaged in technology, engineering, construction, and financial services.', change: 0.67 },
-        { symbol: 'ITC', name: 'ITC Ltd.', price: 430.50, type: 'Stock', sector: 'FMCG', marketCap: '₹5.3T', desc: 'A diversified conglomerate with presence in FMCG, Hotels, Packaging, Paperboards, and Agri-Business.', change: -0.34 },
-        { symbol: 'HINDUNILVR', name: 'Hindustan Unilever Ltd.', price: 2480.60, type: 'Stock', sector: 'FMCG', marketCap: '₹5.8T', desc: 'India\'s largest fast-moving consumer goods company with brands used by 9 out of 10 households.', change: -0.85 },
-        { symbol: 'NIFTYBEES', name: 'Nippon India Nifty 50 BeES ETF', price: 260.80, type: 'ETF', sector: 'Broad Market', marketCap: '₹18.5K Cr', desc: 'An exchange-traded fund designed to track and replicate the performance of the Nifty 50 Index.', change: 0.56 },
-        { symbol: 'JUNIORBEES', name: 'Nippon India Nifty Next 50 BeES ETF', price: 680.40, type: 'ETF', sector: 'Mid Cap', marketCap: '₹3.2K Cr', desc: 'Tracks the Nifty Next 50 Index representing the next rung of liquid blue-chip Indian equities.', change: 1.25 },
-        { symbol: 'BANKBEES', name: 'Nippon India Nifty Bank BeES ETF', price: 512.60, type: 'ETF', sector: 'Banking', marketCap: '₹9.4K Cr', desc: 'Provides investors exposure to the highly liquid banking stocks constituting the Nifty Bank index.', change: 0.41 },
-        { symbol: 'MON100', name: 'Motilal Oswal Nasdaq 100 ETF', price: 165.30, type: 'ETF', sector: 'International IT', marketCap: '₹6.8K Cr', desc: 'Provides Indian investors with exposure to the Nasdaq 100 Index comprising US-tech heavyweights.', change: 1.78 },
-        { symbol: 'GOLDBEES', name: 'Nippon India Gold BeES ETF', price: 62.10, type: 'ETF', sector: 'Commodities', marketCap: '₹10.5K Cr', desc: 'Tracks the domestic physical price of gold, providing a liquid way to invest in bullion.', change: -0.15 }
-    ];
-
-    // ===== STATE =====
-    let isAuthenticated = false;
-    let currentTeam = '';
-    let cashBalance = 10000000.00; // ₹1 Crore Starting Balance
-    let holdings = [];
-    let orders = [];
-
-    // ===== UTILITIES =====
-    function formatCurrency(amount) {
-        // Indian Rupee custom formatting logic (Lakhs and Crores grouping: xx,xx,xxx.xx)
-        let x = amount.toFixed(2).split('.');
-        let x1 = x[0];
-        let x2 = x.length > 1 ? '.' + x[1] : '';
-        let rgx = /(\d+)(\d{3})/;
-        if (x1.length > 3) {
-            let lastThree = x1.substring(x1.length - 3);
-            let otherNumbers = x1.substring(0, x1.length - 3);
-            x1 = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + lastThree;
-        }
-        return '₹' + x1 + x2;
-    }
-
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        toast.className = `toast toast-${type}`;
-        toast.innerHTML = `${type === 'success' ? '✅' : '❌'} ${message}`;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    function generateSparkline(isPositive) {
-        const points = [];
-        let y = 12;
-        for (let i = 0; i < 12; i++) {
-            y += (Math.random() - (isPositive ? 0.4 : 0.6)) * 4;
-            y = Math.max(2, Math.min(22, y));
-            points.push(`${i * 5.5},${y}`);
-        }
-        const color = isPositive ? 'var(--accent)' : 'var(--danger)';
-        return `<span class="sparkline"><svg viewBox="0 0 60 24" preserveAspectRatio="none"><polyline points="${points.join(' ')}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
-    }
-
-    // ===== TICKER TAPE =====
-    function buildTicker() {
-        const track = document.getElementById('ticker-track');
-        let html = '';
-        // Duplicate for seamless scroll
-        for (let rep = 0; rep < 2; rep++) {
-            SECURITIES.forEach(s => {
-                const isUp = s.change >= 0;
-                html += `<div class="ticker-item">
-                    <span class="ticker-symbol">${s.symbol}</span>
-                    <span class="ticker-price">${formatCurrency(s.price)}</span>
-                    <span class="ticker-change ${isUp ? 'ticker-up' : 'ticker-down'}">${isUp ? '▲' : '▼'} ${Math.abs(s.change).toFixed(2)}%</span>
-                </div>`;
-            });
-        }
-        track.innerHTML = html;
-    }
-
-    // ===== NAVIGATION =====
-    const tabs = document.querySelectorAll('.nav-tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    function switchTab(tabName) {
-        if (!isAuthenticated && tabName !== 'login') {
-            document.getElementById('login-error').textContent = 'Please log in first';
-            document.getElementById('login-error').style.display = 'block';
-            return;
-        }
-        tabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(tc => {
-            tc.classList.remove('active');
-            tc.style.animation = 'none';
-        });
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-        const target = document.getElementById(`tab-${tabName}`);
-        target.classList.add('active');
-        // Re-trigger animation
-        void target.offsetWidth;
-        target.style.animation = 'pageEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) both';
-
-        if (tabName === 'portfolio') refreshPortfolio();
-    }
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => switchTab(tab.dataset.tab));
-    });
-
-    // ===== LOGIN =====
-    const loginBtn = document.getElementById('login-btn');
-    const loginError = document.getElementById('login-error');
-    const teamNameInput = document.getElementById('team-name');
-    const teamPasswordInput = document.getElementById('team-password');
-
-    function handleLogin() {
-        const team = teamNameInput.value.trim().toLowerCase();
-        const pass = teamPasswordInput.value;
-        if (TEAMS[team] && TEAMS[team] === pass) {
-            isAuthenticated = true;
-            currentTeam = team;
-            loginError.style.display = 'none';
-
-            // Show user badge
-            const badge = document.getElementById('user-badge');
-            document.getElementById('user-badge-name').textContent = team.charAt(0).toUpperCase() + team.slice(1);
-            badge.classList.add('show');
-
-            // Show ticker
-            document.getElementById('ticker-tape').classList.add('show');
-
-            // Hide login tab
-            document.getElementById('nav-login').style.display = 'none';
-
-            showToast(`Welcome, Team ${team.charAt(0).toUpperCase() + team.slice(1)}!`);
-            switchTab('portfolio');
-        } else {
-            loginError.textContent = 'Invalid team name or password';
-            loginError.style.display = 'block';
-            loginError.style.animation = 'none';
-            void loginError.offsetWidth;
-            loginError.style.animation = 'slideUp 0.3s ease';
-        }
-    }
-
-    loginBtn.addEventListener('click', handleLogin);
-    teamPasswordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
-    teamNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
-
-    // ===== PORTFOLIO =====
-    function refreshPortfolio() {
-        document.getElementById('cash-amount').textContent = formatCurrency(cashBalance);
-        const tbody = document.getElementById('holdings-body');
-        const emptyMsg = document.getElementById('empty-portfolio');
-        const tableWrapper = document.getElementById('table-wrapper');
-
-        const holdingsValue = holdings.reduce((sum, h) => {
-            const sec = SECURITIES.find(s => s.symbol === h.symbol);
-            return sum + (sec ? sec.price * h.quantity : 0);
-        }, 0);
-
-        document.getElementById('holdings-value').textContent = formatCurrency(holdingsValue);
-        document.getElementById('total-value').textContent = formatCurrency(cashBalance + holdingsValue);
-
-        const pnl = (cashBalance + holdingsValue) - 10000000;
-        const pnlPct = (pnl / 10000000 * 100).toFixed(2);
-        const changeEl = document.getElementById('total-change');
-        if (pnl !== 0) {
-            changeEl.textContent = `${pnl >= 0 ? '+' : ''}${formatCurrency(pnl)} (${pnl >= 0 ? '+' : ''}${pnlPct}%)`;
-            changeEl.style.color = pnl >= 0 ? 'var(--accent)' : 'var(--danger)';
-        } else {
-            changeEl.textContent = '';
-        }
-
-        if (holdings.length === 0) {
-            tableWrapper.style.display = 'none';
-            emptyMsg.style.display = 'block';
-            return;
-        }
-        tableWrapper.style.display = 'block';
-        emptyMsg.style.display = 'none';
-
-        const totalValue = holdings.reduce((sum, h) => {
-            const sec = SECURITIES.find(s => s.symbol === h.symbol);
-            return sum + (sec ? sec.price * h.quantity : 0);
-        }, 0);
-
-        tbody.innerHTML = '';
-        holdings.forEach(h => {
-            const sec = SECURITIES.find(s => s.symbol === h.symbol);
-            if (!sec) return;
-            const currentVal = sec.price * h.quantity;
-            const pctPortfolio = totalValue > 0 ? ((currentVal / totalValue) * 100).toFixed(2) : '0.00';
-            const gainLoss = ((sec.price - h.buyPrice) / h.buyPrice * 100).toFixed(2);
-            const gainClass = gainLoss >= 0 ? 'gain-positive' : 'gain-negative';
-            const gainPrefix = gainLoss >= 0 ? '+' : '';
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><strong>${sec.symbol}</strong> <span style="color:var(--text-muted);font-size:0.8rem">${sec.name}</span></td>
-                <td>${pctPortfolio}%</td>
-                <td>${formatCurrency(h.buyPrice)}</td>
-                <td>${formatCurrency(sec.price)}</td>
-                <td class="${gainClass}">${gainPrefix}${gainLoss}%</td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
-
-    // ===== TRADE - SYMBOL LOOKUP =====
-    const symbolInput = document.getElementById('symbol-input');
-    const lookupResults = document.getElementById('lookup-results');
-    let selectedSymbol = null;
-
-    symbolInput.addEventListener('input', () => {
-        const query = symbolInput.value.trim().toLowerCase();
-        if (query.length === 0) { lookupResults.classList.remove('show'); return; }
-        const matches = SECURITIES.filter(s =>
-            s.symbol.toLowerCase().includes(query) || s.name.toLowerCase().includes(query)
-        ).slice(0, 10);
-        lookupResults.innerHTML = '';
-        if (matches.length === 0) {
-            lookupResults.innerHTML = '<div class="lookup-no-results">No results found</div>';
-        } else {
-            matches.forEach(s => {
-                const item = document.createElement('div');
-                item.className = 'lookup-item';
-                item.innerHTML = `<span class="symbol">${s.symbol}</span><span class="name">${s.name} · ${formatCurrency(s.price)}</span>`;
-                item.addEventListener('click', () => {
-                    symbolInput.value = s.symbol;
-                    selectedSymbol = s;
-                    lookupResults.classList.remove('show');
-                });
-                lookupResults.appendChild(item);
-            });
-        }
-        lookupResults.classList.add('show');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.symbol-lookup-wrapper')) lookupResults.classList.remove('show');
-    });
-
-    // ===== TRADE - ORDER TYPE =====
-    const orderTypeSelect = document.getElementById('order-type');
-    const limitPriceField = document.getElementById('limit-price-field');
-    orderTypeSelect.addEventListener('change', () => {
-        limitPriceField.style.display = orderTypeSelect.value === 'Limit' ? 'block' : 'none';
-    });
-
-    // ===== TRADE - SHOW MAX =====
-    const showMaxBtn = document.getElementById('show-max');
-    const tradeQuantity = document.getElementById('trade-quantity');
-    const tradeAction = document.getElementById('trade-action');
-
-    showMaxBtn.addEventListener('click', () => {
-        if (!selectedSymbol) return;
-        if (tradeAction.value === 'Buy') {
-            tradeQuantity.value = Math.floor(cashBalance / selectedSymbol.price);
-        } else if (tradeAction.value === 'Sell') {
-            const holding = holdings.find(h => h.symbol === selectedSymbol.symbol);
-            tradeQuantity.value = holding ? holding.quantity : 0;
-        } else {
-            tradeQuantity.value = Math.floor(cashBalance / selectedSymbol.price);
-        }
-    });
-
-    // ===== TRADE - CLEAR =====
-    document.getElementById('clear-btn').addEventListener('click', () => {
-        symbolInput.value = '';
-        selectedSymbol = null;
-        tradeAction.value = 'Buy';
-        tradeQuantity.value = '';
-        orderTypeSelect.value = 'Market';
-        limitPriceField.style.display = 'none';
-        document.getElementById('limit-price').value = '';
-        document.getElementById('trade-error').style.display = 'none';
-        document.getElementById('order-preview').classList.remove('show');
-    });
-
-    // ===== TRADE - PREVIEW =====
-    const tradeError = document.getElementById('trade-error');
-    const orderPreview = document.getElementById('order-preview');
-
-    document.getElementById('preview-btn').addEventListener('click', () => {
-        tradeError.style.display = 'none';
-        orderPreview.classList.remove('show');
-        const errors = [];
-        if (!selectedSymbol) errors.push('Symbol');
-        const qty = parseInt(tradeQuantity.value);
-        if (!qty || qty < 1 || qty > 999999) errors.push('Quantity (1-999,999)');
-        if (orderTypeSelect.value === 'Limit') {
-            const lp = parseFloat(document.getElementById('limit-price').value);
-            if (!lp || lp < 0.01 || lp > 999999.99) errors.push('Limit Price');
-        }
-        if (errors.length > 0) {
-            tradeError.textContent = '⚠️ Please fill in: ' + errors.join(', ');
-            tradeError.style.display = 'block';
-            return;
-        }
-
-        let html = `<h3>📋 Order Preview</h3>`;
-        html += `<div class="order-preview-row"><span class="order-preview-label">Action</span><span class="order-preview-value">${tradeAction.value}</span></div>`;
-        html += `<div class="order-preview-row"><span class="order-preview-label">Symbol</span><span class="order-preview-value">${selectedSymbol.symbol} — ${selectedSymbol.name}</span></div>`;
-        html += `<div class="order-preview-row"><span class="order-preview-label">Quantity</span><span class="order-preview-value">${qty.toLocaleString()}</span></div>`;
-        html += `<div class="order-preview-row"><span class="order-preview-label">Order Type</span><span class="order-preview-value">${orderTypeSelect.value}</span></div>`;
-        if (orderTypeSelect.value === 'Limit') {
-            html += `<div class="order-preview-row"><span class="order-preview-label">Limit Price</span><span class="order-preview-value">${formatCurrency(parseFloat(document.getElementById('limit-price').value))}</span></div>`;
-        }
-        html += `<div class="order-preview-row"><span class="order-preview-label">Est. Cost</span><span class="order-preview-value" style="color:var(--accent);font-size:1rem;">${formatCurrency(qty * selectedSymbol.price)}</span></div>`;
-        html += `<button class="btn-confirm" onclick="confirmOrder()">CONFIRM ORDER ✓</button>`;
-        html += `<button class="btn-cancel-order" onclick="document.getElementById('order-preview').classList.remove('show')">Cancel</button>`;
-        orderPreview.innerHTML = html;
-        orderPreview.classList.add('show');
-    });
-
-    // ===== TRADE - CONFIRM =====
-    function confirmOrder() {
-        const action = tradeAction.value;
-        const qty = parseInt(tradeQuantity.value);
-        const symbol = selectedSymbol.symbol;
-        const sec = selectedSymbol;
-        const cost = qty * sec.price;
-
-        if (action === 'Buy' && cost > cashBalance) {
-            tradeError.textContent = '❌ Insufficient funds for this purchase.';
-            tradeError.style.display = 'block';
-            orderPreview.classList.remove('show');
-            return;
-        }
-        if (action === 'Sell') {
-            const holding = holdings.find(h => h.symbol === symbol);
-            if (!holding || holding.quantity < qty) {
-                tradeError.textContent = '❌ Insufficient holdings to sell this quantity.';
-                tradeError.style.display = 'block';
-                orderPreview.classList.remove('show');
-                return;
-            }
-        }
-
-        const order = { symbol, action, quantity: qty, type: orderTypeSelect.value, status: 'pending', timestamp: Date.now() };
-        orders.unshift(order);
-        if (orders.length > 10) orders.pop();
-        renderOrders();
-        orderPreview.classList.remove('show');
-
-        setTimeout(() => { executeOrder(order); }, 1500);
-    }
-
-    function executeOrder(order) {
-        const sec = SECURITIES.find(s => s.symbol === order.symbol);
-        if (!sec) { order.status = 'rejected'; renderOrders(); return; }
-
-        if (order.action === 'Buy') {
-            const cost = order.quantity * sec.price;
-            if (cost > cashBalance) { order.status = 'rejected'; }
-            else {
-                cashBalance -= cost;
-                const existing = holdings.find(h => h.symbol === order.symbol && !h.isShort);
-                if (existing) {
-                    const totalCost = existing.buyPrice * existing.quantity + cost;
-                    existing.quantity += order.quantity;
-                    existing.buyPrice = totalCost / existing.quantity;
-                } else {
-                    holdings.push({ symbol: order.symbol, quantity: order.quantity, buyPrice: sec.price });
-                }
-                order.status = 'executed';
-                showToast(`Bought ${order.quantity.toLocaleString()} ${order.symbol}`);
-            }
-        } else if (order.action === 'Sell') {
-            const existing = holdings.find(h => h.symbol === order.symbol && !h.isShort);
-            if (!existing || existing.quantity < order.quantity) { order.status = 'rejected'; }
-            else {
-                cashBalance += order.quantity * sec.price;
-                existing.quantity -= order.quantity;
-                if (existing.quantity === 0) holdings = holdings.filter(h => h !== existing);
-                order.status = 'executed';
-                showToast(`Sold ${order.quantity.toLocaleString()} ${order.symbol}`);
-            }
-        } else if (order.action === 'Short Sell') {
-            cashBalance += order.quantity * sec.price;
-            const existing = holdings.find(h => h.symbol === order.symbol && h.isShort);
-            if (existing) { existing.quantity += order.quantity; }
-            else { holdings.push({ symbol: order.symbol, quantity: order.quantity, buyPrice: sec.price, isShort: true }); }
-            order.status = 'executed';
-            showToast(`Short sold ${order.quantity.toLocaleString()} ${order.symbol}`);
-        }
-
-        if (order.status === 'rejected') {
-            showToast(`Order for ${order.symbol} rejected`, 'error');
-        }
-        renderOrders();
-    }
-
-    function renderOrders() {
-        const section = document.getElementById('order-status-section');
-        const tbody = document.getElementById('order-status-body');
-        if (orders.length === 0) { section.style.display = 'none'; return; }
-        section.style.display = 'block';
-        tbody.innerHTML = '';
-        orders.forEach(o => {
-            const row = document.createElement('tr');
-            const statusIcon = o.status === 'pending' ? '⏳' : o.status === 'executed' ? '✅' : '❌';
-            row.innerHTML = `
-                <td><strong>${o.symbol}</strong></td>
-                <td>${o.action}</td>
-                <td>${o.quantity.toLocaleString()}</td>
-                <td>${o.type}</td>
-                <td class="status-${o.status}">${statusIcon} ${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
-
-    // ===== RESEARCH =====
-    function renderResearch(filter = '') {
-        const tbody = document.getElementById('research-body');
-        tbody.innerHTML = '';
-        const filtered = filter
-            ? SECURITIES.filter(s => s.symbol.toLowerCase().includes(filter) || s.name.toLowerCase().includes(filter))
-            : SECURITIES;
-
-        filtered.forEach(sec => {
-            const row = document.createElement('tr');
-            row.className = 'research-row';
-            const isUp = sec.change >= 0;
-            const badgeClass = sec.type === 'Stock' ? 'badge-stock' : 'badge-etf';
-            row.innerHTML = `
-                <td><strong>${sec.symbol}</strong></td>
-                <td style="color:var(--text-secondary)">${sec.name}</td>
-                <td>${formatCurrency(sec.price)} ${generateSparkline(isUp)}</td>
-                <td class="${isUp ? 'gain-positive' : 'gain-negative'}">${isUp ? '+' : ''}${sec.change.toFixed(2)}%</td>
-                <td><span class="badge ${badgeClass}">${sec.type}</span></td>
-            `;
-            const overviewRow = document.createElement('tr');
-            overviewRow.className = 'company-overview';
-            overviewRow.innerHTML = `
-                <td colspan="5">
-                    <div class="overview-content">
-                        <div class="overview-item"><span class="overview-label">Sector</span><span class="overview-value">${sec.sector}</span></div>
-                        <div class="overview-item"><span class="overview-label">Market Cap</span><span class="overview-value">${sec.marketCap}</span></div>
-                        <div class="overview-item"><span class="overview-label">Price</span><span class="overview-value">${formatCurrency(sec.price)}</span></div>
-                        <div class="overview-item"><span class="overview-label">Today</span><span class="overview-value ${isUp ? 'gain-positive' : 'gain-negative'}">${isUp ? '+' : ''}${sec.change.toFixed(2)}%</span></div>
-                    </div>
-                    <div class="overview-desc">${sec.desc}</div>
-                </td>
-            `;
-            row.addEventListener('click', () => {
-                const isExpanded = overviewRow.classList.contains('show');
-                document.querySelectorAll('.company-overview').forEach(r => r.classList.remove('show'));
-                if (!isExpanded) overviewRow.classList.add('show');
-            });
-            tbody.appendChild(row);
-            tbody.appendChild(overviewRow);
-        });
-    }
-
-    // Research search filter
-    document.getElementById('research-search').addEventListener('input', (e) => {
-        renderResearch(e.target.value.trim().toLowerCase());
-    });
-
-    // ===== INIT =====
-    buildTicker();
-    renderResearch();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
+
