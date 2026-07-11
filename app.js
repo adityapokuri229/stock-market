@@ -7,6 +7,9 @@
     let gameData = null;
     let currentTick = 0;
     let gameInterval = null;
+    let newsBuffer = [];
+    let lastNewsFlushTick = 0;
+    const NEWS_BUNDLE_TICKS = 12; // ~2 min at 10s/tick, per PRD Part 2.1 cadence note
     let isPaused = false;
     let isAuthenticated = false;
     let currentTeam = '';
@@ -262,9 +265,15 @@
         const session = row.session;
         const tickInSession = row.tick;
 
-        // If session changed (reset), handle it
+        // If session changed, flush any pending news from the old session and reset the cadence timer.
+        // Prices/portfolio carry through continuously per the PRD -- only news/market reshuffle per session.
         if (currentTick > 0 && gameData.rows[currentTick - 1].session !== session) {
-            showToast(`Session ${session + 1} started! Prices reset.`);
+            showToast(`Session ${session + 1} started!`);
+            if (newsBuffer.length) {
+                pushNews(newsBuffer, gameData.rows[currentTick - 1].session, gameData.meta.ticks_per_session - 1);
+                newsBuffer = [];
+            }
+            lastNewsFlushTick = currentTick;
             // Clear price history for new session
             gameData.meta.tickers.forEach(tk => { priceHistory[tk] = []; });
         }
@@ -283,9 +292,16 @@
         const ss = (secsLeft % 60).toString().padStart(2, '0');
         document.getElementById('timer-clock').textContent = `${mm}:${ss}`;
 
-        // News
+        // News: collect headlines as they fire, but only surface them as one bundled
+        // alert every ~2 minutes (or at game end), per PRD Part 2.1 cadence note.
         if (row.news && row.news.length > 0) {
-            pushNews(row.news, session, tickInSession);
+            newsBuffer.push(...row.news);
+        }
+        const isLastTick = currentTick === gameData.rows.length - 1;
+        if (newsBuffer.length && (currentTick - lastNewsFlushTick >= NEWS_BUNDLE_TICKS || isLastTick)) {
+            pushNews(newsBuffer, session, tickInSession);
+            newsBuffer = [];
+            lastNewsFlushTick = currentTick;
         }
 
         // Update order widget current price
@@ -528,21 +544,40 @@
                 fill: true,
             }];
         } else {
-            // Candlestick approximation using bar chart
+            // Candlestick via two overlapping bar datasets on plain Chart.js (no financial
+            // plugin loaded): a thin "wick" bar spanning the true high/low, and a wider
+            // "body" bar spanning open/close, per PRD Part 6.3 (high/low = max/min of group).
             const candles = toCandles(prices, 6);
             priceChart.config.type = 'bar';
             priceChart.data.labels = candles.map((_, i) => `M${i + 1}`);
-            // Color each bar based on open vs close
-            const bgColors = candles.map(c => c.close >= c.open ? 'rgba(52,211,153,0.7)' : 'rgba(248,113,113,0.7)');
-            const borderColors = candles.map(c => c.close >= c.open ? '#34d399' : '#f87171');
-            priceChart.data.datasets = [{
-                label: selectedTicker,
-                data: candles.map(c => [Math.min(c.open, c.close), Math.max(c.open, c.close)]),
-                backgroundColor: bgColors,
-                borderColor: borderColors,
-                borderWidth: 1,
-                borderSkipped: false,
-            }];
+            const upColor = 'rgba(52,211,153,0.9)';
+            const downColor = 'rgba(248,113,113,0.9)';
+            const colors = candles.map(c => c.close >= c.open ? upColor : downColor);
+            priceChart.data.datasets = [
+                {
+                    label: `${selectedTicker} (wick)`,
+                    data: candles.map(c => [c.low, c.high]),
+                    backgroundColor: colors,
+                    borderColor: colors,
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barThickness: 2,
+                    grouped: false,
+                    order: 1,
+                },
+                {
+                    label: selectedTicker,
+                    data: candles.map(c => [Math.min(c.open, c.close), Math.max(c.open, c.close)]),
+                    backgroundColor: colors,
+                    borderColor: colors,
+                    borderWidth: 1,
+                    borderSkipped: false,
+                    barPercentage: 0.6,
+                    categoryPercentage: 0.8,
+                    grouped: false,
+                    order: 0,
+                },
+            ];
         }
         priceChart.update('none');
     }
@@ -576,22 +611,24 @@
     // NEWS WIDGET (PRD Part 6.4)
     // =================================================================
     function pushNews(items, session, tick) {
+        if (!items.length) return;
         const feed = document.getElementById('news-feed');
         // Remove empty state
         const empty = feed.querySelector('.news-empty');
         if (empty) empty.remove();
 
-        items.forEach(n => {
-            const card = document.createElement('div');
-            card.className = 'news-card';
-            const timeStr = `Session ${session + 1} · Tick ${tick}`;
-            // SECURITY: Only show bullets. Never show factor, ticker, or score.
-            card.innerHTML = `
-                <div class="news-time">🔔 ${timeStr}</div>
-                <ul>${n.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
-            `;
-            feed.prepend(card); // Newest on top
-        });
+        // Bundle every headline collected since the last notification into one card
+        // (PRD Part 2.1: display cadence is independent of how often headlines fire).
+        const card = document.createElement('div');
+        card.className = 'news-card';
+        const timeStr = `Session ${session + 1} · Tick ${tick}`;
+        // SECURITY: Only show bullets. Never show factor, ticker, or score.
+        const allBullets = items.flatMap(n => n.bullets);
+        card.innerHTML = `
+            <div class="news-time">🔔 ${timeStr}</div>
+            <ul>${allBullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        `;
+        feed.prepend(card); // Newest on top
     }
 
     // =================================================================

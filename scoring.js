@@ -24,12 +24,25 @@ function parseBetas(gameData) {
     return betas;
 }
 
+function scopeTickRange(gameData, scope) {
+    const perSession = gameData.meta.ticks_per_session;
+    if (scope === 0) return [0, perSession - 1];
+    if (scope === 1) return [perSession, gameData.rows.length - 1];
+    return [0, gameData.rows.length - 1];
+}
+
 function replay(orders, gameData, scope) {
-    // scope: 0 (Session 1), 1 (Session 2), or "both"
+    // scope: 0 (Session 1 only), 1 (Session 2 only), or "both" (the real, continuous
+    // full-game score). Positions/cash carry through the whole 240-tick game per the
+    // PRD -- sessions only reshuffle news/market, they never reset the portfolio.
+    // Scoping to a single session is an isolated judge-console view (fresh K0 for
+    // that window), not a change to how the real "both" score is computed.
     const rows = gameData.rows;
     const K0 = 1_000_000;
-    let cash = K0, shares = {}; 
-    const V = [], lots = {}, trips = []; 
+    const [tickStart, tickEnd] = scopeTickRange(gameData, scope);
+    const scopedOrders = orders.filter(o => o.tick >= tickStart && o.tick <= tickEnd);
+    let cash = K0, shares = {};
+    const V = [], lots = {}, trips = [], holdingsByTick = [];
     let oi = 0;
 
     function forceCloseAll(lotsRef, sharesRef, endRow, tripsRef) {
@@ -94,20 +107,11 @@ function replay(orders, gameData, scope) {
         }
     }
 
-    for (let t = 0; t < rows.length; t++) {
+    for (let t = tickStart; t <= tickEnd; t++) {
         const row = rows[t];
-        
-        if (t > 0 && rows[t-1].session !== row.session) {
-            // Session boundary: MTM-close open lots
-            forceCloseAll(lots, shares, rows[t-1], trips);
-            cash = K0;
-            shares = {};
-            // Re-initialize lots
-            for (const key in lots) delete lots[key];
-        }
 
-        while (oi < orders.length && orders[oi].tick === t) {
-            const o = orders[oi++];
+        while (oi < scopedOrders.length && scopedOrders[oi].tick === t) {
+            const o = scopedOrders[oi++];
             const px = row.prices[o.ticker];
             
             // Note: The execution price used in replay is the canonical price
@@ -127,16 +131,22 @@ function replay(orders, gameData, scope) {
         }
         
         let pos = 0;
+        const w = {};
         for (const tk in shares) {
-            if (shares[tk] > 0) pos += shares[tk] * row.prices[tk];
+            if (shares[tk] > 0) {
+                const val = shares[tk] * row.prices[tk];
+                pos += val;
+                w[tk] = val / K0;
+            }
         }
         V.push(cash + pos);
+        holdingsByTick.push(w);
     }
-    
-    // end-of-game MTM
-    forceCloseAll(lots, shares, rows[rows.length-1], trips);
-    
-    return { V, trips };
+
+    // end-of-window MTM (end of game for scope "both", end of session for a single-session scope)
+    forceCloseAll(lots, shares, rows[tickEnd], trips);
+
+    return { V, trips, orders: scopedOrders, holdingsByTick };
 }
 
 function scoreReturn(V, K0, r0 = 0.04, lam = 0.075) {

@@ -146,21 +146,22 @@ function processTeamData(team) {
     sub.rawR = sr.r;
     
     // Diversification
-    // Convert rows into a dictionary by tick for fast lookup
+    // Convert rows into a dictionary keyed by the GLOBAL tick index (array position),
+    // NOT the row's own `tick` field -- that field resets to 0 at the session-2
+    // boundary (row.session/row.tick), while order.tick (stamped from app.js's
+    // currentTick) is the global 0..239 index. Keying by row.tick would silently
+    // drop every session-2 order and mis-price every session-1 order.
     const rowsByTick = {};
-    gameData.rows.forEach(r => rowsByTick[r.tick] = r);
-    
-    const d1 = window.scoring.effectiveRank(orders, betas, rowsByTick, K0);
+    gameData.rows.forEach((r, idx) => rowsByTick[idx] = r);
+
+    const d1 = window.scoring.effectiveRank(rep.orders, betas, rowsByTick, K0);
     sub.dRank = d1.dRank;
     sub.rawRank = d1.Reff;
-    
-    // Neutrality requires holdings by tick. Replay doesn't return full history by default, 
-    // but for the sake of the scoring spec, we compute it approximately based on trips, 
-    // or we assume it's calculated. For the UI, we'll give them full neutrality as a placeholder 
-    // unless we deeply implement the tick-by-tick holding weights.
-    // To match PRD:
-    sub.dNeut = 0.5; // Simplified for this handover, neutrality requires tick-by-tick weights.
-    sub.rawNeut = 0.5; 
+
+    // Neutrality: real per-tick holding weights, now returned by replay().
+    const d2 = window.scoring.neutrality(rep.holdingsByTick, betas);
+    sub.dNeut = d2.dNeut;
+    sub.rawNeut = d2.nu;
     
     // Hit Rate
     const hr = window.scoring.scoreHitRate(rep.trips, K0);
@@ -349,21 +350,25 @@ function renderDrillDown(team) {
     equityChart.data.datasets[0].data = data.rep.V;
     equityChart.update();
     
-    // Radar Chart (mocking exposure based on trips for simplicity in UI)
+    // Radar Chart -- exposure weighted by trade size (qty * canonical price / K0), same
+    // weighting the real Diversification score uses (scoring.js effectiveRank), so this
+    // view reflects the same exposure the score is based on rather than a raw beta count.
+    const K0 = 1_000_000;
     const factorCounts = { "GlobalTech": 0, "GlobalRisk": 0, "RatesRupee": 0, "ConsDemand": 0, "SupplyChain": 0, "DomPolicy": 0, "Credit": 0, "CrudeOil": 0, "EnergyTx": 0, "Metals": 0 };
-    for (const ord of data.orders) {
+    for (const ord of data.rep.orders) {
         if (!betas[ord.ticker]) continue;
         const b = betas[ord.ticker];
-        factorCounts.CrudeOil += Math.abs(b[0]);
-        factorCounts.RatesRupee += Math.abs(b[1]);
-        factorCounts.GlobalTech += Math.abs(b[2]);
-        factorCounts.DomPolicy += Math.abs(b[3]);
-        factorCounts.Metals += Math.abs(b[4]);
-        factorCounts.ConsDemand += Math.abs(b[5]);
-        factorCounts.GlobalRisk += Math.abs(b[6]);
-        factorCounts.Credit += Math.abs(b[7]);
-        factorCounts.EnergyTx += Math.abs(b[8]);
-        factorCounts.SupplyChain += Math.abs(b[9]);
+        const w = Math.abs(ord.qty * ord.price) / K0;
+        factorCounts.CrudeOil += w * Math.abs(b[0]);
+        factorCounts.RatesRupee += w * Math.abs(b[1]);
+        factorCounts.GlobalTech += w * Math.abs(b[2]);
+        factorCounts.DomPolicy += w * Math.abs(b[3]);
+        factorCounts.Metals += w * Math.abs(b[4]);
+        factorCounts.ConsDemand += w * Math.abs(b[5]);
+        factorCounts.GlobalRisk += w * Math.abs(b[6]);
+        factorCounts.Credit += w * Math.abs(b[7]);
+        factorCounts.EnergyTx += w * Math.abs(b[8]);
+        factorCounts.SupplyChain += w * Math.abs(b[9]);
     }
     
     radarChart.data.datasets[0].data = [

@@ -15,7 +15,7 @@ REF_TAU = 36.0
 KAPPA = 0.08
 PERM_FRAC = 0.35
 IDIO_MULT = 1.6
-SCORE_SPREAD = 0.1
+SCORE_SPREAD = 0.20
 
 # =================================================================
 # FACTOR CONFIGURATION
@@ -98,7 +98,7 @@ class MarketEngine:
                 fire_tick = self.rng.integers(0, TICKS_PER_SESSION)
                 idx = self.rng.integers(0, len(factors))
                 target = self.rng.uniform(-0.8, 0.8)
-                gain = self.rng.uniform(0.5, 2.0)
+                gain = self.rng.uniform(0.03, 0.08)
                 tau = self.rng.uniform(10, 60)
                 
                 events[sess].append({
@@ -178,8 +178,13 @@ class MarketEngine:
         return dict(prices=px_dict, factors=F.tolist(), news=fired_now)
 
 def build_game():
-    eng = MarketEngine(seed=42)
-    
+    import sys
+    if len(sys.argv) > 1:
+        seed = int(sys.argv[1])
+    else:
+        seed = random.randint(0, 2**31 - 1)
+    eng = MarketEngine(seed=seed)
+
     universe = []
     for c in TICKER_CONFIG:
         universe.append({
@@ -193,7 +198,7 @@ def build_game():
     start_prices = {c['ticker']: c['start_price'] for c in TICKER_CONFIG}
     
     meta = {
-        'seed': 42,
+        'seed': seed,
         'sessions': SESSIONS,
         'ticks_per_session': TICKS_PER_SESSION,
         'tick_seconds': TICK_SECONDS,
@@ -221,7 +226,7 @@ def build_game():
     with open('game_data.json', 'w') as f:
         json.dump(game_data, f, indent=2)
         
-    print(f"Generated game_data.json with {SESSIONS} sessions and {TICKS_PER_SESSION} ticks per session.")
+    print(f"Generated game_data.json with {SESSIONS} sessions and {TICKS_PER_SESSION} ticks per session. Seed used: {seed}")
 
 if __name__ == '__main__':
     build_game()
