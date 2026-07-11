@@ -6,7 +6,7 @@ import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/1
 const firebaseConfig = {
     apiKey: "AIzaSyCgqu5sk6S1-R4BW3eMAJWBU5qg6bjHmfk",
     authDomain: "chakravyuh-stock-market.firebaseapp.com",
-    databaseURL: "https://chakravyuh-stock-market-default-rtdb.firebaseio.com",
+    databaseURL: "https://chakravyuh-stock-market-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "chakravyuh-stock-market",
     storageBucket: "chakravyuh-stock-market.firebasestorage.app",
     messagingSenderId: "298006582192",
