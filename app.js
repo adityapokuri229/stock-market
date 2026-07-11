@@ -131,7 +131,12 @@
             
             if (window.firebaseGlue.watchGameState) {
                 console.log("Attaching watchGameState listener...");
-                window.firebaseGlue.watchGameState(gameData.meta.seed, (status) => {
+                window.firebaseGlue.watchGameState(gameData.meta.seed, (status, error) => {
+                    if (error) {
+                        console.error("Firebase watchGameState error:", error);
+                        showToast("Connection issue - couldn't reach the judge. Please tell a judge/organizer.");
+                        return;
+                    }
                     console.log("Received game state from Firebase:", status);
                     if (status && status.state === 'playing') {
                         console.log("Game state is playing, triggering startGame()...");
@@ -435,7 +440,7 @@
         
         // Push to Firebase
         if (window.firebaseGlue && window.firebaseGlue.pushOrder) {
-            window.firebaseGlue.pushOrder(currentTick, orderObj);
+            window.firebaseGlue.pushOrder(orderObj);
         }
 
         document.getElementById('order-quantity').value = '';

@@ -184,10 +184,18 @@ function setupListeners() {
     // Start Event
     startEventBtn.addEventListener("click", () => {
         if (confirm("Are you sure you want to start the event for all teams?")) {
-            setGameState(gameData.meta.seed, 'playing');
-            startEventBtn.style.background = '#9ca3af';
-            startEventBtn.textContent = 'EVENT STARTED';
             startEventBtn.disabled = true;
+            startEventBtn.textContent = 'STARTING...';
+            setGameState(gameData.meta.seed, 'playing')
+                .then(() => {
+                    startEventBtn.style.background = '#9ca3af';
+                    startEventBtn.textContent = 'EVENT STARTED';
+                })
+                .catch(err => {
+                    startEventBtn.disabled = false;
+                    startEventBtn.textContent = 'START EVENT';
+                    alert("Failed to start event: " + err.message + "\nCheck Firebase connection/rules and try again.");
+                });
         }
     });
     
