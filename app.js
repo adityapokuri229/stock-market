@@ -7,6 +7,8 @@
     let gameData = null;
     let currentTick = 0;
     let gameInterval = null;
+    let tickerPrevPrices = {};
+    let prevSelectedPrice = null;
     let newsBuffer = [];
     let lastNewsFlushTick = 0;
     const NEWS_BUNDLE_TICKS = 12; // ~2 min at 10s/tick, per PRD Part 2.1 cadence note
@@ -349,11 +351,26 @@
             const startPx = gameData.meta.start_prices[tk];
             const chg = ((px - startPx) / startPx * 100);
             const isUp = chg >= 0;
-            el.querySelector('.ticker-price').textContent = formatINR(px);
+            const priceEl = el.querySelector('.ticker-price');
+            priceEl.textContent = formatINR(px);
+            const prevPx = tickerPrevPrices[tk];
+            if (prevPx !== undefined && prevPx !== px) {
+                flashPrice(priceEl, px >= prevPx);
+            }
+            tickerPrevPrices[tk] = px;
             const changeEl = el.querySelector('.ticker-up, .ticker-down');
             changeEl.className = isUp ? 'ticker-up' : 'ticker-down';
             changeEl.textContent = `${isUp ? '▲' : '▼'} ${Math.abs(chg).toFixed(2)}%`;
         });
+    }
+
+    // Brief background flash on a price cell when it ticks up/down -- the classic
+    // exchange-board convention for drawing the eye to a live price change.
+    function flashPrice(el, isUp) {
+        el.classList.remove('price-flash-up', 'price-flash-down');
+        void el.offsetWidth; // restart animation if it's still flashing from the last tick
+        el.classList.add(isUp ? 'price-flash-up' : 'price-flash-down');
+        setTimeout(() => el.classList.remove('price-flash-up', 'price-flash-down'), 500);
     }
 
     // =================================================================
@@ -376,6 +393,7 @@
     document.getElementById('order-ticker').addEventListener('change', (e) => {
         selectedTicker = e.target.value;
         document.getElementById('chart-ticker-label').textContent = selectedTicker;
+        prevSelectedPrice = null; // switching tickers isn't a price tick -- don't flash
         updateCurrentPrice();
         updatePriceChart();
     });
@@ -384,7 +402,12 @@
         const row = gameData?.rows[currentTick];
         if (!row) return;
         const px = row.prices[selectedTicker];
-        document.getElementById('order-current-price').value = px ? formatINR(px) : '—';
+        const priceInput = document.getElementById('order-current-price');
+        priceInput.value = px ? formatINR(px) : '—';
+        if (px && prevSelectedPrice !== null && prevSelectedPrice !== px) {
+            flashPrice(priceInput, px >= prevSelectedPrice);
+        }
+        prevSelectedPrice = px || null;
         // Enable/disable confirm
         const qty = parseInt(document.getElementById('order-quantity').value);
         document.getElementById('btn-confirm').disabled = !(qty > 0 && px);

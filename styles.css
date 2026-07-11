@@ -26,6 +26,7 @@
             --radius-lg: 20px;
             --radius-xl: 24px;
             --shadow-glow: 0 0 60px -12px rgba(52, 211, 153, 0.15);
+            --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
             --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -105,12 +106,24 @@
            TICKER TAPE
            ======================================== */
         .ticker-tape {
-            display: none; overflow: hidden; height: 36px;
+            display: none; overflow: hidden; height: 36px; position: relative;
             background: rgba(0,0,0,0.3); border-bottom: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(52, 211, 153, 0.15);
         }
-        .ticker-tape.show { display: block; }
+        .ticker-tape.show { display: flex; align-items: center; }
+        .ticker-live {
+            display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+            padding: 0 16px; height: 100%; font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 1px; color: var(--accent);
+            background: rgba(0,0,0,0.25); border-right: 1px solid var(--glass-border);
+            font-family: var(--font-mono);
+        }
+        .ticker-live-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+            animation: pulse 2s infinite;
+        }
         .ticker-track {
-            display: flex; white-space: nowrap;
+            display: flex; white-space: nowrap; overflow: hidden;
             animation: tickerScroll 40s linear infinite;
         }
         @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -118,10 +131,16 @@
             display: inline-flex; align-items: center; gap: 8px;
             padding: 8px 20px; font-size: 0.75rem;
         }
-        .ticker-symbol { font-weight: 700; color: var(--text-primary); }
-        .ticker-price { color: var(--text-secondary); }
-        .ticker-up { color: var(--accent); }
-        .ticker-down { color: var(--danger); }
+        .ticker-symbol { font-weight: 700; color: var(--text-primary); letter-spacing: 0.4px; }
+        .ticker-price {
+            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+            color: var(--text-secondary); border-radius: 4px; padding: 1px 4px;
+            transition: background-color 0.3s ease;
+        }
+        .ticker-up { color: var(--accent); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+        .ticker-down { color: var(--danger); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+        .price-flash-up { background-color: rgba(52, 211, 153, 0.35) !important; }
+        .price-flash-down { background-color: rgba(248, 113, 113, 0.35) !important; }
 
         /* ========================================
            MAIN LAYOUT
@@ -194,7 +213,11 @@
             width: 100%; padding: 10px 14px; border-radius: 8px;
             border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3);
             color: var(--text-primary); font-size: 0.88rem; font-family: inherit;
-            outline: none; transition: var(--transition-fast); appearance: none;
+            outline: none; transition: var(--transition-fast), background-color 0.3s ease;
+            appearance: none;
+        }
+        .order-field input {
+            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
         }
         .order-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
         .order-field select:focus, .order-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
@@ -292,7 +315,11 @@
             font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
             text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px;
         }
-        .stat-value { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        .stat-value {
+            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+            font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px;
+            transition: background-color 0.3s ease; border-radius: 4px;
+        }
         .stat-value.positive { color: var(--accent); }
         .stat-value.negative { color: var(--danger); }
         .stat-value.neutral { color: var(--text-primary); }
@@ -313,6 +340,7 @@
         .data-table td {
             padding: 12px 14px; font-size: 0.85rem; color: var(--text-secondary);
             border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
         }
         .data-table tr:hover td { background: rgba(255,255,255,0.02); }
         .gain-positive { color: var(--accent) !important; font-weight: 600; }
