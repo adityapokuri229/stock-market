@@ -1,1 +1,4624 @@
-{"meta": {"seed": 25345, "sessions": 2, "ticks_per_session": 120, "tick_seconds": 10, "tickers": ["TCS", "INFY", "HDFCBANK", "ICICIBANK", "RELIANCE", "ONGC", "TATAMOTORS", "TATASTEEL", "HINDUNILVR", "SUNPHARMA"], "start_prices": {"TCS": 3850, "INFY": 1520, "HDFCBANK": 1650, "ICICIBANK": 1120, "RELIANCE": 2900, "ONGC": 270, "TATAMOTORS": 950, "TATASTEEL": 140, "HINDUNILVR": 2400, "SUNPHARMA": 1500}}, "universe": [{"ticker": "TCS", "company": "Tata Consultancy Services", "start_price": 3850, "type": "Equity", "research": "Tata Consultancy Services -- sensitivities: GlobalTech +0.85, GlobalRisk +0.35, RatesRupee -0.20, ConsDemand +0.10"}, {"ticker": "INFY", "company": "Infosys", "start_price": 1520, "type": "Equity", "research": "Infosys -- sensitivities: GlobalTech +0.90, GlobalRisk +0.30, RatesRupee -0.30, SupplyChain -0.10"}, {"ticker": "HDFCBANK", "company": "HDFC Bank", "start_price": 1650, "type": "Equity", "research": "HDFC Bank -- sensitivities: RatesRupee +0.80, DomPolicy +0.35, Credit +0.40, ConsDemand +0.15"}, {"ticker": "ICICIBANK", "company": "ICICI Bank", "start_price": 1120, "type": "Equity", "research": "ICICI Bank -- sensitivities: RatesRupee +0.78, DomPolicy +0.30, Credit +0.45, GlobalRisk +0.20"}, {"ticker": "RELIANCE", "company": "Reliance Industries", "start_price": 2900, "type": "Equity", "research": "Reliance Industries -- sensitivities: CrudeOil +0.55, DomPolicy +0.30, ConsDemand +0.25, EnergyTx +0.25"}, {"ticker": "ONGC", "company": "Oil & Natural Gas Corp", "start_price": 270, "type": "Equity", "research": "Oil & Natural Gas Corp -- sensitivities: CrudeOil +0.88, EnergyTx -0.35, GlobalRisk +0.25"}, {"ticker": "TATAMOTORS", "company": "Tata Motors", "start_price": 950, "type": "Equity", "research": "Tata Motors -- sensitivities: CrudeOil -0.50, Metals -0.40, RatesRupee +0.45, ConsDemand +0.35, GlobalRisk +0.30"}, {"ticker": "TATASTEEL", "company": "Tata Steel", "start_price": 140, "type": "Equity", "research": "Tata Steel -- sensitivities: Metals +0.90, GlobalRisk +0.35, SupplyChain +0.25, CrudeOil +0.15"}, {"ticker": "HINDUNILVR", "company": "Hindustan Unilever", "start_price": 2400, "type": "Equity", "research": "Hindustan Unilever -- sensitivities: ConsDemand +0.55, CrudeOil -0.30, RatesRupee +0.20, DomPolicy +0.20"}, {"ticker": "SUNPHARMA", "company": "Sun Pharmaceutical", "start_price": 1500, "type": "Equity", "research": "Sun Pharmaceutical -- sensitivities: DomPolicy +0.75, GlobalTech +0.15, SupplyChain -0.20, ConsDemand +0.20"}], "rows": [{"session": 0, "tick": 0, "prices": {"TCS": 3827.85, "INFY": 1473.65, "HDFCBANK": 1662.96, "ICICIBANK": 1115.94, "RELIANCE": 2899.41, "ONGC": 265.64, "TATAMOTORS": 957.57, "TATASTEEL": 136.11, "HINDUNILVR": 2390.72, "SUNPHARMA": 1507.67}, "news": [{"bullets": ["Tanker attacked near Hormuz", "Crude spikes on supply fears", "Energy names in focus"], "factor": "CrudeOil", "ticker": null, "score": 0.908}]}, {"session": 0, "tick": 1, "prices": {"TCS": 3863.78, "INFY": 1528.07, "HDFCBANK": 1671.49, "ICICIBANK": 1098.91, "RELIANCE": 2934.58, "ONGC": 266.75, "TATAMOTORS": 950.8, "TATASTEEL": 135.68, "HINDUNILVR": 2397.11, "SUNPHARMA": 1527.23}, "news": []}, {"session": 0, "tick": 2, "prices": {"TCS": 3860.25, "INFY": 1528.39, "HDFCBANK": 1636.55, "ICICIBANK": 1062.75, "RELIANCE": 2960.67, "ONGC": 266.29, "TATAMOTORS": 948.81, "TATASTEEL": 136.53, "HINDUNILVR": 2321.22, "SUNPHARMA": 1534.29}, "news": []}, {"session": 0, "tick": 3, "prices": {"TCS": 3923.78, "INFY": 1553.15, "HDFCBANK": 1618.84, "ICICIBANK": 1059.57, "RELIANCE": 3015.7, "ONGC": 273.32, "TATAMOTORS": 945.36, "TATASTEEL": 138.76, "HINDUNILVR": 2346.08, "SUNPHARMA": 1565.69}, "news": []}, {"session": 0, "tick": 4, "prices": {"TCS": 3878.03, "INFY": 1554.92, "HDFCBANK": 1617.26, "ICICIBANK": 1069.28, "RELIANCE": 3055.6, "ONGC": 275.16, "TATAMOTORS": 936.53, "TATASTEEL": 137.28, "HINDUNILVR": 2310.34, "SUNPHARMA": 1578.17}, "news": []}, {"session": 0, "tick": 5, "prices": {"TCS": 3831.54, "INFY": 1577.16, "HDFCBANK": 1618.4, "ICICIBANK": 1052.15, "RELIANCE": 3043.69, "ONGC": 279.31, "TATAMOTORS": 960.04, "TATASTEEL": 134.95, "HINDUNILVR": 2281.37, "SUNPHARMA": 1567.32}, "news": []}, {"session": 0, "tick": 6, "prices": {"TCS": 3773.42, "INFY": 1586.77, "HDFCBANK": 1596.52, "ICICIBANK": 1042.5, "RELIANCE": 3148.16, "ONGC": 282.57, "TATAMOTORS": 939.59, "TATASTEEL": 137.91, "HINDUNILVR": 2279.32, "SUNPHARMA": 1552.82}, "news": [{"bullets": ["TATASTEEL wins large export order", "Volumes to rise next quarter", "Stock jumps"], "factor": null, "ticker": "TATASTEEL", "score": 0.592}]}, {"session": 0, "tick": 7, "prices": {"TCS": 3897.25, "INFY": 1605.66, "HDFCBANK": 1590.23, "ICICIBANK": 1051.35, "RELIANCE": 3125.7, "ONGC": 278.52, "TATAMOTORS": 945.4, "TATASTEEL": 141.65, "HINDUNILVR": 2270.87, "SUNPHARMA": 1509.08}, "news": []}, {"session": 0, "tick": 8, "prices": {"TCS": 3920.86, "INFY": 1574.55, "HDFCBANK": 1562.82, "ICICIBANK": 1040.25, "RELIANCE": 3119.54, "ONGC": 274.59, "TATAMOTORS": 910.69, "TATASTEEL": 137.62, "HINDUNILVR": 2232.16, "SUNPHARMA": 1495.1}, "news": []}, {"session": 0, "tick": 9, "prices": {"TCS": 3905.52, "INFY": 1598.39, "HDFCBANK": 1577.02, "ICICIBANK": 1032.15, "RELIANCE": 3130.28, "ONGC": 279.6, "TATAMOTORS": 923.15, "TATASTEEL": 140.28, "HINDUNILVR": 2253.02, "SUNPHARMA": 1504.29}, "news": []}, {"session": 0, "tick": 10, "prices": {"TCS": 3925.11, "INFY": 1586.81, "HDFCBANK": 1570.89, "ICICIBANK": 1046.11, "RELIANCE": 3139.9, "ONGC": 280.99, "TATAMOTORS": 916.42, "TATASTEEL": 139.6, "HINDUNILVR": 2307.68, "SUNPHARMA": 1496.69}, "news": []}, {"session": 0, "tick": 11, "prices": {"TCS": 3918.8, "INFY": 1610.57, "HDFCBANK": 1593.78, "ICICIBANK": 1077.71, "RELIANCE": 3159.95, "ONGC": 280.6, "TATAMOTORS": 915.54, "TATASTEEL": 143.34, "HINDUNILVR": 2316.04, "SUNPHARMA": 1497.3}, "news": []}, {"session": 0, "tick": 12, "prices": {"TCS": 3989.92, "INFY": 1634.78, "HDFCBANK": 1593.62, "ICICIBANK": 1086.16, "RELIANCE": 3238.64, "ONGC": 287.19, "TATAMOTORS": 943.02, "TATASTEEL": 146.06, "HINDUNILVR": 2302.16, "SUNPHARMA": 1514.92}, "news": [{"bullets": ["Metals bounce on restocking", "China stimulus hopes", "Steel firms up"], "factor": "Metals", "ticker": null, "score": 0.497}]}, {"session": 0, "tick": 13, "prices": {"TCS": 3956.81, "INFY": 1622.41, "HDFCBANK": 1601.85, "ICICIBANK": 1067.47, "RELIANCE": 3196.98, "ONGC": 286.41, "TATAMOTORS": 949.74, "TATASTEEL": 146.47, "HINDUNILVR": 2358.67, "SUNPHARMA": 1525.09}, "news": []}, {"session": 0, "tick": 14, "prices": {"TCS": 3939.58, "INFY": 1645.39, "HDFCBANK": 1601.62, "ICICIBANK": 1065.04, "RELIANCE": 3212.55, "ONGC": 285.73, "TATAMOTORS": 957.66, "TATASTEEL": 145.91, "HINDUNILVR": 2327.39, "SUNPHARMA": 1531.19}, "news": []}, {"session": 0, "tick": 15, "prices": {"TCS": 3897.89, "INFY": 1641.01, "HDFCBANK": 1614.72, "ICICIBANK": 1066.76, "RELIANCE": 3192.8, "ONGC": 285.78, "TATAMOTORS": 951.42, "TATASTEEL": 146.71, "HINDUNILVR": 2327.22, "SUNPHARMA": 1497.7}, "news": []}, {"session": 0, "tick": 16, "prices": {"TCS": 3941.09, "INFY": 1627.38, "HDFCBANK": 1651.09, "ICICIBANK": 1081.84, "RELIANCE": 3177.32, "ONGC": 295.4, "TATAMOTORS": 950.23, "TATASTEEL": 149.56, "HINDUNILVR": 2315.1, "SUNPHARMA": 1491.44}, "news": []}, {"session": 0, "tick": 17, "prices": {"TCS": 3936.26, "INFY": 1623.41, "HDFCBANK": 1649.04, "ICICIBANK": 1087.66, "RELIANCE": 3180.15, "ONGC": 297.04, "TATAMOTORS": 915.56, "TATASTEEL": 152.22, "HINDUNILVR": 2304.48, "SUNPHARMA": 1504.96}, "news": []}, {"session": 0, "tick": 18, "prices": {"TCS": 3970.13, "INFY": 1624.3, "HDFCBANK": 1668.8, "ICICIBANK": 1087.03, "RELIANCE": 3109.55, "ONGC": 298.43, "TATAMOTORS": 912.77, "TATASTEEL": 151.33, "HINDUNILVR": 2339.38, "SUNPHARMA": 1507.81}, "news": [{"bullets": ["Crude cools as supply fears fade", "OPEC+ signals more output", "Oil retraces"], "factor": "CrudeOil", "ticker": null, "score": -0.75}]}, {"session": 0, "tick": 19, "prices": {"TCS": 3949.87, "INFY": 1585.75, "HDFCBANK": 1699.6, "ICICIBANK": 1108.39, "RELIANCE": 3088.48, "ONGC": 295.34, "TATAMOTORS": 911.38, "TATASTEEL": 152.08, "HINDUNILVR": 2340.3, "SUNPHARMA": 1506.75}, "news": []}, {"session": 0, "tick": 20, "prices": {"TCS": 3874.09, "INFY": 1570.43, "HDFCBANK": 1689.35, "ICICIBANK": 1129.94, "RELIANCE": 3090.49, "ONGC": 294.23, "TATAMOTORS": 886.27, "TATASTEEL": 151.58, "HINDUNILVR": 2364.35, "SUNPHARMA": 1503.06}, "news": []}, {"session": 0, "tick": 21, "prices": {"TCS": 3848.62, "INFY": 1581.62, "HDFCBANK": 1712.54, "ICICIBANK": 1140.45, "RELIANCE": 3048.15, "ONGC": 290.16, "TATAMOTORS": 888.02, "TATASTEEL": 148.44, "HINDUNILVR": 2347.22, "SUNPHARMA": 1506.07}, "news": []}, {"session": 0, "tick": 22, "prices": {"TCS": 3905.19, "INFY": 1560.41, "HDFCBANK": 1728.66, "ICICIBANK": 1129.34, "RELIANCE": 3016.22, "ONGC": 288.36, "TATAMOTORS": 907.39, "TATASTEEL": 149.78, "HINDUNILVR": 2373.53, "SUNPHARMA": 1521.54}, "news": []}, {"session": 0, "tick": 23, "prices": {"TCS": 3879.16, "INFY": 1557.85, "HDFCBANK": 1696.77, "ICICIBANK": 1125.49, "RELIANCE": 2993.54, "ONGC": 288.14, "TATAMOTORS": 913.37, "TATASTEEL": 148.67, "HINDUNILVR": 2379.99, "SUNPHARMA": 1498.06}, "news": []}, {"session": 0, "tick": 24, "prices": {"TCS": 3921.68, "INFY": 1595.35, "HDFCBANK": 1693.92, "ICICIBANK": 1113.39, "RELIANCE": 2991.91, "ONGC": 292.26, "TATAMOTORS": 937.5, "TATASTEEL": 156.13, "HINDUNILVR": 2420.18, "SUNPHARMA": 1536.98}, "news": [{"bullets": ["Govt clears infra & PLI push", "Domestic policy tailwind", "Capex names cheer"], "factor": "DomPolicy", "ticker": null, "score": 0.462}]}, {"session": 0, "tick": 25, "prices": {"TCS": 3832.29, "INFY": 1586.07, "HDFCBANK": 1687.54, "ICICIBANK": 1127.5, "RELIANCE": 3002.57, "ONGC": 287.67, "TATAMOTORS": 927.32, "TATASTEEL": 155.44, "HINDUNILVR": 2439.76, "SUNPHARMA": 1547.45}, "news": []}, {"session": 0, "tick": 26, "prices": {"TCS": 3811.26, "INFY": 1627.05, "HDFCBANK": 1672.95, "ICICIBANK": 1125.97, "RELIANCE": 3023.85, "ONGC": 287.0, "TATAMOTORS": 939.68, "TATASTEEL": 156.59, "HINDUNILVR": 2457.34, "SUNPHARMA": 1552.7}, "news": []}, {"session": 0, "tick": 27, "prices": {"TCS": 3877.33, "INFY": 1643.12, "HDFCBANK": 1646.34, "ICICIBANK": 1127.3, "RELIANCE": 3072.99, "ONGC": 288.07, "TATAMOTORS": 940.63, "TATASTEEL": 161.8, "HINDUNILVR": 2474.25, "SUNPHARMA": 1580.49}, "news": []}, {"session": 0, "tick": 28, "prices": {"TCS": 3881.69, "INFY": 1645.34, "HDFCBANK": 1669.69, "ICICIBANK": 1143.65, "RELIANCE": 3135.68, "ONGC": 289.3, "TATAMOTORS": 921.78, "TATASTEEL": 161.58, "HINDUNILVR": 2494.68, "SUNPHARMA": 1578.18}, "news": []}, {"session": 0, "tick": 29, "prices": {"TCS": 3931.9, "INFY": 1624.75, "HDFCBANK": 1655.08, "ICICIBANK": 1137.76, "RELIANCE": 3119.36, "ONGC": 283.22, "TATAMOTORS": 910.76, "TATASTEEL": 162.28, "HINDUNILVR": 2492.09, "SUNPHARMA": 1567.12}, "news": []}, {"session": 0, "tick": 30, "prices": {"TCS": 3935.39, "INFY": 1652.28, "HDFCBANK": 1666.01, "ICICIBANK": 1138.58, "RELIANCE": 3180.92, "ONGC": 282.71, "TATAMOTORS": 924.71, "TATASTEEL": 161.94, "HINDUNILVR": 2478.21, "SUNPHARMA": 1582.28}, "news": [{"bullets": ["Renewables policy boost", "Energy-transition names in favour"], "factor": "EnergyTx", "ticker": null, "score": 0.424}]}, {"session": 0, "tick": 31, "prices": {"TCS": 3906.25, "INFY": 1695.34, "HDFCBANK": 1660.68, "ICICIBANK": 1125.21, "RELIANCE": 3167.32, "ONGC": 279.1, "TATAMOTORS": 900.17, "TATASTEEL": 163.18, "HINDUNILVR": 2491.18, "SUNPHARMA": 1597.85}, "news": []}, {"session": 0, "tick": 32, "prices": {"TCS": 3913.76, "INFY": 1654.24, "HDFCBANK": 1660.86, "ICICIBANK": 1124.8, "RELIANCE": 3194.75, "ONGC": 275.23, "TATAMOTORS": 914.65, "TATASTEEL": 161.87, "HINDUNILVR": 2489.7, "SUNPHARMA": 1575.92}, "news": []}, {"session": 0, "tick": 33, "prices": {"TCS": 3942.64, "INFY": 1642.44, "HDFCBANK": 1656.61, "ICICIBANK": 1108.88, "RELIANCE": 3233.57, "ONGC": 274.69, "TATAMOTORS": 923.58, "TATASTEEL": 157.09, "HINDUNILVR": 2474.7, "SUNPHARMA": 1558.36}, "news": []}, {"session": 0, "tick": 34, "prices": {"TCS": 3984.39, "INFY": 1675.99, "HDFCBANK": 1645.08, "ICICIBANK": 1107.87, "RELIANCE": 3199.3, "ONGC": 271.34, "TATAMOTORS": 949.71, "TATASTEEL": 158.42, "HINDUNILVR": 2478.99, "SUNPHARMA": 1545.04}, "news": []}, {"session": 0, "tick": 35, "prices": {"TCS": 3982.1, "INFY": 1696.09, "HDFCBANK": 1601.96, "ICICIBANK": 1092.97, "RELIANCE": 3280.8, "ONGC": 267.35, "TATAMOTORS": 959.62, "TATASTEEL": 157.3, "HINDUNILVR": 2457.3, "SUNPHARMA": 1517.67}, "news": []}, {"session": 0, "tick": 36, "prices": {"TCS": 3976.75, "INFY": 1676.8, "HDFCBANK": 1630.39, "ICICIBANK": 1095.66, "RELIANCE": 3308.16, "ONGC": 271.4, "TATAMOTORS": 927.14, "TATASTEEL": 163.46, "HINDUNILVR": 2454.05, "SUNPHARMA": 1519.44}, "news": [{"bullets": ["Credit conditions ease", "Liquidity improves", "Lenders supported"], "factor": "Credit", "ticker": null, "score": 0.448}]}, {"session": 0, "tick": 37, "prices": {"TCS": 3926.29, "INFY": 1619.35, "HDFCBANK": 1654.9, "ICICIBANK": 1091.68, "RELIANCE": 3241.2, "ONGC": 267.49, "TATAMOTORS": 937.2, "TATASTEEL": 165.61, "HINDUNILVR": 2467.79, "SUNPHARMA": 1520.44}, "news": []}, {"session": 0, "tick": 38, "prices": {"TCS": 3939.59, "INFY": 1609.87, "HDFCBANK": 1641.69, "ICICIBANK": 1115.75, "RELIANCE": 3203.73, "ONGC": 268.08, "TATAMOTORS": 937.79, "TATASTEEL": 165.04, "HINDUNILVR": 2465.82, "SUNPHARMA": 1519.02}, "news": []}, {"session": 0, "tick": 39, "prices": {"TCS": 3967.08, "INFY": 1605.31, "HDFCBANK": 1652.47, "ICICIBANK": 1145.86, "RELIANCE": 3224.29, "ONGC": 268.51, "TATAMOTORS": 957.4, "TATASTEEL": 166.02, "HINDUNILVR": 2476.35, "SUNPHARMA": 1564.53}, "news": []}, {"session": 0, "tick": 40, "prices": {"TCS": 3979.22, "INFY": 1583.95, "HDFCBANK": 1650.05, "ICICIBANK": 1133.1, "RELIANCE": 3237.35, "ONGC": 265.92, "TATAMOTORS": 918.1, "TATASTEEL": 163.04, "HINDUNILVR": 2453.42, "SUNPHARMA": 1577.35}, "news": []}, {"session": 0, "tick": 41, "prices": {"TCS": 3955.44, "INFY": 1552.28, "HDFCBANK": 1633.56, "ICICIBANK": 1116.13, "RELIANCE": 3125.3, "ONGC": 268.42, "TATAMOTORS": 944.55, "TATASTEEL": 158.73, "HINDUNILVR": 2405.11, "SUNPHARMA": 1603.04}, "news": []}, {"session": 0, "tick": 42, "prices": {"TCS": 3904.4, "INFY": 1545.38, "HDFCBANK": 1649.68, "ICICIBANK": 1119.71, "RELIANCE": 3142.68, "ONGC": 272.74, "TATAMOTORS": 939.7, "TATASTEEL": 155.83, "HINDUNILVR": 2416.6, "SUNPHARMA": 1605.42}, "news": [{"bullets": ["US clients slash IT budgets", "Global software spend softens", "IT majors under pressure"], "factor": "GlobalTech", "ticker": null, "score": -0.645}]}, {"session": 0, "tick": 43, "prices": {"TCS": 3852.6, "INFY": 1535.3, "HDFCBANK": 1656.55, "ICICIBANK": 1108.64, "RELIANCE": 3174.87, "ONGC": 274.95, "TATAMOTORS": 932.27, "TATASTEEL": 157.22, "HINDUNILVR": 2419.02, "SUNPHARMA": 1584.35}, "news": []}, {"session": 0, "tick": 44, "prices": {"TCS": 3894.72, "INFY": 1537.09, "HDFCBANK": 1659.32, "ICICIBANK": 1131.63, "RELIANCE": 3186.6, "ONGC": 269.47, "TATAMOTORS": 933.36, "TATASTEEL": 159.49, "HINDUNILVR": 2432.53, "SUNPHARMA": 1602.13}, "news": []}, {"session": 0, "tick": 45, "prices": {"TCS": 3896.92, "INFY": 1558.32, "HDFCBANK": 1648.37, "ICICIBANK": 1087.32, "RELIANCE": 3143.66, "ONGC": 270.67, "TATAMOTORS": 917.6, "TATASTEEL": 160.46, "HINDUNILVR": 2437.89, "SUNPHARMA": 1617.34}, "news": []}, {"session": 0, "tick": 46, "prices": {"TCS": 4007.78, "INFY": 1565.29, "HDFCBANK": 1641.54, "ICICIBANK": 1113.3, "RELIANCE": 3109.31, "ONGC": 267.23, "TATAMOTORS": 914.61, "TATASTEEL": 161.35, "HINDUNILVR": 2402.7, "SUNPHARMA": 1625.77}, "news": []}, {"session": 0, "tick": 47, "prices": {"TCS": 4047.11, "INFY": 1567.82, "HDFCBANK": 1637.78, "ICICIBANK": 1127.83, "RELIANCE": 3138.94, "ONGC": 263.78, "TATAMOTORS": 911.35, "TATASTEEL": 158.02, "HINDUNILVR": 2433.63, "SUNPHARMA": 1602.92}, "news": []}, {"session": 0, "tick": 48, "prices": {"TCS": 3988.97, "INFY": 1558.86, "HDFCBANK": 1611.98, "ICICIBANK": 1130.43, "RELIANCE": 3154.78, "ONGC": 261.53, "TATAMOTORS": 917.73, "TATASTEEL": 151.55, "HINDUNILVR": 2413.68, "SUNPHARMA": 1591.29}, "news": [{"bullets": ["Festive demand beats estimates", "FMCG volumes recover", "Consumer names bid"], "factor": "ConsDemand", "ticker": null, "score": 0.774}]}, {"session": 0, "tick": 49, "prices": {"TCS": 3903.27, "INFY": 1544.3, "HDFCBANK": 1634.6, "ICICIBANK": 1130.92, "RELIANCE": 3096.82, "ONGC": 257.24, "TATAMOTORS": 923.64, "TATASTEEL": 151.08, "HINDUNILVR": 2383.82, "SUNPHARMA": 1561.95}, "news": []}, {"session": 0, "tick": 50, "prices": {"TCS": 3817.55, "INFY": 1506.24, "HDFCBANK": 1632.92, "ICICIBANK": 1114.25, "RELIANCE": 3082.84, "ONGC": 255.86, "TATAMOTORS": 918.65, "TATASTEEL": 151.63, "HINDUNILVR": 2350.65, "SUNPHARMA": 1568.31}, "news": []}, {"session": 0, "tick": 51, "prices": {"TCS": 3863.77, "INFY": 1506.77, "HDFCBANK": 1626.41, "ICICIBANK": 1129.76, "RELIANCE": 3073.88, "ONGC": 260.93, "TATAMOTORS": 928.32, "TATASTEEL": 149.67, "HINDUNILVR": 2392.05, "SUNPHARMA": 1586.41}, "news": []}, {"session": 0, "tick": 52, "prices": {"TCS": 3936.2, "INFY": 1563.77, "HDFCBANK": 1645.36, "ICICIBANK": 1117.83, "RELIANCE": 3173.46, "ONGC": 261.24, "TATAMOTORS": 933.81, "TATASTEEL": 146.45, "HINDUNILVR": 2455.22, "SUNPHARMA": 1615.45}, "news": []}, {"session": 0, "tick": 53, "prices": {"TCS": 3978.97, "INFY": 1559.55, "HDFCBANK": 1668.26, "ICICIBANK": 1135.67, "RELIANCE": 3144.31, "ONGC": 260.53, "TATAMOTORS": 946.31, "TATASTEEL": 146.29, "HINDUNILVR": 2465.29, "SUNPHARMA": 1602.44}, "news": []}, {"session": 0, "tick": 54, "prices": {"TCS": 4027.11, "INFY": 1548.19, "HDFCBANK": 1677.64, "ICICIBANK": 1141.91, "RELIANCE": 3197.43, "ONGC": 270.26, "TATAMOTORS": 952.08, "TATASTEEL": 149.6, "HINDUNILVR": 2481.87, "SUNPHARMA": 1590.52}, "news": [{"bullets": ["RBI holds, hints at future cuts", "Bond yields ease", "Rate-sensitives firm up"], "factor": "RatesRupee", "ticker": null, "score": 0.469}]}, {"session": 0, "tick": 55, "prices": {"TCS": 4002.0, "INFY": 1555.33, "HDFCBANK": 1713.49, "ICICIBANK": 1134.08, "RELIANCE": 3132.22, "ONGC": 269.66, "TATAMOTORS": 956.14, "TATASTEEL": 147.8, "HINDUNILVR": 2469.08, "SUNPHARMA": 1592.02}, "news": []}, {"session": 0, "tick": 56, "prices": {"TCS": 4044.34, "INFY": 1549.93, "HDFCBANK": 1745.06, "ICICIBANK": 1172.0, "RELIANCE": 3151.89, "ONGC": 285.36, "TATAMOTORS": 953.36, "TATASTEEL": 150.47, "HINDUNILVR": 2531.04, "SUNPHARMA": 1609.57}, "news": []}, {"session": 0, "tick": 57, "prices": {"TCS": 3994.0, "INFY": 1542.5, "HDFCBANK": 1731.33, "ICICIBANK": 1166.21, "RELIANCE": 3154.9, "ONGC": 286.98, "TATAMOTORS": 953.85, "TATASTEEL": 156.05, "HINDUNILVR": 2534.18, "SUNPHARMA": 1583.64}, "news": []}, {"session": 0, "tick": 58, "prices": {"TCS": 3939.47, "INFY": 1544.29, "HDFCBANK": 1697.0, "ICICIBANK": 1177.62, "RELIANCE": 3147.25, "ONGC": 288.41, "TATAMOTORS": 936.24, "TATASTEEL": 155.77, "HINDUNILVR": 2547.75, "SUNPHARMA": 1591.79}, "news": []}, {"session": 0, "tick": 59, "prices": {"TCS": 3897.13, "INFY": 1540.6, "HDFCBANK": 1722.14, "ICICIBANK": 1184.68, "RELIANCE": 3183.52, "ONGC": 286.91, "TATAMOTORS": 947.71, "TATASTEEL": 158.42, "HINDUNILVR": 2538.69, "SUNPHARMA": 1602.22}, "news": []}, {"session": 0, "tick": 60, "prices": {"TCS": 3935.29, "INFY": 1526.36, "HDFCBANK": 1732.56, "ICICIBANK": 1173.26, "RELIANCE": 3195.56, "ONGC": 283.03, "TATAMOTORS": 936.79, "TATASTEEL": 157.83, "HINDUNILVR": 2525.96, "SUNPHARMA": 1613.48}, "news": [{"bullets": ["Global risk-off on growth scare", "Equities wobble worldwide", "High-beta names sold"], "factor": "GlobalRisk", "ticker": null, "score": -0.557}]}, {"session": 0, "tick": 61, "prices": {"TCS": 3941.55, "INFY": 1545.45, "HDFCBANK": 1738.14, "ICICIBANK": 1165.65, "RELIANCE": 3192.05, "ONGC": 291.0, "TATAMOTORS": 944.66, "TATASTEEL": 156.98, "HINDUNILVR": 2486.92, "SUNPHARMA": 1612.82}, "news": []}, {"session": 0, "tick": 62, "prices": {"TCS": 3886.89, "INFY": 1534.29, "HDFCBANK": 1769.16, "ICICIBANK": 1151.3, "RELIANCE": 3233.06, "ONGC": 290.37, "TATAMOTORS": 955.24, "TATASTEEL": 154.82, "HINDUNILVR": 2484.66, "SUNPHARMA": 1592.04}, "news": []}, {"session": 0, "tick": 63, "prices": {"TCS": 3861.85, "INFY": 1524.54, "HDFCBANK": 1774.77, "ICICIBANK": 1145.97, "RELIANCE": 3227.78, "ONGC": 291.15, "TATAMOTORS": 936.77, "TATASTEEL": 152.95, "HINDUNILVR": 2480.36, "SUNPHARMA": 1575.14}, "news": []}, {"session": 0, "tick": 64, "prices": {"TCS": 3776.66, "INFY": 1469.48, "HDFCBANK": 1761.07, "ICICIBANK": 1137.76, "RELIANCE": 3164.87, "ONGC": 285.28, "TATAMOTORS": 921.1, "TATASTEEL": 148.7, "HINDUNILVR": 2459.22, "SUNPHARMA": 1552.23}, "news": []}, {"session": 0, "tick": 65, "prices": {"TCS": 3758.39, "INFY": 1442.42, "HDFCBANK": 1739.39, "ICICIBANK": 1152.61, "RELIANCE": 3114.79, "ONGC": 285.65, "TATAMOTORS": 933.27, "TATASTEEL": 146.32, "HINDUNILVR": 2447.37, "SUNPHARMA": 1577.55}, "news": []}, {"session": 0, "tick": 66, "prices": {"TCS": 3724.74, "INFY": 1481.14, "HDFCBANK": 1758.58, "ICICIBANK": 1145.62, "RELIANCE": 3131.05, "ONGC": 289.39, "TATAMOTORS": 973.25, "TATASTEEL": 144.54, "HINDUNILVR": 2447.52, "SUNPHARMA": 1578.17}, "news": [{"bullets": ["Port congestion worsens", "Supply-chain stress rises"], "factor": "SupplyChain", "ticker": null, "score": -0.848}]}, {"session": 0, "tick": 67, "prices": {"TCS": 3777.45, "INFY": 1485.03, "HDFCBANK": 1759.56, "ICICIBANK": 1138.55, "RELIANCE": 3060.52, "ONGC": 289.37, "TATAMOTORS": 970.03, "TATASTEEL": 144.79, "HINDUNILVR": 2439.59, "SUNPHARMA": 1570.16}, "news": []}, {"session": 0, "tick": 68, "prices": {"TCS": 3803.36, "INFY": 1492.89, "HDFCBANK": 1753.76, "ICICIBANK": 1133.22, "RELIANCE": 3060.72, "ONGC": 279.78, "TATAMOTORS": 976.74, "TATASTEEL": 144.41, "HINDUNILVR": 2455.47, "SUNPHARMA": 1574.45}, "news": []}, {"session": 0, "tick": 69, "prices": {"TCS": 3771.78, "INFY": 1494.64, "HDFCBANK": 1713.05, "ICICIBANK": 1128.27, "RELIANCE": 3097.92, "ONGC": 289.23, "TATAMOTORS": 974.91, "TATASTEEL": 139.48, "HINDUNILVR": 2455.35, "SUNPHARMA": 1602.64}, "news": []}, {"session": 0, "tick": 70, "prices": {"TCS": 3845.62, "INFY": 1507.71, "HDFCBANK": 1714.39, "ICICIBANK": 1136.95, "RELIANCE": 3095.0, "ONGC": 291.91, "TATAMOTORS": 978.15, "TATASTEEL": 141.28, "HINDUNILVR": 2444.62, "SUNPHARMA": 1619.1}, "news": []}, {"session": 0, "tick": 71, "prices": {"TCS": 3905.87, "INFY": 1504.33, "HDFCBANK": 1729.26, "ICICIBANK": 1129.74, "RELIANCE": 3051.98, "ONGC": 289.61, "TATAMOTORS": 994.78, "TATASTEEL": 144.79, "HINDUNILVR": 2462.49, "SUNPHARMA": 1602.35}, "news": []}, {"session": 0, "tick": 72, "prices": {"TCS": 3912.43, "INFY": 1472.1, "HDFCBANK": 1720.99, "ICICIBANK": 1129.79, "RELIANCE": 3022.24, "ONGC": 287.71, "TATAMOTORS": 990.35, "TATASTEEL": 140.63, "HINDUNILVR": 2448.76, "SUNPHARMA": 1578.27}, "news": [{"bullets": ["China demand slump deepens", "Base-metal prices slide", "Steelmakers hit"], "factor": "Metals", "ticker": null, "score": -0.518}]}, {"session": 0, "tick": 73, "prices": {"TCS": 4001.13, "INFY": 1498.57, "HDFCBANK": 1714.75, "ICICIBANK": 1147.48, "RELIANCE": 3059.12, "ONGC": 282.6, "TATAMOTORS": 994.89, "TATASTEEL": 139.06, "HINDUNILVR": 2502.22, "SUNPHARMA": 1582.79}, "news": []}, {"session": 0, "tick": 74, "prices": {"TCS": 3885.55, "INFY": 1472.76, "HDFCBANK": 1675.22, "ICICIBANK": 1140.73, "RELIANCE": 3088.27, "ONGC": 275.92, "TATAMOTORS": 970.52, "TATASTEEL": 138.78, "HINDUNILVR": 2487.83, "SUNPHARMA": 1551.58}, "news": []}, {"session": 0, "tick": 75, "prices": {"TCS": 3925.46, "INFY": 1477.57, "HDFCBANK": 1685.03, "ICICIBANK": 1142.22, "RELIANCE": 3062.07, "ONGC": 267.33, "TATAMOTORS": 979.87, "TATASTEEL": 140.12, "HINDUNILVR": 2502.25, "SUNPHARMA": 1615.79}, "news": []}, {"session": 0, "tick": 76, "prices": {"TCS": 3892.07, "INFY": 1490.16, "HDFCBANK": 1693.38, "ICICIBANK": 1165.1, "RELIANCE": 3080.93, "ONGC": 269.5, "TATAMOTORS": 989.35, "TATASTEEL": 143.82, "HINDUNILVR": 2542.0, "SUNPHARMA": 1612.79}, "news": []}, {"session": 0, "tick": 77, "prices": {"TCS": 3801.69, "INFY": 1483.98, "HDFCBANK": 1688.04, "ICICIBANK": 1151.04, "RELIANCE": 3070.91, "ONGC": 269.7, "TATAMOTORS": 993.79, "TATASTEEL": 140.36, "HINDUNILVR": 2541.06, "SUNPHARMA": 1605.23}, "news": []}, {"session": 0, "tick": 78, "prices": {"TCS": 3765.32, "INFY": 1467.93, "HDFCBANK": 1688.37, "ICICIBANK": 1155.78, "RELIANCE": 3047.28, "ONGC": 260.25, "TATAMOTORS": 975.28, "TATASTEEL": 145.05, "HINDUNILVR": 2498.62, "SUNPHARMA": 1589.77}, "news": [{"bullets": ["INFY guidance cut", "Management flags weak deal pipeline", "Stock slumps"], "factor": null, "ticker": "INFY", "score": -0.313}]}, {"session": 0, "tick": 79, "prices": {"TCS": 3730.45, "INFY": 1451.83, "HDFCBANK": 1710.05, "ICICIBANK": 1144.83, "RELIANCE": 3081.77, "ONGC": 260.41, "TATAMOTORS": 966.01, "TATASTEEL": 143.13, "HINDUNILVR": 2515.15, "SUNPHARMA": 1585.29}, "news": []}, {"session": 0, "tick": 80, "prices": {"TCS": 3713.08, "INFY": 1444.49, "HDFCBANK": 1695.33, "ICICIBANK": 1159.84, "RELIANCE": 3094.43, "ONGC": 257.58, "TATAMOTORS": 952.27, "TATASTEEL": 140.29, "HINDUNILVR": 2546.4, "SUNPHARMA": 1585.09}, "news": []}, {"session": 0, "tick": 81, "prices": {"TCS": 3706.24, "INFY": 1446.28, "HDFCBANK": 1699.39, "ICICIBANK": 1196.73, "RELIANCE": 3096.02, "ONGC": 255.1, "TATAMOTORS": 974.54, "TATASTEEL": 138.25, "HINDUNILVR": 2555.47, "SUNPHARMA": 1598.26}, "news": []}, {"session": 0, "tick": 82, "prices": {"TCS": 3655.27, "INFY": 1459.52, "HDFCBANK": 1697.86, "ICICIBANK": 1195.69, "RELIANCE": 3115.5, "ONGC": 255.76, "TATAMOTORS": 972.48, "TATASTEEL": 133.77, "HINDUNILVR": 2537.69, "SUNPHARMA": 1630.47}, "news": []}, {"session": 0, "tick": 83, "prices": {"TCS": 3701.5, "INFY": 1451.61, "HDFCBANK": 1689.82, "ICICIBANK": 1201.53, "RELIANCE": 3064.02, "ONGC": 258.92, "TATAMOTORS": 974.11, "TATASTEEL": 132.26, "HINDUNILVR": 2552.51, "SUNPHARMA": 1630.21}, "news": []}, {"session": 0, "tick": 84, "prices": {"TCS": 3740.72, "INFY": 1433.18, "HDFCBANK": 1672.38, "ICICIBANK": 1195.71, "RELIANCE": 2988.69, "ONGC": 255.73, "TATAMOTORS": 984.15, "TATASTEEL": 131.04, "HINDUNILVR": 2529.48, "SUNPHARMA": 1658.98}, "news": [{"bullets": ["SUNPHARMA gets USFDA clearance", "Key plant cleared", "Stock pops"], "factor": null, "ticker": "SUNPHARMA", "score": 0.742}]}, {"session": 0, "tick": 85, "prices": {"TCS": 3733.11, "INFY": 1433.79, "HDFCBANK": 1654.7, "ICICIBANK": 1186.5, "RELIANCE": 2969.28, "ONGC": 259.0, "TATAMOTORS": 980.88, "TATASTEEL": 130.8, "HINDUNILVR": 2513.49, "SUNPHARMA": 1696.34}, "news": []}, {"session": 0, "tick": 86, "prices": {"TCS": 3669.86, "INFY": 1427.99, "HDFCBANK": 1681.92, "ICICIBANK": 1164.64, "RELIANCE": 2906.41, "ONGC": 251.93, "TATAMOTORS": 958.6, "TATASTEEL": 130.07, "HINDUNILVR": 2519.61, "SUNPHARMA": 1700.4}, "news": []}, {"session": 0, "tick": 87, "prices": {"TCS": 3673.6, "INFY": 1428.08, "HDFCBANK": 1711.61, "ICICIBANK": 1149.61, "RELIANCE": 2927.17, "ONGC": 254.42, "TATAMOTORS": 955.28, "TATASTEEL": 132.13, "HINDUNILVR": 2493.81, "SUNPHARMA": 1702.93}, "news": []}, {"session": 0, "tick": 88, "prices": {"TCS": 3811.81, "INFY": 1458.53, "HDFCBANK": 1730.38, "ICICIBANK": 1148.44, "RELIANCE": 2953.46, "ONGC": 255.23, "TATAMOTORS": 956.42, "TATASTEEL": 130.16, "HINDUNILVR": 2464.07, "SUNPHARMA": 1723.49}, "news": []}, {"session": 0, "tick": 89, "prices": {"TCS": 3774.57, "INFY": 1477.15, "HDFCBANK": 1707.97, "ICICIBANK": 1143.71, "RELIANCE": 2956.91, "ONGC": 262.23, "TATAMOTORS": 944.95, "TATASTEEL": 133.59, "HINDUNILVR": 2499.01, "SUNPHARMA": 1710.66}, "news": []}, {"session": 0, "tick": 90, "prices": {"TCS": 3810.85, "INFY": 1478.22, "HDFCBANK": 1725.59, "ICICIBANK": 1145.46, "RELIANCE": 2998.51, "ONGC": 255.95, "TATAMOTORS": 963.85, "TATASTEEL": 131.9, "HINDUNILVR": 2534.97, "SUNPHARMA": 1712.42}, "news": [{"bullets": ["RBI surprises with a rate cut", "Banks & autos rally", "Rupee steadies"], "factor": "RatesRupee", "ticker": null, "score": 0.529}]}, {"session": 0, "tick": 91, "prices": {"TCS": 3746.61, "INFY": 1479.37, "HDFCBANK": 1737.84, "ICICIBANK": 1135.5, "RELIANCE": 3001.69, "ONGC": 258.16, "TATAMOTORS": 944.54, "TATASTEEL": 133.35, "HINDUNILVR": 2511.72, "SUNPHARMA": 1730.12}, "news": []}, {"session": 0, "tick": 92, "prices": {"TCS": 3798.53, "INFY": 1469.28, "HDFCBANK": 1775.33, "ICICIBANK": 1145.43, "RELIANCE": 3002.89, "ONGC": 255.99, "TATAMOTORS": 933.66, "TATASTEEL": 132.56, "HINDUNILVR": 2523.36, "SUNPHARMA": 1760.37}, "news": []}, {"session": 0, "tick": 93, "prices": {"TCS": 3831.47, "INFY": 1473.25, "HDFCBANK": 1765.31, "ICICIBANK": 1155.96, "RELIANCE": 3011.31, "ONGC": 254.05, "TATAMOTORS": 908.43, "TATASTEEL": 131.9, "HINDUNILVR": 2543.18, "SUNPHARMA": 1760.4}, "news": []}, {"session": 0, "tick": 94, "prices": {"TCS": 3834.84, "INFY": 1462.1, "HDFCBANK": 1785.16, "ICICIBANK": 1174.0, "RELIANCE": 3049.9, "ONGC": 255.24, "TATAMOTORS": 902.68, "TATASTEEL": 134.23, "HINDUNILVR": 2561.79, "SUNPHARMA": 1731.48}, "news": []}, {"session": 0, "tick": 95, "prices": {"TCS": 3901.52, "INFY": 1489.99, "HDFCBANK": 1766.48, "ICICIBANK": 1178.76, "RELIANCE": 3064.77, "ONGC": 260.76, "TATAMOTORS": 905.15, "TATASTEEL": 135.56, "HINDUNILVR": 2554.99, "SUNPHARMA": 1739.6}, "news": []}, {"session": 0, "tick": 96, "prices": {"TCS": 3888.99, "INFY": 1488.29, "HDFCBANK": 1789.56, "ICICIBANK": 1163.31, "RELIANCE": 3095.92, "ONGC": 259.43, "TATAMOTORS": 902.67, "TATASTEEL": 139.32, "HINDUNILVR": 2558.53, "SUNPHARMA": 1756.24}, "news": [{"bullets": ["Consumer sentiment index rises", "Discretionary spend picks up"], "factor": "ConsDemand", "ticker": null, "score": 0.16}]}, {"session": 0, "tick": 97, "prices": {"TCS": 3873.72, "INFY": 1486.47, "HDFCBANK": 1809.12, "ICICIBANK": 1172.68, "RELIANCE": 3079.79, "ONGC": 256.96, "TATAMOTORS": 929.35, "TATASTEEL": 135.93, "HINDUNILVR": 2591.3, "SUNPHARMA": 1725.1}, "news": []}, {"session": 0, "tick": 98, "prices": {"TCS": 3782.67, "INFY": 1482.99, "HDFCBANK": 1828.47, "ICICIBANK": 1172.99, "RELIANCE": 3054.69, "ONGC": 258.65, "TATAMOTORS": 946.32, "TATASTEEL": 136.23, "HINDUNILVR": 2582.28, "SUNPHARMA": 1719.14}, "news": []}, {"session": 0, "tick": 99, "prices": {"TCS": 3745.62, "INFY": 1487.19, "HDFCBANK": 1794.99, "ICICIBANK": 1162.29, "RELIANCE": 3077.84, "ONGC": 258.23, "TATAMOTORS": 968.39, "TATASTEEL": 138.82, "HINDUNILVR": 2610.24, "SUNPHARMA": 1712.88}, "news": []}, {"session": 0, "tick": 100, "prices": {"TCS": 3684.09, "INFY": 1426.9, "HDFCBANK": 1783.73, "ICICIBANK": 1172.19, "RELIANCE": 3019.14, "ONGC": 249.18, "TATAMOTORS": 949.21, "TATASTEEL": 139.15, "HINDUNILVR": 2621.03, "SUNPHARMA": 1674.14}, "news": []}, {"session": 0, "tick": 101, "prices": {"TCS": 3678.93, "INFY": 1448.39, "HDFCBANK": 1791.74, "ICICIBANK": 1176.8, "RELIANCE": 3035.25, "ONGC": 251.5, "TATAMOTORS": 963.01, "TATASTEEL": 139.74, "HINDUNILVR": 2660.97, "SUNPHARMA": 1695.09}, "news": []}, {"session": 0, "tick": 102, "prices": {"TCS": 3647.87, "INFY": 1457.99, "HDFCBANK": 1770.8, "ICICIBANK": 1180.34, "RELIANCE": 3031.05, "ONGC": 247.33, "TATAMOTORS": 923.83, "TATASTEEL": 135.28, "HINDUNILVR": 2634.28, "SUNPHARMA": 1676.1}, "news": [{"bullets": ["Global tech selloff", "Risk sentiment sours again"], "factor": "GlobalRisk", "ticker": null, "score": -0.362}]}, {"session": 0, "tick": 103, "prices": {"TCS": 3646.01, "INFY": 1440.91, "HDFCBANK": 1765.39, "ICICIBANK": 1182.19, "RELIANCE": 3082.25, "ONGC": 246.03, "TATAMOTORS": 934.57, "TATASTEEL": 139.83, "HINDUNILVR": 2615.63, "SUNPHARMA": 1675.05}, "news": []}, {"session": 0, "tick": 104, "prices": {"TCS": 3600.11, "INFY": 1362.33, "HDFCBANK": 1760.04, "ICICIBANK": 1180.98, "RELIANCE": 3079.13, "ONGC": 246.65, "TATAMOTORS": 916.44, "TATASTEEL": 137.99, "HINDUNILVR": 2585.69, "SUNPHARMA": 1637.84}, "news": []}, {"session": 0, "tick": 105, "prices": {"TCS": 3579.04, "INFY": 1365.51, "HDFCBANK": 1770.68, "ICICIBANK": 1173.24, "RELIANCE": 3049.88, "ONGC": 245.25, "TATAMOTORS": 894.8, "TATASTEEL": 137.41, "HINDUNILVR": 2599.76, "SUNPHARMA": 1652.21}, "news": []}, {"session": 0, "tick": 106, "prices": {"TCS": 3635.72, "INFY": 1414.08, "HDFCBANK": 1768.96, "ICICIBANK": 1182.09, "RELIANCE": 3134.16, "ONGC": 254.08, "TATAMOTORS": 913.4, "TATASTEEL": 138.03, "HINDUNILVR": 2571.86, "SUNPHARMA": 1691.04}, "news": []}, {"session": 0, "tick": 107, "prices": {"TCS": 3574.63, "INFY": 1397.04, "HDFCBANK": 1761.0, "ICICIBANK": 1179.46, "RELIANCE": 3170.41, "ONGC": 258.34, "TATAMOTORS": 931.71, "TATASTEEL": 139.25, "HINDUNILVR": 2544.75, "SUNPHARMA": 1713.47}, "news": []}, {"session": 0, "tick": 108, "prices": {"TCS": 3599.41, "INFY": 1399.33, "HDFCBANK": 1778.1, "ICICIBANK": 1163.51, "RELIANCE": 3261.81, "ONGC": 260.54, "TATAMOTORS": 916.14, "TATASTEEL": 137.4, "HINDUNILVR": 2561.92, "SUNPHARMA": 1716.7}, "news": [{"bullets": ["HINDUNILVR margins squeezed", "Input costs bite", "Stock eases"], "factor": null, "ticker": "HINDUNILVR", "score": -0.52}]}, {"session": 0, "tick": 109, "prices": {"TCS": 3617.01, "INFY": 1403.26, "HDFCBANK": 1796.09, "ICICIBANK": 1160.84, "RELIANCE": 3195.83, "ONGC": 259.14, "TATAMOTORS": 908.66, "TATASTEEL": 141.28, "HINDUNILVR": 2558.35, "SUNPHARMA": 1683.96}, "news": []}, {"session": 0, "tick": 110, "prices": {"TCS": 3670.9, "INFY": 1414.33, "HDFCBANK": 1819.95, "ICICIBANK": 1151.83, "RELIANCE": 3227.5, "ONGC": 259.9, "TATAMOTORS": 904.01, "TATASTEEL": 140.01, "HINDUNILVR": 2590.27, "SUNPHARMA": 1691.07}, "news": []}, {"session": 0, "tick": 111, "prices": {"TCS": 3618.11, "INFY": 1415.03, "HDFCBANK": 1839.56, "ICICIBANK": 1164.13, "RELIANCE": 3235.87, "ONGC": 256.06, "TATAMOTORS": 894.59, "TATASTEEL": 139.0, "HINDUNILVR": 2591.61, "SUNPHARMA": 1682.82}, "news": []}, {"session": 0, "tick": 112, "prices": {"TCS": 3688.84, "INFY": 1408.99, "HDFCBANK": 1809.5, "ICICIBANK": 1160.45, "RELIANCE": 3212.04, "ONGC": 258.96, "TATAMOTORS": 861.87, "TATASTEEL": 137.98, "HINDUNILVR": 2623.91, "SUNPHARMA": 1695.62}, "news": []}, {"session": 0, "tick": 113, "prices": {"TCS": 3601.78, "INFY": 1425.79, "HDFCBANK": 1785.33, "ICICIBANK": 1137.89, "RELIANCE": 3215.16, "ONGC": 256.39, "TATAMOTORS": 875.17, "TATASTEEL": 137.88, "HINDUNILVR": 2613.61, "SUNPHARMA": 1695.48}, "news": []}, {"session": 0, "tick": 114, "prices": {"TCS": 3725.22, "INFY": 1451.09, "HDFCBANK": 1805.52, "ICICIBANK": 1147.13, "RELIANCE": 3255.89, "ONGC": 255.51, "TATAMOTORS": 882.65, "TATASTEEL": 139.64, "HINDUNILVR": 2615.85, "SUNPHARMA": 1703.91}, "news": [{"bullets": ["Session close: broad relief rally", "Buyers step in late"], "factor": "GlobalRisk", "ticker": null, "score": 0.631}]}, {"session": 0, "tick": 115, "prices": {"TCS": 3758.49, "INFY": 1436.29, "HDFCBANK": 1826.97, "ICICIBANK": 1168.34, "RELIANCE": 3206.92, "ONGC": 254.8, "TATAMOTORS": 888.16, "TATASTEEL": 136.56, "HINDUNILVR": 2618.9, "SUNPHARMA": 1733.55}, "news": []}, {"session": 0, "tick": 116, "prices": {"TCS": 3793.71, "INFY": 1443.4, "HDFCBANK": 1802.31, "ICICIBANK": 1179.18, "RELIANCE": 3194.15, "ONGC": 260.24, "TATAMOTORS": 916.76, "TATASTEEL": 141.12, "HINDUNILVR": 2613.89, "SUNPHARMA": 1718.46}, "news": []}, {"session": 0, "tick": 117, "prices": {"TCS": 3757.09, "INFY": 1467.31, "HDFCBANK": 1807.61, "ICICIBANK": 1162.36, "RELIANCE": 3211.3, "ONGC": 263.79, "TATAMOTORS": 925.38, "TATASTEEL": 138.45, "HINDUNILVR": 2613.58, "SUNPHARMA": 1696.93}, "news": []}, {"session": 0, "tick": 118, "prices": {"TCS": 3778.22, "INFY": 1466.88, "HDFCBANK": 1781.12, "ICICIBANK": 1155.06, "RELIANCE": 3191.35, "ONGC": 263.27, "TATAMOTORS": 933.93, "TATASTEEL": 142.21, "HINDUNILVR": 2614.89, "SUNPHARMA": 1706.67}, "news": []}, {"session": 0, "tick": 119, "prices": {"TCS": 3747.99, "INFY": 1443.94, "HDFCBANK": 1784.13, "ICICIBANK": 1161.05, "RELIANCE": 3164.67, "ONGC": 257.95, "TATAMOTORS": 950.08, "TATASTEEL": 139.29, "HINDUNILVR": 2601.32, "SUNPHARMA": 1704.9}, "news": []}, {"session": 1, "tick": 0, "prices": {"TCS": 3915.81, "INFY": 1548.07, "HDFCBANK": 1648.23, "ICICIBANK": 1108.29, "RELIANCE": 2869.33, "ONGC": 268.87, "TATAMOTORS": 960.23, "TATASTEEL": 141.41, "HINDUNILVR": 2407.54, "SUNPHARMA": 1485.19}, "news": [{"bullets": ["Tanker attacked near Hormuz", "Crude spikes on supply fears", "Energy names in focus"], "factor": "CrudeOil", "ticker": null, "score": 0.849}]}, {"session": 1, "tick": 1, "prices": {"TCS": 3934.07, "INFY": 1544.94, "HDFCBANK": 1669.79, "ICICIBANK": 1126.51, "RELIANCE": 2795.34, "ONGC": 266.05, "TATAMOTORS": 934.38, "TATASTEEL": 144.26, "HINDUNILVR": 2382.29, "SUNPHARMA": 1481.99}, "news": []}, {"session": 1, "tick": 2, "prices": {"TCS": 3910.42, "INFY": 1533.67, "HDFCBANK": 1662.52, "ICICIBANK": 1134.17, "RELIANCE": 2799.62, "ONGC": 272.36, "TATAMOTORS": 917.09, "TATASTEEL": 142.71, "HINDUNILVR": 2351.35, "SUNPHARMA": 1499.08}, "news": []}, {"session": 1, "tick": 3, "prices": {"TCS": 3836.86, "INFY": 1562.24, "HDFCBANK": 1632.89, "ICICIBANK": 1136.91, "RELIANCE": 2814.85, "ONGC": 273.11, "TATAMOTORS": 903.83, "TATASTEEL": 143.64, "HINDUNILVR": 2341.72, "SUNPHARMA": 1506.01}, "news": []}, {"session": 1, "tick": 4, "prices": {"TCS": 3904.87, "INFY": 1578.98, "HDFCBANK": 1650.91, "ICICIBANK": 1132.36, "RELIANCE": 2869.47, "ONGC": 276.08, "TATAMOTORS": 901.27, "TATASTEEL": 146.83, "HINDUNILVR": 2339.75, "SUNPHARMA": 1487.43}, "news": []}, {"session": 1, "tick": 5, "prices": {"TCS": 3846.55, "INFY": 1570.88, "HDFCBANK": 1637.1, "ICICIBANK": 1128.08, "RELIANCE": 2914.51, "ONGC": 279.05, "TATAMOTORS": 924.75, "TATASTEEL": 146.04, "HINDUNILVR": 2322.48, "SUNPHARMA": 1461.99}, "news": []}, {"session": 1, "tick": 6, "prices": {"TCS": 3877.19, "INFY": 1563.24, "HDFCBANK": 1624.55, "ICICIBANK": 1126.63, "RELIANCE": 2918.08, "ONGC": 275.73, "TATAMOTORS": 923.29, "TATASTEEL": 151.99, "HINDUNILVR": 2323.72, "SUNPHARMA": 1463.47}, "news": [{"bullets": ["China demand slump deepens", "Base-metal prices slide", "Steelmakers hit"], "factor": "Metals", "ticker": null, "score": -0.697}]}, {"session": 1, "tick": 7, "prices": {"TCS": 3860.81, "INFY": 1558.92, "HDFCBANK": 1623.83, "ICICIBANK": 1127.56, "RELIANCE": 2924.66, "ONGC": 279.44, "TATAMOTORS": 926.18, "TATASTEEL": 148.32, "HINDUNILVR": 2323.42, "SUNPHARMA": 1447.28}, "news": []}, {"session": 1, "tick": 8, "prices": {"TCS": 3906.45, "INFY": 1547.95, "HDFCBANK": 1621.65, "ICICIBANK": 1115.28, "RELIANCE": 2905.62, "ONGC": 279.99, "TATAMOTORS": 922.31, "TATASTEEL": 142.49, "HINDUNILVR": 2297.48, "SUNPHARMA": 1454.34}, "news": []}, {"session": 1, "tick": 9, "prices": {"TCS": 4000.49, "INFY": 1553.99, "HDFCBANK": 1615.93, "ICICIBANK": 1101.48, "RELIANCE": 2962.47, "ONGC": 286.89, "TATAMOTORS": 915.09, "TATASTEEL": 140.99, "HINDUNILVR": 2258.7, "SUNPHARMA": 1436.12}, "news": []}, {"session": 1, "tick": 10, "prices": {"TCS": 4026.02, "INFY": 1568.42, "HDFCBANK": 1596.75, "ICICIBANK": 1115.47, "RELIANCE": 2948.96, "ONGC": 290.13, "TATAMOTORS": 926.44, "TATASTEEL": 141.72, "HINDUNILVR": 2262.09, "SUNPHARMA": 1445.85}, "news": []}, {"session": 1, "tick": 11, "prices": {"TCS": 4039.51, "INFY": 1554.39, "HDFCBANK": 1614.56, "ICICIBANK": 1112.34, "RELIANCE": 2919.52, "ONGC": 287.35, "TATAMOTORS": 938.82, "TATASTEEL": 138.41, "HINDUNILVR": 2262.27, "SUNPHARMA": 1444.38}, "news": []}, {"session": 1, "tick": 12, "prices": {"TCS": 4115.86, "INFY": 1535.75, "HDFCBANK": 1611.24, "ICICIBANK": 1116.8, "RELIANCE": 2989.65, "ONGC": 289.56, "TATAMOTORS": 936.03, "TATASTEEL": 139.84, "HINDUNILVR": 2240.61, "SUNPHARMA": 1424.53}, "news": [{"bullets": ["Credit conditions ease", "Liquidity improves", "Lenders supported"], "factor": "Credit", "ticker": null, "score": 0.52}]}, {"session": 1, "tick": 13, "prices": {"TCS": 4115.81, "INFY": 1547.36, "HDFCBANK": 1612.37, "ICICIBANK": 1142.02, "RELIANCE": 3049.9, "ONGC": 296.75, "TATAMOTORS": 934.06, "TATASTEEL": 139.24, "HINDUNILVR": 2259.0, "SUNPHARMA": 1465.51}, "news": []}, {"session": 1, "tick": 14, "prices": {"TCS": 4135.31, "INFY": 1560.18, "HDFCBANK": 1601.94, "ICICIBANK": 1148.31, "RELIANCE": 3081.88, "ONGC": 300.16, "TATAMOTORS": 935.69, "TATASTEEL": 138.68, "HINDUNILVR": 2265.37, "SUNPHARMA": 1465.04}, "news": []}, {"session": 1, "tick": 15, "prices": {"TCS": 4088.36, "INFY": 1558.22, "HDFCBANK": 1626.38, "ICICIBANK": 1164.25, "RELIANCE": 3158.48, "ONGC": 300.11, "TATAMOTORS": 949.52, "TATASTEEL": 138.14, "HINDUNILVR": 2279.17, "SUNPHARMA": 1493.6}, "news": []}, {"session": 1, "tick": 16, "prices": {"TCS": 4084.39, "INFY": 1595.66, "HDFCBANK": 1602.75, "ICICIBANK": 1148.74, "RELIANCE": 3092.74, "ONGC": 292.89, "TATAMOTORS": 926.42, "TATASTEEL": 135.54, "HINDUNILVR": 2259.03, "SUNPHARMA": 1470.54}, "news": []}, {"session": 1, "tick": 17, "prices": {"TCS": 4010.08, "INFY": 1603.42, "HDFCBANK": 1610.78, "ICICIBANK": 1137.57, "RELIANCE": 3043.84, "ONGC": 287.94, "TATAMOTORS": 910.07, "TATASTEEL": 133.84, "HINDUNILVR": 2237.86, "SUNPHARMA": 1469.24}, "news": []}, {"session": 1, "tick": 18, "prices": {"TCS": 4031.28, "INFY": 1581.89, "HDFCBANK": 1619.24, "ICICIBANK": 1119.87, "RELIANCE": 3037.49, "ONGC": 285.46, "TATAMOTORS": 905.98, "TATASTEEL": 137.59, "HINDUNILVR": 2271.12, "SUNPHARMA": 1477.09}, "news": [{"bullets": ["Crude cools as supply fears fade", "OPEC+ signals more output", "Oil retraces"], "factor": "CrudeOil", "ticker": null, "score": -0.81}]}, {"session": 1, "tick": 19, "prices": {"TCS": 3980.61, "INFY": 1597.16, "HDFCBANK": 1609.38, "ICICIBANK": 1097.3, "RELIANCE": 2986.67, "ONGC": 290.24, "TATAMOTORS": 889.32, "TATASTEEL": 139.58, "HINDUNILVR": 2265.72, "SUNPHARMA": 1492.12}, "news": []}, {"session": 1, "tick": 20, "prices": {"TCS": 3920.77, "INFY": 1590.31, "HDFCBANK": 1628.67, "ICICIBANK": 1128.0, "RELIANCE": 3013.51, "ONGC": 292.08, "TATAMOTORS": 844.25, "TATASTEEL": 135.49, "HINDUNILVR": 2267.64, "SUNPHARMA": 1489.6}, "news": []}, {"session": 1, "tick": 21, "prices": {"TCS": 3932.68, "INFY": 1605.28, "HDFCBANK": 1647.32, "ICICIBANK": 1106.32, "RELIANCE": 2978.14, "ONGC": 281.64, "TATAMOTORS": 864.02, "TATASTEEL": 134.24, "HINDUNILVR": 2309.4, "SUNPHARMA": 1478.18}, "news": []}, {"session": 1, "tick": 22, "prices": {"TCS": 3927.8, "INFY": 1606.7, "HDFCBANK": 1654.16, "ICICIBANK": 1100.67, "RELIANCE": 3057.93, "ONGC": 278.11, "TATAMOTORS": 891.47, "TATASTEEL": 134.85, "HINDUNILVR": 2323.04, "SUNPHARMA": 1511.64}, "news": []}, {"session": 1, "tick": 23, "prices": {"TCS": 3902.01, "INFY": 1601.36, "HDFCBANK": 1636.22, "ICICIBANK": 1102.82, "RELIANCE": 3008.64, "ONGC": 272.75, "TATAMOTORS": 889.51, "TATASTEEL": 134.32, "HINDUNILVR": 2303.34, "SUNPHARMA": 1494.42}, "news": []}, {"session": 1, "tick": 24, "prices": {"TCS": 3912.39, "INFY": 1577.72, "HDFCBANK": 1629.51, "ICICIBANK": 1119.76, "RELIANCE": 3013.49, "ONGC": 272.21, "TATAMOTORS": 935.0, "TATASTEEL": 134.49, "HINDUNILVR": 2324.08, "SUNPHARMA": 1518.14}, "news": [{"bullets": ["US clients slash IT budgets", "Global software spend softens", "IT majors under pressure"], "factor": "GlobalTech", "ticker": null, "score": -0.4}]}, {"session": 1, "tick": 25, "prices": {"TCS": 3940.46, "INFY": 1603.52, "HDFCBANK": 1628.11, "ICICIBANK": 1117.41, "RELIANCE": 3055.52, "ONGC": 268.97, "TATAMOTORS": 939.28, "TATASTEEL": 137.77, "HINDUNILVR": 2366.05, "SUNPHARMA": 1524.55}, "news": []}, {"session": 1, "tick": 26, "prices": {"TCS": 3967.6, "INFY": 1578.19, "HDFCBANK": 1623.98, "ICICIBANK": 1135.83, "RELIANCE": 2983.34, "ONGC": 268.57, "TATAMOTORS": 960.76, "TATASTEEL": 137.18, "HINDUNILVR": 2371.38, "SUNPHARMA": 1486.51}, "news": []}, {"session": 1, "tick": 27, "prices": {"TCS": 3944.98, "INFY": 1550.62, "HDFCBANK": 1632.99, "ICICIBANK": 1123.31, "RELIANCE": 2988.39, "ONGC": 271.23, "TATAMOTORS": 978.69, "TATASTEEL": 138.19, "HINDUNILVR": 2353.33, "SUNPHARMA": 1475.5}, "news": []}, {"session": 1, "tick": 28, "prices": {"TCS": 3878.39, "INFY": 1538.45, "HDFCBANK": 1652.69, "ICICIBANK": 1133.09, "RELIANCE": 2955.36, "ONGC": 268.98, "TATAMOTORS": 957.36, "TATASTEEL": 135.81, "HINDUNILVR": 2363.83, "SUNPHARMA": 1498.42}, "news": []}, {"session": 1, "tick": 29, "prices": {"TCS": 3874.3, "INFY": 1545.79, "HDFCBANK": 1665.82, "ICICIBANK": 1154.83, "RELIANCE": 3032.77, "ONGC": 273.03, "TATAMOTORS": 948.11, "TATASTEEL": 135.5, "HINDUNILVR": 2404.01, "SUNPHARMA": 1509.29}, "news": []}, {"session": 1, "tick": 30, "prices": {"TCS": 3891.38, "INFY": 1535.13, "HDFCBANK": 1695.97, "ICICIBANK": 1149.59, "RELIANCE": 2943.8, "ONGC": 271.75, "TATAMOTORS": 934.77, "TATASTEEL": 139.81, "HINDUNILVR": 2430.84, "SUNPHARMA": 1513.44}, "news": [{"bullets": ["INFY guidance cut", "Management flags weak deal pipeline", "Stock slumps"], "factor": null, "ticker": "INFY", "score": -0.573}]}, {"session": 1, "tick": 31, "prices": {"TCS": 3884.57, "INFY": 1545.12, "HDFCBANK": 1705.81, "ICICIBANK": 1145.03, "RELIANCE": 2933.71, "ONGC": 273.45, "TATAMOTORS": 931.23, "TATASTEEL": 134.48, "HINDUNILVR": 2403.28, "SUNPHARMA": 1517.69}, "news": []}, {"session": 1, "tick": 32, "prices": {"TCS": 3889.55, "INFY": 1517.04, "HDFCBANK": 1682.95, "ICICIBANK": 1150.11, "RELIANCE": 2932.31, "ONGC": 270.77, "TATAMOTORS": 929.93, "TATASTEEL": 136.42, "HINDUNILVR": 2377.23, "SUNPHARMA": 1522.65}, "news": []}, {"session": 1, "tick": 33, "prices": {"TCS": 3885.49, "INFY": 1550.62, "HDFCBANK": 1711.45, "ICICIBANK": 1153.37, "RELIANCE": 2908.01, "ONGC": 276.4, "TATAMOTORS": 912.93, "TATASTEEL": 134.83, "HINDUNILVR": 2409.54, "SUNPHARMA": 1515.37}, "news": []}, {"session": 1, "tick": 34, "prices": {"TCS": 3934.46, "INFY": 1534.43, "HDFCBANK": 1713.06, "ICICIBANK": 1135.64, "RELIANCE": 2893.09, "ONGC": 275.32, "TATAMOTORS": 908.07, "TATASTEEL": 134.04, "HINDUNILVR": 2404.55, "SUNPHARMA": 1503.84}, "news": []}, {"session": 1, "tick": 35, "prices": {"TCS": 3935.54, "INFY": 1493.63, "HDFCBANK": 1696.55, "ICICIBANK": 1128.61, "RELIANCE": 2886.67, "ONGC": 275.18, "TATAMOTORS": 878.54, "TATASTEEL": 133.4, "HINDUNILVR": 2451.22, "SUNPHARMA": 1512.97}, "news": []}, {"session": 1, "tick": 36, "prices": {"TCS": 3921.12, "INFY": 1507.41, "HDFCBANK": 1690.48, "ICICIBANK": 1131.07, "RELIANCE": 2811.56, "ONGC": 260.88, "TATAMOTORS": 894.6, "TATASTEEL": 131.62, "HINDUNILVR": 2440.93, "SUNPHARMA": 1506.04}, "news": [{"bullets": ["SUNPHARMA gets USFDA clearance", "Key plant cleared", "Stock pops"], "factor": null, "ticker": "SUNPHARMA", "score": 0.676}]}, {"session": 1, "tick": 37, "prices": {"TCS": 3982.52, "INFY": 1506.87, "HDFCBANK": 1697.31, "ICICIBANK": 1135.28, "RELIANCE": 2840.12, "ONGC": 257.55, "TATAMOTORS": 915.07, "TATASTEEL": 132.47, "HINDUNILVR": 2473.08, "SUNPHARMA": 1528.58}, "news": []}, {"session": 1, "tick": 38, "prices": {"TCS": 4019.87, "INFY": 1503.04, "HDFCBANK": 1688.17, "ICICIBANK": 1141.34, "RELIANCE": 2913.68, "ONGC": 266.34, "TATAMOTORS": 934.4, "TATASTEEL": 134.49, "HINDUNILVR": 2505.49, "SUNPHARMA": 1564.89}, "news": []}, {"session": 1, "tick": 39, "prices": {"TCS": 4129.3, "INFY": 1548.57, "HDFCBANK": 1711.31, "ICICIBANK": 1145.98, "RELIANCE": 2952.74, "ONGC": 263.64, "TATAMOTORS": 959.83, "TATASTEEL": 137.24, "HINDUNILVR": 2502.97, "SUNPHARMA": 1609.82}, "news": []}, {"session": 1, "tick": 40, "prices": {"TCS": 4117.1, "INFY": 1586.08, "HDFCBANK": 1730.67, "ICICIBANK": 1129.85, "RELIANCE": 2912.81, "ONGC": 263.71, "TATAMOTORS": 981.92, "TATASTEEL": 132.38, "HINDUNILVR": 2496.7, "SUNPHARMA": 1611.76}, "news": []}, {"session": 1, "tick": 41, "prices": {"TCS": 4026.51, "INFY": 1588.73, "HDFCBANK": 1729.87, "ICICIBANK": 1091.07, "RELIANCE": 2930.31, "ONGC": 266.6, "TATAMOTORS": 962.53, "TATASTEEL": 128.58, "HINDUNILVR": 2488.57, "SUNPHARMA": 1588.54}, "news": []}, {"session": 1, "tick": 42, "prices": {"TCS": 3995.59, "INFY": 1576.86, "HDFCBANK": 1701.4, "ICICIBANK": 1071.44, "RELIANCE": 2918.68, "ONGC": 268.56, "TATAMOTORS": 967.09, "TATASTEEL": 129.56, "HINDUNILVR": 2500.23, "SUNPHARMA": 1568.75}, "news": [{"bullets": ["Govt clears infra & PLI push", "Domestic policy tailwind", "Capex names cheer"], "factor": "DomPolicy", "ticker": null, "score": 0.548}]}, {"session": 1, "tick": 43, "prices": {"TCS": 3979.41, "INFY": 1557.27, "HDFCBANK": 1712.05, "ICICIBANK": 1076.94, "RELIANCE": 2920.56, "ONGC": 270.79, "TATAMOTORS": 978.47, "TATASTEEL": 135.72, "HINDUNILVR": 2529.58, "SUNPHARMA": 1579.81}, "news": []}, {"session": 1, "tick": 44, "prices": {"TCS": 4068.59, "INFY": 1549.53, "HDFCBANK": 1702.3, "ICICIBANK": 1093.09, "RELIANCE": 2870.59, "ONGC": 273.97, "TATAMOTORS": 981.38, "TATASTEEL": 136.67, "HINDUNILVR": 2520.05, "SUNPHARMA": 1615.63}, "news": []}, {"session": 1, "tick": 45, "prices": {"TCS": 4034.12, "INFY": 1554.59, "HDFCBANK": 1715.76, "ICICIBANK": 1101.18, "RELIANCE": 2812.04, "ONGC": 267.9, "TATAMOTORS": 989.25, "TATASTEEL": 137.82, "HINDUNILVR": 2553.31, "SUNPHARMA": 1613.66}, "news": []}, {"session": 1, "tick": 46, "prices": {"TCS": 3993.22, "INFY": 1527.74, "HDFCBANK": 1742.16, "ICICIBANK": 1120.71, "RELIANCE": 2835.43, "ONGC": 262.11, "TATAMOTORS": 994.6, "TATASTEEL": 136.58, "HINDUNILVR": 2546.51, "SUNPHARMA": 1601.49}, "news": []}, {"session": 1, "tick": 47, "prices": {"TCS": 3970.98, "INFY": 1535.97, "HDFCBANK": 1707.07, "ICICIBANK": 1118.35, "RELIANCE": 2831.06, "ONGC": 265.87, "TATAMOTORS": 982.95, "TATASTEEL": 139.63, "HINDUNILVR": 2528.68, "SUNPHARMA": 1592.17}, "news": []}, {"session": 1, "tick": 48, "prices": {"TCS": 3942.48, "INFY": 1493.24, "HDFCBANK": 1699.33, "ICICIBANK": 1118.94, "RELIANCE": 2805.81, "ONGC": 261.15, "TATAMOTORS": 1019.06, "TATASTEEL": 132.5, "HINDUNILVR": 2487.43, "SUNPHARMA": 1578.35}, "news": [{"bullets": ["HINDUNILVR margins squeezed", "Input costs bite", "Stock eases"], "factor": null, "ticker": "HINDUNILVR", "score": -0.674}]}, {"session": 1, "tick": 49, "prices": {"TCS": 3895.54, "INFY": 1459.55, "HDFCBANK": 1677.39, "ICICIBANK": 1125.74, "RELIANCE": 2882.92, "ONGC": 261.79, "TATAMOTORS": 1025.85, "TATASTEEL": 130.79, "HINDUNILVR": 2485.16, "SUNPHARMA": 1576.54}, "news": []}, {"session": 1, "tick": 50, "prices": {"TCS": 3804.02, "INFY": 1474.2, "HDFCBANK": 1640.48, "ICICIBANK": 1134.34, "RELIANCE": 2916.42, "ONGC": 264.61, "TATAMOTORS": 1014.98, "TATASTEEL": 130.03, "HINDUNILVR": 2484.02, "SUNPHARMA": 1561.78}, "news": []}, {"session": 1, "tick": 51, "prices": {"TCS": 3798.62, "INFY": 1471.59, "HDFCBANK": 1675.99, "ICICIBANK": 1136.1, "RELIANCE": 2967.54, "ONGC": 267.34, "TATAMOTORS": 1022.59, "TATASTEEL": 130.7, "HINDUNILVR": 2485.69, "SUNPHARMA": 1560.69}, "news": []}, {"session": 1, "tick": 52, "prices": {"TCS": 3773.8, "INFY": 1448.21, "HDFCBANK": 1677.64, "ICICIBANK": 1116.45, "RELIANCE": 2885.59, "ONGC": 270.65, "TATAMOTORS": 1025.63, "TATASTEEL": 126.59, "HINDUNILVR": 2458.64, "SUNPHARMA": 1578.36}, "news": []}, {"session": 1, "tick": 53, "prices": {"TCS": 3761.42, "INFY": 1455.84, "HDFCBANK": 1683.33, "ICICIBANK": 1128.57, "RELIANCE": 2938.06, "ONGC": 272.26, "TATAMOTORS": 996.21, "TATASTEEL": 129.17, "HINDUNILVR": 2462.16, "SUNPHARMA": 1603.23}, "news": []}, {"session": 1, "tick": 54, "prices": {"TCS": 3720.36, "INFY": 1440.51, "HDFCBANK": 1686.2, "ICICIBANK": 1127.95, "RELIANCE": 2916.96, "ONGC": 267.63, "TATAMOTORS": 963.22, "TATASTEEL": 129.82, "HINDUNILVR": 2464.78, "SUNPHARMA": 1621.06}, "news": [{"bullets": ["Festive demand beats estimates", "FMCG volumes recover", "Consumer names bid"], "factor": "ConsDemand", "ticker": null, "score": 0.39}]}, {"session": 1, "tick": 55, "prices": {"TCS": 3681.75, "INFY": 1409.76, "HDFCBANK": 1669.93, "ICICIBANK": 1125.83, "RELIANCE": 2907.26, "ONGC": 265.6, "TATAMOTORS": 945.31, "TATASTEEL": 130.23, "HINDUNILVR": 2441.46, "SUNPHARMA": 1593.91}, "news": []}, {"session": 1, "tick": 56, "prices": {"TCS": 3690.74, "INFY": 1435.01, "HDFCBANK": 1702.01, "ICICIBANK": 1144.37, "RELIANCE": 2962.57, "ONGC": 273.11, "TATAMOTORS": 965.78, "TATASTEEL": 128.15, "HINDUNILVR": 2429.67, "SUNPHARMA": 1592.23}, "news": []}, {"session": 1, "tick": 57, "prices": {"TCS": 3741.89, "INFY": 1435.26, "HDFCBANK": 1702.02, "ICICIBANK": 1160.89, "RELIANCE": 2926.65, "ONGC": 277.41, "TATAMOTORS": 967.58, "TATASTEEL": 129.99, "HINDUNILVR": 2408.87, "SUNPHARMA": 1594.2}, "news": []}, {"session": 1, "tick": 58, "prices": {"TCS": 3748.37, "INFY": 1460.06, "HDFCBANK": 1721.21, "ICICIBANK": 1167.06, "RELIANCE": 2989.29, "ONGC": 284.09, "TATAMOTORS": 980.04, "TATASTEEL": 129.03, "HINDUNILVR": 2399.65, "SUNPHARMA": 1608.78}, "news": []}, {"session": 1, "tick": 59, "prices": {"TCS": 3762.41, "INFY": 1469.17, "HDFCBANK": 1698.15, "ICICIBANK": 1171.45, "RELIANCE": 2971.86, "ONGC": 282.05, "TATAMOTORS": 963.53, "TATASTEEL": 126.86, "HINDUNILVR": 2382.18, "SUNPHARMA": 1638.48}, "news": []}, {"session": 1, "tick": 60, "prices": {"TCS": 3788.01, "INFY": 1509.94, "HDFCBANK": 1704.56, "ICICIBANK": 1158.33, "RELIANCE": 3056.19, "ONGC": 279.43, "TATAMOTORS": 982.42, "TATASTEEL": 128.4, "HINDUNILVR": 2381.46, "SUNPHARMA": 1647.37}, "news": [{"bullets": ["Port congestion worsens", "Supply-chain stress rises"], "factor": "SupplyChain", "ticker": null, "score": -0.416}]}, {"session": 1, "tick": 61, "prices": {"TCS": 3813.74, "INFY": 1482.49, "HDFCBANK": 1715.83, "ICICIBANK": 1146.97, "RELIANCE": 3113.57, "ONGC": 276.67, "TATAMOTORS": 965.53, "TATASTEEL": 125.64, "HINDUNILVR": 2408.19, "SUNPHARMA": 1630.47}, "news": []}, {"session": 1, "tick": 62, "prices": {"TCS": 3710.69, "INFY": 1492.47, "HDFCBANK": 1712.01, "ICICIBANK": 1141.15, "RELIANCE": 3140.64, "ONGC": 276.01, "TATAMOTORS": 943.83, "TATASTEEL": 124.01, "HINDUNILVR": 2361.4, "SUNPHARMA": 1652.52}, "news": []}, {"session": 1, "tick": 63, "prices": {"TCS": 3714.99, "INFY": 1495.29, "HDFCBANK": 1706.78, "ICICIBANK": 1116.01, "RELIANCE": 3145.28, "ONGC": 276.85, "TATAMOTORS": 951.69, "TATASTEEL": 123.6, "HINDUNILVR": 2354.73, "SUNPHARMA": 1655.63}, "news": []}, {"session": 1, "tick": 64, "prices": {"TCS": 3698.07, "INFY": 1487.53, "HDFCBANK": 1715.72, "ICICIBANK": 1110.56, "RELIANCE": 3126.17, "ONGC": 271.14, "TATAMOTORS": 933.61, "TATASTEEL": 123.53, "HINDUNILVR": 2352.47, "SUNPHARMA": 1661.49}, "news": []}, {"session": 1, "tick": 65, "prices": {"TCS": 3688.19, "INFY": 1488.02, "HDFCBANK": 1726.19, "ICICIBANK": 1116.61, "RELIANCE": 3097.85, "ONGC": 275.44, "TATAMOTORS": 953.12, "TATASTEEL": 124.77, "HINDUNILVR": 2337.79, "SUNPHARMA": 1668.69}, "news": []}, {"session": 1, "tick": 66, "prices": {"TCS": 3618.59, "INFY": 1467.19, "HDFCBANK": 1707.71, "ICICIBANK": 1092.97, "RELIANCE": 3072.24, "ONGC": 274.06, "TATAMOTORS": 939.24, "TATASTEEL": 128.1, "HINDUNILVR": 2352.75, "SUNPHARMA": 1691.18}, "news": [{"bullets": ["Renewables policy boost", "Energy-transition names in favour"], "factor": "EnergyTx", "ticker": null, "score": 0.689}]}, {"session": 1, "tick": 67, "prices": {"TCS": 3685.9, "INFY": 1499.0, "HDFCBANK": 1738.01, "ICICIBANK": 1085.68, "RELIANCE": 3123.86, "ONGC": 273.31, "TATAMOTORS": 943.05, "TATASTEEL": 129.96, "HINDUNILVR": 2351.63, "SUNPHARMA": 1701.25}, "news": []}, {"session": 1, "tick": 68, "prices": {"TCS": 3717.14, "INFY": 1478.67, "HDFCBANK": 1735.08, "ICICIBANK": 1094.41, "RELIANCE": 3144.19, "ONGC": 274.07, "TATAMOTORS": 953.39, "TATASTEEL": 129.82, "HINDUNILVR": 2331.65, "SUNPHARMA": 1704.06}, "news": []}, {"session": 1, "tick": 69, "prices": {"TCS": 3681.07, "INFY": 1460.41, "HDFCBANK": 1695.22, "ICICIBANK": 1076.24, "RELIANCE": 3159.14, "ONGC": 275.35, "TATAMOTORS": 937.17, "TATASTEEL": 129.87, "HINDUNILVR": 2292.35, "SUNPHARMA": 1699.57}, "news": []}, {"session": 1, "tick": 70, "prices": {"TCS": 3708.68, "INFY": 1433.1, "HDFCBANK": 1674.67, "ICICIBANK": 1102.95, "RELIANCE": 3109.22, "ONGC": 275.74, "TATAMOTORS": 925.24, "TATASTEEL": 127.45, "HINDUNILVR": 2295.62, "SUNPHARMA": 1667.13}, "news": []}, {"session": 1, "tick": 71, "prices": {"TCS": 3737.5, "INFY": 1452.55, "HDFCBANK": 1683.27, "ICICIBANK": 1117.64, "RELIANCE": 3147.86, "ONGC": 272.9, "TATAMOTORS": 965.32, "TATASTEEL": 129.52, "HINDUNILVR": 2314.77, "SUNPHARMA": 1648.71}, "news": []}, {"session": 1, "tick": 72, "prices": {"TCS": 3755.81, "INFY": 1435.74, "HDFCBANK": 1726.05, "ICICIBANK": 1104.73, "RELIANCE": 3123.87, "ONGC": 266.02, "TATAMOTORS": 985.87, "TATASTEEL": 128.6, "HINDUNILVR": 2316.82, "SUNPHARMA": 1627.84}, "news": [{"bullets": ["RBI holds, hints at future cuts", "Bond yields ease", "Rate-sensitives firm up"], "factor": "RatesRupee", "ticker": null, "score": 0.616}]}, {"session": 1, "tick": 73, "prices": {"TCS": 3751.23, "INFY": 1438.01, "HDFCBANK": 1732.98, "ICICIBANK": 1130.39, "RELIANCE": 3192.24, "ONGC": 266.31, "TATAMOTORS": 1013.95, "TATASTEEL": 131.84, "HINDUNILVR": 2320.53, "SUNPHARMA": 1661.13}, "news": []}, {"session": 1, "tick": 74, "prices": {"TCS": 3773.03, "INFY": 1463.42, "HDFCBANK": 1740.81, "ICICIBANK": 1134.59, "RELIANCE": 3196.83, "ONGC": 266.89, "TATAMOTORS": 987.96, "TATASTEEL": 133.59, "HINDUNILVR": 2278.18, "SUNPHARMA": 1666.13}, "news": []}, {"session": 1, "tick": 75, "prices": {"TCS": 3729.88, "INFY": 1418.09, "HDFCBANK": 1714.13, "ICICIBANK": 1155.44, "RELIANCE": 3128.31, "ONGC": 262.5, "TATAMOTORS": 998.92, "TATASTEEL": 132.73, "HINDUNILVR": 2297.39, "SUNPHARMA": 1668.5}, "news": []}, {"session": 1, "tick": 76, "prices": {"TCS": 3666.99, "INFY": 1392.28, "HDFCBANK": 1720.07, "ICICIBANK": 1143.22, "RELIANCE": 3152.43, "ONGC": 261.87, "TATAMOTORS": 1005.8, "TATASTEEL": 130.34, "HINDUNILVR": 2362.98, "SUNPHARMA": 1666.4}, "news": []}, {"session": 1, "tick": 77, "prices": {"TCS": 3725.95, "INFY": 1383.84, "HDFCBANK": 1730.03, "ICICIBANK": 1153.27, "RELIANCE": 3141.94, "ONGC": 261.05, "TATAMOTORS": 999.44, "TATASTEEL": 133.18, "HINDUNILVR": 2362.66, "SUNPHARMA": 1692.91}, "news": []}, {"session": 1, "tick": 78, "prices": {"TCS": 3678.94, "INFY": 1365.42, "HDFCBANK": 1730.93, "ICICIBANK": 1148.73, "RELIANCE": 3207.67, "ONGC": 256.89, "TATAMOTORS": 983.1, "TATASTEEL": 135.45, "HINDUNILVR": 2355.62, "SUNPHARMA": 1694.17}, "news": [{"bullets": ["TATASTEEL wins large export order", "Volumes to rise next quarter", "Stock jumps"], "factor": null, "ticker": "TATASTEEL", "score": 0.409}]}, {"session": 1, "tick": 79, "prices": {"TCS": 3724.92, "INFY": 1385.37, "HDFCBANK": 1679.1, "ICICIBANK": 1145.59, "RELIANCE": 3202.28, "ONGC": 261.33, "TATAMOTORS": 970.4, "TATASTEEL": 135.42, "HINDUNILVR": 2350.11, "SUNPHARMA": 1683.59}, "news": []}, {"session": 1, "tick": 80, "prices": {"TCS": 3721.57, "INFY": 1389.64, "HDFCBANK": 1684.31, "ICICIBANK": 1158.28, "RELIANCE": 3259.13, "ONGC": 259.96, "TATAMOTORS": 972.18, "TATASTEEL": 133.12, "HINDUNILVR": 2324.68, "SUNPHARMA": 1684.46}, "news": []}, {"session": 1, "tick": 81, "prices": {"TCS": 3683.98, "INFY": 1392.07, "HDFCBANK": 1682.2, "ICICIBANK": 1160.55, "RELIANCE": 3173.54, "ONGC": 257.95, "TATAMOTORS": 973.6, "TATASTEEL": 131.95, "HINDUNILVR": 2304.22, "SUNPHARMA": 1685.63}, "news": []}, {"session": 1, "tick": 82, "prices": {"TCS": 3683.19, "INFY": 1393.13, "HDFCBANK": 1660.33, "ICICIBANK": 1173.8, "RELIANCE": 3134.74, "ONGC": 262.16, "TATAMOTORS": 993.5, "TATASTEEL": 128.76, "HINDUNILVR": 2283.91, "SUNPHARMA": 1669.13}, "news": []}, {"session": 1, "tick": 83, "prices": {"TCS": 3675.1, "INFY": 1370.57, "HDFCBANK": 1620.25, "ICICIBANK": 1142.65, "RELIANCE": 3063.77, "ONGC": 258.95, "TATAMOTORS": 1001.59, "TATASTEEL": 128.26, "HINDUNILVR": 2282.48, "SUNPHARMA": 1672.94}, "news": []}, {"session": 1, "tick": 84, "prices": {"TCS": 3651.74, "INFY": 1377.31, "HDFCBANK": 1625.41, "ICICIBANK": 1155.11, "RELIANCE": 3036.48, "ONGC": 257.11, "TATAMOTORS": 993.35, "TATASTEEL": 132.46, "HINDUNILVR": 2324.75, "SUNPHARMA": 1663.55}, "news": [{"bullets": ["Consumer sentiment index rises", "Discretionary spend picks up"], "factor": "ConsDemand", "ticker": null, "score": 0.518}]}, {"session": 1, "tick": 85, "prices": {"TCS": 3702.0, "INFY": 1397.67, "HDFCBANK": 1632.52, "ICICIBANK": 1145.76, "RELIANCE": 3067.95, "ONGC": 261.98, "TATAMOTORS": 986.73, "TATASTEEL": 136.69, "HINDUNILVR": 2315.94, "SUNPHARMA": 1684.97}, "news": []}, {"session": 1, "tick": 86, "prices": {"TCS": 3657.65, "INFY": 1431.66, "HDFCBANK": 1654.24, "ICICIBANK": 1138.64, "RELIANCE": 3102.72, "ONGC": 259.84, "TATAMOTORS": 970.29, "TATASTEEL": 135.08, "HINDUNILVR": 2329.4, "SUNPHARMA": 1634.77}, "news": []}, {"session": 1, "tick": 87, "prices": {"TCS": 3596.96, "INFY": 1431.81, "HDFCBANK": 1667.21, "ICICIBANK": 1129.62, "RELIANCE": 3122.9, "ONGC": 259.49, "TATAMOTORS": 956.5, "TATASTEEL": 133.47, "HINDUNILVR": 2356.66, "SUNPHARMA": 1665.61}, "news": []}, {"session": 1, "tick": 88, "prices": {"TCS": 3587.62, "INFY": 1429.27, "HDFCBANK": 1678.28, "ICICIBANK": 1128.46, "RELIANCE": 3108.36, "ONGC": 258.96, "TATAMOTORS": 970.29, "TATASTEEL": 135.26, "HINDUNILVR": 2376.84, "SUNPHARMA": 1691.35}, "news": []}, {"session": 1, "tick": 89, "prices": {"TCS": 3617.15, "INFY": 1435.68, "HDFCBANK": 1696.78, "ICICIBANK": 1162.42, "RELIANCE": 3107.6, "ONGC": 269.39, "TATAMOTORS": 993.57, "TATASTEEL": 139.37, "HINDUNILVR": 2375.67, "SUNPHARMA": 1677.17}, "news": []}, {"session": 1, "tick": 90, "prices": {"TCS": 3630.07, "INFY": 1457.51, "HDFCBANK": 1718.47, "ICICIBANK": 1216.8, "RELIANCE": 3058.0, "ONGC": 259.96, "TATAMOTORS": 1009.34, "TATASTEEL": 133.74, "HINDUNILVR": 2402.78, "SUNPHARMA": 1692.69}, "news": [{"bullets": ["Global tech selloff", "Risk sentiment sours again"], "factor": "GlobalRisk", "ticker": null, "score": -0.48}]}, {"session": 1, "tick": 91, "prices": {"TCS": 3602.39, "INFY": 1481.4, "HDFCBANK": 1734.0, "ICICIBANK": 1208.79, "RELIANCE": 3129.65, "ONGC": 258.57, "TATAMOTORS": 991.81, "TATASTEEL": 138.14, "HINDUNILVR": 2377.63, "SUNPHARMA": 1667.23}, "news": []}, {"session": 1, "tick": 92, "prices": {"TCS": 3606.28, "INFY": 1480.37, "HDFCBANK": 1764.42, "ICICIBANK": 1186.14, "RELIANCE": 3200.19, "ONGC": 263.88, "TATAMOTORS": 984.35, "TATASTEEL": 139.35, "HINDUNILVR": 2380.28, "SUNPHARMA": 1689.84}, "news": []}, {"session": 1, "tick": 93, "prices": {"TCS": 3571.56, "INFY": 1508.17, "HDFCBANK": 1751.74, "ICICIBANK": 1176.59, "RELIANCE": 3169.14, "ONGC": 264.85, "TATAMOTORS": 996.38, "TATASTEEL": 138.91, "HINDUNILVR": 2385.61, "SUNPHARMA": 1669.02}, "news": []}, {"session": 1, "tick": 94, "prices": {"TCS": 3655.77, "INFY": 1497.78, "HDFCBANK": 1768.25, "ICICIBANK": 1188.26, "RELIANCE": 3224.49, "ONGC": 268.91, "TATAMOTORS": 1003.36, "TATASTEEL": 143.48, "HINDUNILVR": 2388.65, "SUNPHARMA": 1663.72}, "news": []}, {"session": 1, "tick": 95, "prices": {"TCS": 3586.85, "INFY": 1509.98, "HDFCBANK": 1792.84, "ICICIBANK": 1203.92, "RELIANCE": 3269.98, "ONGC": 268.02, "TATAMOTORS": 984.35, "TATASTEEL": 144.76, "HINDUNILVR": 2372.12, "SUNPHARMA": 1702.51}, "news": []}, {"session": 1, "tick": 96, "prices": {"TCS": 3544.94, "INFY": 1482.31, "HDFCBANK": 1798.68, "ICICIBANK": 1210.07, "RELIANCE": 3241.47, "ONGC": 258.75, "TATAMOTORS": 964.56, "TATASTEEL": 142.37, "HINDUNILVR": 2377.09, "SUNPHARMA": 1703.0}, "news": [{"bullets": ["RBI surprises with a rate cut", "Banks & autos rally", "Rupee steadies"], "factor": "RatesRupee", "ticker": null, "score": 0.498}]}, {"session": 1, "tick": 97, "prices": {"TCS": 3571.28, "INFY": 1482.11, "HDFCBANK": 1782.54, "ICICIBANK": 1202.84, "RELIANCE": 3353.45, "ONGC": 262.5, "TATAMOTORS": 951.49, "TATASTEEL": 140.73, "HINDUNILVR": 2394.27, "SUNPHARMA": 1703.82}, "news": []}, {"session": 1, "tick": 98, "prices": {"TCS": 3619.6, "INFY": 1479.73, "HDFCBANK": 1738.98, "ICICIBANK": 1212.25, "RELIANCE": 3333.35, "ONGC": 261.22, "TATAMOTORS": 912.35, "TATASTEEL": 140.49, "HINDUNILVR": 2383.07, "SUNPHARMA": 1708.47}, "news": []}, {"session": 1, "tick": 99, "prices": {"TCS": 3603.57, "INFY": 1449.12, "HDFCBANK": 1740.28, "ICICIBANK": 1220.67, "RELIANCE": 3283.94, "ONGC": 255.67, "TATAMOTORS": 930.09, "TATASTEEL": 138.94, "HINDUNILVR": 2391.54, "SUNPHARMA": 1694.66}, "news": []}, {"session": 1, "tick": 100, "prices": {"TCS": 3590.12, "INFY": 1433.16, "HDFCBANK": 1741.48, "ICICIBANK": 1234.08, "RELIANCE": 3279.55, "ONGC": 252.18, "TATAMOTORS": 945.88, "TATASTEEL": 141.03, "HINDUNILVR": 2384.93, "SUNPHARMA": 1695.33}, "news": []}, {"session": 1, "tick": 101, "prices": {"TCS": 3614.26, "INFY": 1415.37, "HDFCBANK": 1721.16, "ICICIBANK": 1222.71, "RELIANCE": 3189.7, "ONGC": 251.68, "TATAMOTORS": 948.75, "TATASTEEL": 142.54, "HINDUNILVR": 2372.99, "SUNPHARMA": 1716.07}, "news": []}, {"session": 1, "tick": 102, "prices": {"TCS": 3620.32, "INFY": 1407.39, "HDFCBANK": 1726.12, "ICICIBANK": 1205.51, "RELIANCE": 3240.46, "ONGC": 253.17, "TATAMOTORS": 939.26, "TATASTEEL": 142.22, "HINDUNILVR": 2396.18, "SUNPHARMA": 1706.84}, "news": [{"bullets": ["Metals bounce on restocking", "China stimulus hopes", "Steel firms up"], "factor": "Metals", "ticker": null, "score": 0.252}]}, {"session": 1, "tick": 103, "prices": {"TCS": 3638.34, "INFY": 1449.32, "HDFCBANK": 1729.37, "ICICIBANK": 1191.49, "RELIANCE": 3190.84, "ONGC": 253.96, "TATAMOTORS": 954.63, "TATASTEEL": 139.56, "HINDUNILVR": 2405.95, "SUNPHARMA": 1736.46}, "news": []}, {"session": 1, "tick": 104, "prices": {"TCS": 3668.81, "INFY": 1445.13, "HDFCBANK": 1762.85, "ICICIBANK": 1176.41, "RELIANCE": 3169.7, "ONGC": 253.38, "TATAMOTORS": 930.56, "TATASTEEL": 141.32, "HINDUNILVR": 2403.04, "SUNPHARMA": 1737.03}, "news": []}, {"session": 1, "tick": 105, "prices": {"TCS": 3679.72, "INFY": 1421.02, "HDFCBANK": 1744.07, "ICICIBANK": 1171.96, "RELIANCE": 3121.45, "ONGC": 250.94, "TATAMOTORS": 917.37, "TATASTEEL": 132.55, "HINDUNILVR": 2394.4, "SUNPHARMA": 1733.92}, "news": []}, {"session": 1, "tick": 106, "prices": {"TCS": 3627.31, "INFY": 1406.64, "HDFCBANK": 1713.5, "ICICIBANK": 1169.26, "RELIANCE": 3017.93, "ONGC": 246.97, "TATAMOTORS": 914.11, "TATASTEEL": 128.61, "HINDUNILVR": 2392.11, "SUNPHARMA": 1659.77}, "news": []}, {"session": 1, "tick": 107, "prices": {"TCS": 3674.47, "INFY": 1402.67, "HDFCBANK": 1676.23, "ICICIBANK": 1180.46, "RELIANCE": 3040.58, "ONGC": 247.74, "TATAMOTORS": 912.8, "TATASTEEL": 127.49, "HINDUNILVR": 2381.17, "SUNPHARMA": 1629.59}, "news": []}, {"session": 1, "tick": 108, "prices": {"TCS": 3669.28, "INFY": 1382.01, "HDFCBANK": 1691.03, "ICICIBANK": 1191.0, "RELIANCE": 3029.55, "ONGC": 248.48, "TATAMOTORS": 927.22, "TATASTEEL": 125.74, "HINDUNILVR": 2383.82, "SUNPHARMA": 1623.63}, "news": [{"bullets": ["Global risk-off on growth scare", "Equities wobble worldwide", "High-beta names sold"], "factor": "GlobalRisk", "ticker": null, "score": -0.74}]}, {"session": 1, "tick": 109, "prices": {"TCS": 3730.48, "INFY": 1387.71, "HDFCBANK": 1733.04, "ICICIBANK": 1202.05, "RELIANCE": 3064.94, "ONGC": 248.69, "TATAMOTORS": 938.7, "TATASTEEL": 127.79, "HINDUNILVR": 2398.14, "SUNPHARMA": 1647.95}, "news": []}, {"session": 1, "tick": 110, "prices": {"TCS": 3705.74, "INFY": 1376.98, "HDFCBANK": 1760.83, "ICICIBANK": 1196.97, "RELIANCE": 3071.96, "ONGC": 239.99, "TATAMOTORS": 922.68, "TATASTEEL": 126.1, "HINDUNILVR": 2430.73, "SUNPHARMA": 1659.66}, "news": []}, {"session": 1, "tick": 111, "prices": {"TCS": 3670.81, "INFY": 1379.12, "HDFCBANK": 1750.22, "ICICIBANK": 1183.79, "RELIANCE": 3010.54, "ONGC": 242.22, "TATAMOTORS": 910.25, "TATASTEEL": 127.29, "HINDUNILVR": 2397.15, "SUNPHARMA": 1660.95}, "news": []}, {"session": 1, "tick": 112, "prices": {"TCS": 3724.56, "INFY": 1398.99, "HDFCBANK": 1765.11, "ICICIBANK": 1165.72, "RELIANCE": 3066.9, "ONGC": 239.46, "TATAMOTORS": 907.87, "TATASTEEL": 128.74, "HINDUNILVR": 2393.07, "SUNPHARMA": 1658.76}, "news": []}, {"session": 1, "tick": 113, "prices": {"TCS": 3707.71, "INFY": 1402.73, "HDFCBANK": 1773.2, "ICICIBANK": 1179.11, "RELIANCE": 3096.93, "ONGC": 237.5, "TATAMOTORS": 903.3, "TATASTEEL": 133.86, "HINDUNILVR": 2393.96, "SUNPHARMA": 1674.46}, "news": []}, {"session": 1, "tick": 114, "prices": {"TCS": 3715.6, "INFY": 1392.1, "HDFCBANK": 1772.15, "ICICIBANK": 1186.92, "RELIANCE": 3177.72, "ONGC": 233.42, "TATAMOTORS": 893.56, "TATASTEEL": 138.03, "HINDUNILVR": 2361.23, "SUNPHARMA": 1665.97}, "news": [{"bullets": ["Session close: broad relief rally", "Buyers step in late"], "factor": "GlobalRisk", "ticker": null, "score": 0.664}]}, {"session": 1, "tick": 115, "prices": {"TCS": 3768.93, "INFY": 1410.96, "HDFCBANK": 1756.59, "ICICIBANK": 1182.67, "RELIANCE": 3173.64, "ONGC": 233.35, "TATAMOTORS": 900.37, "TATASTEEL": 136.65, "HINDUNILVR": 2360.58, "SUNPHARMA": 1667.27}, "news": []}, {"session": 1, "tick": 116, "prices": {"TCS": 3753.64, "INFY": 1378.76, "HDFCBANK": 1741.23, "ICICIBANK": 1206.79, "RELIANCE": 3178.18, "ONGC": 235.21, "TATAMOTORS": 899.0, "TATASTEEL": 136.57, "HINDUNILVR": 2343.31, "SUNPHARMA": 1626.79}, "news": []}, {"session": 1, "tick": 117, "prices": {"TCS": 3710.02, "INFY": 1384.37, "HDFCBANK": 1738.44, "ICICIBANK": 1233.48, "RELIANCE": 3179.43, "ONGC": 231.74, "TATAMOTORS": 929.05, "TATASTEEL": 137.86, "HINDUNILVR": 2390.91, "SUNPHARMA": 1683.38}, "news": []}, {"session": 1, "tick": 118, "prices": {"TCS": 3664.9, "INFY": 1385.3, "HDFCBANK": 1753.92, "ICICIBANK": 1228.83, "RELIANCE": 3196.86, "ONGC": 230.18, "TATAMOTORS": 937.18, "TATASTEEL": 135.79, "HINDUNILVR": 2429.62, "SUNPHARMA": 1717.46}, "news": []}, {"session": 1, "tick": 119, "prices": {"TCS": 3714.08, "INFY": 1402.86, "HDFCBANK": 1778.95, "ICICIBANK": 1226.32, "RELIANCE": 3160.37, "ONGC": 233.78, "TATAMOTORS": 937.55, "TATASTEEL": 135.55, "HINDUNILVR": 2451.47, "SUNPHARMA": 1776.88}, "news": []}]}
+{
+  "meta": {
+    "seed": 42,
+    "sessions": 2,
+    "ticks_per_session": 120,
+    "tick_seconds": 10,
+    "tickers": [
+      "TCS",
+      "INFY",
+      "HDFCBANK",
+      "ICICIBANK",
+      "RELIANCE",
+      "ONGC",
+      "TATAMOTORS",
+      "TATASTEEL",
+      "HINDUNILVR",
+      "SUNPHARMA"
+    ],
+    "start_prices": {
+      "TCS": 3850,
+      "INFY": 1520,
+      "HDFCBANK": 1650,
+      "ICICIBANK": 1120,
+      "RELIANCE": 2900,
+      "ONGC": 270,
+      "TATAMOTORS": 950,
+      "TATASTEEL": 140,
+      "HINDUNILVR": 2400,
+      "SUNPHARMA": 1500
+    }
+  },
+  "universe": [
+    {
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "start_price": 3850,
+      "type": "Equity",
+      "research": "Tata Consultancy Services -- sensitivities: GlobalTech +0.85, GlobalRisk +0.35, RatesRupee -0.20, ConsDemand +0.10"
+    },
+    {
+      "ticker": "INFY",
+      "company": "Infosys",
+      "start_price": 1520,
+      "type": "Equity",
+      "research": "Infosys -- sensitivities: GlobalTech +0.90, GlobalRisk +0.30, RatesRupee -0.30, SupplyChain -0.10"
+    },
+    {
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank",
+      "start_price": 1650,
+      "type": "Equity",
+      "research": "HDFC Bank -- sensitivities: RatesRupee +0.80, DomPolicy +0.35, Credit +0.40, ConsDemand +0.15"
+    },
+    {
+      "ticker": "ICICIBANK",
+      "company": "ICICI Bank",
+      "start_price": 1120,
+      "type": "Equity",
+      "research": "ICICI Bank -- sensitivities: RatesRupee +0.78, DomPolicy +0.30, Credit +0.45, GlobalRisk +0.20"
+    },
+    {
+      "ticker": "RELIANCE",
+      "company": "Reliance Industries",
+      "start_price": 2900,
+      "type": "Equity",
+      "research": "Reliance Industries -- sensitivities: CrudeOil +0.55, DomPolicy +0.30, ConsDemand +0.25, EnergyTx +0.25"
+    },
+    {
+      "ticker": "ONGC",
+      "company": "Oil & Natural Gas Corp",
+      "start_price": 270,
+      "type": "Equity",
+      "research": "Oil & Natural Gas Corp -- sensitivities: CrudeOil +0.88, EnergyTx -0.35, GlobalRisk +0.25"
+    },
+    {
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "start_price": 950,
+      "type": "Equity",
+      "research": "Tata Motors -- sensitivities: CrudeOil -0.50, Metals -0.40, RatesRupee +0.45, ConsDemand +0.35, GlobalRisk +0.30"
+    },
+    {
+      "ticker": "TATASTEEL",
+      "company": "Tata Steel",
+      "start_price": 140,
+      "type": "Equity",
+      "research": "Tata Steel -- sensitivities: Metals +0.90, GlobalRisk +0.35, SupplyChain +0.25, CrudeOil +0.15"
+    },
+    {
+      "ticker": "HINDUNILVR",
+      "company": "Hindustan Unilever",
+      "start_price": 2400,
+      "type": "Equity",
+      "research": "Hindustan Unilever -- sensitivities: ConsDemand +0.55, CrudeOil -0.30, RatesRupee +0.20, DomPolicy +0.20"
+    },
+    {
+      "ticker": "SUNPHARMA",
+      "company": "Sun Pharmaceutical",
+      "start_price": 1500,
+      "type": "Equity",
+      "research": "Sun Pharmaceutical -- sensitivities: DomPolicy +0.75, GlobalTech +0.15, SupplyChain -0.20, ConsDemand +0.20"
+    }
+  ],
+  "rows": [
+    {
+      "session": 0,
+      "tick": 0,
+      "prices": {
+        "TCS": 3853.93,
+        "INFY": 1522.7,
+        "HDFCBANK": 1647.51,
+        "ICICIBANK": 1121.29,
+        "RELIANCE": 2900.02,
+        "ONGC": 269.09,
+        "TATAMOTORS": 943.58,
+        "TATASTEEL": 140.33,
+        "HINDUNILVR": 2407.08,
+        "SUNPHARMA": 1504.14
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 1,
+      "prices": {
+        "TCS": 3864.66,
+        "INFY": 1527.7,
+        "HDFCBANK": 1645.78,
+        "ICICIBANK": 1119.1,
+        "RELIANCE": 2910.04,
+        "ONGC": 267.88,
+        "TATAMOTORS": 938.28,
+        "TATASTEEL": 140.21,
+        "HINDUNILVR": 2401.21,
+        "SUNPHARMA": 1502.78
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 2,
+      "prices": {
+        "TCS": 3871.82,
+        "INFY": 1518.39,
+        "HDFCBANK": 1646.08,
+        "ICICIBANK": 1117.79,
+        "RELIANCE": 2901.23,
+        "ONGC": 268.97,
+        "TATAMOTORS": 942.38,
+        "TATASTEEL": 140.92,
+        "HINDUNILVR": 2399.98,
+        "SUNPHARMA": 1496.54
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 3,
+      "prices": {
+        "TCS": 3852.73,
+        "INFY": 1516.18,
+        "HDFCBANK": 1648.79,
+        "ICICIBANK": 1114.52,
+        "RELIANCE": 2891.06,
+        "ONGC": 266.81,
+        "TATAMOTORS": 938.66,
+        "TATASTEEL": 139.72,
+        "HINDUNILVR": 2390.82,
+        "SUNPHARMA": 1490.24
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 4,
+      "prices": {
+        "TCS": 3875.56,
+        "INFY": 1512.15,
+        "HDFCBANK": 1648.29,
+        "ICICIBANK": 1116.91,
+        "RELIANCE": 2901.73,
+        "ONGC": 267.53,
+        "TATAMOTORS": 937.98,
+        "TATASTEEL": 138.81,
+        "HINDUNILVR": 2390.97,
+        "SUNPHARMA": 1490.42
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 5,
+      "prices": {
+        "TCS": 3899.17,
+        "INFY": 1520.84,
+        "HDFCBANK": 1651.0,
+        "ICICIBANK": 1115.34,
+        "RELIANCE": 2892.79,
+        "ONGC": 269.07,
+        "TATAMOTORS": 940.11,
+        "TATASTEEL": 139.22,
+        "HINDUNILVR": 2385.23,
+        "SUNPHARMA": 1495.83
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 6,
+      "prices": {
+        "TCS": 3876.51,
+        "INFY": 1515.42,
+        "HDFCBANK": 1643.89,
+        "ICICIBANK": 1108.61,
+        "RELIANCE": 2867.2,
+        "ONGC": 268.48,
+        "TATAMOTORS": 942.59,
+        "TATASTEEL": 137.65,
+        "HINDUNILVR": 2383.27,
+        "SUNPHARMA": 1489.84
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 7,
+      "prices": {
+        "TCS": 3875.34,
+        "INFY": 1517.89,
+        "HDFCBANK": 1645.97,
+        "ICICIBANK": 1114.83,
+        "RELIANCE": 2868.7,
+        "ONGC": 269.67,
+        "TATAMOTORS": 943.47,
+        "TATASTEEL": 138.89,
+        "HINDUNILVR": 2392.64,
+        "SUNPHARMA": 1502.42
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 8,
+      "prices": {
+        "TCS": 3857.33,
+        "INFY": 1517.03,
+        "HDFCBANK": 1648.44,
+        "ICICIBANK": 1115.0,
+        "RELIANCE": 2845.96,
+        "ONGC": 269.46,
+        "TATAMOTORS": 941.47,
+        "TATASTEEL": 138.8,
+        "HINDUNILVR": 2396.96,
+        "SUNPHARMA": 1492.91
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 9,
+      "prices": {
+        "TCS": 3862.45,
+        "INFY": 1513.5,
+        "HDFCBANK": 1647.29,
+        "ICICIBANK": 1114.31,
+        "RELIANCE": 2858.86,
+        "ONGC": 270.86,
+        "TATAMOTORS": 937.57,
+        "TATASTEEL": 138.98,
+        "HINDUNILVR": 2405.89,
+        "SUNPHARMA": 1492.15
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 10,
+      "prices": {
+        "TCS": 3868.62,
+        "INFY": 1519.43,
+        "HDFCBANK": 1658.94,
+        "ICICIBANK": 1114.44,
+        "RELIANCE": 2864.97,
+        "ONGC": 270.35,
+        "TATAMOTORS": 1043.57,
+        "TATASTEEL": 110.0,
+        "HINDUNILVR": 2413.16,
+        "SUNPHARMA": 1498.47
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": -0.18001949812574836
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 11,
+      "prices": {
+        "TCS": 3861.54,
+        "INFY": 1520.4,
+        "HDFCBANK": 1050.72,
+        "ICICIBANK": 755.57,
+        "RELIANCE": 1940.59,
+        "ONGC": 270.21,
+        "TATAMOTORS": 1156.4,
+        "TATASTEEL": 87.3,
+        "HINDUNILVR": 1854.98,
+        "SUNPHARMA": 562.42
+      },
+      "news": [
+        {
+          "bullets": [
+            "New industrial policy announced",
+            "Subsidies for manufacturing",
+            "Domestic sectors rally"
+          ],
+          "factor": "DomPolicy",
+          "ticker": null,
+          "score": -0.8391689786225561
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 12,
+      "prices": {
+        "TCS": 3838.58,
+        "INFY": 1506.36,
+        "HDFCBANK": 688.55,
+        "ICICIBANK": 526.62,
+        "RELIANCE": 1357.21,
+        "ONGC": 271.64,
+        "TATAMOTORS": 1257.36,
+        "TATASTEEL": 71.22,
+        "HINDUNILVR": 1454.67,
+        "SUNPHARMA": 228.78
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 13,
+      "prices": {
+        "TCS": 3853.93,
+        "INFY": 1505.11,
+        "HDFCBANK": 465.68,
+        "ICICIBANK": 378.91,
+        "RELIANCE": 973.29,
+        "ONGC": 272.92,
+        "TATAMOTORS": 1371.71,
+        "TATASTEEL": 58.97,
+        "HINDUNILVR": 1166.05,
+        "SUNPHARMA": 100.13
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 14,
+      "prices": {
+        "TCS": 3833.82,
+        "INFY": 1501.35,
+        "HDFCBANK": 324.09,
+        "ICICIBANK": 279.02,
+        "RELIANCE": 716.53,
+        "ONGC": 271.11,
+        "TATAMOTORS": 1482.02,
+        "TATASTEEL": 49.13,
+        "HINDUNILVR": 947.68,
+        "SUNPHARMA": 46.37
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 15,
+      "prices": {
+        "TCS": 3832.91,
+        "INFY": 1498.75,
+        "HDFCBANK": 233.41,
+        "ICICIBANK": 209.9,
+        "RELIANCE": 541.48,
+        "ONGC": 272.58,
+        "TATAMOTORS": 1595.43,
+        "TATASTEEL": 41.78,
+        "HINDUNILVR": 784.7,
+        "SUNPHARMA": 22.82
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 16,
+      "prices": {
+        "TCS": 3860.65,
+        "INFY": 1502.14,
+        "HDFCBANK": 171.52,
+        "ICICIBANK": 161.5,
+        "RELIANCE": 414.06,
+        "ONGC": 271.77,
+        "TATAMOTORS": 1706.51,
+        "TATASTEEL": 35.79,
+        "HINDUNILVR": 658.9,
+        "SUNPHARMA": 11.85
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 17,
+      "prices": {
+        "TCS": 3871.88,
+        "INFY": 1509.05,
+        "HDFCBANK": 130.26,
+        "ICICIBANK": 127.04,
+        "RELIANCE": 325.11,
+        "ONGC": 271.52,
+        "TATAMOTORS": 1828.07,
+        "TATASTEEL": 31.01,
+        "HINDUNILVR": 562.71,
+        "SUNPHARMA": 6.46
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 18,
+      "prices": {
+        "TCS": 3872.92,
+        "INFY": 1511.8,
+        "HDFCBANK": 100.05,
+        "ICICIBANK": 101.32,
+        "RELIANCE": 259.62,
+        "ONGC": 273.11,
+        "TATAMOTORS": 1929.21,
+        "TATASTEEL": 27.17,
+        "HINDUNILVR": 482.62,
+        "SUNPHARMA": 3.67
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 19,
+      "prices": {
+        "TCS": 3851.03,
+        "INFY": 1511.3,
+        "HDFCBANK": 78.66,
+        "ICICIBANK": 82.22,
+        "RELIANCE": 211.3,
+        "ONGC": 271.43,
+        "TATAMOTORS": 2476.11,
+        "TATASTEEL": 15.87,
+        "HINDUNILVR": 420.28,
+        "SUNPHARMA": 2.19
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": -0.3572056297523181
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 20,
+      "prices": {
+        "TCS": 3836.27,
+        "INFY": 1514.61,
+        "HDFCBANK": 62.45,
+        "ICICIBANK": 67.45,
+        "RELIANCE": 173.92,
+        "ONGC": 270.07,
+        "TATAMOTORS": 3102.67,
+        "TATASTEEL": 9.57,
+        "HINDUNILVR": 367.96,
+        "SUNPHARMA": 1.35
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 21,
+      "prices": {
+        "TCS": 3821.1,
+        "INFY": 1517.93,
+        "HDFCBANK": 50.68,
+        "ICICIBANK": 56.34,
+        "RELIANCE": 145.96,
+        "ONGC": 270.09,
+        "TATAMOTORS": 3821.42,
+        "TATASTEEL": 6.02,
+        "HINDUNILVR": 326.83,
+        "SUNPHARMA": 0.87
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 22,
+      "prices": {
+        "TCS": 3796.35,
+        "INFY": 1515.19,
+        "HDFCBANK": 41.79,
+        "ICICIBANK": 47.76,
+        "RELIANCE": 123.32,
+        "ONGC": 269.82,
+        "TATAMOTORS": 4651.32,
+        "TATASTEEL": 3.86,
+        "HINDUNILVR": 293.46,
+        "SUNPHARMA": 0.58
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 23,
+      "prices": {
+        "TCS": 3800.91,
+        "INFY": 1514.7,
+        "HDFCBANK": 34.85,
+        "ICICIBANK": 40.95,
+        "RELIANCE": 106.29,
+        "ONGC": 269.56,
+        "TATAMOTORS": 5513.0,
+        "TATASTEEL": 2.57,
+        "HINDUNILVR": 264.28,
+        "SUNPHARMA": 0.39
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 24,
+      "prices": {
+        "TCS": 3827.25,
+        "INFY": 1515.21,
+        "HDFCBANK": 29.64,
+        "ICICIBANK": 35.6,
+        "RELIANCE": 154.15,
+        "ONGC": 611.46,
+        "TATAMOTORS": 4131.94,
+        "TATASTEEL": 2.02,
+        "HINDUNILVR": 182.13,
+        "SUNPHARMA": 0.28
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tanker attacked near Hormuz",
+            "Crude spikes on supply fears",
+            "Energy names in focus"
+          ],
+          "factor": "CrudeOil",
+          "ticker": null,
+          "score": 0.7528369856502974
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 25,
+      "prices": {
+        "TCS": 3806.97,
+        "INFY": 1506.46,
+        "HDFCBANK": 25.33,
+        "ICICIBANK": 31.22,
+        "RELIANCE": 215.8,
+        "ONGC": 1292.34,
+        "TATAMOTORS": 3136.3,
+        "TATASTEEL": 1.61,
+        "HINDUNILVR": 128.44,
+        "SUNPHARMA": 0.2
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 26,
+      "prices": {
+        "TCS": 3811.0,
+        "INFY": 1504.04,
+        "HDFCBANK": 22.02,
+        "ICICIBANK": 27.78,
+        "RELIANCE": 294.77,
+        "ONGC": 2597.07,
+        "TATAMOTORS": 2433.94,
+        "TATASTEEL": 1.32,
+        "HINDUNILVR": 93.43,
+        "SUNPHARMA": 0.15
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 27,
+      "prices": {
+        "TCS": 3770.63,
+        "INFY": 1503.89,
+        "HDFCBANK": 19.33,
+        "ICICIBANK": 24.69,
+        "RELIANCE": 393.16,
+        "ONGC": 4976.62,
+        "TATAMOTORS": 1929.58,
+        "TATASTEEL": 1.09,
+        "HINDUNILVR": 69.38,
+        "SUNPHARMA": 0.11
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 28,
+      "prices": {
+        "TCS": 3793.05,
+        "INFY": 1512.24,
+        "HDFCBANK": 8.03,
+        "ICICIBANK": 9.48,
+        "RELIANCE": 516.85,
+        "ONGC": 9145.66,
+        "TATAMOTORS": 1554.9,
+        "TATASTEEL": 0.9,
+        "HINDUNILVR": 52.98,
+        "SUNPHARMA": 0.09
+      },
+      "news": [
+        {
+          "bullets": [
+            "Credit growth hits record high",
+            "Loan defaults remain low",
+            "Financial sector booms"
+          ],
+          "factor": "Credit",
+          "ticker": null,
+          "score": -0.6657090883835906
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 29,
+      "prices": {
+        "TCS": 3822.25,
+        "INFY": 1518.6,
+        "HDFCBANK": 3.75,
+        "ICICIBANK": 4.15,
+        "RELIANCE": 667.08,
+        "ONGC": 16050.01,
+        "TATAMOTORS": 1268.39,
+        "TATASTEEL": 0.76,
+        "HINDUNILVR": 40.95,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 30,
+      "prices": {
+        "TCS": 3834.44,
+        "INFY": 1527.96,
+        "HDFCBANK": 1.94,
+        "ICICIBANK": 2.03,
+        "RELIANCE": 843.66,
+        "ONGC": 27069.32,
+        "TATAMOTORS": 1056.35,
+        "TATASTEEL": 0.65,
+        "HINDUNILVR": 32.25,
+        "SUNPHARMA": 0.05
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 31,
+      "prices": {
+        "TCS": 3796.31,
+        "INFY": 1520.62,
+        "HDFCBANK": 1.1,
+        "ICICIBANK": 1.1,
+        "RELIANCE": 1052.96,
+        "ONGC": 43387.55,
+        "TATAMOTORS": 888.87,
+        "TATASTEEL": 0.56,
+        "HINDUNILVR": 25.73,
+        "SUNPHARMA": 0.04
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 32,
+      "prices": {
+        "TCS": 3802.5,
+        "INFY": 1536.25,
+        "HDFCBANK": 0.68,
+        "ICICIBANK": 0.65,
+        "RELIANCE": 1298.64,
+        "ONGC": 68156.53,
+        "TATAMOTORS": 757.47,
+        "TATASTEEL": 0.48,
+        "HINDUNILVR": 20.97,
+        "SUNPHARMA": 0.04
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 33,
+      "prices": {
+        "TCS": 3794.07,
+        "INFY": 1534.64,
+        "HDFCBANK": 0.45,
+        "ICICIBANK": 0.42,
+        "RELIANCE": 1574.8,
+        "ONGC": 103694.6,
+        "TATAMOTORS": 657.41,
+        "TATASTEEL": 0.42,
+        "HINDUNILVR": 17.25,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 34,
+      "prices": {
+        "TCS": 3800.27,
+        "INFY": 1522.99,
+        "HDFCBANK": 0.31,
+        "ICICIBANK": 0.29,
+        "RELIANCE": 1881.61,
+        "ONGC": 153641.34,
+        "TATAMOTORS": 575.39,
+        "TATASTEEL": 0.37,
+        "HINDUNILVR": 14.5,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 35,
+      "prices": {
+        "TCS": 3795.67,
+        "INFY": 1513.19,
+        "HDFCBANK": 0.23,
+        "ICICIBANK": 0.21,
+        "RELIANCE": 2221.54,
+        "ONGC": 220604.79,
+        "TATAMOTORS": 507.93,
+        "TATASTEEL": 0.33,
+        "HINDUNILVR": 12.3,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 36,
+      "prices": {
+        "TCS": 3800.76,
+        "INFY": 1514.12,
+        "HDFCBANK": 0.18,
+        "ICICIBANK": 0.16,
+        "RELIANCE": 2607.34,
+        "ONGC": 311508.7,
+        "TATAMOTORS": 451.53,
+        "TATASTEEL": 0.29,
+        "HINDUNILVR": 10.51,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 37,
+      "prices": {
+        "TCS": 3763.17,
+        "INFY": 1508.03,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.13,
+        "RELIANCE": 2988.12,
+        "ONGC": 429773.48,
+        "TATAMOTORS": 401.13,
+        "TATASTEEL": 0.27,
+        "HINDUNILVR": 9.06,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 38,
+      "prices": {
+        "TCS": 3772.81,
+        "INFY": 1512.08,
+        "HDFCBANK": 0.12,
+        "ICICIBANK": 0.11,
+        "RELIANCE": 3408.23,
+        "ONGC": 581126.49,
+        "TATAMOTORS": 361.72,
+        "TATASTEEL": 0.24,
+        "HINDUNILVR": 7.92,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 39,
+      "prices": {
+        "TCS": 3804.5,
+        "INFY": 1521.05,
+        "HDFCBANK": 0.11,
+        "ICICIBANK": 0.09,
+        "RELIANCE": 3885.39,
+        "ONGC": 769921.98,
+        "TATAMOTORS": 330.65,
+        "TATASTEEL": 0.22,
+        "HINDUNILVR": 7.0,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 40,
+      "prices": {
+        "TCS": 3784.09,
+        "INFY": 1513.55,
+        "HDFCBANK": 0.1,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 4367.29,
+        "ONGC": 998146.96,
+        "TATAMOTORS": 303.38,
+        "TATASTEEL": 0.2,
+        "HINDUNILVR": 6.22,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 41,
+      "prices": {
+        "TCS": 3784.14,
+        "INFY": 1515.22,
+        "HDFCBANK": 0.09,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 4897.01,
+        "ONGC": 1279073.66,
+        "TATAMOTORS": 278.15,
+        "TATASTEEL": 0.18,
+        "HINDUNILVR": 5.57,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 42,
+      "prices": {
+        "TCS": 3795.09,
+        "INFY": 1511.59,
+        "HDFCBANK": 0.08,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 5429.96,
+        "ONGC": 1602711.75,
+        "TATAMOTORS": 258.59,
+        "TATASTEEL": 0.17,
+        "HINDUNILVR": 5.03,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 43,
+      "prices": {
+        "TCS": 3814.94,
+        "INFY": 1526.92,
+        "HDFCBANK": 0.08,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 5991.88,
+        "ONGC": 1985693.53,
+        "TATAMOTORS": 241.75,
+        "TATASTEEL": 0.16,
+        "HINDUNILVR": 4.57,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 44,
+      "prices": {
+        "TCS": 3825.75,
+        "INFY": 1532.66,
+        "HDFCBANK": 0.08,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 6593.88,
+        "ONGC": 2439546.42,
+        "TATAMOTORS": 227.32,
+        "TATASTEEL": 0.15,
+        "HINDUNILVR": 4.18,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 45,
+      "prices": {
+        "TCS": 3827.98,
+        "INFY": 1524.23,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 7165.6,
+        "ONGC": 2943279.11,
+        "TATAMOTORS": 213.49,
+        "TATASTEEL": 0.14,
+        "HINDUNILVR": 3.85,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 46,
+      "prices": {
+        "TCS": 3825.31,
+        "INFY": 1531.8,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 7764.81,
+        "ONGC": 3517049.78,
+        "TATAMOTORS": 201.71,
+        "TATASTEEL": 0.13,
+        "HINDUNILVR": 3.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 47,
+      "prices": {
+        "TCS": 3806.0,
+        "INFY": 1526.01,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 8343.37,
+        "ONGC": 4132360.7,
+        "TATAMOTORS": 192.96,
+        "TATASTEEL": 0.12,
+        "HINDUNILVR": 3.28,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 48,
+      "prices": {
+        "TCS": 3804.07,
+        "INFY": 1515.06,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 8909.44,
+        "ONGC": 4821731.92,
+        "TATAMOTORS": 182.9,
+        "TATASTEEL": 0.11,
+        "HINDUNILVR": 3.05,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 49,
+      "prices": {
+        "TCS": 3715.85,
+        "INFY": 1512.01,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 8955.39,
+        "ONGC": 5649651.29,
+        "TATAMOTORS": 160.83,
+        "TATASTEEL": 0.11,
+        "HINDUNILVR": 2.5,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Consumer spending data weak",
+            "Retailers cautious on outlook",
+            "Rural demand sluggish"
+          ],
+          "factor": "ConsDemand",
+          "ticker": null,
+          "score": -0.10651339324555391
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 50,
+      "prices": {
+        "TCS": 3626.57,
+        "INFY": 1515.86,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9069.55,
+        "ONGC": 6511825.13,
+        "TATAMOTORS": 141.95,
+        "TATASTEEL": 0.1,
+        "HINDUNILVR": 2.07,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 51,
+      "prices": {
+        "TCS": 3566.08,
+        "INFY": 1516.3,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9159.93,
+        "ONGC": 7456826.98,
+        "TATAMOTORS": 128.29,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 1.76,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 52,
+      "prices": {
+        "TCS": 3509.57,
+        "INFY": 1517.57,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9315.45,
+        "ONGC": 8419438.22,
+        "TATAMOTORS": 116.01,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 1.51,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Credit growth hits record high",
+            "Loan defaults remain low",
+            "Financial sector booms"
+          ],
+          "factor": "Credit",
+          "ticker": null,
+          "score": -0.10909454318466688
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 53,
+      "prices": {
+        "TCS": 3484.68,
+        "INFY": 1524.6,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9450.08,
+        "ONGC": 9394077.96,
+        "TATAMOTORS": 105.97,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 1.31,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 54,
+      "prices": {
+        "TCS": 3410.84,
+        "INFY": 1508.15,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9564.9,
+        "ONGC": 10474755.32,
+        "TATAMOTORS": 97.64,
+        "TATASTEEL": 0.08,
+        "HINDUNILVR": 1.15,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 55,
+      "prices": {
+        "TCS": 3511.67,
+        "INFY": 1586.93,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9759.85,
+        "ONGC": 11631211.98,
+        "TATAMOTORS": 90.31,
+        "TATASTEEL": 0.08,
+        "HINDUNILVR": 1.02,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": 0.08016923829086842
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 56,
+      "prices": {
+        "TCS": 3626.92,
+        "INFY": 1669.58,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 9954.99,
+        "ONGC": 12871588.33,
+        "TATAMOTORS": 84.07,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 0.92,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 57,
+      "prices": {
+        "TCS": 3727.83,
+        "INFY": 1744.31,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 10179.71,
+        "ONGC": 14224442.79,
+        "TATAMOTORS": 79.42,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 0.83,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 58,
+      "prices": {
+        "TCS": 3823.96,
+        "INFY": 1829.55,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 10425.95,
+        "ONGC": 15486864.35,
+        "TATAMOTORS": 75.41,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 0.76,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 59,
+      "prices": {
+        "TCS": 3937.03,
+        "INFY": 1917.89,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 10688.59,
+        "ONGC": 16970084.25,
+        "TATAMOTORS": 71.51,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 0.7,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 60,
+      "prices": {
+        "TCS": 4040.24,
+        "INFY": 1961.11,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 10891.78,
+        "ONGC": 18470061.19,
+        "TATAMOTORS": 67.75,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.66,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 61,
+      "prices": {
+        "TCS": 4573.54,
+        "INFY": 2234.91,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 11119.32,
+        "ONGC": 20061388.34,
+        "TATAMOTORS": 64.98,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.61,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": 0.15319547982107587
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 62,
+      "prices": {
+        "TCS": 5112.09,
+        "INFY": 2513.72,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 11379.33,
+        "ONGC": 21662924.98,
+        "TATAMOTORS": 62.17,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.57,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 63,
+      "prices": {
+        "TCS": 5631.59,
+        "INFY": 2794.95,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.07,
+        "RELIANCE": 11609.73,
+        "ONGC": 23304589.18,
+        "TATAMOTORS": 59.2,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 64,
+      "prices": {
+        "TCS": 6120.15,
+        "INFY": 3088.63,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 11898.3,
+        "ONGC": 25080617.76,
+        "TATAMOTORS": 57.14,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.52,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 65,
+      "prices": {
+        "TCS": 8869.11,
+        "INFY": 4606.39,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 12153.74,
+        "ONGC": 26882302.04,
+        "TATAMOTORS": 55.58,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.49,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": 0.32381748220362194
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 66,
+      "prices": {
+        "TCS": 12468.94,
+        "INFY": 6520.29,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 12365.36,
+        "ONGC": 28595991.63,
+        "TATAMOTORS": 53.99,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.47,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": 0.07343895411320744
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 67,
+      "prices": {
+        "TCS": 17008.95,
+        "INFY": 9070.88,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.08,
+        "RELIANCE": 12578.26,
+        "ONGC": 30158341.94,
+        "TATAMOTORS": 52.48,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.45,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 68,
+      "prices": {
+        "TCS": 23003.52,
+        "INFY": 12354.53,
+        "HDFCBANK": 0.06,
+        "ICICIBANK": 0.09,
+        "RELIANCE": 12893.85,
+        "ONGC": 31981162.98,
+        "TATAMOTORS": 51.23,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.44,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Credit growth hits record high",
+            "Loan defaults remain low",
+            "Financial sector booms"
+          ],
+          "factor": "Credit",
+          "ticker": null,
+          "score": 0.11781200568525399
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 69,
+      "prices": {
+        "TCS": 30589.81,
+        "INFY": 16425.09,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.1,
+        "RELIANCE": 13216.43,
+        "ONGC": 33940893.94,
+        "TATAMOTORS": 50.48,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.43,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 70,
+      "prices": {
+        "TCS": 39603.18,
+        "INFY": 21568.71,
+        "HDFCBANK": 0.07,
+        "ICICIBANK": 0.11,
+        "RELIANCE": 13494.17,
+        "ONGC": 35527416.36,
+        "TATAMOTORS": 49.56,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.41,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 71,
+      "prices": {
+        "TCS": 50434.05,
+        "INFY": 27816.51,
+        "HDFCBANK": 0.08,
+        "ICICIBANK": 0.12,
+        "RELIANCE": 13750.84,
+        "ONGC": 37568731.52,
+        "TATAMOTORS": 48.87,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.4,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 72,
+      "prices": {
+        "TCS": 63203.47,
+        "INFY": 34986.81,
+        "HDFCBANK": 0.09,
+        "ICICIBANK": 0.13,
+        "RELIANCE": 12650.08,
+        "ONGC": 32771729.21,
+        "TATAMOTORS": 53.24,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.41,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tanker attacked near Hormuz",
+            "Crude spikes on supply fears",
+            "Energy names in focus"
+          ],
+          "factor": "CrudeOil",
+          "ticker": null,
+          "score": -0.20379319000601065
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 73,
+      "prices": {
+        "TCS": 77913.89,
+        "INFY": 43558.07,
+        "HDFCBANK": 0.09,
+        "ICICIBANK": 0.14,
+        "RELIANCE": 11688.17,
+        "ONGC": 29061421.75,
+        "TATAMOTORS": 57.96,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.43,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 74,
+      "prices": {
+        "TCS": 95643.19,
+        "INFY": 53385.86,
+        "HDFCBANK": 0.1,
+        "ICICIBANK": 0.14,
+        "RELIANCE": 10872.75,
+        "ONGC": 26177514.56,
+        "TATAMOTORS": 62.68,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.44,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 75,
+      "prices": {
+        "TCS": 116165.77,
+        "INFY": 65421.76,
+        "HDFCBANK": 0.1,
+        "ICICIBANK": 0.15,
+        "RELIANCE": 10166.31,
+        "ONGC": 23833818.18,
+        "TATAMOTORS": 66.82,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.45,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 76,
+      "prices": {
+        "TCS": 138364.98,
+        "INFY": 78004.32,
+        "HDFCBANK": 0.11,
+        "ICICIBANK": 0.16,
+        "RELIANCE": 9607.74,
+        "ONGC": 21764877.23,
+        "TATAMOTORS": 70.48,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.46,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 77,
+      "prices": {
+        "TCS": 162753.01,
+        "INFY": 92341.8,
+        "HDFCBANK": 0.11,
+        "ICICIBANK": 0.17,
+        "RELIANCE": 9113.32,
+        "ONGC": 20216820.41,
+        "TATAMOTORS": 74.6,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.47,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 78,
+      "prices": {
+        "TCS": 190388.81,
+        "INFY": 107991.58,
+        "HDFCBANK": 0.12,
+        "ICICIBANK": 0.18,
+        "RELIANCE": 8736.22,
+        "ONGC": 18942504.75,
+        "TATAMOTORS": 78.69,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.48,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 79,
+      "prices": {
+        "TCS": 219779.01,
+        "INFY": 125675.1,
+        "HDFCBANK": 0.12,
+        "ICICIBANK": 0.19,
+        "RELIANCE": 8356.61,
+        "ONGC": 17789278.96,
+        "TATAMOTORS": 82.2,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.49,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 80,
+      "prices": {
+        "TCS": 251773.86,
+        "INFY": 146026.97,
+        "HDFCBANK": 0.12,
+        "ICICIBANK": 0.19,
+        "RELIANCE": 8094.98,
+        "ONGC": 17000742.79,
+        "TATAMOTORS": 86.14,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.5,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 81,
+      "prices": {
+        "TCS": 286581.67,
+        "INFY": 165840.87,
+        "HDFCBANK": 0.13,
+        "ICICIBANK": 0.2,
+        "RELIANCE": 7851.54,
+        "ONGC": 16189073.55,
+        "TATAMOTORS": 198.0,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.51,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": -0.5447587217894109
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 82,
+      "prices": {
+        "TCS": 324174.84,
+        "INFY": 187470.34,
+        "HDFCBANK": 0.13,
+        "ICICIBANK": 0.2,
+        "RELIANCE": 7635.8,
+        "ONGC": 15663042.05,
+        "TATAMOTORS": 406.56,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.51,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 83,
+      "prices": {
+        "TCS": 362901.47,
+        "INFY": 211462.09,
+        "HDFCBANK": 0.13,
+        "ICICIBANK": 0.21,
+        "RELIANCE": 7484.25,
+        "ONGC": 15129147.41,
+        "TATAMOTORS": 759.32,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.52,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 84,
+      "prices": {
+        "TCS": 403748.67,
+        "INFY": 236359.89,
+        "HDFCBANK": 0.14,
+        "ICICIBANK": 0.22,
+        "RELIANCE": 7311.43,
+        "ONGC": 14753330.03,
+        "TATAMOTORS": 1292.43,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.52,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 85,
+      "prices": {
+        "TCS": 448598.65,
+        "INFY": 263676.76,
+        "HDFCBANK": 0.14,
+        "ICICIBANK": 0.22,
+        "RELIANCE": 7189.92,
+        "ONGC": 14482390.81,
+        "TATAMOTORS": 2079.69,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 86,
+      "prices": {
+        "TCS": 493847.49,
+        "INFY": 291028.99,
+        "HDFCBANK": 0.14,
+        "ICICIBANK": 0.22,
+        "RELIANCE": 7091.08,
+        "ONGC": 14300672.96,
+        "TATAMOTORS": 3104.08,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 87,
+      "prices": {
+        "TCS": 545071.85,
+        "INFY": 320732.6,
+        "HDFCBANK": 0.14,
+        "ICICIBANK": 0.23,
+        "RELIANCE": 7034.59,
+        "ONGC": 14266071.35,
+        "TATAMOTORS": 4379.12,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 88,
+      "prices": {
+        "TCS": 598313.72,
+        "INFY": 351841.06,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.23,
+        "RELIANCE": 6968.01,
+        "ONGC": 14183151.52,
+        "TATAMOTORS": 5819.64,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 89,
+      "prices": {
+        "TCS": 649669.76,
+        "INFY": 387257.65,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.23,
+        "RELIANCE": 6942.86,
+        "ONGC": 14080079.19,
+        "TATAMOTORS": 7371.06,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 90,
+      "prices": {
+        "TCS": 699094.67,
+        "INFY": 420885.6,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.24,
+        "RELIANCE": 6897.22,
+        "ONGC": 14005387.85,
+        "TATAMOTORS": 8905.16,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 91,
+      "prices": {
+        "TCS": 756549.66,
+        "INFY": 456122.8,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.24,
+        "RELIANCE": 6864.82,
+        "ONGC": 13887738.68,
+        "TATAMOTORS": 10596.55,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 92,
+      "prices": {
+        "TCS": 813482.81,
+        "INFY": 492970.0,
+        "HDFCBANK": 0.15,
+        "ICICIBANK": 0.24,
+        "RELIANCE": 8668.93,
+        "ONGC": 10082627.28,
+        "TATAMOTORS": 12129.21,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Energy transition tax proposed",
+            "Green initiatives funded",
+            "Fossil fuels face headwinds"
+          ],
+          "factor": "EnergyTx",
+          "ticker": null,
+          "score": 0.5648104012318659
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 93,
+      "prices": {
+        "TCS": 876784.78,
+        "INFY": 532473.91,
+        "HDFCBANK": 0.24,
+        "ICICIBANK": 0.39,
+        "RELIANCE": 10694.36,
+        "ONGC": 7622351.27,
+        "TATAMOTORS": 13526.76,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Credit growth hits record high",
+            "Loan defaults remain low",
+            "Financial sector booms"
+          ],
+          "factor": "Credit",
+          "ticker": null,
+          "score": 0.5357367392146478
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 94,
+      "prices": {
+        "TCS": 938507.72,
+        "INFY": 569309.65,
+        "HDFCBANK": 0.35,
+        "ICICIBANK": 0.61,
+        "RELIANCE": 12978.12,
+        "ONGC": 5867279.64,
+        "TATAMOTORS": 14695.45,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 95,
+      "prices": {
+        "TCS": 1005577.34,
+        "INFY": 608931.46,
+        "HDFCBANK": 0.49,
+        "ICICIBANK": 0.91,
+        "RELIANCE": 15364.29,
+        "ONGC": 4630195.53,
+        "TATAMOTORS": 14247.68,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": 0.18992371245954065
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 96,
+      "prices": {
+        "TCS": 1067084.05,
+        "INFY": 649594.55,
+        "HDFCBANK": 0.68,
+        "ICICIBANK": 1.3,
+        "RELIANCE": 17968.98,
+        "ONGC": 3735782.1,
+        "TATAMOTORS": 13698.55,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 97,
+      "prices": {
+        "TCS": 1130531.17,
+        "INFY": 688736.34,
+        "HDFCBANK": 0.9,
+        "ICICIBANK": 1.8,
+        "RELIANCE": 20734.35,
+        "ONGC": 3095844.77,
+        "TATAMOTORS": 13160.53,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 98,
+      "prices": {
+        "TCS": 1195401.73,
+        "INFY": 730255.13,
+        "HDFCBANK": 1.16,
+        "ICICIBANK": 2.38,
+        "RELIANCE": 23554.28,
+        "ONGC": 2607435.76,
+        "TATAMOTORS": 12448.92,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 99,
+      "prices": {
+        "TCS": 1260556.95,
+        "INFY": 774004.68,
+        "HDFCBANK": 1.46,
+        "ICICIBANK": 3.07,
+        "RELIANCE": 26391.15,
+        "ONGC": 2234645.72,
+        "TATAMOTORS": 11696.7,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 100,
+      "prices": {
+        "TCS": 1328606.89,
+        "INFY": 820040.79,
+        "HDFCBANK": 1.8,
+        "ICICIBANK": 3.87,
+        "RELIANCE": 29354.45,
+        "ONGC": 1957769.72,
+        "TATAMOTORS": 10959.91,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 101,
+      "prices": {
+        "TCS": 1405600.83,
+        "INFY": 865246.44,
+        "HDFCBANK": 2.15,
+        "ICICIBANK": 4.74,
+        "RELIANCE": 32442.36,
+        "ONGC": 1737140.72,
+        "TATAMOTORS": 10242.52,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.55,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 102,
+      "prices": {
+        "TCS": 1473554.25,
+        "INFY": 906372.47,
+        "HDFCBANK": 2.53,
+        "ICICIBANK": 5.66,
+        "RELIANCE": 35247.4,
+        "ONGC": 1563474.99,
+        "TATAMOTORS": 9442.11,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 103,
+      "prices": {
+        "TCS": 1548777.29,
+        "INFY": 954078.57,
+        "HDFCBANK": 2.92,
+        "ICICIBANK": 6.65,
+        "RELIANCE": 38267.97,
+        "ONGC": 1428377.93,
+        "TATAMOTORS": 8671.77,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 104,
+      "prices": {
+        "TCS": 1620677.08,
+        "INFY": 995825.19,
+        "HDFCBANK": 3.31,
+        "ICICIBANK": 7.67,
+        "RELIANCE": 41458.31,
+        "ONGC": 1316692.36,
+        "TATAMOTORS": 7905.81,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 105,
+      "prices": {
+        "TCS": 1677846.44,
+        "INFY": 1044622.66,
+        "HDFCBANK": 3.67,
+        "ICICIBANK": 8.69,
+        "RELIANCE": 44241.27,
+        "ONGC": 1220289.47,
+        "TATAMOTORS": 7285.9,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 106,
+      "prices": {
+        "TCS": 1753443.31,
+        "INFY": 1083314.3,
+        "HDFCBANK": 4.02,
+        "ICICIBANK": 9.7,
+        "RELIANCE": 47135.59,
+        "ONGC": 1145721.1,
+        "TATAMOTORS": 6701.15,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 107,
+      "prices": {
+        "TCS": 1821217.27,
+        "INFY": 1133766.6,
+        "HDFCBANK": 4.38,
+        "ICICIBANK": 10.66,
+        "RELIANCE": 49866.68,
+        "ONGC": 1091375.12,
+        "TATAMOTORS": 6238.24,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 108,
+      "prices": {
+        "TCS": 1887412.08,
+        "INFY": 1180178.4,
+        "HDFCBANK": 4.73,
+        "ICICIBANK": 11.62,
+        "RELIANCE": 52479.73,
+        "ONGC": 1039376.68,
+        "TATAMOTORS": 5729.35,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 109,
+      "prices": {
+        "TCS": 1952312.86,
+        "INFY": 1228551.48,
+        "HDFCBANK": 5.01,
+        "ICICIBANK": 12.47,
+        "RELIANCE": 55121.17,
+        "ONGC": 1001996.02,
+        "TATAMOTORS": 5349.6,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.53,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 110,
+      "prices": {
+        "TCS": 1931212.81,
+        "INFY": 1179943.46,
+        "HDFCBANK": 6.48,
+        "ICICIBANK": 16.22,
+        "RELIANCE": 57803.94,
+        "ONGC": 977680.7,
+        "TATAMOTORS": 5595.22,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.56,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "RBI surprises with rate hike",
+            "Banks react to tighter policy",
+            "Rupee strengthens"
+          ],
+          "factor": "RatesRupee",
+          "ticker": null,
+          "score": 0.24903665681869117
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 111,
+      "prices": {
+        "TCS": 1919901.13,
+        "INFY": 1147047.95,
+        "HDFCBANK": 8.14,
+        "ICICIBANK": 20.44,
+        "RELIANCE": 60357.09,
+        "ONGC": 954179.42,
+        "TATAMOTORS": 5713.31,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.58,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 112,
+      "prices": {
+        "TCS": 1908012.05,
+        "INFY": 1001587.25,
+        "HDFCBANK": 10.07,
+        "ICICIBANK": 25.22,
+        "RELIANCE": 62622.27,
+        "ONGC": 937756.34,
+        "TATAMOTORS": 5848.05,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.61,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": 0.4951433400843331
+        }
+      ]
+    },
+    {
+      "session": 0,
+      "tick": 113,
+      "prices": {
+        "TCS": 1899443.47,
+        "INFY": 886123.13,
+        "HDFCBANK": 12.25,
+        "ICICIBANK": 30.69,
+        "RELIANCE": 64798.22,
+        "ONGC": 920081.92,
+        "TATAMOTORS": 5979.28,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.63,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 114,
+      "prices": {
+        "TCS": 1894117.47,
+        "INFY": 791205.82,
+        "HDFCBANK": 14.57,
+        "ICICIBANK": 36.43,
+        "RELIANCE": 66599.52,
+        "ONGC": 908748.49,
+        "TATAMOTORS": 6095.24,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.65,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 115,
+      "prices": {
+        "TCS": 1892609.78,
+        "INFY": 718454.61,
+        "HDFCBANK": 17.15,
+        "ICICIBANK": 42.61,
+        "RELIANCE": 68077.47,
+        "ONGC": 902173.59,
+        "TATAMOTORS": 6201.85,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.67,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 116,
+      "prices": {
+        "TCS": 1892034.95,
+        "INFY": 656024.66,
+        "HDFCBANK": 19.78,
+        "ICICIBANK": 49.26,
+        "RELIANCE": 70056.77,
+        "ONGC": 899792.04,
+        "TATAMOTORS": 6245.34,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.69,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 117,
+      "prices": {
+        "TCS": 1894554.46,
+        "INFY": 603074.89,
+        "HDFCBANK": 22.57,
+        "ICICIBANK": 55.78,
+        "RELIANCE": 71340.22,
+        "ONGC": 907907.05,
+        "TATAMOTORS": 6229.16,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.71,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 118,
+      "prices": {
+        "TCS": 1891932.26,
+        "INFY": 559267.5,
+        "HDFCBANK": 25.32,
+        "ICICIBANK": 62.47,
+        "RELIANCE": 72299.41,
+        "ONGC": 910886.78,
+        "TATAMOTORS": 6275.71,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.73,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 0,
+      "tick": 119,
+      "prices": {
+        "TCS": 1889965.8,
+        "INFY": 526010.66,
+        "HDFCBANK": 27.9,
+        "ICICIBANK": 68.76,
+        "RELIANCE": 66784.56,
+        "ONGC": 1031563.31,
+        "TATAMOTORS": 6235.3,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.74,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Energy transition tax proposed",
+            "Green initiatives funded",
+            "Fossil fuels face headwinds"
+          ],
+          "factor": "EnergyTx",
+          "ticker": null,
+          "score": -0.38914808811160434
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 0,
+      "prices": {
+        "TCS": 1689131.68,
+        "INFY": 484952.17,
+        "HDFCBANK": 23.75,
+        "ICICIBANK": 57.51,
+        "RELIANCE": 61720.56,
+        "ONGC": 1047333.3,
+        "TATAMOTORS": 5807.4,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.76,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 1,
+      "prices": {
+        "TCS": 1527601.05,
+        "INFY": 452056.43,
+        "HDFCBANK": 20.6,
+        "ICICIBANK": 49.33,
+        "RELIANCE": 57729.56,
+        "ONGC": 1072913.48,
+        "TATAMOTORS": 5487.28,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.79,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 2,
+      "prices": {
+        "TCS": 1391659.73,
+        "INFY": 421547.35,
+        "HDFCBANK": 18.08,
+        "ICICIBANK": 42.67,
+        "RELIANCE": 54028.68,
+        "ONGC": 1097857.79,
+        "TATAMOTORS": 4254.21,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.81,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": 0.4903478216189243
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 3,
+      "prices": {
+        "TCS": 1276601.43,
+        "INFY": 396887.09,
+        "HDFCBANK": 16.03,
+        "ICICIBANK": 37.53,
+        "RELIANCE": 51124.44,
+        "ONGC": 1117250.82,
+        "TATAMOTORS": 3367.36,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.83,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 4,
+      "prices": {
+        "TCS": 1178492.56,
+        "INFY": 377201.17,
+        "HDFCBANK": 14.35,
+        "ICICIBANK": 33.06,
+        "RELIANCE": 48381.14,
+        "ONGC": 1136895.06,
+        "TATAMOTORS": 2697.52,
+        "TATASTEEL": 0.01,
+        "HINDUNILVR": 0.84,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 5,
+      "prices": {
+        "TCS": 1095287.47,
+        "INFY": 357447.84,
+        "HDFCBANK": 12.89,
+        "ICICIBANK": 29.43,
+        "RELIANCE": 46137.42,
+        "ONGC": 1156895.54,
+        "TATAMOTORS": 2190.7,
+        "TATASTEEL": 0.02,
+        "HINDUNILVR": 0.86,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 6,
+      "prices": {
+        "TCS": 1026085.49,
+        "INFY": 342293.12,
+        "HDFCBANK": 11.78,
+        "ICICIBANK": 26.59,
+        "RELIANCE": 44238.55,
+        "ONGC": 1173838.61,
+        "TATAMOTORS": 1833.96,
+        "TATASTEEL": 0.02,
+        "HINDUNILVR": 0.88,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 7,
+      "prices": {
+        "TCS": 967481.09,
+        "INFY": 328827.24,
+        "HDFCBANK": 10.83,
+        "ICICIBANK": 24.09,
+        "RELIANCE": 42400.82,
+        "ONGC": 1195816.54,
+        "TATAMOTORS": 1543.59,
+        "TATASTEEL": 0.02,
+        "HINDUNILVR": 0.89,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 8,
+      "prices": {
+        "TCS": 912521.31,
+        "INFY": 314937.89,
+        "HDFCBANK": 9.98,
+        "ICICIBANK": 21.95,
+        "RELIANCE": 40784.68,
+        "ONGC": 1209396.02,
+        "TATAMOTORS": 1324.51,
+        "TATASTEEL": 0.02,
+        "HINDUNILVR": 0.9,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 9,
+      "prices": {
+        "TCS": 868008.66,
+        "INFY": 302816.08,
+        "HDFCBANK": 9.21,
+        "ICICIBANK": 20.18,
+        "RELIANCE": 86322.67,
+        "ONGC": 4296085.43,
+        "TATAMOTORS": 558.0,
+        "TATASTEEL": 0.03,
+        "HINDUNILVR": 0.6,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tanker attacked near Hormuz",
+            "Crude spikes on supply fears",
+            "Energy names in focus"
+          ],
+          "factor": "CrudeOil",
+          "ticker": null,
+          "score": 0.6583295042092494
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 10,
+      "prices": {
+        "TCS": 827479.57,
+        "INFY": 293842.4,
+        "HDFCBANK": 8.63,
+        "ICICIBANK": 18.72,
+        "RELIANCE": 169952.61,
+        "ONGC": 13556006.27,
+        "TATAMOTORS": 257.42,
+        "TATASTEEL": 0.04,
+        "HINDUNILVR": 0.41,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 11,
+      "prices": {
+        "TCS": 797569.7,
+        "INFY": 285778.15,
+        "HDFCBANK": 8.12,
+        "ICICIBANK": 17.48,
+        "RELIANCE": 312704.07,
+        "ONGC": 38219140.54,
+        "TATAMOTORS": 128.13,
+        "TATASTEEL": 0.05,
+        "HINDUNILVR": 0.29,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 12,
+      "prices": {
+        "TCS": 767532.82,
+        "INFY": 277614.2,
+        "HDFCBANK": 7.66,
+        "ICICIBANK": 16.27,
+        "RELIANCE": 540189.44,
+        "ONGC": 95492581.56,
+        "TATAMOTORS": 68.45,
+        "TATASTEEL": 0.06,
+        "HINDUNILVR": 0.22,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 13,
+      "prices": {
+        "TCS": 739803.47,
+        "INFY": 269240.66,
+        "HDFCBANK": 7.26,
+        "ICICIBANK": 15.32,
+        "RELIANCE": 881619.55,
+        "ONGC": 217968772.58,
+        "TATAMOTORS": 38.79,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 0.17,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 14,
+      "prices": {
+        "TCS": 632715.01,
+        "INFY": 218029.33,
+        "HDFCBANK": 11.2,
+        "ICICIBANK": 23.11,
+        "RELIANCE": 1361357.2,
+        "ONGC": 458481687.06,
+        "TATAMOTORS": 30.34,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 0.15,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "RBI surprises with rate hike",
+            "Banks react to tighter policy",
+            "Rupee strengthens"
+          ],
+          "factor": "RatesRupee",
+          "ticker": null,
+          "score": 0.49409848657222316
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 15,
+      "prices": {
+        "TCS": 549466.12,
+        "INFY": 179738.71,
+        "HDFCBANK": 16.72,
+        "ICICIBANK": 33.98,
+        "RELIANCE": 1996810.98,
+        "ONGC": 884539978.75,
+        "TATAMOTORS": 24.43,
+        "TATASTEEL": 0.1,
+        "HINDUNILVR": 0.13,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 16,
+      "prices": {
+        "TCS": 483150.06,
+        "INFY": 151987.75,
+        "HDFCBANK": 26.01,
+        "ICICIBANK": 51.24,
+        "RELIANCE": 2967311.61,
+        "ONGC": 1583642867.28,
+        "TATAMOTORS": 20.36,
+        "TATASTEEL": 0.12,
+        "HINDUNILVR": 0.13,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "New industrial policy announced",
+            "Subsidies for manufacturing",
+            "Domestic sectors rally"
+          ],
+          "factor": "DomPolicy",
+          "ticker": null,
+          "score": 0.2536657364638712
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 17,
+      "prices": {
+        "TCS": 427322.15,
+        "INFY": 130060.06,
+        "HDFCBANK": 39.26,
+        "ICICIBANK": 75.21,
+        "RELIANCE": 4251816.42,
+        "ONGC": 2674656948.08,
+        "TATAMOTORS": 17.45,
+        "TATASTEEL": 0.14,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 18,
+      "prices": {
+        "TCS": 428510.44,
+        "INFY": 124387.94,
+        "HDFCBANK": 57.21,
+        "ICICIBANK": 115.48,
+        "RELIANCE": 5808888.09,
+        "ONGC": 4617695335.53,
+        "TATAMOTORS": 16.91,
+        "TATASTEEL": 0.18,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": [
+        {
+          "bullets": [
+            "Global risk-off sentiment",
+            "Investors flee to safety",
+            "Emerging markets face pressure"
+          ],
+          "factor": "GlobalRisk",
+          "ticker": null,
+          "score": 0.0764884568703656
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 19,
+      "prices": {
+        "TCS": 430542.57,
+        "INFY": 118715.77,
+        "HDFCBANK": 81.44,
+        "ICICIBANK": 171.11,
+        "RELIANCE": 7663398.48,
+        "ONGC": 7434987639.8,
+        "TATAMOTORS": 16.56,
+        "TATASTEEL": 0.22,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 20,
+      "prices": {
+        "TCS": 426784.83,
+        "INFY": 112564.5,
+        "HDFCBANK": 112.25,
+        "ICICIBANK": 245.21,
+        "RELIANCE": 9829920.59,
+        "ONGC": 11324444934.1,
+        "TATAMOTORS": 16.51,
+        "TATASTEEL": 0.27,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 21,
+      "prices": {
+        "TCS": 420885.41,
+        "INFY": 106485.18,
+        "HDFCBANK": 152.7,
+        "ICICIBANK": 340.3,
+        "RELIANCE": 12146515.16,
+        "ONGC": 16290988105.5,
+        "TATAMOTORS": 16.4,
+        "TATASTEEL": 0.32,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 22,
+      "prices": {
+        "TCS": 412548.41,
+        "INFY": 101466.87,
+        "HDFCBANK": 201.91,
+        "ICICIBANK": 461.4,
+        "RELIANCE": 14708752.14,
+        "ONGC": 22367223618.75,
+        "TATAMOTORS": 16.32,
+        "TATASTEEL": 0.37,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 23,
+      "prices": {
+        "TCS": 403606.05,
+        "INFY": 96236.66,
+        "HDFCBANK": 262.21,
+        "ICICIBANK": 608.81,
+        "RELIANCE": 17328075.63,
+        "ONGC": 29709413086.97,
+        "TATAMOTORS": 16.43,
+        "TATASTEEL": 0.42,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 24,
+      "prices": {
+        "TCS": 396230.34,
+        "INFY": 91844.28,
+        "HDFCBANK": 333.69,
+        "ICICIBANK": 788.46,
+        "RELIANCE": 19944911.14,
+        "ONGC": 37370289347.46,
+        "TATAMOTORS": 16.47,
+        "TATASTEEL": 0.47,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 25,
+      "prices": {
+        "TCS": 389089.45,
+        "INFY": 86943.48,
+        "HDFCBANK": 418.24,
+        "ICICIBANK": 996.69,
+        "RELIANCE": 22597455.87,
+        "ONGC": 45976162715.24,
+        "TATAMOTORS": 16.81,
+        "TATASTEEL": 0.53,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 26,
+      "prices": {
+        "TCS": 378801.69,
+        "INFY": 82533.02,
+        "HDFCBANK": 513.07,
+        "ICICIBANK": 1239.84,
+        "RELIANCE": 25208221.35,
+        "ONGC": 54623536783.95,
+        "TATAMOTORS": 17.18,
+        "TATASTEEL": 0.57,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 27,
+      "prices": {
+        "TCS": 370770.7,
+        "INFY": 78588.96,
+        "HDFCBANK": 620.37,
+        "ICICIBANK": 1518.5,
+        "RELIANCE": 27478358.72,
+        "ONGC": 63657908527.79,
+        "TATAMOTORS": 17.49,
+        "TATASTEEL": 0.62,
+        "HINDUNILVR": 0.12,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 28,
+      "prices": {
+        "TCS": 363442.11,
+        "INFY": 75088.98,
+        "HDFCBANK": 745.61,
+        "ICICIBANK": 1845.15,
+        "RELIANCE": 29713753.9,
+        "ONGC": 72172869492.26,
+        "TATAMOTORS": 18.08,
+        "TATASTEEL": 0.66,
+        "HINDUNILVR": 0.13,
+        "SUNPHARMA": 0.01
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 29,
+      "prices": {
+        "TCS": 353291.68,
+        "INFY": 71670.05,
+        "HDFCBANK": 883.38,
+        "ICICIBANK": 2189.16,
+        "RELIANCE": 31708790.57,
+        "ONGC": 79848004476.64,
+        "TATAMOTORS": 18.59,
+        "TATASTEEL": 0.7,
+        "HINDUNILVR": 0.13,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 30,
+      "prices": {
+        "TCS": 344224.83,
+        "INFY": 68012.02,
+        "HDFCBANK": 1035.44,
+        "ICICIBANK": 2573.51,
+        "RELIANCE": 33448443.81,
+        "ONGC": 86839950189.62,
+        "TATAMOTORS": 19.22,
+        "TATASTEEL": 0.74,
+        "HINDUNILVR": 0.13,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 31,
+      "prices": {
+        "TCS": 332526.81,
+        "INFY": 64909.37,
+        "HDFCBANK": 1197.83,
+        "ICICIBANK": 2980.92,
+        "RELIANCE": 34835171.21,
+        "ONGC": 92219782022.09,
+        "TATAMOTORS": 16.27,
+        "TATASTEEL": 1.2,
+        "HINDUNILVR": 0.14,
+        "SUNPHARMA": 0.02
+      },
+      "news": [
+        {
+          "bullets": [
+            "Metal prices surge in LME",
+            "Copper and steel reach new highs",
+            "Mining stocks jump"
+          ],
+          "factor": "Metals",
+          "ticker": null,
+          "score": 0.26645248599311366
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 32,
+      "prices": {
+        "TCS": 322842.5,
+        "INFY": 61938.0,
+        "HDFCBANK": 1368.72,
+        "ICICIBANK": 3412.16,
+        "RELIANCE": 35897106.87,
+        "ONGC": 96350626772.38,
+        "TATAMOTORS": 14.09,
+        "TATASTEEL": 1.85,
+        "HINDUNILVR": 0.14,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 33,
+      "prices": {
+        "TCS": 314478.03,
+        "INFY": 60531.52,
+        "HDFCBANK": 1551.65,
+        "ICICIBANK": 3859.34,
+        "RELIANCE": 36826567.12,
+        "ONGC": 99702883470.27,
+        "TATAMOTORS": 12.45,
+        "TATASTEEL": 2.63,
+        "HINDUNILVR": 0.15,
+        "SUNPHARMA": 0.02
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": -0.10525673799085404
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 34,
+      "prices": {
+        "TCS": 307084.38,
+        "INFY": 58896.06,
+        "HDFCBANK": 1762.48,
+        "ICICIBANK": 4354.83,
+        "RELIANCE": 37562181.13,
+        "ONGC": 101779577037.17,
+        "TATAMOTORS": 11.28,
+        "TATASTEEL": 3.61,
+        "HINDUNILVR": 0.15,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 35,
+      "prices": {
+        "TCS": 297152.08,
+        "INFY": 57703.82,
+        "HDFCBANK": 1980.4,
+        "ICICIBANK": 4864.77,
+        "RELIANCE": 38110269.48,
+        "ONGC": 102652293256.27,
+        "TATAMOTORS": 10.32,
+        "TATASTEEL": 4.75,
+        "HINDUNILVR": 0.16,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 36,
+      "prices": {
+        "TCS": 287436.97,
+        "INFY": 56314.06,
+        "HDFCBANK": 2194.93,
+        "ICICIBANK": 5345.57,
+        "RELIANCE": 38223558.62,
+        "ONGC": 101619306273.96,
+        "TATAMOTORS": 9.5,
+        "TATASTEEL": 6.11,
+        "HINDUNILVR": 0.16,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 37,
+      "prices": {
+        "TCS": 278892.95,
+        "INFY": 54883.77,
+        "HDFCBANK": 2428.95,
+        "ICICIBANK": 5871.52,
+        "RELIANCE": 38266598.15,
+        "ONGC": 101550844957.02,
+        "TATAMOTORS": 8.9,
+        "TATASTEEL": 7.63,
+        "HINDUNILVR": 0.17,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 38,
+      "prices": {
+        "TCS": 271926.5,
+        "INFY": 53533.72,
+        "HDFCBANK": 2659.6,
+        "ICICIBANK": 6411.97,
+        "RELIANCE": 38032627.42,
+        "ONGC": 100155254418.75,
+        "TATAMOTORS": 8.46,
+        "TATASTEEL": 9.24,
+        "HINDUNILVR": 0.17,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 39,
+      "prices": {
+        "TCS": 264545.69,
+        "INFY": 51889.79,
+        "HDFCBANK": 2910.15,
+        "ICICIBANK": 6961.67,
+        "RELIANCE": 37835907.72,
+        "ONGC": 98244182887.28,
+        "TATAMOTORS": 8.1,
+        "TATASTEEL": 11.06,
+        "HINDUNILVR": 0.18,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 40,
+      "prices": {
+        "TCS": 257134.32,
+        "INFY": 50675.57,
+        "HDFCBANK": 3158.67,
+        "ICICIBANK": 7498.62,
+        "RELIANCE": 19253745.58,
+        "ONGC": 33211774347.97,
+        "TATAMOTORS": 14.21,
+        "TATASTEEL": 10.79,
+        "HINDUNILVR": 0.27,
+        "SUNPHARMA": 0.02
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tanker attacked near Hormuz",
+            "Crude spikes on supply fears",
+            "Energy names in focus"
+          ],
+          "factor": "CrudeOil",
+          "ticker": null,
+          "score": -0.682563130278224
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 41,
+      "prices": {
+        "TCS": 250804.4,
+        "INFY": 49609.69,
+        "HDFCBANK": 3403.3,
+        "ICICIBANK": 8079.13,
+        "RELIANCE": 10375851.67,
+        "ONGC": 12181731421.92,
+        "TATAMOTORS": 24.11,
+        "TATASTEEL": 10.49,
+        "HINDUNILVR": 0.38,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 42,
+      "prices": {
+        "TCS": 242831.27,
+        "INFY": 48638.98,
+        "HDFCBANK": 3663.55,
+        "ICICIBANK": 8684.11,
+        "RELIANCE": 5801814.34,
+        "ONGC": 4838819649.38,
+        "TATAMOTORS": 39.27,
+        "TATASTEEL": 10.19,
+        "HINDUNILVR": 0.54,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 43,
+      "prices": {
+        "TCS": 256758.44,
+        "INFY": 50737.98,
+        "HDFCBANK": 3906.46,
+        "ICICIBANK": 9685.95,
+        "RELIANCE": 3403178.04,
+        "ONGC": 2194989108.68,
+        "TATAMOTORS": 66.01,
+        "TATASTEEL": 10.61,
+        "HINDUNILVR": 0.73,
+        "SUNPHARMA": 0.02
+      },
+      "news": [
+        {
+          "bullets": [
+            "Global risk-off sentiment",
+            "Investors flee to safety",
+            "Emerging markets face pressure"
+          ],
+          "factor": "GlobalRisk",
+          "ticker": null,
+          "score": 0.39818308923038226
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 44,
+      "prices": {
+        "TCS": 270976.47,
+        "INFY": 52740.27,
+        "HDFCBANK": 4143.24,
+        "ICICIBANK": 10663.01,
+        "RELIANCE": 2068367.36,
+        "ONGC": 1053652736.82,
+        "TATAMOTORS": 106.48,
+        "TATASTEEL": 11.06,
+        "HINDUNILVR": 0.97,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 45,
+      "prices": {
+        "TCS": 283450.36,
+        "INFY": 54828.21,
+        "HDFCBANK": 4412.36,
+        "ICICIBANK": 11698.83,
+        "RELIANCE": 1314756.62,
+        "ONGC": 530104284.34,
+        "TATAMOTORS": 165.8,
+        "TATASTEEL": 11.44,
+        "HINDUNILVR": 1.27,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 46,
+      "prices": {
+        "TCS": 295135.37,
+        "INFY": 56504.6,
+        "HDFCBANK": 4675.08,
+        "ICICIBANK": 12726.71,
+        "RELIANCE": 866846.95,
+        "ONGC": 285405160.08,
+        "TATAMOTORS": 252.9,
+        "TATASTEEL": 11.77,
+        "HINDUNILVR": 1.63,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 47,
+      "prices": {
+        "TCS": 306433.24,
+        "INFY": 58078.69,
+        "HDFCBANK": 4920.99,
+        "ICICIBANK": 13818.48,
+        "RELIANCE": 587493.21,
+        "ONGC": 159218326.16,
+        "TATAMOTORS": 372.43,
+        "TATASTEEL": 12.03,
+        "HINDUNILVR": 2.04,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 48,
+      "prices": {
+        "TCS": 318193.66,
+        "INFY": 59660.8,
+        "HDFCBANK": 5195.55,
+        "ICICIBANK": 14962.81,
+        "RELIANCE": 411778.21,
+        "ONGC": 92770495.56,
+        "TATAMOTORS": 534.43,
+        "TATASTEEL": 12.4,
+        "HINDUNILVR": 2.52,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 49,
+      "prices": {
+        "TCS": 326028.93,
+        "INFY": 61259.24,
+        "HDFCBANK": 5446.66,
+        "ICICIBANK": 16154.77,
+        "RELIANCE": 295339.95,
+        "ONGC": 56241569.63,
+        "TATAMOTORS": 744.51,
+        "TATASTEEL": 12.59,
+        "HINDUNILVR": 3.05,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 50,
+      "prices": {
+        "TCS": 336328.71,
+        "INFY": 62907.82,
+        "HDFCBANK": 5731.33,
+        "ICICIBANK": 17329.49,
+        "RELIANCE": 217401.32,
+        "ONGC": 35722087.88,
+        "TATAMOTORS": 1017.25,
+        "TATASTEEL": 12.77,
+        "HINDUNILVR": 3.65,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 51,
+      "prices": {
+        "TCS": 347591.82,
+        "INFY": 64136.87,
+        "HDFCBANK": 5977.6,
+        "ICICIBANK": 18548.04,
+        "RELIANCE": 164133.37,
+        "ONGC": 23540171.5,
+        "TATAMOTORS": 1345.11,
+        "TATASTEEL": 12.8,
+        "HINDUNILVR": 4.29,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 52,
+      "prices": {
+        "TCS": 356551.2,
+        "INFY": 65408.34,
+        "HDFCBANK": 6231.91,
+        "ICICIBANK": 19693.37,
+        "RELIANCE": 126340.65,
+        "ONGC": 15977867.6,
+        "TATAMOTORS": 1753.79,
+        "TATASTEEL": 12.8,
+        "HINDUNILVR": 5.01,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 53,
+      "prices": {
+        "TCS": 362433.02,
+        "INFY": 66821.88,
+        "HDFCBANK": 6478.64,
+        "ICICIBANK": 20802.21,
+        "RELIANCE": 99754.69,
+        "ONGC": 11153038.01,
+        "TATAMOTORS": 2252.29,
+        "TATASTEEL": 12.75,
+        "HINDUNILVR": 5.76,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 54,
+      "prices": {
+        "TCS": 368862.73,
+        "INFY": 67423.16,
+        "HDFCBANK": 6734.01,
+        "ICICIBANK": 21997.11,
+        "RELIANCE": 79744.22,
+        "ONGC": 7986978.4,
+        "TATAMOTORS": 2843.26,
+        "TATASTEEL": 12.7,
+        "HINDUNILVR": 6.58,
+        "SUNPHARMA": 0.02
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 55,
+      "prices": {
+        "TCS": 374444.69,
+        "INFY": 67893.88,
+        "HDFCBANK": 6967.06,
+        "ICICIBANK": 23197.48,
+        "RELIANCE": 64729.2,
+        "ONGC": 5877429.53,
+        "TATAMOTORS": 3499.89,
+        "TATASTEEL": 12.62,
+        "HINDUNILVR": 7.41,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 56,
+      "prices": {
+        "TCS": 378585.12,
+        "INFY": 68677.83,
+        "HDFCBANK": 7155.89,
+        "ICICIBANK": 24164.43,
+        "RELIANCE": 53680.85,
+        "ONGC": 4405641.64,
+        "TATAMOTORS": 4273.52,
+        "TATASTEEL": 12.51,
+        "HINDUNILVR": 8.29,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 57,
+      "prices": {
+        "TCS": 380744.37,
+        "INFY": 69138.62,
+        "HDFCBANK": 7391.72,
+        "ICICIBANK": 25250.57,
+        "RELIANCE": 45094.93,
+        "ONGC": 3395163.2,
+        "TATAMOTORS": 5150.6,
+        "TATASTEEL": 12.36,
+        "HINDUNILVR": 9.16,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 58,
+      "prices": {
+        "TCS": 387398.03,
+        "INFY": 70219.23,
+        "HDFCBANK": 7655.31,
+        "ICICIBANK": 26450.82,
+        "RELIANCE": 38606.83,
+        "ONGC": 2675369.75,
+        "TATAMOTORS": 6131.19,
+        "TATASTEEL": 12.24,
+        "HINDUNILVR": 10.1,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 59,
+      "prices": {
+        "TCS": 394018.8,
+        "INFY": 71835.44,
+        "HDFCBANK": 7883.09,
+        "ICICIBANK": 27676.85,
+        "RELIANCE": 33391.78,
+        "ONGC": 2144150.13,
+        "TATAMOTORS": 7199.92,
+        "TATASTEEL": 11.59,
+        "HINDUNILVR": 11.03,
+        "SUNPHARMA": 0.03
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": -0.19542477838897104
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 60,
+      "prices": {
+        "TCS": 399646.06,
+        "INFY": 73661.96,
+        "HDFCBANK": 8129.73,
+        "ICICIBANK": 28796.99,
+        "RELIANCE": 29051.57,
+        "ONGC": 1736333.13,
+        "TATAMOTORS": 8348.16,
+        "TATASTEEL": 11.02,
+        "HINDUNILVR": 11.95,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 61,
+      "prices": {
+        "TCS": 402717.09,
+        "INFY": 75307.69,
+        "HDFCBANK": 8381.96,
+        "ICICIBANK": 29932.93,
+        "RELIANCE": 25722.48,
+        "ONGC": 1444233.83,
+        "TATAMOTORS": 9608.02,
+        "TATASTEEL": 10.51,
+        "HINDUNILVR": 12.91,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 62,
+      "prices": {
+        "TCS": 408168.63,
+        "INFY": 76978.66,
+        "HDFCBANK": 8596.82,
+        "ICICIBANK": 30959.02,
+        "RELIANCE": 22848.93,
+        "ONGC": 1210918.48,
+        "TATAMOTORS": 10952.38,
+        "TATASTEEL": 10.11,
+        "HINDUNILVR": 13.86,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 63,
+      "prices": {
+        "TCS": 411877.46,
+        "INFY": 78267.17,
+        "HDFCBANK": 8819.65,
+        "ICICIBANK": 32066.97,
+        "RELIANCE": 20501.61,
+        "ONGC": 1031849.36,
+        "TATAMOTORS": 12391.92,
+        "TATASTEEL": 9.71,
+        "HINDUNILVR": 14.83,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 64,
+      "prices": {
+        "TCS": 415971.56,
+        "INFY": 79553.02,
+        "HDFCBANK": 9079.73,
+        "ICICIBANK": 33304.14,
+        "RELIANCE": 18554.36,
+        "ONGC": 892385.2,
+        "TATAMOTORS": 13953.94,
+        "TATASTEEL": 9.28,
+        "HINDUNILVR": 15.78,
+        "SUNPHARMA": 0.03
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 65,
+      "prices": {
+        "TCS": 468582.42,
+        "INFY": 94182.24,
+        "HDFCBANK": 9272.62,
+        "ICICIBANK": 34377.25,
+        "RELIANCE": 16989.06,
+        "ONGC": 787906.44,
+        "TATAMOTORS": 15576.58,
+        "TATASTEEL": 8.09,
+        "HINDUNILVR": 16.67,
+        "SUNPHARMA": 0.03
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": -0.3888682333352722
+        },
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": 0.22804925712020588
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 66,
+      "prices": {
+        "TCS": 518619.07,
+        "INFY": 110696.37,
+        "HDFCBANK": 9559.99,
+        "ICICIBANK": 35568.63,
+        "RELIANCE": 15647.76,
+        "ONGC": 696272.74,
+        "TATAMOTORS": 17256.05,
+        "TATASTEEL": 7.17,
+        "HINDUNILVR": 17.58,
+        "SUNPHARMA": 0.04
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 67,
+      "prices": {
+        "TCS": 575415.02,
+        "INFY": 128296.49,
+        "HDFCBANK": 9771.24,
+        "ICICIBANK": 36797.68,
+        "RELIANCE": 14455.32,
+        "ONGC": 621975.8,
+        "TATAMOTORS": 19017.91,
+        "TATASTEEL": 6.37,
+        "HINDUNILVR": 18.46,
+        "SUNPHARMA": 0.04
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 68,
+      "prices": {
+        "TCS": 633897.11,
+        "INFY": 146169.71,
+        "HDFCBANK": 10021.62,
+        "ICICIBANK": 38146.22,
+        "RELIANCE": 13500.05,
+        "ONGC": 559487.5,
+        "TATAMOTORS": 20801.37,
+        "TATASTEEL": 5.73,
+        "HINDUNILVR": 19.37,
+        "SUNPHARMA": 0.05
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 69,
+      "prices": {
+        "TCS": 693355.13,
+        "INFY": 166251.56,
+        "HDFCBANK": 10233.2,
+        "ICICIBANK": 39128.94,
+        "RELIANCE": 12576.19,
+        "ONGC": 505237.77,
+        "TATAMOTORS": 22556.17,
+        "TATASTEEL": 5.2,
+        "HINDUNILVR": 20.18,
+        "SUNPHARMA": 0.05
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 70,
+      "prices": {
+        "TCS": 756166.22,
+        "INFY": 187417.69,
+        "HDFCBANK": 10502.21,
+        "ICICIBANK": 40237.21,
+        "RELIANCE": 11897.4,
+        "ONGC": 461814.34,
+        "TATAMOTORS": 24545.94,
+        "TATASTEEL": 4.72,
+        "HINDUNILVR": 20.93,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 71,
+      "prices": {
+        "TCS": 814045.91,
+        "INFY": 208190.06,
+        "HDFCBANK": 10715.17,
+        "ICICIBANK": 41243.62,
+        "RELIANCE": 11286.35,
+        "ONGC": 427117.23,
+        "TATAMOTORS": 26486.86,
+        "TATASTEEL": 4.37,
+        "HINDUNILVR": 21.71,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 72,
+      "prices": {
+        "TCS": 854166.81,
+        "INFY": 230612.55,
+        "HDFCBANK": 10497.53,
+        "ICICIBANK": 42177.76,
+        "RELIANCE": 10024.72,
+        "ONGC": 395049.87,
+        "TATAMOTORS": 25895.51,
+        "TATASTEEL": 4.03,
+        "HINDUNILVR": 19.4,
+        "SUNPHARMA": 0.06
+      },
+      "news": [
+        {
+          "bullets": [
+            "Consumer spending data weak",
+            "Retailers cautious on outlook",
+            "Rural demand sluggish"
+          ],
+          "factor": "ConsDemand",
+          "ticker": null,
+          "score": -0.6055085847406834
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 73,
+      "prices": {
+        "TCS": 882817.64,
+        "INFY": 252017.56,
+        "HDFCBANK": 10237.68,
+        "ICICIBANK": 43178.21,
+        "RELIANCE": 8985.75,
+        "ONGC": 366821.34,
+        "TATAMOTORS": 25324.35,
+        "TATASTEEL": 3.75,
+        "HINDUNILVR": 17.46,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 74,
+      "prices": {
+        "TCS": 914813.44,
+        "INFY": 274436.0,
+        "HDFCBANK": 10070.18,
+        "ICICIBANK": 44101.73,
+        "RELIANCE": 8089.11,
+        "ONGC": 345755.5,
+        "TATAMOTORS": 24597.12,
+        "TATASTEEL": 3.52,
+        "HINDUNILVR": 15.88,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 75,
+      "prices": {
+        "TCS": 947816.79,
+        "INFY": 296127.33,
+        "HDFCBANK": 9968.15,
+        "ICICIBANK": 45035.76,
+        "RELIANCE": 7350.54,
+        "ONGC": 327049.29,
+        "TATAMOTORS": 24163.46,
+        "TATASTEEL": 3.29,
+        "HINDUNILVR": 14.54,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 76,
+      "prices": {
+        "TCS": 978272.66,
+        "INFY": 317273.67,
+        "HDFCBANK": 9927.82,
+        "ICICIBANK": 46017.47,
+        "RELIANCE": 6737.21,
+        "ONGC": 308324.09,
+        "TATAMOTORS": 23876.22,
+        "TATASTEEL": 3.1,
+        "HINDUNILVR": 13.37,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 77,
+      "prices": {
+        "TCS": 1008019.31,
+        "INFY": 338594.78,
+        "HDFCBANK": 9755.73,
+        "ICICIBANK": 47064.91,
+        "RELIANCE": 6209.44,
+        "ONGC": 292930.75,
+        "TATAMOTORS": 23496.53,
+        "TATASTEEL": 2.93,
+        "HINDUNILVR": 12.36,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 78,
+      "prices": {
+        "TCS": 1042233.83,
+        "INFY": 360171.64,
+        "HDFCBANK": 9649.48,
+        "ICICIBANK": 47888.55,
+        "RELIANCE": 5736.97,
+        "ONGC": 277128.92,
+        "TATAMOTORS": 23331.5,
+        "TATASTEEL": 2.79,
+        "HINDUNILVR": 11.49,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 79,
+      "prices": {
+        "TCS": 1073069.7,
+        "INFY": 380628.0,
+        "HDFCBANK": 9545.32,
+        "ICICIBANK": 48560.51,
+        "RELIANCE": 5343.67,
+        "ONGC": 264771.16,
+        "TATAMOTORS": 23009.03,
+        "TATASTEEL": 2.66,
+        "HINDUNILVR": 10.69,
+        "SUNPHARMA": 0.06
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 80,
+      "prices": {
+        "TCS": 1097120.36,
+        "INFY": 400445.35,
+        "HDFCBANK": 9503.92,
+        "ICICIBANK": 49481.75,
+        "RELIANCE": 5021.57,
+        "ONGC": 254735.93,
+        "TATAMOTORS": 22843.89,
+        "TATASTEEL": 2.54,
+        "HINDUNILVR": 10.0,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 81,
+      "prices": {
+        "TCS": 1177653.65,
+        "INFY": 442441.27,
+        "HDFCBANK": 9436.59,
+        "ICICIBANK": 50320.77,
+        "RELIANCE": 4700.75,
+        "ONGC": 245879.06,
+        "TATAMOTORS": 22417.86,
+        "TATASTEEL": 2.44,
+        "HINDUNILVR": 9.38,
+        "SUNPHARMA": 0.07
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": 0.12671595478109773
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 82,
+      "prices": {
+        "TCS": 1262613.88,
+        "INFY": 485739.56,
+        "HDFCBANK": 9376.7,
+        "ICICIBANK": 51184.95,
+        "RELIANCE": 4451.55,
+        "ONGC": 238618.85,
+        "TATAMOTORS": 22176.47,
+        "TATASTEEL": 2.34,
+        "HINDUNILVR": 8.85,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 83,
+      "prices": {
+        "TCS": 1354582.43,
+        "INFY": 534166.08,
+        "HDFCBANK": 9342.54,
+        "ICICIBANK": 52565.31,
+        "RELIANCE": 4222.71,
+        "ONGC": 232791.15,
+        "TATAMOTORS": 22048.69,
+        "TATASTEEL": 2.29,
+        "HINDUNILVR": 8.43,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 84,
+      "prices": {
+        "TCS": 1446612.17,
+        "INFY": 579266.42,
+        "HDFCBANK": 9305.05,
+        "ICICIBANK": 53348.19,
+        "RELIANCE": 4041.28,
+        "ONGC": 226080.23,
+        "TATAMOTORS": 21850.48,
+        "TATASTEEL": 2.2,
+        "HINDUNILVR": 8.04,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 85,
+      "prices": {
+        "TCS": 1525173.59,
+        "INFY": 625426.13,
+        "HDFCBANK": 9303.71,
+        "ICICIBANK": 54266.56,
+        "RELIANCE": 3865.9,
+        "ONGC": 222502.48,
+        "TATAMOTORS": 21694.17,
+        "TATASTEEL": 2.14,
+        "HINDUNILVR": 7.7,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 86,
+      "prices": {
+        "TCS": 1609601.44,
+        "INFY": 669491.01,
+        "HDFCBANK": 9419.52,
+        "ICICIBANK": 55088.93,
+        "RELIANCE": 3763.14,
+        "ONGC": 218531.19,
+        "TATAMOTORS": 22009.04,
+        "TATASTEEL": 2.09,
+        "HINDUNILVR": 7.6,
+        "SUNPHARMA": 0.07
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tech rally on AI optimism",
+            "Global markets surge",
+            "Semiconductor stocks up"
+          ],
+          "factor": "GlobalTech",
+          "ticker": null,
+          "score": -0.014289626586685568
+        },
+        {
+          "bullets": [
+            "Consumer spending data weak",
+            "Retailers cautious on outlook",
+            "Rural demand sluggish"
+          ],
+          "factor": "ConsDemand",
+          "ticker": null,
+          "score": 0.09786072222176775
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 87,
+      "prices": {
+        "TCS": 1688315.93,
+        "INFY": 712915.25,
+        "HDFCBANK": 9464.02,
+        "ICICIBANK": 56191.96,
+        "RELIANCE": 3685.46,
+        "ONGC": 215242.29,
+        "TATAMOTORS": 22391.98,
+        "TATASTEEL": 2.05,
+        "HINDUNILVR": 7.48,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 88,
+      "prices": {
+        "TCS": 1769902.06,
+        "INFY": 758265.9,
+        "HDFCBANK": 9551.04,
+        "ICICIBANK": 57230.5,
+        "RELIANCE": 3588.62,
+        "ONGC": 210024.8,
+        "TATAMOTORS": 22717.94,
+        "TATASTEEL": 2.01,
+        "HINDUNILVR": 7.38,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 89,
+      "prices": {
+        "TCS": 1843994.32,
+        "INFY": 803017.63,
+        "HDFCBANK": 9615.2,
+        "ICICIBANK": 58030.89,
+        "RELIANCE": 3508.24,
+        "ONGC": 207826.23,
+        "TATAMOTORS": 23212.9,
+        "TATASTEEL": 1.98,
+        "HINDUNILVR": 7.3,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 90,
+      "prices": {
+        "TCS": 1911073.37,
+        "INFY": 848335.15,
+        "HDFCBANK": 9575.4,
+        "ICICIBANK": 58622.6,
+        "RELIANCE": 3451.57,
+        "ONGC": 205102.72,
+        "TATAMOTORS": 23320.75,
+        "TATASTEEL": 1.93,
+        "HINDUNILVR": 7.2,
+        "SUNPHARMA": 0.07
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 91,
+      "prices": {
+        "TCS": 1978668.39,
+        "INFY": 881069.16,
+        "HDFCBANK": 9592.4,
+        "ICICIBANK": 59347.21,
+        "RELIANCE": 3367.83,
+        "ONGC": 203651.93,
+        "TATAMOTORS": 23560.71,
+        "TATASTEEL": 1.9,
+        "HINDUNILVR": 7.12,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 92,
+      "prices": {
+        "TCS": 2040167.16,
+        "INFY": 920427.3,
+        "HDFCBANK": 9623.03,
+        "ICICIBANK": 60012.57,
+        "RELIANCE": 3283.36,
+        "ONGC": 201077.17,
+        "TATAMOTORS": 23848.54,
+        "TATASTEEL": 1.86,
+        "HINDUNILVR": 7.06,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 93,
+      "prices": {
+        "TCS": 2115922.37,
+        "INFY": 957873.0,
+        "HDFCBANK": 9671.54,
+        "ICICIBANK": 61267.62,
+        "RELIANCE": 3224.61,
+        "ONGC": 198668.4,
+        "TATAMOTORS": 24033.32,
+        "TATASTEEL": 1.83,
+        "HINDUNILVR": 6.97,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 94,
+      "prices": {
+        "TCS": 2183209.57,
+        "INFY": 999852.9,
+        "HDFCBANK": 9738.86,
+        "ICICIBANK": 61952.78,
+        "RELIANCE": 2633.26,
+        "ONGC": 146446.28,
+        "TATAMOTORS": 28908.7,
+        "TATASTEEL": 1.72,
+        "HINDUNILVR": 7.64,
+        "SUNPHARMA": 0.08
+      },
+      "news": [
+        {
+          "bullets": [
+            "Tanker attacked near Hormuz",
+            "Crude spikes on supply fears",
+            "Energy names in focus"
+          ],
+          "factor": "CrudeOil",
+          "ticker": null,
+          "score": -0.1596567294308206
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 95,
+      "prices": {
+        "TCS": 2228529.79,
+        "INFY": 1034681.35,
+        "HDFCBANK": 9794.61,
+        "ICICIBANK": 62747.35,
+        "RELIANCE": 2194.11,
+        "ONGC": 111795.34,
+        "TATAMOTORS": 33881.38,
+        "TATASTEEL": 1.61,
+        "HINDUNILVR": 8.28,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 96,
+      "prices": {
+        "TCS": 2286075.75,
+        "INFY": 1068911.48,
+        "HDFCBANK": 9851.63,
+        "ICICIBANK": 63586.28,
+        "RELIANCE": 1862.27,
+        "ONGC": 87730.94,
+        "TATAMOTORS": 38839.42,
+        "TATASTEEL": 1.52,
+        "HINDUNILVR": 8.83,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 97,
+      "prices": {
+        "TCS": 2361247.09,
+        "INFY": 1116801.31,
+        "HDFCBANK": 9978.44,
+        "ICICIBANK": 64761.75,
+        "RELIANCE": 1610.52,
+        "ONGC": 71085.05,
+        "TATAMOTORS": 44104.45,
+        "TATASTEEL": 1.47,
+        "HINDUNILVR": 9.43,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 98,
+      "prices": {
+        "TCS": 2417419.63,
+        "INFY": 1148963.27,
+        "HDFCBANK": 9965.64,
+        "ICICIBANK": 65177.43,
+        "RELIANCE": 1410.85,
+        "ONGC": 59002.63,
+        "TATAMOTORS": 49443.11,
+        "TATASTEEL": 1.39,
+        "HINDUNILVR": 9.88,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 99,
+      "prices": {
+        "TCS": 2474291.14,
+        "INFY": 1178569.64,
+        "HDFCBANK": 10070.8,
+        "ICICIBANK": 65932.78,
+        "RELIANCE": 1256.19,
+        "ONGC": 49778.07,
+        "TATAMOTORS": 54796.18,
+        "TATASTEEL": 1.34,
+        "HINDUNILVR": 10.35,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 100,
+      "prices": {
+        "TCS": 2522774.7,
+        "INFY": 1208589.28,
+        "HDFCBANK": 10132.37,
+        "ICICIBANK": 67056.37,
+        "RELIANCE": 1127.94,
+        "ONGC": 42560.42,
+        "TATAMOTORS": 59487.16,
+        "TATASTEEL": 1.29,
+        "HINDUNILVR": 10.76,
+        "SUNPHARMA": 0.08
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 101,
+      "prices": {
+        "TCS": 2577636.25,
+        "INFY": 1362923.44,
+        "HDFCBANK": 10194.34,
+        "ICICIBANK": 67849.6,
+        "RELIANCE": 1030.05,
+        "ONGC": 37613.74,
+        "TATAMOTORS": 64007.29,
+        "TATASTEEL": 0.98,
+        "HINDUNILVR": 11.17,
+        "SUNPHARMA": 0.1
+      },
+      "news": [
+        {
+          "bullets": [
+            "Supply chain disruptions ease",
+            "Freight costs drop",
+            "Manufacturing outlook improves"
+          ],
+          "factor": "SupplyChain",
+          "ticker": null,
+          "score": -0.8388354468529382
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 102,
+      "prices": {
+        "TCS": 2641840.02,
+        "INFY": 1528520.51,
+        "HDFCBANK": 10202.22,
+        "ICICIBANK": 68591.57,
+        "RELIANCE": 945.91,
+        "ONGC": 33300.12,
+        "TATAMOTORS": 68262.68,
+        "TATASTEEL": 0.76,
+        "HINDUNILVR": 11.5,
+        "SUNPHARMA": 0.12
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 103,
+      "prices": {
+        "TCS": 2698980.03,
+        "INFY": 1706320.28,
+        "HDFCBANK": 10205.39,
+        "ICICIBANK": 69073.24,
+        "RELIANCE": 879.36,
+        "ONGC": 29999.96,
+        "TATAMOTORS": 72470.38,
+        "TATASTEEL": 0.6,
+        "HINDUNILVR": 11.8,
+        "SUNPHARMA": 0.14
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 104,
+      "prices": {
+        "TCS": 2733667.23,
+        "INFY": 1888040.35,
+        "HDFCBANK": 10274.64,
+        "ICICIBANK": 69673.17,
+        "RELIANCE": 830.53,
+        "ONGC": 27545.47,
+        "TATAMOTORS": 75815.44,
+        "TATASTEEL": 0.48,
+        "HINDUNILVR": 12.03,
+        "SUNPHARMA": 0.16
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 105,
+      "prices": {
+        "TCS": 2772469.63,
+        "INFY": 2089425.68,
+        "HDFCBANK": 10356.29,
+        "ICICIBANK": 70531.49,
+        "RELIANCE": 786.78,
+        "ONGC": 25627.97,
+        "TATAMOTORS": 78959.24,
+        "TATASTEEL": 0.4,
+        "HINDUNILVR": 12.19,
+        "SUNPHARMA": 0.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 106,
+      "prices": {
+        "TCS": 2809956.65,
+        "INFY": 2261220.55,
+        "HDFCBANK": 10412.8,
+        "ICICIBANK": 71530.98,
+        "RELIANCE": 750.41,
+        "ONGC": 23815.55,
+        "TATAMOTORS": 82334.76,
+        "TATASTEEL": 0.33,
+        "HINDUNILVR": 12.3,
+        "SUNPHARMA": 0.22
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 107,
+      "prices": {
+        "TCS": 2832423.77,
+        "INFY": 2456747.08,
+        "HDFCBANK": 10447.69,
+        "ICICIBANK": 72323.26,
+        "RELIANCE": 722.79,
+        "ONGC": 22729.35,
+        "TATAMOTORS": 85237.49,
+        "TATASTEEL": 0.28,
+        "HINDUNILVR": 12.43,
+        "SUNPHARMA": 0.25
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 108,
+      "prices": {
+        "TCS": 2878515.02,
+        "INFY": 2664085.49,
+        "HDFCBANK": 10475.11,
+        "ICICIBANK": 73093.22,
+        "RELIANCE": 696.51,
+        "ONGC": 21603.18,
+        "TATAMOTORS": 87772.94,
+        "TATASTEEL": 0.23,
+        "HINDUNILVR": 12.48,
+        "SUNPHARMA": 0.28
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 109,
+      "prices": {
+        "TCS": 2917037.05,
+        "INFY": 2856684.36,
+        "HDFCBANK": 10503.75,
+        "ICICIBANK": 73515.26,
+        "RELIANCE": 677.43,
+        "ONGC": 20755.69,
+        "TATAMOTORS": 90522.35,
+        "TATASTEEL": 0.2,
+        "HINDUNILVR": 12.51,
+        "SUNPHARMA": 0.31
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 110,
+      "prices": {
+        "TCS": 2949641.5,
+        "INFY": 3034734.12,
+        "HDFCBANK": 10486.45,
+        "ICICIBANK": 73837.31,
+        "RELIANCE": 659.55,
+        "ONGC": 20075.3,
+        "TATAMOTORS": 92333.06,
+        "TATASTEEL": 0.17,
+        "HINDUNILVR": 12.47,
+        "SUNPHARMA": 0.35
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 111,
+      "prices": {
+        "TCS": 2984775.43,
+        "INFY": 3237296.5,
+        "HDFCBANK": 10537.88,
+        "ICICIBANK": 74341.54,
+        "RELIANCE": 646.63,
+        "ONGC": 19522.94,
+        "TATAMOTORS": 93940.61,
+        "TATASTEEL": 0.15,
+        "HINDUNILVR": 12.49,
+        "SUNPHARMA": 0.38
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 112,
+      "prices": {
+        "TCS": 3031808.49,
+        "INFY": 3432164.72,
+        "HDFCBANK": 10578.02,
+        "ICICIBANK": 75050.26,
+        "RELIANCE": 636.01,
+        "ONGC": 19198.7,
+        "TATAMOTORS": 95633.58,
+        "TATASTEEL": 0.14,
+        "HINDUNILVR": 12.45,
+        "SUNPHARMA": 0.42
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 113,
+      "prices": {
+        "TCS": 3051369.0,
+        "INFY": 3614362.95,
+        "HDFCBANK": 10654.6,
+        "ICICIBANK": 75903.55,
+        "RELIANCE": 625.5,
+        "ONGC": 18944.04,
+        "TATAMOTORS": 96269.4,
+        "TATASTEEL": 0.12,
+        "HINDUNILVR": 12.39,
+        "SUNPHARMA": 0.45
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 114,
+      "prices": {
+        "TCS": 3094018.98,
+        "INFY": 3802791.6,
+        "HDFCBANK": 10710.69,
+        "ICICIBANK": 76723.13,
+        "RELIANCE": 618.28,
+        "ONGC": 18938.74,
+        "TATAMOTORS": 97530.22,
+        "TATASTEEL": 0.11,
+        "HINDUNILVR": 12.36,
+        "SUNPHARMA": 0.49
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 115,
+      "prices": {
+        "TCS": 3096065.5,
+        "INFY": 3991971.4,
+        "HDFCBANK": 10777.09,
+        "ICICIBANK": 77054.96,
+        "RELIANCE": 612.2,
+        "ONGC": 18976.3,
+        "TATAMOTORS": 97786.44,
+        "TATASTEEL": 0.1,
+        "HINDUNILVR": 12.25,
+        "SUNPHARMA": 0.53
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 116,
+      "prices": {
+        "TCS": 3139515.35,
+        "INFY": 4181404.35,
+        "HDFCBANK": 10778.79,
+        "ICICIBANK": 77487.25,
+        "RELIANCE": 602.45,
+        "ONGC": 18821.75,
+        "TATAMOTORS": 98622.33,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 12.19,
+        "SUNPHARMA": 0.57
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 117,
+      "prices": {
+        "TCS": 3200111.06,
+        "INFY": 4355128.54,
+        "HDFCBANK": 10843.17,
+        "ICICIBANK": 78396.78,
+        "RELIANCE": 599.44,
+        "ONGC": 18843.69,
+        "TATAMOTORS": 98600.84,
+        "TATASTEEL": 0.09,
+        "HINDUNILVR": 12.13,
+        "SUNPHARMA": 0.61
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 118,
+      "prices": {
+        "TCS": 3224609.66,
+        "INFY": 4522137.54,
+        "HDFCBANK": 7995.64,
+        "ICICIBANK": 60761.65,
+        "RELIANCE": 457.53,
+        "ONGC": 18906.75,
+        "TATAMOTORS": 98907.47,
+        "TATASTEEL": 0.08,
+        "HINDUNILVR": 10.09,
+        "SUNPHARMA": 0.34
+      },
+      "news": [
+        {
+          "bullets": [
+            "New industrial policy announced",
+            "Subsidies for manufacturing",
+            "Domestic sectors rally"
+          ],
+          "factor": "DomPolicy",
+          "ticker": null,
+          "score": -0.18798822235305157
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 119,
+      "prices": {
+        "TCS": 3251642.05,
+        "INFY": 4720115.74,
+        "HDFCBANK": 4549.35,
+        "ICICIBANK": 34807.75,
+        "RELIANCE": 363.79,
+        "ONGC": 18988.4,
+        "TATAMOTORS": 99983.27,
+        "TATASTEEL": 0.07,
+        "HINDUNILVR": 8.62,
+        "SUNPHARMA": 0.2
+      },
+      "news": [
+        {
+          "bullets": [
+            "Credit growth hits record high",
+            "Loan defaults remain low",
+            "Financial sector booms"
+          ],
+          "factor": "Credit",
+          "ticker": null,
+          "score": -0.22118053141935506
+        }
+      ]
+    }
+  ]
+}

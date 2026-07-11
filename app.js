@@ -124,6 +124,27 @@
         buildTickerTape();
         document.getElementById('ticker-tape').classList.add('show');
 
+        // Init Firebase glue
+        if (window.firebaseGlue && window.firebaseGlue.initGlue) {
+            console.log("Initializing Firebase glue...");
+            window.firebaseGlue.initGlue(gameData.meta.seed, currentTeam);
+            
+            if (window.firebaseGlue.watchGameState) {
+                console.log("Attaching watchGameState listener...");
+                window.firebaseGlue.watchGameState(gameData.meta.seed, (status) => {
+                    console.log("Received game state from Firebase:", status);
+                    if (status && status.state === 'playing') {
+                        console.log("Game state is playing, triggering startGame()...");
+                        startGame();
+                    }
+                });
+            } else {
+                console.error("watchGameState is not available on window.firebaseGlue");
+            }
+        } else {
+            console.error("Firebase glue not found or initGlue missing!");
+        }
+
         showToast(`Welcome, Team ${team.charAt(0).toUpperCase() + team.slice(1)}!`);
         switchTab('trade');
     }
@@ -158,10 +179,10 @@
     // =================================================================
     // GAME CONTROLS
     // =================================================================
-    document.getElementById('btn-start-game').addEventListener('click', startGame);
     document.getElementById('btn-pause-game').addEventListener('click', togglePause);
 
     function startGame() {
+        console.log("startGame() invoked!");
         if (gameInterval) return;
         document.getElementById('btn-start-game').style.display = 'none';
         document.getElementById('btn-pause-game').style.display = 'inline-block';
@@ -183,6 +204,19 @@
                     document.getElementById('timer-dot').style.background = 'var(--text-muted)';
                     document.getElementById('timer-dot').style.animation = 'none';
                     showToast('Game Over! All sessions complete.');
+
+                    // Export fallback bundle
+                    const bundle = {
+                        game_seed: gameData.meta.seed,
+                        team: currentTeam,
+                        orders: orderHistory
+                    };
+                    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `chakravyuh_bundle_${currentTeam}_${gameData.meta.seed}.json`;
+                    a.click();
+
                     return;
                 }
                 processTick();
@@ -396,7 +430,14 @@
         }
         infoEl.style.display = 'block';
 
-        orderHistory.push({ ticker, side, qty, price, tick: currentTick });
+        const orderObj = { ticker, side, qty, price, tick: currentTick };
+        orderHistory.push(orderObj);
+        
+        // Push to Firebase
+        if (window.firebaseGlue && window.firebaseGlue.pushOrder) {
+            window.firebaseGlue.pushOrder(currentTick, orderObj);
+        }
+
         document.getElementById('order-quantity').value = '';
         updateCurrentPrice();
     }
@@ -418,7 +459,7 @@
                     borderWidth: 2,
                     pointRadius: 0,
                     pointHoverRadius: 4,
-                    tension: 0.3,
+                    tension: 0,
                     fill: true,
                 }]
             },
@@ -478,7 +519,7 @@
                 borderWidth: 2,
                 pointRadius: 0,
                 pointHoverRadius: 4,
-                tension: 0.3,
+                tension: 0,
                 fill: true,
             }];
         } else {
@@ -666,7 +707,7 @@
                         backgroundColor: 'rgba(240, 242, 245, 0.05)',
                         borderWidth: 2,
                         pointRadius: 0,
-                        tension: 0.3,
+                        tension: 0,
                         fill: true,
                     },
                     {
@@ -676,7 +717,7 @@
                         backgroundColor: 'rgba(248, 113, 113, 0.05)',
                         borderWidth: 2,
                         pointRadius: 0,
-                        tension: 0.3,
+                        tension: 0,
                         fill: true,
                     }
                 ]

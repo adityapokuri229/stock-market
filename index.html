@@ -57,8 +57,8 @@
 
         <!-- Game Controls (shown after login, before game starts) -->
         <div class="game-controls-bar" id="game-controls">
-            <span class="game-status" id="game-status">Game ready. Press Start to begin.</span>
-            <button class="btn-start" id="btn-start-game">▶ START GAME</button>
+            <span class="game-status" id="game-status">Waiting for Judge to start the event...</span>
+            <button class="btn-start" id="btn-start-game" style="display:none;">▶ START GAME</button>
             <button class="btn-pause" id="btn-pause-game" style="display:none;">⏸ PAUSE</button>
         </div>
 
@@ -212,6 +212,10 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+    <script type="module">
+        import { initGlue, pushOrder, watchGameState } from './firebase-glue.js';
+        window.firebaseGlue = { initGlue, pushOrder, watchGameState };
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -242,7 +242,6 @@
         .price-chart-container {
             flex: 1; min-height: 300px; position: relative;
         }
-        .price-chart-container canvas { width: 100% !important; height: 100% !important; }
 
         /* News Widget */
         .news-widget {
@@ -300,9 +299,8 @@
         .equity-chart-card {
             padding: 24px; border-radius: var(--radius-md);
             background: var(--bg-card); border: 1px solid var(--glass-border);
-            min-height: 350px;
+            min-height: 350px; position: relative;
         }
-        .equity-chart-card canvas { width: 100% !important; }
 
         /* Holdings Table */
         .holdings-section { margin-top: 20px; }
