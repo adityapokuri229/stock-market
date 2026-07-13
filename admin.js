@@ -1,4 +1,4 @@
-import { watchGame, setGameState, addTeam, watchTeams, resetGame } from './firebase-glue.js';
+import { watchGame, watchGameState, setGameState, addTeam, watchTeams, resetGame, now } from './firebase-glue.js';
 
 const ADMIN_PASSWORD = "judge123";
 
@@ -12,6 +12,9 @@ let dirtyTeams = new Set();
 let isLive = false;
 let teamCredentials = {}; // team -> {password, startingCapital} | legacy password string
 const DEFAULT_STARTING_CAPITAL = 1_000_000;
+
+// Short display labels for the radar chart, one per window.scoring.FACTORS entry (same order).
+const RADAR_FACTOR_LABELS = ["Rates", "RegRisk", "Oil", "Inflation", "Geopolitics", "Semis", "ConsDisc", "InvConf", "TechDev", "Aero", "Health"];
 
 // A team's configured starting capital, falling back to the default for teams
 // registered before this field existed (or before watchTeams has loaded).
@@ -76,7 +79,32 @@ async function initAdmin() {
         
         setupListeners();
         setupCharts();
-        
+
+        // Drives the Portfolio Building countdown / live round clock every second
+        // from the shared anchor -- runs immediately so a refreshed panel shows
+        // the correct display before the first watchGameState update even lands.
+        setInterval(tickLiveDisplays, 1000);
+
+        // Authoritative game/status -- source of truth for button states and the
+        // live clock (not just what this panel itself last wrote), so refreshing
+        // this panel mid-event re-syncs instead of resetting to "Start Event".
+        watchGameState((status) => {
+            if (!status) return;
+            const prevState = liveState;
+            liveState = status.state || 'waiting';
+            liveSession = status.currentSession || 0;
+            livePhaseStartedAt = status.phaseStartedAt || 0;
+            livePausedAccumMs = status.pausedAccumMs || 0;
+            livePausedAt = (status.pausedAt != null) ? status.pausedAt : null;
+
+            if (liveState === 'portfolio_building' && prevState !== 'portfolio_building') {
+                portfolioBuildPrompted = false; // fresh phase -- allow the popup again
+            }
+
+            reconcileControlButtons();
+            tickLiveDisplays();
+        });
+
         // Try Firebase live connection
         watchGame((teamsData, err) => {
             if (err) {
@@ -191,64 +219,140 @@ const btnStartRound2 = document.getElementById("btn-start-round-2");
 const btnEndRound2 = document.getElementById("btn-end-round-2");
 const btnStartRound1 = document.getElementById("btn-start-round-1");
 const portfolioBuildTimer = document.getElementById("portfolio-build-timer");
-let adminIsPaused = false;
-let activeSession = 0;
-let portfolioBuildInterval = null;
+const liveGameClock = document.getElementById("live-game-clock");
 const PORTFOLIO_BUILD_DURATION_SEC = 5 * 60; // 5 minutes
 
-function startPortfolioBuildCountdown() {
-    let remaining = PORTFOLIO_BUILD_DURATION_SEC;
-    portfolioBuildTimer.style.display = 'inline-block';
+// The authoritative game/status fields, kept in sync via watchGameState (not just
+// written by this panel) -- so refreshing the judge's own browser mid-game re-syncs
+// button states and the live clock instead of resetting them, same as team clients.
+let liveState = 'waiting';
+let liveSession = 0;
+let livePhaseStartedAt = 0;
+let livePausedAccumMs = 0;
+let livePausedAt = null;
+let portfolioBuildPrompted = false; // guards the one-time "5 minutes are up" popup
 
-    function updateDisplay() {
-        const m = Math.floor(remaining / 60);
-        const s = remaining % 60;
-        portfolioBuildTimer.textContent = `⏱ Portfolio Building: ${m}:${String(s).padStart(2, '0')}`;
-    }
-    updateDisplay();
+// Every game/status write goes through here so the anchor fields are always
+// included consistently -- this is what all teams AND this panel derive the
+// live tick/countdown from, so refreshing any browser just re-derives the same
+// answer instead of resetting to square one.
+function writeGameState(state, session, extra = {}) {
+    return setGameState({
+        state, currentSession: session,
+        phaseStartedAt: livePhaseStartedAt, pausedAccumMs: livePausedAccumMs, pausedAt: null,
+        ...extra
+    });
+}
 
-    portfolioBuildInterval = setInterval(() => {
-        remaining--;
-        updateDisplay();
-        if (remaining <= 0) {
-            clearInterval(portfolioBuildInterval);
-            portfolioBuildInterval = null;
+function startRound1() {
+    writeGameState('playing', 0, { phaseStartedAt: now(), pausedAccumMs: 0 })
+        .catch(err => alert('Failed to start Round 1: ' + err.message));
+}
+
+// Real elapsed "in-round" ms for the current session, net of any time spent paused.
+function elapsedPlayingMs() {
+    const ongoingPauseMs = (liveState === 'paused' && livePausedAt != null) ? (now() - livePausedAt) : 0;
+    return now() - livePhaseStartedAt - livePausedAccumMs - ongoingPauseMs;
+}
+
+// Redraws the Portfolio Building countdown / live round clock every second from
+// the shared anchor -- runs continuously so it always reflects whatever
+// game/status last reported, including right after this panel loads/refreshes.
+function tickLiveDisplays() {
+    if (liveState === 'portfolio_building') {
+        portfolioBuildTimer.style.display = 'inline-block';
+        liveGameClock.style.display = 'none';
+
+        const remaining = Math.max(0, PORTFOLIO_BUILD_DURATION_SEC - Math.floor((now() - livePhaseStartedAt) / 1000));
+        if (remaining > 0) {
+            const m = Math.floor(remaining / 60);
+            const s = remaining % 60;
+            portfolioBuildTimer.textContent = `⏱ Portfolio Building: ${m}:${String(s).padStart(2, '0')}`;
+        } else {
             portfolioBuildTimer.textContent = '⏱ Portfolio Building: DONE';
             portfolioBuildTimer.style.color = '#34d399';
             portfolioBuildTimer.style.borderColor = 'rgba(52,211,153,0.3)';
             portfolioBuildTimer.style.background = 'rgba(52,211,153,0.1)';
-
-            // Show manual START ROUND 1 button immediately
-            btnStartRound1.style.display = 'inline-block';
-
-            // Popup prompt
-            if (confirm('⏱ 5 minutes are up! Start Round 1 now?\n\n(Click OK to start immediately, or Cancel to wait and click START ROUND 1 manually)')) {
-                startRound1();
+            if (!portfolioBuildPrompted) {
+                portfolioBuildPrompted = true;
+                if (confirm('⏱ 5 minutes are up! Start Round 1 now?\n\n(Click OK to start immediately, or Cancel to wait and click START ROUND 1 manually)')) {
+                    startRound1();
+                }
             }
         }
-    }, 1000);
+    } else if (liveState === 'playing' || liveState === 'paused') {
+        portfolioBuildTimer.style.display = 'none';
+        liveGameClock.style.display = 'inline-block';
+
+        const ticksPerSession = gameData ? gameData.meta.ticks_per_session : 0;
+        const tickSeconds = gameData ? gameData.meta.tick_seconds : 1;
+        const elapsedSec = Math.max(0, Math.floor(elapsedPlayingMs() / 1000));
+        const tickInSession = Math.min(Math.max(ticksPerSession - 1, 0), Math.floor(elapsedSec / tickSeconds));
+        const secsLeft = Math.max(0, (ticksPerSession - tickInSession - 1) * tickSeconds);
+        const mm = Math.floor(secsLeft / 60).toString().padStart(2, '0');
+        const ss = (secsLeft % 60).toString().padStart(2, '0');
+        liveGameClock.textContent = `${liveState === 'paused' ? '⏸' : '●'} Round ${liveSession + 1} · Tick ${tickInSession} · ${mm}:${ss}`;
+    } else {
+        portfolioBuildTimer.style.display = 'none';
+        liveGameClock.style.display = 'none';
+    }
 }
 
-function startRound1() {
-    activeSession = 0;
-    // If the judge ended Portfolio Building early, stop the countdown so it can't
-    // still pop the "5 minutes are up" prompt after Round 1 has already started.
-    if (portfolioBuildInterval) {
-        clearInterval(portfolioBuildInterval);
-        portfolioBuildInterval = null;
+// Reconciles button visibility/text/enabled-state with the actual current
+// game/status -- called on every watchGameState update, so a judge who refreshes
+// mid-event sees the same controls they would have if they'd never left.
+function reconcileControlButtons() {
+    if (liveState === 'waiting') {
+        startEventBtn.disabled = false;
+        startEventBtn.style.background = '#34d399';
+        startEventBtn.textContent = '▶ START EVENT';
+        btnStartRound1.style.display = 'none';
+        btnStartRound2.style.display = 'none';
+        btnEndRound2.style.display = 'none';
+        btnPauseEvent.style.display = 'none';
+        return;
     }
-    setGameState({ state: 'playing', currentSession: activeSession })
-        .then(() => {
-            startEventBtn.textContent = 'PORTFOLIO BUILD DONE';
-            btnPauseEvent.style.display = 'inline-block';
-            btnStartRound2.style.display = 'inline-block';
-            btnStartRound1.style.display = 'none';
-            portfolioBuildTimer.style.display = 'none';
-            adminIsPaused = false;
-        })
-        .catch(err => {
-            alert('Failed to start Round 1: ' + err.message);
-        });
+
+    startEventBtn.disabled = true;
+    startEventBtn.style.background = '#9ca3af';
+    startEventBtn.textContent = liveState === 'portfolio_building' ? 'PORTFOLIO PHASE LIVE' : 'PORTFOLIO BUILD DONE';
+    btnStartRound1.style.display = liveState === 'portfolio_building' ? 'inline-block' : 'none';
+
+    const started = liveState === 'playing' || liveState === 'paused' || liveState === 'ended';
+    btnPauseEvent.style.display = (started && liveState !== 'ended') ? 'inline-block' : 'none';
+    if (liveState === 'paused') {
+        btnPauseEvent.textContent = '▶ RESUME EVENT';
+        btnPauseEvent.style.background = '#34d399';
+        btnPauseEvent.style.color = '#022c22';
+    } else {
+        btnPauseEvent.textContent = '⏸ PAUSE EVENT';
+        btnPauseEvent.style.background = '#fbbf24';
+        btnPauseEvent.style.color = '#78350f';
+    }
+
+    if (!started) {
+        btnStartRound2.style.display = 'none';
+        btnEndRound2.style.display = 'none';
+        return;
+    }
+
+    btnStartRound2.style.display = 'inline-block';
+    btnStartRound2.disabled = liveSession >= 1;
+    if (liveSession >= 1) {
+        btnStartRound2.style.background = '#9ca3af';
+        btnStartRound2.style.color = '#fff';
+        btnStartRound2.textContent = 'ROUND 2 STARTED';
+        btnEndRound2.style.display = 'inline-block';
+        btnEndRound2.disabled = liveState === 'ended';
+        btnEndRound2.style.background = liveState === 'ended' ? '#9ca3af' : '#f87171';
+        btnEndRound2.style.color = liveState === 'ended' ? '#fff' : '#7f1d1d';
+        btnEndRound2.textContent = liveState === 'ended' ? 'ROUND 2 ENDED' : '⏹ END ROUND 2';
+    } else {
+        btnStartRound2.style.background = '#60a5fa';
+        btnStartRound2.style.color = '#1e3a8a';
+        btnStartRound2.textContent = '▶ START ROUND 2';
+        btnEndRound2.style.display = 'none';
+    }
 }
 
 function setupListeners() {
@@ -263,18 +367,11 @@ function setupListeners() {
         if (confirm("Start the event? This will open a 5-minute Portfolio Building phase for all teams.")) {
             startEventBtn.disabled = true;
             startEventBtn.textContent = 'SETTING UP...';
-            setGameState({ state: 'portfolio_building', currentSession: 0 })
-                .then(() => {
-                    startEventBtn.style.background = '#9ca3af';
-                    startEventBtn.textContent = 'PORTFOLIO PHASE LIVE';
-                    startPortfolioBuildCountdown();
-                    // Let the judge end Portfolio Building early instead of waiting for the 5-min timer
-                    btnStartRound1.style.display = 'inline-block';
-                })
+            portfolioBuildPrompted = false;
+            writeGameState('portfolio_building', 0, { phaseStartedAt: now(), pausedAccumMs: 0 })
                 .catch(err => {
-                    startEventBtn.disabled = false;
-                    startEventBtn.textContent = 'START EVENT';
                     alert("Failed to start event: " + err.message + "\nCheck Firebase connection/rules and try again.");
+                    reconcileControlButtons();
                 });
         }
     });
@@ -282,8 +379,8 @@ function setupListeners() {
     // Manual START ROUND 1 -- available as soon as Portfolio Building begins, so the
     // judge can end that phase early instead of waiting for the 5-minute timer.
     btnStartRound1.addEventListener("click", () => {
-        const early = portfolioBuildInterval !== null;
-        const msg = early
+        const remaining = PORTFOLIO_BUILD_DURATION_SEC - Math.floor((now() - livePhaseStartedAt) / 1000);
+        const msg = remaining > 0
             ? "Portfolio Building isn't finished yet. End it now and start Round 1 for all teams?"
             : "Start Round 1 now for all teams?";
         if (confirm(msg)) {
@@ -292,29 +389,16 @@ function setupListeners() {
     });
 
     // Start Round 2 -- clicking this while Round 1 is still running ends Round 1
-    // early: app.js watches currentSession and fast-forwards straight to Round 2.
+    // early: a fresh phaseStartedAt means every client's derived tick jumps straight
+    // to Round 2's start the moment they see this update, refresh or not.
     btnStartRound2.addEventListener("click", () => {
         if (confirm("Start Round 2 now for all teams? If Round 1 hasn't finished yet, this ends it early.")) {
             btnStartRound2.disabled = true;
             btnStartRound2.textContent = 'STARTING...';
-            activeSession = 1;
-            setGameState({ state: 'playing', currentSession: activeSession })
-                .then(() => {
-                    btnStartRound2.style.background = '#9ca3af';
-                    btnStartRound2.style.color = '#fff';
-                    btnStartRound2.textContent = 'ROUND 2 STARTED';
-                    btnEndRound2.style.display = 'inline-block';
-                    if (adminIsPaused) {
-                        adminIsPaused = false;
-                        btnPauseEvent.textContent = '⏸ PAUSE EVENT';
-                        btnPauseEvent.style.background = '#fbbf24';
-                        btnPauseEvent.style.color = '#78350f';
-                    }
-                })
+            writeGameState('playing', 1, { phaseStartedAt: now(), pausedAccumMs: 0 })
                 .catch(err => {
-                    btnStartRound2.disabled = false;
-                    btnStartRound2.textContent = '▶ START ROUND 2';
                     alert("Failed to start round 2: " + err.message);
+                    reconcileControlButtons();
                 });
         }
     });
@@ -325,41 +409,26 @@ function setupListeners() {
         if (confirm("End Round 2 now for all teams? This ends the event immediately -- this cannot be undone.")) {
             btnEndRound2.disabled = true;
             btnEndRound2.textContent = 'ENDING...';
-            setGameState({ state: 'ended', currentSession: activeSession })
-                .then(() => {
-                    btnEndRound2.style.background = '#9ca3af';
-                    btnEndRound2.style.color = '#fff';
-                    btnEndRound2.textContent = 'ROUND 2 ENDED';
-                    btnPauseEvent.style.display = 'none';
-                })
+            writeGameState('ended', liveSession)
                 .catch(err => {
-                    btnEndRound2.disabled = false;
-                    btnEndRound2.textContent = '⏹ END ROUND 2';
                     alert("Failed to end round 2: " + err.message);
+                    reconcileControlButtons();
                 });
         }
     });
 
-    // Pause Event
+    // Pause Event -- freezes every client's derived tick at exactly this instant;
+    // resuming extends pausedAccumMs by however long the pause lasted so the
+    // session's remaining time isn't shortened by the pause.
     btnPauseEvent.addEventListener("click", () => {
-        adminIsPaused = !adminIsPaused;
-        const newState = adminIsPaused ? 'paused' : 'playing';
-        setGameState({ state: newState, currentSession: activeSession })
-            .then(() => {
-                if (adminIsPaused) {
-                    btnPauseEvent.textContent = '▶ RESUME EVENT';
-                    btnPauseEvent.style.background = '#34d399';
-                    btnPauseEvent.style.color = '#022c22';
-                } else {
-                    btnPauseEvent.textContent = '⏸ PAUSE EVENT';
-                    btnPauseEvent.style.background = '#fbbf24';
-                    btnPauseEvent.style.color = '#78350f';
-                }
-            })
-            .catch(err => {
-                adminIsPaused = !adminIsPaused; // revert local state on failure
-                alert("Failed to toggle pause: " + err.message);
-            });
+        if (liveState === 'paused') {
+            const resumedPausedAccumMs = livePausedAccumMs + (livePausedAt != null ? (now() - livePausedAt) : 0);
+            writeGameState('playing', liveSession, { pausedAccumMs: resumedPausedAccumMs, pausedAt: null })
+                .catch(err => alert("Failed to resume: " + err.message));
+        } else {
+            writeGameState('paused', liveSession, { pausedAt: now() })
+                .catch(err => alert("Failed to pause: " + err.message));
+        }
     });
 
     // Reset button logic
@@ -558,10 +627,10 @@ function setupCharts() {
     radarChart = new Chart(rdCtx, {
         type: 'radar',
         data: {
-            labels: ["Tech", "Risk", "Rates", "Demand", "Supply", "Policy", "Credit", "Crude", "Energy", "Metals"],
+            labels: RADAR_FACTOR_LABELS,
             datasets: [{
                 label: 'Exposure',
-                data: [0,0,0,0,0,0,0,0,0,0],
+                data: RADAR_FACTOR_LABELS.map(() => 0),
                 backgroundColor: 'rgba(168, 85, 247, 0.2)',
                 borderColor: '#a855f7',
                 pointBackgroundColor: '#a855f7'
@@ -590,27 +659,17 @@ function renderDrillDown(team) {
     // weighting the real Diversification score uses (scoring.js effectiveRank), so this
     // view reflects the same exposure the score is based on rather than a raw beta count.
     const K0 = getTeamK0(team);
-    const factorCounts = { "GlobalTech": 0, "GlobalRisk": 0, "RatesRupee": 0, "ConsDemand": 0, "SupplyChain": 0, "DomPolicy": 0, "Credit": 0, "CrudeOil": 0, "EnergyTx": 0, "Metals": 0 };
+    const factorExposure = new Float64Array(window.scoring.FACTORS.length);
     for (const ord of data.rep.orders) {
         if (!betas[ord.ticker]) continue;
         const b = betas[ord.ticker];
         const w = Math.abs(ord.qty * ord.price) / K0;
-        factorCounts.CrudeOil += w * Math.abs(b[0]);
-        factorCounts.RatesRupee += w * Math.abs(b[1]);
-        factorCounts.GlobalTech += w * Math.abs(b[2]);
-        factorCounts.DomPolicy += w * Math.abs(b[3]);
-        factorCounts.Metals += w * Math.abs(b[4]);
-        factorCounts.ConsDemand += w * Math.abs(b[5]);
-        factorCounts.GlobalRisk += w * Math.abs(b[6]);
-        factorCounts.Credit += w * Math.abs(b[7]);
-        factorCounts.EnergyTx += w * Math.abs(b[8]);
-        factorCounts.SupplyChain += w * Math.abs(b[9]);
+        for (let k = 0; k < factorExposure.length; k++) {
+            factorExposure[k] += w * Math.abs(b[k]);
+        }
     }
-    
-    radarChart.data.datasets[0].data = [
-        factorCounts.GlobalTech, factorCounts.GlobalRisk, factorCounts.RatesRupee, factorCounts.ConsDemand, factorCounts.SupplyChain,
-        factorCounts.DomPolicy, factorCounts.Credit, factorCounts.CrudeOil, factorCounts.EnergyTx, factorCounts.Metals
-    ];
+
+    radarChart.data.datasets[0].data = Array.from(factorExposure);
     radarChart.update();
     
     // Blotter

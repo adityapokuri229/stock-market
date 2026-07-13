@@ -1,12 +1,13 @@
 const FACTORS = [
-    "CrudeOil", "RatesRupee", "GlobalTech", "DomPolicy", "Metals", 
-    "ConsDemand", "GlobalRisk", "Credit", "EnergyTx", "SupplyChain"
+    "InterestRates", "RegulatoryRisk", "Oil", "InflationReaction", "GeopoliticalStability",
+    "SemiconductorDemand", "ConsumerDisc", "InvestorConfidence", "TechDevelopments", "Aero", "Healthcare"
 ];
+const NUM_FACTORS = FACTORS.length;
 
 function parseBetas(gameData) {
     const betas = {};
     for (const u of gameData.universe) {
-        const v = new Float64Array(10);
+        const v = new Float64Array(NUM_FACTORS);
         const m = u.research.match(/sensitivities:\s*(.+)/);
         if (m) {
             for (const part of m[1].split(",")) {
@@ -157,29 +158,29 @@ function scoreReturn(V, K0, r0 = 0.04, lam = 0.075) {
 }
 
 function effectiveRank(orders, betas, rowsByTick, K0, Rcap = 5) {
-    const G = Array.from({length: 10}, () => new Float64Array(10));
+    const G = Array.from({length: NUM_FACTORS}, () => new Float64Array(NUM_FACTORS));
     for (const o of orders) {
         if (!rowsByTick[o.tick]) continue;
         const canonicalPx = rowsByTick[o.tick].prices[o.ticker];
         const w = (o.side === "BUY" ? 1 : -1) * o.qty * canonicalPx / K0;
         const b = betas[o.ticker];
         if (!b) continue;
-        
-        for (let k = 0; k < 10; k++) {
-            for (let l = 0; l < 10; l++) {
+
+        for (let k = 0; k < NUM_FACTORS; k++) {
+            for (let l = 0; l < NUM_FACTORS; l++) {
                 G[k][l] += (w * b[k]) * (w * b[l]);
             }
         }
     }
-    
+
     let tr = 0, fro2 = 0;
-    for (let k = 0; k < 10; k++) {
+    for (let k = 0; k < NUM_FACTORS; k++) {
         tr += G[k][k];
-        for (let l = 0; l < 10; l++) {
+        for (let l = 0; l < NUM_FACTORS; l++) {
             fro2 += G[k][l] * G[k][l];
         }
     }
-    
+
     const Reff = fro2 > 0 ? (tr * tr) / fro2 : 0;
     return { Reff, dRank: Math.min(Reff / Rcap, 1) };
 }
@@ -188,7 +189,7 @@ function neutrality(holdingsByTick, betas, Ncap = 0.5) {
     let net = 0, gross = 0;
     // holdingsByTick should be an array (for each tick) of objects: {ticker: weight_at_tick}
     for (const w of holdingsByTick) {
-        for (let k = 0; k < 10; k++) {
+        for (let k = 0; k < NUM_FACTORS; k++) {
             let E = 0, Gk = 0;
             for (const tk in w) {
                 if (!betas[tk]) continue;
@@ -219,6 +220,7 @@ function blend(sub, w) {
 
 // Export for browser
 window.scoring = {
+    FACTORS,
     parseBetas,
     replay,
     scoreReturn,

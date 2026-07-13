@@ -3,36 +3,65 @@ import json
 # =================================================================
 # CONSTANTS
 # =================================================================
-TICKS_PER_SESSION = 121  # 121 ticks (0..120) x 10s = 20:00 exactly, ending right after the tick-120 news drop
-TICK_SECONDS = 10
+TICKS_PER_SESSION = 1201  # 1201 ticks (0..1200) x 1s = 20:00 exactly, ending right after the tick-1200 news drop
+TICK_SECONDS = 1
 SESSIONS = 2
+
+# =================================================================
+# FACTOR SENSITIVITIES (betas) -- sourced from beta_matrix_final.csv.
+# Order must match scoring.js's FACTORS list exactly.
+# =================================================================
+FACTORS = [
+    'InterestRates', 'RegulatoryRisk', 'Oil', 'InflationReaction', 'GeopoliticalStability',
+    'SemiconductorDemand', 'ConsumerDisc', 'InvestorConfidence', 'TechDevelopments', 'Aero', 'Healthcare'
+]
+
+SENSITIVITIES = {
+    'TSMC':     [0, -0.3, 0, 0, 0.3, 0.85, 0, 0, 0, 0, 0],
+    'FERRARI':  [-0.12, 0, -0.09, 0, 0, 0, 0.4, 0, 0, 0, 0],
+    'LMT':      [0, 0, 0.11, 0, -0.4, -0.1, 0, -0.11, -0.15, 0.75, 0.13],
+    'HDFC':     [-0.25, -0.2, -0.12, 0, 0, 0, 0.1, 0.08, 0, 0, 0],
+    'PFE':      [0, -0.35, 0, 0, 0, 0, 0, 0, 0, 0, 0.75],
+    'RELIANCE': [-0.2, 0, 0.3, 0.3, 0, 0, 0.2, 0, 0, 0, 0],
+    'DKNG':     [-0.2, -0.4, 0, 0, 0, 0, 0.45, 0.3, 0.35, 0, 0],
+    'SPACEX':   [0, -0.25, 0, 0, -0.2, 0.15, 0, 0.35, 0.6, 0.75, 0],
+    'SAMSUNG':  [-0.3, -0.15, 0, 0, 0.2, 0.8, 0.15, 0, 0.2, 0, 0],
+    'GOLD':     [-0.5, 0, 0.1, 0.3, -0.5, 0, 0, 0, 0, 0, 0],
+    'OIL':      [0, 0, 0.9, 0.1, -0.3, 0, 0, 0, 0, 0, 0],
+    'LITHIUM':  [-0.15, 0, 0, 0.15, 0, 0.35, 0.2, 0, 0.25, 0, 0],
+}
+
+def _sensitivities(ticker):
+    pairs = (f"{f} {b:+g}" for f, b in zip(FACTORS, SENSITIVITIES[ticker]) if b != 0)
+    return 'sensitivities: ' + ', '.join(pairs)
 
 # =================================================================
 # TICKER CONFIGURATION
 # =================================================================
 TICKER_CONFIG = [
-    {'ticker': 'TSMC', 'company': 'TSMC', 'start_price': 7168.31, 'type': 'Equity', 'research': 'AI Player'},
-    {'ticker': 'FERRARI', 'company': 'Ferrari', 'start_price': 35942.28, 'type': 'Equity', 'research': 'Automobiles'},
-    {'ticker': 'LMT', 'company': 'Lockheed Martin', 'start_price': 49878.82, 'type': 'Equity', 'research': 'Defense'},
-    {'ticker': 'HDFC', 'company': 'HDFC', 'start_price': 824.50, 'type': 'Equity', 'research': 'Banking'},
-    {'ticker': 'PFE', 'company': 'Pfizer', 'start_price': 2304.14, 'type': 'Equity', 'research': 'Biotech'},
-    {'ticker': 'RELIANCE', 'company': 'Reliance', 'start_price': 1310.00, 'type': 'Equity', 'research': 'FMCG'},
-    {'ticker': 'DKNG', 'company': 'Draft Kings', 'start_price': 2524.35, 'type': 'Equity', 'research': 'Entertainment'},
-    {'ticker': 'SPACEX', 'company': 'SpaceX', 'start_price': 13851.52, 'type': 'Equity', 'research': 'Aero/Space'},
-    {'ticker': 'SAMSUNG', 'company': 'Samsung', 'start_price': 18123.06, 'type': 'Equity', 'research': 'Tech'},
-    {'ticker': 'GOLD', 'company': 'Gold', 'start_price': 148290.00, 'type': 'Commodity', 'research': 'Precious Metal'},
-    {'ticker': 'OIL', 'company': 'Oil', 'start_price': 6807.55, 'type': 'Commodity', 'research': 'Energy'},
-    {'ticker': 'LITHIUM', 'company': 'Lithium', 'start_price': 2179.26, 'type': 'Commodity', 'research': 'Industrial Metal'}
+    {'ticker': 'TSMC', 'company': 'TSMC', 'start_price': 7168.31, 'type': 'Equity', 'research': f"AI Player. {_sensitivities('TSMC')}"},
+    {'ticker': 'FERRARI', 'company': 'Ferrari', 'start_price': 35942.28, 'type': 'Equity', 'research': f"Automobiles. {_sensitivities('FERRARI')}"},
+    {'ticker': 'LMT', 'company': 'Lockheed Martin', 'start_price': 49878.82, 'type': 'Equity', 'research': f"Defense. {_sensitivities('LMT')}"},
+    {'ticker': 'HDFC', 'company': 'HDFC', 'start_price': 824.50, 'type': 'Equity', 'research': f"Banking. {_sensitivities('HDFC')}"},
+    {'ticker': 'PFE', 'company': 'Pfizer', 'start_price': 2304.14, 'type': 'Equity', 'research': f"Biotech. {_sensitivities('PFE')}"},
+    {'ticker': 'RELIANCE', 'company': 'Reliance', 'start_price': 1310.00, 'type': 'Equity', 'research': f"FMCG. {_sensitivities('RELIANCE')}"},
+    {'ticker': 'DKNG', 'company': 'Draft Kings', 'start_price': 2524.35, 'type': 'Equity', 'research': f"Entertainment. {_sensitivities('DKNG')}"},
+    {'ticker': 'SPACEX', 'company': 'SpaceX', 'start_price': 13851.52, 'type': 'Equity', 'research': f"Aero/Space. {_sensitivities('SPACEX')}"},
+    {'ticker': 'SAMSUNG', 'company': 'Samsung', 'start_price': 18123.06, 'type': 'Equity', 'research': f"Tech. {_sensitivities('SAMSUNG')}"},
+    {'ticker': 'GOLD', 'company': 'Gold', 'start_price': 148290.00, 'type': 'Commodity', 'research': f"Precious Metal. {_sensitivities('GOLD')}"},
+    {'ticker': 'OIL', 'company': 'Oil', 'start_price': 6807.55, 'type': 'Commodity', 'research': f"Energy. {_sensitivities('OIL')}"},
+    {'ticker': 'LITHIUM', 'company': 'Lithium', 'start_price': 2179.26, 'type': 'Commodity', 'research': f"Industrial Metal. {_sensitivities('LITHIUM')}"}
 ]
 
 TICKERS = [c['ticker'] for c in TICKER_CONFIG]
 
-# News drop timing: Drop 1 @ tick 2, Drop 2 @ tick 12, then every 12 ticks.
-# The Major Drop (6th event) is followed by a 24-tick gap before the next item,
-# then the cadence returns to every 12 ticks: 2, 12, 24, 36, 48, 60(Major), 84, 96, 108, 120
+# News drop timing: with 1s ticks, every real-world "12 old-ticks" (2 min) is now
+# 120 ticks. Drop 1 @ tick 20, Drop 2 @ tick 120, then every 120 ticks (2 min).
+# The Major Drop is followed by a 240-tick (4 min) gap before the next item, then
+# the cadence returns to every 120 ticks: 20, 120, 240, 360, 480, 600(Major), 840, 960, 1080, 1200
 EVENTS = {
     0: {
-        2: {
+        20: {
             "factor": "Supply Chain",
             "bullets": [
                 "Heavy flooding across parts of South America has disrupted operations at several major mining sites, tightening the supply outlook for key industrial metals used in battery and electronics manufacturing.",
@@ -41,7 +70,7 @@ EVENTS = {
             ],
             "impacts": {"LITHIUM": 1.10, "TSMC": 0.95, "SAMSUNG": 0.95, "HDFC": 1.05}
         },
-        12: {
+        120: {
             "factor": "Oil",
             "bullets": [
                 "OPEC talks collapse without a deal to raise output, leaving producers short of targets.",
@@ -50,7 +79,7 @@ EVENTS = {
             ],
             "impacts": {"OIL": 1.15, "FERRARI": 1.08, "PFE": 0.92}
         },
-        24: {
+        240: {
             "factor": "Geopolitical Stability",
             "bullets": [
                 "Congestion at several major East Asian ports has worsened, increasing pressure on global manufacturing supply chains and raising input costs for automakers reliant on overseas parts.",
@@ -59,7 +88,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.97, "SAMSUNG": 0.97, "FERRARI": 0.95, "LMT": 1.06, "GOLD": 1.05}
         },
-        36: {
+        360: {
             "factor": "Semiconductor Demand",
             "bullets": [
                 "Semiconductor equipment manufacturers have reported record order books as chipmakers continue expanding production capacity, though several firms have flagged stretching lead times and rising customer concentration risk as a small number of buyers account for an outsized share of new orders.",
@@ -68,7 +97,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 1.08, "SAMSUNG": 1.08, "SPACEX": 1.05, "RELIANCE": 1.02}
         },
-        48: {
+        480: {
             "factor": "Interest Rates",
             "bullets": [
                 "Institutional investors and pension funds have continued increasing allocations toward high-growth sectors, though analysts note valuations in several of these areas are beginning to look stretched relative to historical norms.",
@@ -78,7 +107,7 @@ EVENTS = {
             ],
             "impacts": {"DKNG": 1.05, "TSMC": 0.96, "SAMSUNG": 0.96, "HDFC": 0.90, "LMT": 0.95}
         },
-        60: {
+        600: {
             "factor": "Regulatory Risk",
             "bullets": [
                 "Multiple mid-tier AI infrastructure and data-center firms default on loans as production is slashed across the board.",
@@ -91,7 +120,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.80, "SAMSUNG": 0.80, "HDFC": 0.85, "PFE": 1.10, "GOLD": 1.08, "DKNG": 0.90}
         },
-        84: {
+        840: {
             "factor": "Investor Confidence",
             "bullets": [
                 "Equity funds report their largest weekly outflows in over a year as investors pull back from speculative growth bets.",
@@ -101,7 +130,7 @@ EVENTS = {
             ],
             "impacts": {"DKNG": 0.92, "OIL": 0.90, "LMT": 0.90, "TSMC": 0.95, "SAMSUNG": 0.95}
         },
-        96: {
+        960: {
             "factor": "Healthcare",
             "bullets": [
                 "Borrowing costs hold at their post-hike level, with central banks reiterating no near-term reversal — a stance already well telegraphed.",
@@ -111,7 +140,7 @@ EVENTS = {
             ],
             "impacts": {"HDFC": 0.95, "PFE": 1.15}
         },
-        108: {
+        1080: {
             "factor": "Credit",
             "bullets": [
                 "Major lenders confirm emergency credit lines for struggling AI infrastructure firms, easing fears of a wider default wave.",
@@ -122,14 +151,14 @@ EVENTS = {
             ],
             "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
         },
-        120: {
+        1200: {
             "factor": "Credit",
             "bullets": ["Emergency credit lines confirmed", "Regulators use lighter touch", "Bank stocks rally"],
             "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
         }
     },
     1: {
-        2: {
+        20: {
             "factor": "Inflation Reaction",
             "bullets": [
                 "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
@@ -139,7 +168,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.90, "SPACEX": 1.15, "GOLD": 1.02}
         },
-        12: {
+        120: {
             "factor": "Technological Developments",
             "bullets": [
                 "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
@@ -149,7 +178,7 @@ EVENTS = {
             ],
             "impacts": {"LITHIUM": 1.20, "TSMC": 0.95, "DKNG": 1.10, "OIL": 0.92}
         },
-        24: {
+        240: {
             "factor": "Aero",
             "bullets": [
                 "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
@@ -159,7 +188,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.85, "LMT": 1.15, "FERRARI": 0.90}
         },
-        36: {
+        360: {
             "factor": "Healthcare",
             "bullets": [
                 "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
@@ -169,7 +198,7 @@ EVENTS = {
             ],
             "impacts": {"PFE": 1.10, "SAMSUNG": 1.08, "TSMC": 0.95}
         },
-        48: {
+        480: {
             "factor": "Geopolitical Stability",
             "bullets": [
                 "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
@@ -179,7 +208,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
         },
-        60: {
+        600: {
             "factor": "Geopolitical Stability",
             "bullets": [
                 "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels — narrower in scope than the buildup's rhetoric had suggested.",
@@ -193,7 +222,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 0.60, "SAMSUNG": 0.70, "OIL": 1.25, "SPACEX": 1.20, "GOLD": 1.15, "DKNG": 0.75, "HDFC": 0.80}
         },
-        84: {
+        840: {
             "factor": "Aero",
             "bullets": [
                 "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
@@ -203,7 +232,7 @@ EVENTS = {
             ],
             "impacts": {"OIL": 1.10, "LMT": 1.15, "PFE": 1.12, "HDFC": 1.05}
         },
-        96: {
+        960: {
             "factor": "Technological Developments",
             "bullets": [
                 "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential, resolving the earlier doubts.",
@@ -214,7 +243,7 @@ EVENTS = {
             ],
             "impacts": {"SPACEX": 1.40, "OIL": 0.85, "TSMC": 1.15, "SAMSUNG": 1.15, "LMT": 0.90}
         },
-        108: {
+        1080: {
             "factor": "Geopolitical Stability",
             "bullets": [
                 "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
@@ -224,7 +253,7 @@ EVENTS = {
             ],
             "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
         },
-        120: {
+        1200: {
             "factor": "Geopolitical Stability",
             "bullets": ["Partial ceasefire reports circulate", "Export controls on new tech", "Consumer sentiment improves"],
             "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}

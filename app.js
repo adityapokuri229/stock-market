@@ -4,18 +4,26 @@
     let START_CAPITAL = 1_000_000; // ₹10 Lakh default; overridden per-team at login if the judge set one
 
     let gameData = null;
-    let currentTick = 0;
-    let gameInterval = null;
-    let clockInterval = null;  // 1s ticker driving the visible countdown clock
+    let currentTick = 0; // also the tick used for pricing during portfolio-building (pre-round) trades
+    let tickSynced = false; // forces at least one processTick() even if the first synced tick is 0
+    let clockInterval = null;  // 1s poller: derives currentTick + the visible countdown from the shared anchor
     let clockSecsLeft = 0;
     let tickerPrevPrices = {};
     let prevSelectedPrice = null;
     let newsBuffer = [];
-    let isPaused = false;
     let isAuthenticated = false;
     let currentTeam = '';
     let pbCountdownInterval = null;  // portfolio building countdown timer
     let gameStarted = false; // one-shot guard so startGame() never runs twice
+
+    // The authoritative game/status fields from Firebase (not a local counter) --
+    // every team AND the judge panel derive the current tick/clock from this same
+    // shared anchor, so refreshing mid-game re-syncs instead of resetting to zero.
+    let liveState = 'waiting';
+    let liveSession = 0;
+    let livePhaseStartedAt = 0;
+    let livePausedAccumMs = 0;
+    let livePausedAt = null;
 
     // Trading state
     let cash = START_CAPITAL;
@@ -160,7 +168,20 @@
         if (window.firebaseGlue && window.firebaseGlue.initGlue) {
             console.log("Initializing Firebase glue...");
             window.firebaseGlue.initGlue(currentTeam);
-            
+
+            // Rebuild cash/holdings/orderHistory from this team's real order
+            // history in Firebase -- runs immediately on login/refresh (restoring
+            // whatever was already traded) and again any time it changes.
+            if (window.firebaseGlue.watchTeamOrders) {
+                window.firebaseGlue.watchTeamOrders(currentTeam, (orders, error) => {
+                    if (error) {
+                        console.error("Firebase watchTeamOrders error:", error);
+                        return;
+                    }
+                    applyOrdersToPortfolio(orders || []);
+                });
+            }
+
             if (window.firebaseGlue.watchGameState) {
                 console.log("Attaching watchGameState listener...");
                 window.firebaseGlue.watchGameState((status, error) => {
@@ -169,9 +190,19 @@
                         showToast("Connection issue - couldn't reach the judge. Please tell a judge/organizer.");
                         return;
                     }
+                    if (!status) return;
                     console.log("Received game state from Firebase:", status);
-                    window.authorizedSession = status.currentSession || 0;
-                    if (status && status.state === 'portfolio_building') {
+
+                    // Sync the shared anchor -- everything below derives from these,
+                    // never from a local counter, so a refresh mid-game re-syncs
+                    // to wherever the game actually is instead of resetting.
+                    liveState = status.state || 'waiting';
+                    liveSession = status.currentSession || 0;
+                    livePhaseStartedAt = status.phaseStartedAt || 0;
+                    livePausedAccumMs = status.pausedAccumMs || 0;
+                    livePausedAt = (status.pausedAt != null) ? status.pausedAt : null;
+
+                    if (liveState === 'portfolio_building') {
                         console.log("Portfolio building phase started!");
                         // Unlock the full UI so they can browse and trade
                         document.getElementById('main-nav').style.display = 'flex';
@@ -196,29 +227,15 @@
                             }
                         }
 
-                        // Start client-side countdown (visual only — admin owns actual timing)
+                        // Countdown display derived from the shared anchor (visual only --
+                        // admin owns actual timing), so it survives a refresh correctly too.
+                        syncPortfolioBuildDisplay();
                         if (!pbCountdownInterval) {
-                            let pbRemaining = 5 * 60;
-                            const pbEl = document.getElementById('pb-countdown');
-                            function updatePbDisplay() {
-                                const m = Math.floor(pbRemaining / 60);
-                                const s = pbRemaining % 60;
-                                if (pbEl) pbEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
-                            }
-                            updatePbDisplay();
-                            pbCountdownInterval = setInterval(() => {
-                                pbRemaining--;
-                                updatePbDisplay();
-                                if (pbRemaining <= 0) {
-                                    clearInterval(pbCountdownInterval);
-                                    pbCountdownInterval = null;
-                                    if (pbEl) pbEl.textContent = 'Round 1 starting soon...';
-                                }
-                            }, 1000);
+                            pbCountdownInterval = setInterval(syncPortfolioBuildDisplay, 1000);
                         }
 
-                    } else if (status && status.state === 'playing') {
-                        console.log("Game state is playing, triggering startGame()...");
+                    } else if (liveState === 'playing' || liveState === 'paused') {
+                        console.log(`Game state is ${liveState}...`);
                         // Clear portfolio building countdown if running
                         if (pbCountdownInterval) {
                             clearInterval(pbCountdownInterval);
@@ -230,39 +247,20 @@
                         document.getElementById('main-nav').style.display = 'flex';
                         document.getElementById('game-controls').classList.add('show');
                         document.getElementById('ticker-tape').classList.add('show');
-                        
-                        // If it was paused, resume it
-                        isPaused = false;
-                        const dot = document.getElementById('timer-dot');
-                        if (dot) dot.classList.remove('paused');
-                        const statusEl = document.getElementById('game-status');
-                        if (statusEl) statusEl.textContent = 'Market is LIVE';
-                        
+
                         switchTab('trade');
-                        startGame();
-                        // Already running (e.g. Round 1 in progress) -- if the judge just
-                        // authorized the next round, jump straight to it instead of waiting
-                        // out the rest of the current round's remaining ticks.
-                        maybeSkipToSession(window.authorizedSession);
-                    } else if (status && status.state === 'paused') {
-                        console.log("Game state is paused!");
-                        isPaused = true;
-                        const dot = document.getElementById('timer-dot');
-                        if (dot) dot.classList.add('paused');
-                        const statusEl = document.getElementById('game-status');
-                        if (statusEl) statusEl.textContent = 'PAUSED by Judge';
-                        switchTab('trade');
-                        // No startGame() here — just set isPaused, the existing interval handles the halt
-                    } else if (status && status.state === 'waiting') {
+                        startGame(); // no-op if already running (gameStarted guard)
+                        syncTickFromClock(); // apply immediately instead of waiting up to 1s
+                    } else if (liveState === 'waiting') {
                         console.log("Game state is waiting, showing waiting room...");
                         document.getElementById('main-nav').style.display = 'none';
                         document.getElementById('game-controls').classList.remove('show');
                         document.getElementById('ticker-tape').classList.remove('show');
                         switchTab('waiting');
-                    } else if (status && status.state === 'ended') {
+                    } else if (liveState === 'ended') {
                         console.log("Game state is ended -- judge ended the round/event.");
                         switchTab('trade');
-                        if (gameInterval) {
+                        if (clockInterval) {
                             endGame('Judge ended the event. Game Over!');
                         }
                     }
@@ -321,45 +319,11 @@
 
         document.getElementById('btn-start-game').style.display = 'none';
         document.getElementById('game-timer').classList.add('show');
-        document.getElementById('game-status').textContent = 'Market is LIVE';
 
-        // Process tick 0 immediately
-        processTick();
-
-        // Smooth per-second countdown -- processTick() resyncs clockSecsLeft to the
-        // true remaining time on every 10s tick; this just counts it down visibly
-        // in between so the clock doesn't sit still and then jump by 10s at once.
-        clockInterval = setInterval(() => {
-            if (isPaused) return;
-            if (clockSecsLeft > 0) clockSecsLeft--;
-            updateClockDisplay();
-        }, 1000);
-
-        // Then tick every 10 seconds
-        gameInterval = setInterval(() => {
-            if (!isPaused) {
-                // Check if the next tick violates the authorized session
-                if (currentTick + 1 < gameData.rows.length) {
-                    const nextSession = gameData.rows[currentTick + 1].session;
-                    if (nextSession > (window.authorizedSession || 0)) {
-                        document.getElementById('game-status').textContent = 'Waiting for Judge to start next round...';
-                        document.getElementById('timer-dot').classList.add('paused');
-                        return; // Halt tick progression
-                    }
-                }
-                
-                // If we get here, either we are within the authorized round or it's just normal progression
-                document.getElementById('timer-dot').classList.remove('paused');
-                document.getElementById('game-status').textContent = 'Market is LIVE';
-
-                currentTick++;
-                if (currentTick >= gameData.rows.length) {
-                    endGame('Game Over! All sessions complete.');
-                    return;
-                }
-                processTick();
-            }
-        }, 10000);
+        // Sync to the authoritative tick immediately -- handles both a fresh round
+        // start and resuming mid-round after a refresh -- then keep polling it.
+        syncTickFromClock();
+        clockInterval = setInterval(syncTickFromClock, 1000);
 
         showToast('Market is now LIVE! 🔔');
     }
@@ -367,10 +331,6 @@
     // Stops the tick loop and exports the fallback order bundle. Called both when
     // the game naturally runs out of ticks and when the judge ends the round/event early.
     function endGame(message) {
-        if (gameInterval) {
-            clearInterval(gameInterval);
-            gameInterval = null;
-        }
         if (clockInterval) {
             clearInterval(clockInterval);
             clockInterval = null;
@@ -399,21 +359,83 @@
         document.getElementById('timer-clock').textContent = `${mm}:${ss}`;
     }
 
-    // If the judge authorizes a later session while we're still mid-round, jump
-    // straight to that session's first tick instead of waiting out the remaining
-    // ticks of the current round. No-ops if we're already caught up.
-    function maybeSkipToSession(targetSession) {
-        if (!gameStarted || !gameData || targetSession == null) return;
-        const row = gameData.rows[currentTick];
-        if (!row || row.session >= targetSession) return;
-        const idx = gameData.rows.findIndex(r => r.session === targetSession);
-        if (idx === -1 || idx <= currentTick) return;
-        currentTick = idx;
-        showToast(`Judge ended the round early — Round ${targetSession + 1} is starting now!`);
-        processTick();
+    // Portfolio Building countdown, derived from the shared anchor each second
+    // (visual only -- the judge panel owns actual timing) so it survives a
+    // refresh mid-countdown instead of restarting from 5:00.
+    function syncPortfolioBuildDisplay() {
+        const PB_DURATION_SEC = 5 * 60;
+        const pbEl = document.getElementById('pb-countdown');
+        const remaining = Math.max(0, PB_DURATION_SEC - Math.floor((window.firebaseGlue.now() - livePhaseStartedAt) / 1000));
+        if (remaining > 0) {
+            const m = Math.floor(remaining / 60);
+            const s = remaining % 60;
+            if (pbEl) pbEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+        } else {
+            if (pbEl) pbEl.textContent = 'Round 1 starting soon...';
+            if (pbCountdownInterval) {
+                clearInterval(pbCountdownInterval);
+                pbCountdownInterval = null;
+            }
+        }
     }
 
-    // The timer dot styling and isPaused logic is now controlled entirely by Firebase watchGameState
+    // Derives the current tick and remaining-time display purely from the shared
+    // server-anchored clock (liveState/liveSession/livePhaseStartedAt/
+    // livePausedAccumMs/livePausedAt) instead of incrementing a local counter --
+    // so refreshing mid-round (or joining mid-round for the first time) lands on
+    // the correct tick, and every team + the judge panel always agree since they
+    // derive from the exact same anchor.
+    function syncTickFromClock() {
+        if (!gameData || (liveState !== 'playing' && liveState !== 'paused')) return;
+
+        const ticksPerSession = gameData.meta.ticks_per_session;
+        const tickSeconds = gameData.meta.tick_seconds;
+        const nowMs = window.firebaseGlue.now();
+        const ongoingPauseMs = (liveState === 'paused' && livePausedAt != null) ? (nowMs - livePausedAt) : 0;
+        const elapsedMs = Math.max(0, nowMs - livePhaseStartedAt - livePausedAccumMs - ongoingPauseMs);
+        const elapsedSec = Math.floor(elapsedMs / 1000);
+        const tickInSession = Math.min(ticksPerSession - 1, Math.floor(elapsedSec / tickSeconds));
+        const globalIdx = liveSession * ticksPerSession + tickInSession;
+
+        const dot = document.getElementById('timer-dot');
+        const statusEl = document.getElementById('game-status');
+        const isLastSession = liveSession >= gameData.meta.sessions - 1;
+        if (liveState === 'paused') {
+            if (dot) dot.classList.add('paused');
+            if (statusEl) statusEl.textContent = 'PAUSED by Judge';
+        } else if (tickInSession >= ticksPerSession - 1) {
+            if (dot) dot.classList.add('paused');
+            if (statusEl) statusEl.textContent = isLastSession
+                ? 'Waiting for Judge to end the event...'
+                : 'Waiting for Judge to start next round...';
+        } else {
+            if (dot) dot.classList.remove('paused');
+            if (statusEl) statusEl.textContent = 'Market is LIVE';
+        }
+
+        if (globalIdx === currentTick && tickSynced) {
+            clockSecsLeft = Math.max(0, (ticksPerSession - tickInSession - 1) * tickSeconds - (elapsedSec % tickSeconds));
+            updateClockDisplay();
+            return;
+        }
+
+        // Catching up within the same session (e.g. the tab was backgrounded and
+        // the browser throttled our 1s poll) -- replay every intermediate tick so
+        // no news drop or price-history point along the way is silently skipped.
+        // A judge-triggered session change (or our very first sync) instead jumps
+        // straight to the target tick, since there's nothing valid to replay from.
+        const prevRow = tickSynced ? gameData.rows[currentTick] : null;
+        if (prevRow && prevRow.session === liveSession && globalIdx > currentTick) {
+            while (currentTick < globalIdx) {
+                currentTick++;
+                processTick();
+            }
+        } else {
+            currentTick = globalIdx;
+            processTick();
+        }
+        tickSynced = true;
+    }
 
     // =================================================================
     // THE HEARTBEAT — PROCESS ONE TICK
@@ -603,6 +625,11 @@
             return;
         }
 
+        // Validate against the current (Firebase-replay-derived) cash/holdings for
+        // immediate feedback. The actual cash/holdings/orderHistory update comes
+        // from the watchTeamOrders listener replaying this order back in below --
+        // that's the single source of truth, so it can't drift from what admin's
+        // scoring sees, and it's what makes a refresh restore the real portfolio.
         if (side === 'BUY') {
             const cost = price * qty;
             if (cost > cash) {
@@ -610,11 +637,6 @@
                 errEl.style.display = 'block';
                 return;
             }
-            const h = holdings[ticker] || { shares: 0, avgCost: 0 };
-            h.avgCost = (h.avgCost * h.shares + cost) / (h.shares + qty);
-            h.shares += qty;
-            holdings[ticker] = h;
-            cash -= cost;
             infoEl.textContent = `✅ Bought ${qty} ${ticker} @ ${formatINR(price)} = ${formatINR(cost)}`;
             showToast(`Bought ${qty} ${ticker} @ ${formatINR(price)}`);
         } else {
@@ -625,24 +647,56 @@
                 return;
             }
             const proceeds = price * qty;
-            h.shares -= qty;
-            if (h.shares === 0) delete holdings[ticker];
-            cash += proceeds;
             infoEl.textContent = `✅ Sold ${qty} ${ticker} @ ${formatINR(price)} = ${formatINR(proceeds)}`;
             showToast(`Sold ${qty} ${ticker} @ ${formatINR(price)}`);
         }
         infoEl.style.display = 'block';
 
         const orderObj = { ticker, side, qty, price, tick: currentTick };
-        orderHistory.push(orderObj);
-        
-        // Push to Firebase
         if (window.firebaseGlue && window.firebaseGlue.pushOrder) {
             window.firebaseGlue.pushOrder(orderObj);
         }
 
         document.getElementById('order-quantity').value = '';
         updateCurrentPrice();
+    }
+
+    // Rebuilds cash/holdings/orderHistory by replaying every order Firebase has
+    // for this team (the source of truth), instead of mutating them locally as
+    // each order is placed -- this is what makes the portfolio survive a refresh
+    // (or reflect a teammate trading from another device) instead of resetting.
+    function applyOrdersToPortfolio(orders) {
+        const sorted = [...orders].sort((a, b) => a.tick - b.tick);
+        let newCash = START_CAPITAL;
+        const newHoldings = {};
+        for (const o of sorted) {
+            const cost = o.price * o.qty;
+            if (o.side === 'BUY') {
+                const h = newHoldings[o.ticker] || { shares: 0, avgCost: 0 };
+                h.avgCost = (h.avgCost * h.shares + cost) / (h.shares + o.qty);
+                h.shares += o.qty;
+                newHoldings[o.ticker] = h;
+                newCash -= cost;
+            } else {
+                const h = newHoldings[o.ticker];
+                if (h) {
+                    h.shares -= o.qty;
+                    if (h.shares <= 0) delete newHoldings[o.ticker];
+                }
+                newCash += cost;
+            }
+        }
+
+        cash = newCash;
+        for (const tk in holdings) delete holdings[tk];
+        Object.assign(holdings, newHoldings);
+        orderHistory.length = 0;
+        orderHistory.push(...sorted);
+
+        updateCurrentPrice();
+        if (document.getElementById('tab-portfolio').classList.contains('active')) {
+            refreshPortfolio();
+        }
     }
 
     // =================================================================

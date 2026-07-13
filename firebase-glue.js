@@ -46,6 +46,25 @@ function withTimeout(promise, ms, message) {
     return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
+// Tracks the offset between this browser's clock and the Firebase server's clock
+// (a special always-available path, no auth required) so every client -- and the
+// judge -- agree on "now" for tick/timer math regardless of local clock drift.
+let serverTimeOffsetMs = 0;
+if (db) {
+    onValue(ref(db, ".info/serverTimeOffset"), snap => {
+        serverTimeOffsetMs = snap.val() || 0;
+    });
+}
+
+// Best-effort server-synced "now" in ms. Ticks/timers are derived from this plus
+// a shared phase-start timestamp stored in Firebase, instead of a per-browser
+// local counter -- so refreshing (or a slow/fast local clock) never desyncs.
+// Also used (by the judge's browser) to stamp anchor timestamps it writes --
+// accurate to well within our 1s tick granularity thanks to the offset above.
+export function now() {
+    return Date.now() + serverTimeOffsetMs;
+}
+
 export function initGlue(team) {
     if (db) {
         basePath = `game/teams/${team}`;
@@ -65,9 +84,28 @@ export function pushOrder(order) {
         authReady.then(() => {
             push(ref(db, `${basePath}/orders`), { ...order, ts: Date.now() })
                 .catch(err => {
-                    console.error("Firebase push failed, but localStorage still has it", err);
+                    console.error("Firebase push failed -- order was not saved", err);
                 });
         });
+    }
+}
+
+// Live view of this team's own order history, so cash/holdings can be rebuilt by
+// replay on load/refresh (and stay in sync if a teammate trades from another
+// device) instead of resetting to a fresh portfolio every time the page reloads.
+export function watchTeamOrders(team, cb) {
+    if (db) {
+        authReady.then(() => {
+            onValue(ref(db, `game/teams/${team}/orders`), snap => {
+                const val = snap.val() || {};
+                cb(Object.values(val));
+            }, (error) => {
+                console.error("[Firebase] watchTeamOrders error:", error);
+                cb(null, error);
+            });
+        });
+    } else {
+        console.warn("[Firebase] Cannot watch team orders, db is not initialized.");
     }
 }
 
