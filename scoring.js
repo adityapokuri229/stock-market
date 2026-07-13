@@ -32,7 +32,7 @@ function scopeTickRange(gameData, scope) {
     return [0, gameData.rows.length - 1];
 }
 
-function replay(orders, gameData, scope, startingCapital = 1_000_000) {
+function replay(orders, gameData, scope, startingCapital = 1_000_000, liveTickCap = Infinity) {
     // scope: 0 (Session 1 only), 1 (Session 2 only), or "both" (the real, continuous
     // full-game score). Positions/cash carry through the whole 240-tick game per the
     // PRD -- sessions only reshuffle news/market, they never reset the portfolio.
@@ -40,9 +40,15 @@ function replay(orders, gameData, scope, startingCapital = 1_000_000) {
     // that window), not a change to how the real "both" score is computed.
     // startingCapital is the team's configured starting cash (defaults to ₹10L for
     // teams that predate the per-team amount field).
+    // liveTickCap caps replay at however far the game has actually progressed in
+    // real time (see admin.js's liveGlobalTickCap()) -- without it, a team's
+    // Return/Hit-Rate would be computed against the full precomputed price path
+    // all the way to the scope's end, revealing future price movement (and
+    // scoring trades) before that time has actually elapsed.
     const rows = gameData.rows;
     const K0 = startingCapital;
-    const [tickStart, tickEnd] = scopeTickRange(gameData, scope);
+    const [tickStart, tickEndScope] = scopeTickRange(gameData, scope);
+    const tickEnd = Math.min(tickEndScope, liveTickCap);
     const scopedOrders = orders.filter(o => o.tick >= tickStart && o.tick <= tickEnd);
     let cash = K0, shares = {};
     const V = [], lots = {}, trips = [], holdingsByTick = [];
@@ -146,13 +152,19 @@ function replay(orders, gameData, scope, startingCapital = 1_000_000) {
         holdingsByTick.push(w);
     }
 
-    // end-of-window MTM (end of game for scope "both", end of session for a single-session scope)
-    forceCloseAll(lots, shares, rows[tickEnd], trips);
+    // end-of-window MTM (end of game for scope "both", end of session for a
+    // single-session scope, or wherever liveTickCap froze it -- e.g. viewing a
+    // Session 2 scope before Round 2 has actually started leaves tickEnd < tickStart,
+    // meaning nothing has happened in this window yet, so skip the force-close).
+    if (tickEnd >= tickStart) {
+        forceCloseAll(lots, shares, rows[tickEnd], trips);
+    }
 
     return { V, trips, orders: scopedOrders, holdingsByTick };
 }
 
 function scoreReturn(V, K0, r0 = 0.04, lam = 0.075) {
+    if (!V.length) return { r: 0, sR: 0 }; // nothing has happened in this window yet
     const r = (V[V.length-1] - K0) / K0;
     return { r, sR: 1 / (1 + Math.exp(-(r - r0) / lam)) };
 }

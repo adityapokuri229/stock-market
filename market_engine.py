@@ -1,327 +1,383 @@
+"""
+market_engine.py  --  Chakravyuh trading-game price engine (v6)
+================================================================
+The full v5 stochastic model from the Developer Handover, extended to the
+12-name / 11-factor game and driven by the OFFICIAL content inputs:
+
+  * News factor matrices : "NEWS FACTOR FACTOR MARTIX.xlsx" (13 Jul), both rounds
+  * Beta matrix          : regression-estimated (2021-2026 data), hand-curated
+  * Headlines            : the bullets already shipped on the website
+
+Adapted from the handover version in two deliberate ways for this site:
+  1. Ticks run every 1 real second (not 10) for a smoother live countdown --
+     every per-tick stochastic constant below is rescaled from its native
+     10-second calibration so the simulated statistics over any real-time
+     window are unchanged (see "TICK RESCALING" in Section 2).
+  2. Session 2 does NOT reset prices to a fresh book -- prices and the
+     mean-reversion anchor carry through continuously across sessions;
+     only the news cycle resets. (The handover version resets per session.)
+
+WHAT THE WEBSITE DEVELOPER NEEDS TO KNOW
+----------------------------------------
+Nothing changes on the site. Run this file once:
+
+    python market_engine.py            # fresh random seed -> a brand-new game
+    python market_engine.py 7          # pin a seed -> reproduce that exact game
+
+It writes game_data.json in the same schema as before:
+  * 2 sessions x 1201 ticks (2402 rows), 1 second per tick
+  * meta.seed is saved so any game can be reproduced/approved
+  * news items carry bullets (SHOW) + factor/score metadata (NEVER show)
+  * universe research strings carry the factor sensitivities the players
+    see on the Research tab (and the judge console parses)
+
+THE MODEL IN ONE SENTENCE
+-------------------------
+Each tick every stock's return = drift + market move + news (factor shocks
+x betas, exponentially decaying) + pull-back-to-fair-value + random noise,
+and price grows by exp(return) so it can never go negative or sit still.
+"""
+
 import json
+import sys
+import numpy as np
 
-# =================================================================
-# CONSTANTS
-# =================================================================
-TICKS_PER_SESSION = 1201  # 1201 ticks (0..1200) x 1s = 20:00 exactly, ending right after the tick-1200 news drop
-TICK_SECONDS = 1
-SESSIONS = 2
+# =====================================================================
+# SECTION 1 -- THE CLOCK
+# =====================================================================
+TICK_SECONDS        = 1
+MINUTES_PER_SESSION = 20
+SESSIONS             = 2
+SUBTICKS             = 60 // TICK_SECONDS               # ticks per minute (60 at 1s ticks)
+# +1 so the on-site countdown reads exactly 20:00 at tick 0 and 0:00 at the
+# last tick (ticksLeft = ticks_per_session - tickInSession - 1 in app.js/admin.js).
+TICKS_PER_SESSION   = MINUTES_PER_SESSION * SUBTICKS + 1
+TOTAL_TICKS         = TICKS_PER_SESSION * SESSIONS
 
-# =================================================================
-# FACTOR SENSITIVITIES (betas) -- sourced from beta_matrix_final.csv.
-# Order must match scoring.js's FACTORS list exactly.
-# =================================================================
-FACTORS = [
-    'InterestRates', 'RegulatoryRisk', 'Oil', 'InflationReaction', 'GeopoliticalStability',
-    'SemiconductorDemand', 'ConsumerDisc', 'InvestorConfidence', 'TechDevelopments', 'Aero', 'Healthcare'
-]
+# =====================================================================
+# SECTION 2 -- GLOBAL KNOBS (v5 values, validated in simulation)
+# =====================================================================
+# TICK RESCALING -- the values below are calibrated for 10-second ticks.
+# Running at 1-second ticks means 10x more ticks over the same real time, so
+# every per-tick parameter is rescaled to keep the same real-world statistics
+# (standard Euler-Maruyama discretization scaling): additive "drift-like"
+# terms (drift, mean-reversion speed, news gain) scale linearly with tick
+# duration; noise/volatility terms scale with sqrt(tick duration); a fixed
+# real-world reference duration expressed in ticks (REF_TAU) scales inversely.
+_CALIBRATED_TICK_SECONDS = 10.0
+_DT_SCALE  = TICK_SECONDS / _CALIBRATED_TICK_SECONDS     # 0.1 at 1s ticks
+_VOL_SCALE = np.sqrt(_DT_SCALE)                          # ~0.316 at 1s ticks
 
-SENSITIVITIES = {
-    'TSMC':     [0, -0.3, 0, 0, 0.3, 0.85, 0, 0, 0, 0, 0],
-    'FERRARI':  [-0.12, 0, -0.09, 0, 0, 0, 0.4, 0, 0, 0, 0],
-    'LMT':      [0, 0, 0.11, 0, -0.4, -0.1, 0, -0.11, -0.15, 0.75, 0.13],
-    'HDFC':     [-0.25, -0.2, -0.12, 0, 0, 0, 0.1, 0.08, 0, 0, 0],
-    'PFE':      [0, -0.35, 0, 0, 0, 0, 0, 0, 0, 0, 0.75],
-    'RELIANCE': [-0.2, 0, 0.3, 0.3, 0, 0, 0.2, 0, 0, 0, 0],
-    'DKNG':     [-0.2, -0.4, 0, 0, 0, 0, 0.45, 0.3, 0.35, 0, 0],
-    'SPACEX':   [0, -0.25, 0, 0, -0.2, 0.15, 0, 0.35, 0.6, 0.75, 0],
-    'SAMSUNG':  [-0.3, -0.15, 0, 0, 0.2, 0.8, 0.15, 0, 0.2, 0, 0],
-    'GOLD':     [-0.5, 0, 0.1, 0.3, -0.5, 0, 0, 0, 0, 0, 0],
-    'OIL':      [0, 0, 0.9, 0.1, -0.3, 0, 0, 0, 0, 0, 0],
-    'LITHIUM':  [-0.15, 0, 0, 0.15, 0, 0.35, 0.2, 0, 0.25, 0, 0],
+DRIFT        = 6.2e-5     * _DT_SCALE   # per-tick baseline tilt
+REF_TAU      = 36.0       / _DT_SCALE   # reference decay, in ticks (fixed real-world duration)
+GAIN_SCALE   = 0.16       * _DT_SCALE   # master "how much news matters" dial
+KAPPA        = 0.08       * _DT_SCALE   # mean-reversion spring
+PERM_FRAC    = 0.35                     # 35% of a shock permanently moves fair value (dimensionless)
+SCORE_SPREAD = 0.20                     # randomness of a headline's realised score (dimensionless)
+IDIO_MULT    = 1.6        * _VOL_SCALE  # stock private-noise loudness
+MKT_VOL      = 0.004      * _VOL_SCALE  # shared market wiggle per tick
+GAIN_RAW     = 0.050                    # per-event gain before GAIN_SCALE (dimensionless base)
+TAU_MIN      = 5.0                      # per-event decay, minutes (real-world unit, not rescaled)
+GAIN_TAU_FR  = 0.10                     # per-game jitter on gain & tau (dimensionless fraction)
+BETA_SPREAD  = 0.05                     # per-game jitter on betas (dimensionless)
+
+# =====================================================================
+# SECTION 3 -- THE 11 FACTORS
+# =====================================================================
+# Names are single words (CamelCase) because the judge console parses
+# them out of the research strings with a \w+ regex.
+FACTORS = ["InterestRates", "RegulatoryRisk", "Oil", "InflationReaction",
+           "GeopoliticalStability", "SemiconductorDemand", "ConsumerDisc",
+           "InvestorConfidence", "TechDevelopments", "Aero", "Healthcare"]
+NF = len(FACTORS)
+FIDX = {f: i for i, f in enumerate(FACTORS)}
+# short aliases used in the matrices below
+_A = dict(IR="InterestRates", Reg="RegulatoryRisk", Oil="Oil",
+          Infl="InflationReaction", Geo="GeopoliticalStability",
+          Sem="SemiconductorDemand", Cons="ConsumerDisc",
+          InvC="InvestorConfidence", Tech="TechDevelopments",
+          Aero="Aero", Hlth="Healthcare")
+
+FACTOR_VOL = np.array([.005, .004, .006, .004, .004, .006, .004, .005, .005, .004, .004]) * _VOL_SCALE
+
+_C = np.eye(NF)
+def _cor(a, b, r):
+    i, j = FIDX[_A[a]], FIDX[_A[b]]
+    _C[i, j] = _C[j, i] = r
+_cor("IR", "Infl", 0.35); _cor("Oil", "Infl", 0.30); _cor("Sem", "Tech", 0.35)
+_cor("InvC", "Cons", 0.30); _cor("InvC", "Tech", 0.25); _cor("Geo", "InvC", 0.25)
+_cor("Geo", "Oil", -0.25); _cor("Aero", "Geo", -0.30); _cor("IR", "InvC", -0.20)
+_w, _V = np.linalg.eigh(_C)                        # PSD repair
+_C = _V @ np.diag(np.clip(_w, 1e-6, None)) @ _V.T
+_d = np.sqrt(np.diag(_C)); FACTOR_CORR = _C / np.outer(_d, _d)
+
+# =====================================================================
+# SECTION 4 -- THE 12 TRADEABLES
+# =====================================================================
+# px = start price (INR, as on the current site) | vol = idio vol per tick
+# mkt = market beta | betas = factor sensitivities (regression-estimated,
+# sanitized; RegulatoryRisk/GeopoliticalStability and the SpaceX row are
+# documented hand-set values -- see "Website Completion Handover" Part 4.2)
+STOCKS = {
+ "TSMC":     dict(px=7168.31,  vol=.008, mkt=1.40, company="TSMC",            type="Equity",
+                  betas={"SemiconductorDemand": .85, "GeopoliticalStability": .30, "RegulatoryRisk": -.30}),
+ "FERRARI":  dict(px=35942.28, vol=.006, mkt=0.96, company="Ferrari",         type="Equity",
+                  betas={"ConsumerDisc": .40, "InterestRates": -.12, "Oil": -.09}),
+ "LMT":      dict(px=49878.82, vol=.005, mkt=0.22, company="Lockheed Martin", type="Equity",
+                  betas={"Aero": .75, "GeopoliticalStability": -.40, "Oil": .11, "SemiconductorDemand": -.10,
+                         "InvestorConfidence": -.11, "TechDevelopments": -.15, "Healthcare": .13}),
+ "HDFC":     dict(px=824.50,   vol=.006, mkt=0.66, company="HDFC Bank",       type="Equity",
+                  betas={"InterestRates": -.25, "RegulatoryRisk": -.20, "Oil": -.12, "ConsumerDisc": .10,
+                         "InvestorConfidence": .08}),
+ "PFE":      dict(px=2304.14,  vol=.005, mkt=0.40, company="Pfizer",          type="Equity",
+                  betas={"Healthcare": .75, "RegulatoryRisk": -.35}),
+ "RELIANCE": dict(px=1310.00,  vol=.006, mkt=0.50, company="Reliance",        type="Equity",
+                  betas={"Oil": .30, "InflationReaction": .30, "InterestRates": -.20, "ConsumerDisc": .20}),
+ "DKNG":     dict(px=2524.35,  vol=.010, mkt=1.60, company="DraftKings",      type="Equity",
+                  betas={"ConsumerDisc": .45, "RegulatoryRisk": -.40, "TechDevelopments": .35,
+                         "InvestorConfidence": .30, "InterestRates": -.20}),
+ "SPACEX":   dict(px=13851.52, vol=.009, mkt=1.20, company="SpaceX",          type="Equity",
+                  betas={"Aero": .75, "TechDevelopments": .60, "InvestorConfidence": .35,
+                         "RegulatoryRisk": -.25, "GeopoliticalStability": -.20, "SemiconductorDemand": .15}),
+ "SAMSUNG":  dict(px=18123.06, vol=.007, mkt=0.50, company="Samsung",         type="Equity",
+                  betas={"SemiconductorDemand": .80, "InterestRates": -.30, "GeopoliticalStability": .20,
+                         "TechDevelopments": .20, "ConsumerDisc": .15, "RegulatoryRisk": -.15}),
+ "GOLD":     dict(px=148290.00, vol=.003, mkt=0.13, company="Gold",           type="Commodity",
+                  betas={"InterestRates": -.50, "GeopoliticalStability": -.50, "InflationReaction": .30, "Oil": .10}),
+ "OIL":      dict(px=6807.55,  vol=.006, mkt=0.10, company="Oil",             type="Commodity",
+                  betas={"Oil": .90, "InflationReaction": .10, "GeopoliticalStability": -.30}),
+ "LITHIUM":  dict(px=2179.26,  vol=.009, mkt=1.03, company="Lithium",         type="Commodity",
+                  betas={"SemiconductorDemand": .35, "TechDevelopments": .25, "ConsumerDisc": .20,
+                         "InterestRates": -.15, "InflationReaction": .15}),
+}
+TICKERS = list(STOCKS.keys()); NT = len(TICKERS)
+
+# =====================================================================
+# SECTION 5 -- THE NEWS (official factor matrices, 13 Jul version)
+# =====================================================================
+# One drop = one minute slot = one news card. Each non-zero cell becomes
+# its own decaying factor shock. Scores are TARGETS in [-1,1]; the engine
+# draws the realised score around them when the drop fires.
+def D(minute, name, scores, bullets):
+    return dict(minute=minute, name=name,
+                scores={_A[k]: v for k, v in scores.items()}, bullets=bullets)
+
+SESSION_NEWS = {
+ # ---------------- SESSION 1: STOCK MARKET ROUND ----------------
+ 0: [
+  D(1, "Intro", dict(IR=-.30, Infl=-.45, Sem=.75, Cons=.45, InvC=.90, Tech=.75), [
+    "Investor sentiment reaches its highest level in years as disinflation eases pressure on central banks.",
+    "Corporations pursue aggressive capital expenditure in technology, automation, and digital infrastructure; semiconductor manufacturers run near full capacity.",
+    "Growth sectors outperform while a small contingent of analysts flags signs of speculative excess."]),
+  D(3, "D1", dict(Infl=.45), [
+    "Heavy flooding across parts of South America has disrupted operations at several major mining sites, tightening the supply outlook for key industrial metals used in battery and electronics manufacturing.",
+    "A shortage of critical components has forced several chipmakers to scale back near-term production targets.",
+    "Leading international banks have reported stronger-than-expected corporate borrowing activity, and commodity traders brace for increased volatility across raw material markets."]),
+  D(5, "D2", dict(Reg=.30, Oil=.30, Infl=.45, Cons=.75, InvC=.30, Hlth=-.45), [
+    "OPEC talks collapse without a deal to raise output, leaving producers short of targets.",
+    "Consumer confidence beats expectations across major economies, with early strength in leisure spending — Ferrari's order backlog swells as luxury demand picks up.",
+    "Pharma approval delays and rising Asian electricity costs continue to pressure manufacturing."]),
+  D(7, "D3", dict(Infl=.60, Geo=-.45, Cons=-.30, InvC=-.30, Tech=.30, Aero=.75), [
+    "Congestion at several major East Asian ports has worsened, increasing pressure on global manufacturing supply chains and raising input costs for automakers reliant on overseas parts.",
+    "NATO members have begun discussions on expanding defence procurement amid rising geopolitical tensions, with early proposals also referencing increased investment in satellite and space-based surveillance capabilities.",
+    "Currency volatility increases across Asian markets, prompting several central banks to modestly increase gold reserves as a hedging measure."]),
+  D(9, "D4", dict(Sem=.90, Tech=.60, Aero=.30), [
+    "Semiconductor equipment manufacturers report record order books as chipmakers continue expanding production capacity, though several firms flag stretching lead times and rising customer concentration risk.",
+    "Telecommunications companies accelerate investment in next-generation digital infrastructure, including expanded satellite connectivity partnerships.",
+    "Governments approve large-scale power grid expansion projects to support rising industrial electricity demand."]),
+  D(11, "D5", dict(InvC=.30, Tech=.45, Aero=-.40), [
+    "Institutional investors continue increasing allocations toward high-growth sectors, though analysts note valuations are beginning to look stretched relative to historical norms.",
+    "Defence stocks attract comparatively weaker capital inflows despite steady government contract activity.",
+    "Market volatility sits near yearly lows as venture capital announces another wave of large funding rounds.",
+    "Central bank surprises everyone with a hike in interest rates."]),
+  D(13, "MAJOR", dict(IR=.90, Reg=.45, Oil=-.45, Infl=.60, Sem=-.95, Cons=-.45, InvC=-.95, Tech=-.95, Aero=.60), [
+    "Multiple mid-tier AI infrastructure and data-center firms default on loans as production is slashed across the board.",
+    "These companies borrowed heavily to build server farms and chip capacity, betting enterprise AI demand would keep growing exponentially; that demand never materialized at scale.",
+    "Lenders move to freeze credit lines, and semiconductor suppliers brace for a wave of order cancellations as panic spreads through the AI supply chain.",
+    "Last week's rate hike is now making it far more expensive for struggling companies to borrow their way out of trouble.",
+    "Rumours circulate that major banks are quietly organizing a bailout for the hardest-hit AI firms, though confidence in the plan remains low.",
+    "Investors pull out of risky tech stocks and rotate into healthcare and gold, seen as insulated from the credit crunch."]),
+  D(15, "D6", dict(Oil=-.45, Sem=-.75, InvC=-.75, Tech=-.45), [
+    "Equity funds report their largest weekly outflows in over a year as investors pull back from speculative growth bets.",
+    "Semiconductor order books thin further, with foundries confirming a handful of major clients account for most of the newly cancelled contracts.",
+    "Oil prices ease as softer industrial demand forecasts offer rare relief to cost-sensitive manufacturers.",
+    "The fiscal review has also led to a freeze in new defence orders."]),
+  D(17, "D7", dict(IR=.75, Oil=.30, Infl=.90, InvC=-.45, Hlth=.90), [
+    "Borrowing costs climb further as central banks signal no immediate reversal on tightening; regional lenders warn refinancing remains difficult for distressed borrowers.",
+    "Inflation data comes in hotter than expected, driven by persistent logistics and energy costs, dampening hopes of an early policy pivot.",
+    "Amid the gloom, a major pharmaceutical company reports a successful late-stage drug trial, sending shares sharply higher."]),
+  D(19, "D8", dict(IR=-.30, Reg=.75, Sem=.30, InvC=.75, Tech=.45), [
+    "Major lenders confirm emergency credit lines for struggling AI infrastructure firms, easing fears of a wider default wave; bank stocks rally as the immediate freeze risk passes.",
+    "Regulators simultaneously open a formal inquiry into risk practices at these lenders, adding a note of caution.",
+    "Investor sentiment still turns broadly positive into the close."]),
+ ],
+ # ---------------- SESSION 2: WAR ROUND ----------------
+ 1: [
+  D(1, "BU1", dict(IR=.40, Infl=.40, Geo=-.50, Aero=.30), [
+    "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
+    "Taiwan's defence ministry raises its alert status to the highest level since 1996.",
+    "The Federal Reserve's latest statement flags \"elevated geopolitical inflation risk\" in its rate-path deliberations.",
+    "U.S. Space Force finalizes an expanded classified contract for hardened satellite-constellation deployment across the Indo-Pacific."]),
+  D(3, "BU2", dict(Reg=.50, Oil=-.40, Cons=.30), [
+    "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
+    "India finalizes a new long-term discounted crude oil supply agreement with Russia, adding to global supply.",
+    "A major U.S. online sports-betting platform reports record quarterly betting volume.",
+    "Regulators in the United States, European Union, and Japan open inquiries into the rare-earth licensing move."]),
+  D(5, "BU3", dict(Geo=-.60, Cons=-.35, Aero=.60), [
+    "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
+    "Taipei summons China's top diplomat in the first formal protest since the crisis began.",
+    "The Pentagon issues an expedited $2.1 billion munitions procurement order under emergency wartime authority.",
+    "Beijing threatens retaliatory tariffs on imported luxury goods from nations backing Taiwan."]),
+  D(7, "BU4", dict(Reg=-.40, Sem=.50, Aero=.50, Hlth=.40), [
+    "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
+    "The United States awards a new contract to expand wartime medical and pharmaceutical stockpiles.",
+    "Washington temporarily waives select export-license requirements for allied defence suppliers to accelerate wartime production.",
+    "Chip foundries outside Taiwan report a surge in emergency orders from customers seeking supply diversification."]),
+  D(9, "BU5", dict(IR=.50, Geo=-.70, Tech=.25, Aero=-.30), [
+    "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
+    "The Bank of England schedules an emergency policy session to weigh a coordinated dollar-liquidity swap-line expansion with the Fed and ECB.",
+    "A commercial satellite operator detects an unidentified signal during constellation deployment that matches no known satellite or debris signature.",
+    "Independent analysts suggest the reading could be an instrument artifact rather than a genuine detection."]),
+  D(10, "MAJOR", dict(Reg=.50, Oil=.75, Geo=.30, InvC=-.50, Aero=.70), [
+    "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels — narrower in scope than the buildup's rhetoric had suggested.",
+    "Within hours, Chinese and U.S.-allied forces exchange fire attempting to enforce or break the blockade, marking the formal outbreak of war.",
+    "Japan, Australia, and the Philippines commit forces alongside the United States; Russia and North Korea publicly back China, while India declares formal non-alignment.",
+    "The Taiwan and Malacca Straits see commercial shipping volumes collapse, driving oil to its sharpest single-day move in over a decade.",
+    "The Fed, ECB, Bank of Japan, and Bank of England jointly launch a $500 billion coordinated dollar swap-line facility.",
+    "U.S. and Chinese space-tracking authorities jointly confirm the unidentified signal detected days earlier is genuine and non-terrestrial in origin.",
+    "Global equity markets tumble despite the swap-line intervention."]),
+  D(14, "AFT1", dict(IR=-.40, Oil=.50, Sem=-.30, Tech=-.30, Aero=-.40, Hlth=-.30), [
+    "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
+    "Shipping insurers raise Indo-Pacific war-risk premiums to record levels, above prior Gulf-crisis peaks.",
+    "A preliminary technical review suggests the earlier signal detection may have involved instrument calibration errors, reviving doubts about its authenticity.",
+    "Several major defence contractors and pharmaceutical manufacturers flag capacity constraints as demand strains production lines."]),
+  D(16, "AFT2", dict(Reg=.50, Oil=-.60, Sem=.60, InvC=.40, Tech=.60, Aero=-.40), [
+    "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential.",
+    "China moves to contest exclusive access to the infrastructure that detected it, threatening retaliation against the operator's international ground stations.",
+    "Long-term energy-substitution concerns tied to the breakthrough weigh on oil futures even as near-term shipping risk remains elevated.",
+    "Demand for next-generation computing capacity accelerates sharply; the Taiwan Strait conflict reaches an attritional lull as both sides pause for resupply.",
+    "Lawmakers open a war-profiteering audit of defence contractors."]),
+  D(18, "AFT3", dict(Reg=.40, Oil=-.30, Geo=.50, Cons=.30, Tech=-.35, Aero=-.60), [
+    "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
+    "A formal international export-control regime is imposed on the new propulsion/energy technology, with allied governments publicly split over access terms.",
+    "Oil futures ease further on the ceasefire reports and continued long-term substitution concerns.",
+    "Consumer sentiment surveys across major economies show their first improvement since the war began."]),
+ ],
 }
 
-def _sensitivities(ticker):
-    pairs = (f"{f} {b:+g}" for f, b in zip(FACTORS, SENSITIVITIES[ticker]) if b != 0)
-    return 'sensitivities: ' + ', '.join(pairs)
+# =====================================================================
+# SECTION 6 -- THE ENGINE (v5 maths; do not edit below this line)
+# =====================================================================
+class MarketEngine:
+    def __init__(self, seed):
+        self.rng = np.random.default_rng(seed)
+        self.L = np.linalg.cholesky(FACTOR_CORR)
 
-# =================================================================
-# TICKER CONFIGURATION
-# =================================================================
-TICKER_CONFIG = [
-    {'ticker': 'TSMC', 'company': 'TSMC', 'start_price': 7168.31, 'type': 'Equity', 'research': f"AI Player. {_sensitivities('TSMC')}"},
-    {'ticker': 'FERRARI', 'company': 'Ferrari', 'start_price': 35942.28, 'type': 'Equity', 'research': f"Automobiles. {_sensitivities('FERRARI')}"},
-    {'ticker': 'LMT', 'company': 'Lockheed Martin', 'start_price': 49878.82, 'type': 'Equity', 'research': f"Defense. {_sensitivities('LMT')}"},
-    {'ticker': 'HDFC', 'company': 'HDFC', 'start_price': 824.50, 'type': 'Equity', 'research': f"Banking. {_sensitivities('HDFC')}"},
-    {'ticker': 'PFE', 'company': 'Pfizer', 'start_price': 2304.14, 'type': 'Equity', 'research': f"Biotech. {_sensitivities('PFE')}"},
-    {'ticker': 'RELIANCE', 'company': 'Reliance', 'start_price': 1310.00, 'type': 'Equity', 'research': f"FMCG. {_sensitivities('RELIANCE')}"},
-    {'ticker': 'DKNG', 'company': 'Draft Kings', 'start_price': 2524.35, 'type': 'Equity', 'research': f"Entertainment. {_sensitivities('DKNG')}"},
-    {'ticker': 'SPACEX', 'company': 'SpaceX', 'start_price': 13851.52, 'type': 'Equity', 'research': f"Aero/Space. {_sensitivities('SPACEX')}"},
-    {'ticker': 'SAMSUNG', 'company': 'Samsung', 'start_price': 18123.06, 'type': 'Equity', 'research': f"Tech. {_sensitivities('SAMSUNG')}"},
-    {'ticker': 'GOLD', 'company': 'Gold', 'start_price': 148290.00, 'type': 'Commodity', 'research': f"Precious Metal. {_sensitivities('GOLD')}"},
-    {'ticker': 'OIL', 'company': 'Oil', 'start_price': 6807.55, 'type': 'Commodity', 'research': f"Energy. {_sensitivities('OIL')}"},
-    {'ticker': 'LITHIUM', 'company': 'Lithium', 'start_price': 2179.26, 'type': 'Commodity', 'research': f"Industrial Metal. {_sensitivities('LITHIUM')}"}
-]
+        # per-game draws, frozen for the whole game
+        self.beta = np.zeros((NT, NF))
+        for i, tk in enumerate(TICKERS):
+            for f, tgt in STOCKS[tk]["betas"].items():
+                b = self.rng.normal(tgt, BETA_SPREAD)
+                if np.sign(b) != np.sign(tgt) and tgt != 0:
+                    b = np.sign(tgt) * abs(b)
+                self.beta[i, FIDX[f]] = b
+        self.mkt_beta = np.clip(
+            self.rng.normal([STOCKS[tk]["mkt"] for tk in TICKERS], 0.05), 0.05, 1.7)
+        self.start_px = np.array([STOCKS[tk]["px"] for tk in TICKERS], float)
+        self.idio_vol = np.array([STOCKS[tk]["vol"] for tk in TICKERS], float)
 
-TICKERS = [c['ticker'] for c in TICKER_CONFIG]
+        # build per-session event lists: one decaying shock per non-zero cell
+        self.sessions = {}
+        for s, drops in SESSION_NEWS.items():
+            evs = []
+            for drop in drops:
+                fire = (drop["minute"] - 1) * SUBTICKS
+                for f, tgt in drop["scores"].items():
+                    g   = abs(self.rng.normal(GAIN_RAW, GAIN_TAU_FR * GAIN_RAW)) * GAIN_SCALE
+                    tau = max(1.0, self.rng.normal(TAU_MIN, GAIN_TAU_FR * TAU_MIN)) * SUBTICKS
+                    evs.append(dict(fire=fire, k=FIDX[f], target=tgt, gain=g,
+                                    tau=tau, score=None, drop=drop["name"]))
+            self.sessions[s] = evs
 
-# News drop timing: with 1s ticks, every real-world "12 old-ticks" (2 min) is now
-# 120 ticks. Drop 1 @ tick 20, Drop 2 @ tick 120, then every 120 ticks (2 min).
-# The Major Drop is followed by a 240-tick (4 min) gap before the next item, then
-# the cadence returns to every 120 ticks: 20, 120, 240, 360, 480, 600(Major), 840, 960, 1080, 1200
-EVENTS = {
-    0: {
-        20: {
-            "factor": "Supply Chain",
-            "bullets": [
-                "Heavy flooding across parts of South America has disrupted operations at several major mining sites, tightening the supply outlook for key industrial metals used in battery and electronics manufacturing.",
-                "A shortage of critical components has forced several chipmakers to scale back near-term production targets.",
-                "Leading international banks have reported stronger-than-expected corporate borrowing activity, and commodity traders brace for increased volatility across raw material markets."
-            ],
-            "impacts": {"LITHIUM": 1.10, "TSMC": 0.95, "SAMSUNG": 0.95, "HDFC": 1.05}
-        },
-        120: {
-            "factor": "Oil",
-            "bullets": [
-                "OPEC talks collapse without a deal to raise output, leaving producers short of targets.",
-                "Consumer confidence beats expectations across major economies, with early strength in leisure spending — Ferrari's order backlog swells as luxury demand picks up.",
-                "Pharma approval delays and rising Asian electricity costs continue to pressure manufacturing."
-            ],
-            "impacts": {"OIL": 1.15, "FERRARI": 1.08, "PFE": 0.92}
-        },
-        240: {
-            "factor": "Geopolitical Stability",
-            "bullets": [
-                "Congestion at several major East Asian ports has worsened, increasing pressure on global manufacturing supply chains and raising input costs for automakers reliant on overseas parts.",
-                "NATO members have begun discussions on expanding defence procurement amid rising geopolitical tensions, with early proposals also referencing increased investment in satellite and space-based surveillance capabilities.",
-                "Currency volatility has also increased across Asian markets, prompting several central banks to modestly increase gold reserves as a hedging measure, while export-driven manufacturers reassess overseas pricing strategies and investors shift toward globally diversified firms."
-            ],
-            "impacts": {"TSMC": 0.97, "SAMSUNG": 0.97, "FERRARI": 0.95, "LMT": 1.06, "GOLD": 1.05}
-        },
-        360: {
-            "factor": "Semiconductor Demand",
-            "bullets": [
-                "Semiconductor equipment manufacturers have reported record order books as chipmakers continue expanding production capacity, though several firms have flagged stretching lead times and rising customer concentration risk as a small number of buyers account for an outsized share of new orders.",
-                "Telecommunications companies are accelerating investment in next-generation digital infrastructure, including expanded satellite connectivity partnerships.",
-                "Governments approve large-scale power grid expansion projects to support rising industrial electricity demand."
-            ],
-            "impacts": {"TSMC": 1.08, "SAMSUNG": 1.08, "SPACEX": 1.05, "RELIANCE": 1.02}
-        },
-        480: {
-            "factor": "Interest Rates",
-            "bullets": [
-                "Institutional investors and pension funds have continued increasing allocations toward high-growth sectors, though analysts note valuations in several of these areas are beginning to look stretched relative to historical norms.",
-                "Defence stocks have attracted comparatively weaker capital inflows despite steady government contract activity.",
-                "Market volatility remains near yearly lows, and venture capital firms have announced another wave of large funding rounds for technology and infrastructure startups, even as some investors quietly increase exposure to traditional safe-haven assets.",
-                "Central bank surprises everyone with a hike in interest rates."
-            ],
-            "impacts": {"DKNG": 1.05, "TSMC": 0.96, "SAMSUNG": 0.96, "HDFC": 0.90, "LMT": 0.95}
-        },
-        600: {
-            "factor": "Regulatory Risk",
-            "bullets": [
-                "Multiple mid-tier AI infrastructure and data-center firms default on loans as production is slashed across the board.",
-                "Over the past year, these companies borrowed heavily to build server farms and chip capacity, betting that enterprise AI demand would keep growing exponentially.",
-                "That demand never materialized at the scale investors expected, and with revenues falling short of debt obligations, several firms have now missed loan payments — payments that were backed more by speculative future valuations than real assets.",
-                "Lenders are moving to freeze credit lines, and semiconductor suppliers are bracing for a wave of order cancellations as panic spreads through the AI supply chain.",
-                "The situation is compounded by last week's rate hike, which is now making it far more expensive for struggling companies to borrow their way out of trouble.",
-                "Rumours are also circulating that a group of major banks is quietly organizing a bailout for the hardest-hit AI firms, though confidence in the plan remains low.",
-                "Investors are pulling out of risky tech stocks and rotating into healthcare and gold, seen as insulated from the credit crunch — defence names, still awaiting word on new contract funding, fail to catch a similar bid."
-            ],
-            "impacts": {"TSMC": 0.80, "SAMSUNG": 0.80, "HDFC": 0.85, "PFE": 1.10, "GOLD": 1.08, "DKNG": 0.90}
-        },
-        840: {
-            "factor": "Investor Confidence",
-            "bullets": [
-                "Equity funds report their largest weekly outflows in over a year as investors pull back from speculative growth bets.",
-                "Semiconductor order books thin further, with foundries confirming a handful of major clients account for most of the newly cancelled contracts.",
-                "Oil prices ease slightly, however, as softer industrial demand forecasts offer rare relief to cost-sensitive manufacturers.",
-                "The fiscal review has also led to a freeze in new defence orders."
-            ],
-            "impacts": {"DKNG": 0.92, "OIL": 0.90, "LMT": 0.90, "TSMC": 0.95, "SAMSUNG": 0.95}
-        },
-        960: {
-            "factor": "Healthcare",
-            "bullets": [
-                "Borrowing costs hold at their post-hike level, with central banks reiterating no near-term reversal — a stance already well telegraphed.",
-                "Regional lenders still warn refinancing remains difficult for distressed borrowers.",
-                "Inflation data lands largely in line with forecasts, reinforcing expectations that rates stay elevated for longer.",
-                "Amid the gloom, a major pharmaceutical company reports a successful late-stage drug trial, sending shares sharply higher as healthcare demand holds steady."
-            ],
-            "impacts": {"HDFC": 0.95, "PFE": 1.15}
-        },
-        1080: {
-            "factor": "Credit",
-            "bullets": [
-                "Major lenders confirm emergency credit lines for struggling AI infrastructure firms, easing fears of a wider default wave.",
-                "Regulators simultaneously open a formal inquiry into risk practices at these lenders, adding a note of caution.",
-                "Investor sentiment still turns broadly positive into the close.",
-                "Banks reopen credit lines for several distressed borrowers.",
-                "Regulators signal a lighter touch on emergency lending rules, and bank stocks rally as the immediate freeze risk passes."
-            ],
-            "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
-        },
-        1200: {
-            "factor": "Credit",
-            "bullets": ["Emergency credit lines confirmed", "Regulators use lighter touch", "Bank stocks rally"],
-            "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
-        }
-    },
-    1: {
-        20: {
-            "factor": "Inflation Reaction",
-            "bullets": [
-                "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
-                "Taiwan's defence ministry raises its alert status to the highest level since 1996.",
-                "The Federal Reserve's latest statement flags \"elevated geopolitical inflation risk\" in its rate-path deliberations.",
-                "U.S. Space Force finalizes an expanded classified contract for hardened satellite-constellation deployment across the Indo-Pacific."
-            ],
-            "impacts": {"TSMC": 0.90, "SPACEX": 1.15, "GOLD": 1.02}
-        },
-        120: {
-            "factor": "Technological Developments",
-            "bullets": [
-                "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
-                "India finalizes a new long-term discounted crude oil supply agreement with Russia, adding to global supply.",
-                "A major U.S. online sports-betting platform reports record quarterly betting volume.",
-                "Regulators in the United States, European Union, and Japan open inquiries into the rare-earth licensing move."
-            ],
-            "impacts": {"LITHIUM": 1.20, "TSMC": 0.95, "DKNG": 1.10, "OIL": 0.92}
-        },
-        240: {
-            "factor": "Aero",
-            "bullets": [
-                "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
-                "Taipei summons China's top diplomat in the first formal protest since the crisis began.",
-                "The Pentagon issues an expedited $2.1 billion munitions procurement order under emergency wartime authority.",
-                "Beijing threatens retaliatory tariffs on imported luxury goods from nations backing Taiwan."
-            ],
-            "impacts": {"TSMC": 0.85, "LMT": 1.15, "FERRARI": 0.90}
-        },
-        360: {
-            "factor": "Healthcare",
-            "bullets": [
-                "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
-                "The United States awards a new contract to expand wartime medical and pharmaceutical stockpiles.",
-                "Washington temporarily waives select export-license requirements for allied defence suppliers to accelerate wartime production.",
-                "Chip foundries outside Taiwan report a surge in emergency orders from customers seeking supply diversification."
-            ],
-            "impacts": {"PFE": 1.10, "SAMSUNG": 1.08, "TSMC": 0.95}
-        },
-        480: {
-            "factor": "Geopolitical Stability",
-            "bullets": [
-                "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
-                "The Bank of England schedules an emergency policy session to weigh a coordinated dollar-liquidity swap-line expansion with the Fed and ECB.",
-                "A commercial satellite operator detects an unidentified signal during constellation deployment that matches no known satellite or debris signature.",
-                "Independent analysts suggest the reading could be an instrument artifact rather than a genuine detection."
-            ],
-            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
-        },
-        600: {
-            "factor": "Geopolitical Stability",
-            "bullets": [
-                "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels — narrower in scope than the buildup's rhetoric had suggested.",
-                "Within hours, Chinese and U.S.-allied forces exchange fire attempting to enforce or break the blockade, marking the formal outbreak of war.",
-                "Japan, Australia, and the Philippines commit forces alongside the United States; Russia and North Korea publicly back China, while India declares formal non-alignment as a neutral trade and capital hub.",
-                "Both governments impose sweeping wartime trade and export controls within hours of the declaration.",
-                "The Taiwan and Malacca Straits see commercial shipping volumes collapse, driving oil to its sharpest single-day move in over a decade.",
-                "The Fed, ECB, Bank of Japan, and Bank of England jointly launch a $500 billion coordinated dollar swap-line facility and expanded overnight repo operations.",
-                "Amid the chaos, U.S. and Chinese space-tracking authorities jointly confirm that the unidentified signal detected days earlier is genuine and non-terrestrial in origin.",
-                "Global equity markets tumble despite the swap-line intervention, with volatility gauges spiking to session extremes."
-            ],
-            "impacts": {"TSMC": 0.60, "SAMSUNG": 0.70, "OIL": 1.25, "SPACEX": 1.20, "GOLD": 1.15, "DKNG": 0.75, "HDFC": 0.80}
-        },
-        840: {
-            "factor": "Aero",
-            "bullets": [
-                "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
-                "Shipping insurers raise Indo-Pacific war-risk premiums to record levels, above prior Gulf-crisis peaks.",
-                "A preliminary technical review suggests the earlier signal detection may have involved instrument calibration errors, reviving doubts about its authenticity.",
-                "Several major defence contractors and pharmaceutical manufacturers flag capacity constraints, warning that simultaneous demand across three active fronts is straining both aerospace and medical-supply production lines."
-            ],
-            "impacts": {"OIL": 1.10, "LMT": 1.15, "PFE": 1.12, "HDFC": 1.05}
-        },
-        960: {
-            "factor": "Technological Developments",
-            "bullets": [
-                "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential, resolving the earlier doubts.",
-                "China moves to contest exclusive access to the infrastructure that detected it, threatening retaliation against the operator's international ground stations.",
-                "Long-term energy-substitution concerns tied to the breakthrough weigh on oil futures even as near-term shipping risk remains elevated.",
-                "Demand for next-generation computing capacity linked to the breakthrough accelerates sharply, and the Taiwan Strait conflict reaches an attritional lull as both sides pause for resupply, easing immediate market anxiety.",
-                "Meanwhile, lawmakers open a war-profiteering audit of contractors."
-            ],
-            "impacts": {"SPACEX": 1.40, "OIL": 0.85, "TSMC": 1.15, "SAMSUNG": 1.15, "LMT": 0.90}
-        },
-        1080: {
-            "factor": "Geopolitical Stability",
-            "bullets": [
-                "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
-                "A formal international export-control regime is imposed on the new propulsion/energy technology, with allied governments publicly split over access terms.",
-                "Oil futures ease further on the ceasefire reports and continued long-term substitution concerns.",
-                "Consumer sentiment surveys across major economies show their first improvement since the war began, even as commercialization of the new technology slows under the fresh restrictions."
-            ],
-            "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
-        },
-        1200: {
-            "factor": "Geopolitical Stability",
-            "bullets": ["Partial ceasefire reports circulate", "Export controls on new tech", "Consumer sentiment improves"],
-            "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
-        }
-    }
-}
-
-def build_game():
-    universe = []
-    for c in TICKER_CONFIG:
-        universe.append({
-            'ticker': c['ticker'],
-            'company': c['company'],
-            'start_price': c['start_price'],
-            'type': c['type'],
-            'research': c['research']
-        })
-        
-    start_prices = {c['ticker']: c['start_price'] for c in TICKER_CONFIG}
-    
-    meta = {
-        'seed': 0, # deterministic
-        'sessions': SESSIONS,
-        'ticks_per_session': TICKS_PER_SESSION,
-        'tick_seconds': TICK_SECONDS,
-        'tickers': TICKERS,
-        'start_prices': start_prices
-    }
-    
-    rows = []
-    current_prices = dict(start_prices)
-    
-    for s in range(SESSIONS):
+    def run_session(self, s, px=None, anchor=None):
+        # Prices/anchor carry through continuously across sessions on this site
+        # (only the news cycle resets) -- pass None to start a fresh book.
+        px = self.start_px.copy() if px is None else px.copy()
+        anchor = self.start_px.copy() if anchor is None else anchor.copy()
+        events = self.sessions[s]
+        drops = {d["name"]: d for d in SESSION_NEWS[s]}
+        rows = []
         for t in range(TICKS_PER_SESSION):
-            news_output = []
-            if s in EVENTS and t in EVENTS[s]:
-                event = EVENTS[s][t]
-                # Apply impacts
-                for ticker, impact in event['impacts'].items():
-                    current_prices[ticker] = current_prices[ticker] * impact
-                
-                news_output.append({
-                    'bullets': event['bullets'],
-                    'factor': event['factor'],
-                    'ticker': None,
-                    'score': 1.0 # default dummy score for UI
-                })
-            
-            # Format prices
-            formatted_prices = {k: round(v, 2) for k, v in current_prices.items()}
-            
-            rows.append({
-                'session': s,
-                'tick': t,
-                'prices': formatted_prices,
-                'news': news_output
-            })
-            
-    game_data = {
-        'meta': meta,
-        'universe': universe,
-        'rows': rows
-    }
-    
-    with open('game_data.json', 'w') as f:
-        json.dump(game_data, f, indent=2)
-        
-    print(f"Generated deterministic game_data.json with {SESSIONS} sessions and {TICKS_PER_SESSION} ticks per session.")
+            fired_drops = []
+            fshock = np.zeros(NF)
+            for e in events:
+                if e["fire"] == t and e["score"] is None:
+                    e["score"] = float(np.clip(
+                        self.rng.normal(e["target"], SCORE_SPREAD), -1, 1))
+                    if e["drop"] not in fired_drops:
+                        fired_drops.append(e["drop"])
+                if e["score"] is not None and t >= e["fire"]:
+                    fshock[e["k"]] += (e["score"] * e["gain"] *
+                                       np.exp(-(t - e["fire"]) / e["tau"]) *
+                                       (REF_TAU / e["tau"]))
+            F = (self.L @ self.rng.standard_normal(NF)) * FACTOR_VOL + fshock
+            M = MKT_VOL * self.rng.standard_normal()
+            N = self.beta @ F
+            anchor *= np.exp(PERM_FRAC * N)
+            R = KAPPA * (np.log(anchor) - np.log(px))
+            idio = IDIO_MULT * self.idio_vol * self.rng.standard_normal(NT)
+            px = px * np.exp(DRIFT + self.mkt_beta * M + N + R + idio)
 
-if __name__ == '__main__':
-    build_game()
+            news = []
+            for name in fired_drops:
+                d = drops[name]
+                realised = {f: round(next(e["score"] for e in events
+                                          if e["drop"] == name and e["k"] == FIDX[f]), 3)
+                            for f in d["scores"]}
+                dom = max(realised, key=lambda f: abs(realised[f]))
+                news.append(dict(bullets=d["bullets"], factor=dom, ticker=None,
+                                 score=realised[dom], factor_scores=realised))
+            rows.append(dict(session=s, tick=t,
+                             prices={tk: round(float(p), 2)
+                                     for tk, p in zip(TICKERS, px)},
+                             news=news))
+        return rows, px, anchor
+
+# =====================================================================
+# SECTION 7 -- EXPORT
+# =====================================================================
+def build_game(seed=None):
+    if seed is None:
+        seed = int(np.random.SeedSequence().generate_state(1)[0] % 2_147_483_647)
+    eng = MarketEngine(seed=seed)
+    rows = []
+    px = anchor = None
+    for s in range(SESSIONS):
+        session_rows, px, anchor = eng.run_session(s, px, anchor)
+        rows.extend(session_rows)
+
+    universe = [dict(ticker=tk, company=STOCKS[tk]["company"],
+                     start_price=STOCKS[tk]["px"], type=STOCKS[tk]["type"],
+                     research=f"{STOCKS[tk]['company']} -- sensitivities: " +
+                              ", ".join(f"{f} {b:+.2f}"
+                                        for f, b in STOCKS[tk]["betas"].items()))
+                for tk in TICKERS]
+    return dict(
+        meta=dict(seed=seed, sessions=SESSIONS, ticks_per_session=TICKS_PER_SESSION,
+                  tick_seconds=TICK_SECONDS, tickers=TICKERS,
+                  start_prices={tk: STOCKS[tk]["px"] for tk in TICKERS}),
+        universe=universe, rows=rows)
+
+
+if __name__ == "__main__":
+    seed = int(sys.argv[1]) if len(sys.argv) > 1 else None
+    game = build_game(seed=seed)
+    with open("game_data.json", "w") as f:
+        json.dump(game, f)
+    print(f"seed={game['meta']['seed']}  rows={len(game['rows'])}")
+    for s in range(SESSIONS):
+        last = [r for r in game["rows"] if r["session"] == s][-1]["prices"]
+        print(f"\nSession {s+1} returns (from true game start):")
+        for tk in TICKERS:
+            base = STOCKS[tk]["px"]
+            print(f"  {tk:9s} {base:>10.2f} -> {last[tk]:>10.2f}  ({(last[tk]/base-1)*100:+6.1f}%)")

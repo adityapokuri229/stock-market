@@ -162,18 +162,34 @@ async function initAdmin() {
 // ==========================================
 // Processing
 // ==========================================
+// The furthest tick that has actually elapsed in real time across the whole
+// game -- caps scoring so a team's Return/Hit-Rate can never reflect price
+// movement that hasn't happened yet (e.g. trades placed during Portfolio
+// Building, before Round 1's clock has even started). Tick 0 (start prices) is
+// always fair game since those are public from the moment the event opens; the
+// full board is fair game once the judge has ended the event.
+function liveGlobalTickCap() {
+    if (liveState === 'ended') return Infinity;
+    if (!gameData || (liveState !== 'playing' && liveState !== 'paused')) return 0;
+    const ticksPerSession = gameData.meta.ticks_per_session;
+    const tickSeconds = gameData.meta.tick_seconds;
+    const elapsedSec = Math.max(0, Math.floor(elapsedPlayingMs() / 1000));
+    const tickInSession = Math.min(ticksPerSession - 1, Math.floor(elapsedSec / tickSeconds));
+    return liveSession * ticksPerSession + tickInSession;
+}
+
 function processTeamData(team) {
     const orders = cache[team].rawOrders || [];
     cache[team].orders = orders;
-    
+
     // Parse scope parameter for replay
     let scopeParam = "both";
     if (currentScope === "0") scopeParam = 0;
     if (currentScope === "1") scopeParam = 1;
-    
+
     // 1. Replay canonical prices
     const K0 = getTeamK0(team);
-    const rep = window.scoring.replay(orders, gameData, scopeParam, K0);
+    const rep = window.scoring.replay(orders, gameData, scopeParam, K0, liveGlobalTickCap());
     cache[team].rep = rep;
 
     // 2. Subscore calculation
