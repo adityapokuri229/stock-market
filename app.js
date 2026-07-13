@@ -15,6 +15,7 @@
     let isAuthenticated = false;
     let currentTeam = '';
     let pbCountdownInterval = null;  // portfolio building countdown timer
+    let gameStarted = false; // one-shot guard so startGame() never runs twice
 
     // Trading state
     let cash = START_CAPITAL;
@@ -172,9 +173,14 @@
                         // Switch to waiting tab to show the countdown + CTA
                         switchTab('waiting');
 
-                        // Load tick-0 prices so the ticker and trade UI work
-                        if (gameData && !gameInterval) {
-                            processTick();
+                        // Load tick-0 prices into UI widgets ONLY (do not push to equitySeries)
+                        if (gameData) {
+                            const row0 = gameData.rows[0];
+                            if (row0) {
+                                updateCurrentPrice();
+                                updateTickerTape(row0.prices);
+                                updatePriceChart();
+                            }
                         }
 
                         // Start client-side countdown (visual only — admin owns actual timing)
@@ -229,7 +235,7 @@
                         const statusEl = document.getElementById('game-status');
                         if (statusEl) statusEl.textContent = 'PAUSED by Judge';
                         switchTab('trade');
-                        startGame(); // Ensure game is initialized, it will just pause ticking
+                        // No startGame() here — just set isPaused, the existing interval handles the halt
                     } else if (status && status.state === 'waiting') {
                         console.log("Game state is waiting, showing waiting room...");
                         document.getElementById('main-nav').style.display = 'none';
@@ -278,9 +284,19 @@
     // Local pause removed in favor of Judge-controlled pausing
     function startGame() {
         console.log("startGame() invoked!");
-        if (gameInterval) return;
-        document.getElementById('btn-start-game').style.display = 'none';
+        if (gameStarted) {
+            // Already running — only handle resume from paused state, do not re-init
+            return;
+        }
+        gameStarted = true;
+        currentTick = 0;
 
+        // Reset tracking arrays so portfolio-building phase data doesn't pollute the chart
+        equitySeries.length = 0;
+        marketSeries.length = 0;
+        tickLabels.length = 0;
+
+        document.getElementById('btn-start-game').style.display = 'none';
         document.getElementById('game-timer').classList.add('show');
         document.getElementById('game-status').textContent = 'Market is LIVE';
 
