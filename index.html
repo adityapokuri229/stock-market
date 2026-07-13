@@ -27,7 +27,7 @@
             <div class="game-timer" id="game-timer">
                 <div class="timer-item"><div class="timer-dot" id="timer-dot"></div></div>
                 <div class="timer-item">Session <strong id="timer-session">1</strong></div>
-                <div class="timer-item">Tick <strong id="timer-tick">0</strong>/120</div>
+                <div class="timer-item">Tick <strong id="timer-tick">0</strong>/<span id="timer-tick-total">1200</span></div>
                 <div class="timer-item" id="timer-clock">20:00</div>
             </div>
             <div class="user-badge" id="user-badge">
@@ -91,7 +91,10 @@
                 <div class="trade-left">
                     <!-- Order Widget -->
                     <div class="card order-widget">
-                        <div class="section-title"><span class="title-dot"></span> Order Entry</div>
+                        <div class="section-title">
+                            <span class="title-dot"></span> Order Entry
+                            <span id="trade-cash-display" style="margin-left: auto; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); letter-spacing: normal; text-transform: none;">Cash: <span id="trade-cash-value" style="color: var(--accent); font-family: var(--font-mono);">₹10,00,000</span></span>
+                        </div>
                         <div class="order-row">
                             <div class="order-field">
                                 <label>Ticker <span id="order-shares-owned" style="float: right; font-size: 0.8rem; color: var(--accent);">Owned: 0</span></label>
@@ -132,8 +135,10 @@
                                 <button class="chart-toggle-btn" data-chart="candle">Candle</button>
                             </div>
                         </div>
-                        <div class="price-chart-container">
-                            <canvas id="price-chart"></canvas>
+                        <div class="price-chart-container" id="price-chart-scroll">
+                            <div class="price-chart-inner" id="price-chart-inner">
+                                <canvas id="price-chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>

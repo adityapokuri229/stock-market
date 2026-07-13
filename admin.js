@@ -460,20 +460,38 @@ function setupListeners() {
         }
     });
 
-    // Weight sliders only trigger re-blend and re-render
-    function updateWeights() {
-        weights.R = parseInt(weightR.value);
-        weights.D = parseInt(weightD.value);
-        weights.H = parseInt(weightH.value);
-        valR.textContent = weights.R;
-        valD.textContent = weights.D;
-        valH.textContent = weights.H;
+    // Weight sliders always sum to 100 -- moving one redistributes the
+    // remaining budget across the other two, proportional to their current
+    // relative split (or evenly if both are at 0).
+    const weightEls = { R: weightR, D: weightD, H: weightH };
+    const valEls = { R: valR, D: valD, H: valH };
+
+    function rebalanceWeights(changedKey) {
+        const keys = ['R', 'D', 'H'];
+        const vals = { R: parseInt(weightR.value), D: parseInt(weightD.value), H: parseInt(weightH.value) };
+        const others = keys.filter(k => k !== changedKey);
+        const remaining = 100 - vals[changedKey];
+        const otherSum = others[0] === undefined ? 0 : vals[others[0]] + vals[others[1]];
+
+        if (otherSum === 0) {
+            vals[others[0]] = Math.floor(remaining / 2);
+            vals[others[1]] = remaining - vals[others[0]];
+        } else {
+            vals[others[0]] = Math.round(remaining * (vals[others[0]] / otherSum));
+            vals[others[1]] = remaining - vals[others[0]]; // fixes rounding so the total is always exactly 100
+        }
+
+        keys.forEach(k => {
+            weights[k] = vals[k];
+            weightEls[k].value = vals[k];
+            valEls[k].textContent = vals[k];
+        });
         renderLeaderboard();
     }
-    
-    weightR.addEventListener("input", updateWeights);
-    weightD.addEventListener("input", updateWeights);
-    weightH.addEventListener("input", updateWeights);
+
+    weightR.addEventListener("input", () => rebalanceWeights('R'));
+    weightD.addEventListener("input", () => rebalanceWeights('D'));
+    weightH.addEventListener("input", () => rebalanceWeights('H'));
     
     // Offline Upload
     offlineBtn.addEventListener("click", () => offlineFile.click());

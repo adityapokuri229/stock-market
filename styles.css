@@ -202,7 +202,7 @@
         .trade-left { display: flex; flex-direction: column; gap: 20px; }
 
         /* Order Widget */
-        .order-widget { padding: 24px; }
+        .order-widget { padding: 24px; max-height: 420px; overflow-y: auto; }
         .order-widget .section-title { margin-bottom: 20px; }
         .order-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
         .order-field label {
@@ -264,15 +264,20 @@
         .chart-toggle-btn.active { background: var(--accent-dim); color: var(--accent); }
         .price-chart-container {
             flex: 1; min-height: 300px; position: relative;
+            overflow-x: auto; overflow-y: hidden;
+        }
+        .price-chart-inner {
+            height: 100%; min-width: 100%;
         }
 
         /* News Widget */
         .news-widget {
             display: flex; flex-direction: column; height: 100%;
             max-height: calc(100vh - 160px);
+            overflow: hidden; /* contain the feed to this box instead of growing past it */
         }
         .news-feed {
-            flex: 1; overflow-y: auto; display: flex; flex-direction: column;
+            flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column;
             gap: 14px; padding-right: 4px;
         }
         .news-card {
@@ -442,6 +447,7 @@
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast-success { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(52,211,153,0.3); }
         .toast-error { background: var(--danger-dim); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); }
+        .toast-news { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
 
         /* ========================================
            RESPONSIVE

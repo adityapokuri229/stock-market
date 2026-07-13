@@ -15,6 +15,7 @@
     let currentTeam = '';
     let pbCountdownInterval = null;  // portfolio building countdown timer
     let gameStarted = false; // one-shot guard so startGame() never runs twice
+    let audioCtx = null; // lazily created/resumed on first user gesture (browser autoplay policy)
 
     // The authoritative game/status fields from Firebase (not a local counter) --
     // every team AND the judge panel derive the current tick/clock from this same
@@ -67,6 +68,41 @@
         setTimeout(() => t.classList.remove('show'), 3500);
     }
 
+    // Browsers block audio until a user gesture -- unlock/create the shared
+    // AudioContext on the very first click or keypress anywhere on the page.
+    function unlockAudio() {
+        if (audioCtx) return;
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        audioCtx = new Ctx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+    document.addEventListener('click', unlockAudio, { once: true });
+    document.addEventListener('keydown', unlockAudio, { once: true });
+
+    // A short two-note chime for news drops, synthesized with the Web Audio API
+    // so no external audio file is needed.
+    function playNewsSound() {
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const notes = [880, 1174.66]; // A5, then D6 -- a bright "attention" chime
+        const startAt = audioCtx.currentTime;
+        notes.forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            const noteStart = startAt + i * 0.11;
+            gain.gain.setValueAtTime(0, noteStart);
+            gain.gain.linearRampToValueAtTime(0.18, noteStart + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(noteStart);
+            osc.stop(noteStart + 0.26);
+        });
+    }
+
     function mean(arr) { return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0; }
     function std(arr) {
         if (arr.length < 2) return 0;
@@ -88,6 +124,11 @@
             gameData = await resp.json();
             // Initialize price history arrays
             gameData.meta.tickers.forEach(tk => { priceHistory[tk] = []; });
+            // ticks_per_session includes one extra tick for the countdown's exact
+            // 20:00 -> 0:00 display; the "total ticks" the players see is the
+            // conceptual 1200, i.e. ticks_per_session - 1.
+            const totalTicksEl = document.getElementById('timer-tick-total');
+            if (totalTicksEl) totalTicksEl.textContent = gameData.meta.ticks_per_session - 1;
             console.log('Game data loaded:', gameData.meta);
             return true;
         } catch (err) {
@@ -100,9 +141,38 @@
     // =================================================================
     // LOGIN
     // =================================================================
+    const LOGIN_COOKIE_DAYS = 1;
+
+    function setCookie(name, value, days) {
+        const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+    }
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return match ? decodeURIComponent(match[1]) : null;
+    }
+    function clearLoginCookies() {
+        document.cookie = 'chakravyuh_team=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+        document.cookie = 'chakravyuh_pass=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+
     document.getElementById('login-btn').addEventListener('click', handleLogin);
     document.getElementById('team-password').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
     document.getElementById('team-name').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+
+    // Re-log the team in automatically after a refresh instead of making them
+    // type credentials again -- window.firebaseGlue is set up by a deferred
+    // module script, so wait for DOMContentLoaded (which always runs after it)
+    // rather than attempting this at plain top-level script execution.
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTeam = getCookie('chakravyuh_team');
+        const savedPass = getCookie('chakravyuh_pass');
+        if (savedTeam && savedPass) {
+            document.getElementById('team-name').value = savedTeam;
+            document.getElementById('team-password').value = savedPass;
+            handleLogin();
+        }
+    });
 
     async function handleLogin() {
         const team = document.getElementById('team-name').value.trim().toLowerCase();
@@ -132,8 +202,13 @@
         if (!verified) {
             err.textContent = 'Invalid team name or password';
             err.style.display = 'block';
+            clearLoginCookies(); // in case a stale/bad saved cookie caused this
             return;
         }
+
+        // Remember this login so a refresh doesn't require re-entering it.
+        setCookie('chakravyuh_team', team, LOGIN_COOKIE_DAYS);
+        setCookie('chakravyuh_pass', pass, LOGIN_COOKIE_DAYS);
 
         // Pick up this team's judge-configured starting capital, if any.
         if (window.firebaseGlue && window.firebaseGlue.getTeamCapital) {
@@ -147,6 +222,7 @@
             }
         }
         cash = START_CAPITAL;
+        updateTradeCashDisplay();
 
         isAuthenticated = true;
         currentTeam = team;
@@ -694,9 +770,17 @@
         orderHistory.push(...sorted);
 
         updateCurrentPrice();
+        updateTradeCashDisplay();
         if (document.getElementById('tab-portfolio').classList.contains('active')) {
             refreshPortfolio();
         }
+    }
+
+    // Keeps the Trade tab's cash figure visible at all times (not just when the
+    // Portfolio tab is active, unlike the other stat cards).
+    function updateTradeCashDisplay() {
+        const el = document.getElementById('trade-cash-value');
+        if (el) el.textContent = formatINR(cash);
     }
 
     // =================================================================
@@ -765,6 +849,7 @@
         const prices = priceHistory[selectedTicker] || [];
         if (prices.length === 0) return;
 
+        let pointCount;
         if (chartMode === 'line') {
             priceChart.config.type = 'line';
             priceChart.data.labels = prices.map((_, i) => i);
@@ -779,6 +864,7 @@
                 tension: 0,
                 fill: true,
             }];
+            pointCount = prices.length;
         } else {
             // Candlestick via two overlapping bar datasets on plain Chart.js (no financial
             // plugin loaded): a thin "wick" bar spanning the true high/low, and a wider
@@ -814,8 +900,24 @@
                     order: 0,
                 },
             ];
+            pointCount = candles.length;
         }
         priceChart.update('none');
+
+        // Keep a constant pixel-width per point/candle instead of squeezing more
+        // and more history into a fixed-width canvas -- the container scrolls
+        // horizontally to reveal earlier prices, auto-snapped to the latest tick
+        // on the right unless the user has scrolled left to review history.
+        const scrollEl = document.getElementById('price-chart-scroll');
+        const innerEl = document.getElementById('price-chart-inner');
+        if (scrollEl && innerEl) {
+            const pxPerPoint = chartMode === 'line' ? 6 : 16;
+            const desiredWidth = Math.max(scrollEl.clientWidth, pointCount * pxPerPoint);
+            const wasNearRightEdge = scrollEl.scrollWidth - scrollEl.scrollLeft - scrollEl.clientWidth < 40;
+            innerEl.style.width = desiredWidth + 'px';
+            priceChart.resize();
+            if (wasNearRightEdge) scrollEl.scrollLeft = scrollEl.scrollWidth;
+        }
     }
 
     function toCandles(prices, size = 6) {
@@ -852,6 +954,12 @@
         // Remove empty state
         const empty = feed.querySelector('.news-empty');
         if (empty) empty.remove();
+
+        // Alert the player a headline just dropped -- sound + a small popup,
+        // separate from the full card below, in case they aren't looking at
+        // the news feed when it fires.
+        playNewsSound();
+        showToast('📰 News just dropped — check the feed!', 'news');
 
         // Bundle every headline collected since the last notification into one card
         // (PRD Part 2.1: display cadence is independent of how often headlines fire).
@@ -1091,26 +1199,11 @@
         if (!u) return;
         document.getElementById('modal-title').textContent = `${u.ticker} — ${u.company}`;
 
-        // Parse the research string to show sensitivities beautifully
-        const research = u.research;
+        // SECURITY: factor sensitivities are judge/scoring-only data and must
+        // never be shown to contestants -- only company/price/type here.
         let bodyHTML = `<p style="margin-bottom:16px;color:var(--text-primary);font-weight:600;">${u.company}</p>`;
         bodyHTML += `<p style="margin-bottom:8px;">Start Price: <strong>${formatINR(u.start_price)}</strong> · Type: <strong>${u.type}</strong></p>`;
-
-        // Extract sensitivities
-        const sensMatch = research.match(/sensitivities:\s*(.+)/);
-        if (sensMatch) {
-            bodyHTML += `<p style="margin-top:16px;margin-bottom:10px;font-weight:600;color:var(--text-primary);">Factor Sensitivities:</p>`;
-            const parts = sensMatch[1].split(',').map(s => s.trim());
-            parts.forEach(p => {
-                const m = p.match(/(\w+)\s+([+-][\d.]+)/);
-                if (m) {
-                    const isPos = m[2].startsWith('+');
-                    bodyHTML += `<span class="sensitivity-tag ${isPos ? 'positive' : 'negative'}">${m[1]} ${m[2]}</span>`;
-                }
-            });
-        }
-
-        bodyHTML += `<p style="margin-top:20px;color:var(--text-muted);font-size:0.8rem;">Use these sensitivities to match news headlines to this stock's likely price movement.</p>`;
+        bodyHTML += `<p style="margin-top:20px;color:var(--text-muted);font-size:0.8rem;">Use news headlines to judge this stock's likely price movement.</p>`;
 
         document.getElementById('modal-body').innerHTML = bodyHTML;
         document.getElementById('research-modal').classList.add('show');
