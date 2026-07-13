@@ -1,190 +1,140 @@
 import json
-import numpy as np
-import random
 
 # =================================================================
-# 4.10 V5 CONSTANTS
+# CONSTANTS
 # =================================================================
 TICKS_PER_SESSION = 120
 TICK_SECONDS = 10
 SESSIONS = 2
 
-DRIFT = 6.2e-5
-VOL_SCALE = 1.0
-REF_TAU = 36.0
-KAPPA = 0.08
-PERM_FRAC = 0.35
-IDIO_MULT = 1.6
-SCORE_SPREAD = 0.20
-
-# =================================================================
-# FACTOR CONFIGURATION
-# =================================================================
-FACTORS = [
-    'GlobalTech', 'GlobalRisk', 'RatesRupee', 'ConsDemand', 
-    'SupplyChain', 'DomPolicy', 'Credit', 'CrudeOil', 'EnergyTx', 'Metals'
-]
-NF = len(FACTORS)
-FIDX = {f: i for i, f in enumerate(FACTORS)}
-
-# Factor background volatilities (approximate reasonable values)
-FACTOR_VOL = np.array([0.001] * NF)
-MKT_VOL = 0.0015
-
 # =================================================================
 # TICKER CONFIGURATION
 # =================================================================
 TICKER_CONFIG = [
-    {'ticker': 'TCS', 'company': 'Tata Consultancy Services', 'start_price': 3850, 'type': 'Equity', 'research': 'Tata Consultancy Services -- sensitivities: GlobalTech +0.85, GlobalRisk +0.35, RatesRupee -0.20, ConsDemand +0.10', 'idio': 0.002, 'mkt_beta': 1.1, 'betas': {'GlobalTech': 0.85, 'GlobalRisk': 0.35, 'RatesRupee': -0.20, 'ConsDemand': 0.10}},
-    {'ticker': 'INFY', 'company': 'Infosys', 'start_price': 1520, 'type': 'Equity', 'research': 'Infosys -- sensitivities: GlobalTech +0.90, GlobalRisk +0.30, RatesRupee -0.30, SupplyChain -0.10', 'idio': 0.0022, 'mkt_beta': 1.15, 'betas': {'GlobalTech': 0.90, 'GlobalRisk': 0.30, 'RatesRupee': -0.30, 'SupplyChain': -0.10}},
-    {'ticker': 'HDFCBANK', 'company': 'HDFC Bank', 'start_price': 1650, 'type': 'Equity', 'research': 'HDFC Bank -- sensitivities: RatesRupee +0.80, DomPolicy +0.35, Credit +0.40, ConsDemand +0.15', 'idio': 0.0015, 'mkt_beta': 1.2, 'betas': {'RatesRupee': 0.80, 'DomPolicy': 0.35, 'Credit': 0.40, 'ConsDemand': 0.15}},
-    {'ticker': 'ICICIBANK', 'company': 'ICICI Bank', 'start_price': 1120, 'type': 'Equity', 'research': 'ICICI Bank -- sensitivities: RatesRupee +0.78, DomPolicy +0.30, Credit +0.45, GlobalRisk +0.20', 'idio': 0.0016, 'mkt_beta': 1.25, 'betas': {'RatesRupee': 0.78, 'DomPolicy': 0.30, 'Credit': 0.45, 'GlobalRisk': 0.20}},
-    {'ticker': 'RELIANCE', 'company': 'Reliance Industries', 'start_price': 2900, 'type': 'Equity', 'research': 'Reliance Industries -- sensitivities: CrudeOil +0.55, DomPolicy +0.30, ConsDemand +0.25, EnergyTx +0.25', 'idio': 0.0018, 'mkt_beta': 1.05, 'betas': {'CrudeOil': 0.55, 'DomPolicy': 0.30, 'ConsDemand': 0.25, 'EnergyTx': 0.25}},
-    {'ticker': 'ONGC', 'company': 'Oil & Natural Gas Corp', 'start_price': 270, 'type': 'Equity', 'research': 'Oil & Natural Gas Corp -- sensitivities: CrudeOil +0.88, EnergyTx -0.35, GlobalRisk +0.25', 'idio': 0.0025, 'mkt_beta': 0.9, 'betas': {'CrudeOil': 0.88, 'EnergyTx': -0.35, 'GlobalRisk': 0.25}},
-    {'ticker': 'TATAMOTORS', 'company': 'Tata Motors', 'start_price': 950, 'type': 'Equity', 'research': 'Tata Motors -- sensitivities: CrudeOil -0.50, Metals -0.40, RatesRupee +0.45, ConsDemand +0.35, GlobalRisk +0.30', 'idio': 0.0028, 'mkt_beta': 1.3, 'betas': {'CrudeOil': -0.50, 'Metals': -0.40, 'RatesRupee': 0.45, 'ConsDemand': 0.35, 'GlobalRisk': 0.30}},
-    {'ticker': 'TATASTEEL', 'company': 'Tata Steel', 'start_price': 140, 'type': 'Equity', 'research': 'Tata Steel -- sensitivities: Metals +0.90, GlobalRisk +0.35, SupplyChain +0.25, CrudeOil +0.15', 'idio': 0.003, 'mkt_beta': 1.4, 'betas': {'Metals': 0.90, 'GlobalRisk': 0.35, 'SupplyChain': 0.25, 'CrudeOil': 0.15}},
-    {'ticker': 'HINDUNILVR', 'company': 'Hindustan Unilever', 'start_price': 2400, 'type': 'Equity', 'research': 'Hindustan Unilever -- sensitivities: ConsDemand +0.55, CrudeOil -0.30, RatesRupee +0.20, DomPolicy +0.20', 'idio': 0.0012, 'mkt_beta': 0.8, 'betas': {'ConsDemand': 0.55, 'CrudeOil': -0.30, 'RatesRupee': 0.20, 'DomPolicy': 0.20}},
-    {'ticker': 'SUNPHARMA', 'company': 'Sun Pharmaceutical', 'start_price': 1500, 'type': 'Equity', 'research': 'Sun Pharmaceutical -- sensitivities: DomPolicy +0.75, GlobalTech +0.15, SupplyChain -0.20, ConsDemand +0.20', 'idio': 0.0018, 'mkt_beta': 0.85, 'betas': {'DomPolicy': 0.75, 'GlobalTech': 0.15, 'SupplyChain': -0.20, 'ConsDemand': 0.20}},
+    {'ticker': 'TSMC', 'company': 'TSMC', 'start_price': 7168.31, 'type': 'Equity', 'research': 'AI Player'},
+    {'ticker': 'FERRARI', 'company': 'Ferrari', 'start_price': 35942.28, 'type': 'Equity', 'research': 'Automobiles'},
+    {'ticker': 'LMT', 'company': 'Lockheed Martin', 'start_price': 49878.82, 'type': 'Equity', 'research': 'Defense'},
+    {'ticker': 'HDFC', 'company': 'HDFC', 'start_price': 824.50, 'type': 'Equity', 'research': 'Banking'},
+    {'ticker': 'PFE', 'company': 'Pfizer', 'start_price': 2304.14, 'type': 'Equity', 'research': 'Biotech'},
+    {'ticker': 'RELIANCE', 'company': 'Reliance', 'start_price': 1310.00, 'type': 'Equity', 'research': 'FMCG'},
+    {'ticker': 'DKNG', 'company': 'Draft Kings', 'start_price': 2524.35, 'type': 'Equity', 'research': 'Entertainment'},
+    {'ticker': 'SPACEX', 'company': 'SpaceX', 'start_price': 13851.52, 'type': 'Equity', 'research': 'Aero/Space'},
+    {'ticker': 'SAMSUNG', 'company': 'Samsung', 'start_price': 18123.06, 'type': 'Equity', 'research': 'Tech'},
+    {'ticker': 'GOLD', 'company': 'Gold', 'start_price': 148290.00, 'type': 'Commodity', 'research': 'Precious Metal'},
+    {'ticker': 'OIL', 'company': 'Oil', 'start_price': 6807.55, 'type': 'Commodity', 'research': 'Energy'},
+    {'ticker': 'LITHIUM', 'company': 'Lithium', 'start_price': 2179.26, 'type': 'Commodity', 'research': 'Industrial Metal'}
 ]
+
 TICKERS = [c['ticker'] for c in TICKER_CONFIG]
-NT = len(TICKERS)
 
-# =================================================================
-# ENGINE IMPLEMENTATION
-# =================================================================
-class MarketEngine:
-    def __init__(self, seed=7):
-        self.rng = np.random.default_rng(seed)
-        
-        self.px = np.array([c['start_price'] for c in TICKER_CONFIG], dtype=float)
-        self.anchor = self.px.copy()
-        
-        # Build beta matrix (NT x NF)
-        self.beta = np.zeros((NT, NF))
-        for i, config in enumerate(TICKER_CONFIG):
-            for f, val in config['betas'].items():
-                self.beta[i, FIDX[f]] = val
-                
-        self.mkt_beta = np.array([c['mkt_beta'] for c in TICKER_CONFIG], dtype=float)
-        self.idio_vol = np.array([c['idio'] for c in TICKER_CONFIG], dtype=float)
-        
-        # Cholesky factor matrix L (identity for simplicity)
-        self.L = np.eye(NF)
-        
-        self.sessions = self._generate_events()
-
-    def _generate_events(self):
-        # Generate some sample news events
-        events = {0: [], 1: []}
-        
-        sample_bullets = [
-            ("Tanker attacked near Hormuz", "Crude spikes on supply fears", "Energy names in focus"),
-            ("Tech rally on AI optimism", "Global markets surge", "Semiconductor stocks up"),
-            ("RBI surprises with rate hike", "Banks react to tighter policy", "Rupee strengthens"),
-            ("Consumer spending data weak", "Retailers cautious on outlook", "Rural demand sluggish"),
-            ("Supply chain disruptions ease", "Freight costs drop", "Manufacturing outlook improves"),
-            ("New industrial policy announced", "Subsidies for manufacturing", "Domestic sectors rally"),
-            ("Credit growth hits record high", "Loan defaults remain low", "Financial sector booms"),
-            ("Metal prices surge in LME", "Copper and steel reach new highs", "Mining stocks jump"),
-            ("Energy transition tax proposed", "Green initiatives funded", "Fossil fuels face headwinds"),
-            ("Global risk-off sentiment", "Investors flee to safety", "Emerging markets face pressure")
-        ]
-        
-        factors = ['CrudeOil', 'GlobalTech', 'RatesRupee', 'ConsDemand', 'SupplyChain', 
-                   'DomPolicy', 'Credit', 'Metals', 'EnergyTx', 'GlobalRisk']
-        
-        for sess in range(SESSIONS):
-            for i in range(20): # 20 events per session
-                fire_tick = self.rng.integers(0, TICKS_PER_SESSION)
-                idx = self.rng.integers(0, len(factors))
-                target = self.rng.uniform(-0.8, 0.8)
-                gain = self.rng.uniform(0.03, 0.08)
-                tau = self.rng.uniform(10, 60)
-                
-                events[sess].append({
-                    'fire_tick': fire_tick,
-                    'factor': factors[idx],
-                    'ticker': None,
-                    'target': target,
-                    'gain': gain,
-                    'tau': tau,
-                    'bullets': list(sample_bullets[idx]),
-                    'score': None
-                })
-                
-        return events
-
-    def _shock(self, e, t_local):
-        age = t_local - e['fire_tick']
-        if age < 0:
-            return 0
-        return e['score'] * e['gain'] * np.exp(-age / e['tau']) * (REF_TAU / e['tau'])
-
-    def step(self, session, t_local):
-        events = self.sessions[session]
-        
-        # (a) fire due events
-        fired_now = []
-        for e in events:
-            if e['fire_tick'] == t_local:
-                raw = self.rng.normal(e['target'], SCORE_SPREAD)
-                e['score'] = float(np.clip(raw, -1, 1))
-                # For output, we only need the visible parts
-                fired_now.append({
-                    'bullets': e['bullets'],
-                    'factor': e['factor'],
-                    'ticker': e['ticker'],
-                    'score': e['score']
-                })
-                
-        # (b) sum every active shock, split into factor vs ticker
-        factor_shock = np.zeros(NF)
-        ticker_shock = np.zeros(NT)
-        for e in events:
-            if e['score'] is None: 
-                continue
-            val = self._shock(e, t_local)
-            if e['factor']:
-                factor_shock[FIDX[e['factor']]] += val
-            if e['ticker']:
-                ticker_shock[TICKERS.index(e['ticker'])] += val
-                
-        # (c) correlated factor background + news
-        z = self.rng.standard_normal(NF)
-        F = VOL_SCALE * (self.L @ z) * FACTOR_VOL + factor_shock
-        
-        # (d) one shared market move
-        M = VOL_SCALE * MKT_VOL * self.rng.standard_normal()
-        
-        # (e) per stock: news -> anchor -> reversion -> return -> price
-        N = self.beta @ F + ticker_shock
-        self.anchor *= np.exp(PERM_FRAC * N)
-        
-        # Safe log for reversion calculation
-        anchor_val = np.maximum(self.anchor, 1e-8)
-        px_val = np.maximum(self.px, 1e-8)
-        
-        R = KAPPA * (np.log(anchor_val) - np.log(px_val))
-        idio = VOL_SCALE * IDIO_MULT * self.idio_vol * self.rng.standard_normal(NT)
-        r = DRIFT + self.mkt_beta * M + N + R + idio
-        self.px *= np.exp(r)
-        
-        # Ensure prices don't go exactly to zero or negative
-        self.px = np.maximum(self.px, 0.01)
-        
-        # Return serializable dict
-        px_dict = {ticker: round(float(price), 2) for ticker, price in zip(TICKERS, self.px)}
-        
-        return dict(prices=px_dict, factors=F.tolist(), news=fired_now)
+EVENTS = {
+    0: {
+        2: {
+            "factor": "Investor Confidence",
+            "bullets": ["Investor sentiment at highest level", "Aggressive capex in tech", "Semiconductors at full capacity"],
+            "impacts": {"TSMC": 1.05, "SAMSUNG": 1.05, "GOLD": 0.98}
+        },
+        14: {
+            "factor": "Supply Chain",
+            "bullets": ["Flooding hits mining sites", "Chipmakers scale back", "Corporate borrowing up"],
+            "impacts": {"LITHIUM": 1.10, "TSMC": 0.95, "SAMSUNG": 0.95, "HDFC": 1.05}
+        },
+        26: {
+            "factor": "Oil",
+            "bullets": ["OPEC talks collapse", "Ferrari orders swell", "Pharma approval delays"],
+            "impacts": {"OIL": 1.15, "FERRARI": 1.08, "PFE": 0.92}
+        },
+        38: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["Asian port congestion worsens", "NATO expands procurement", "Banks increase gold reserves"],
+            "impacts": {"TSMC": 0.97, "SAMSUNG": 0.97, "FERRARI": 0.95, "LMT": 1.06, "GOLD": 1.05}
+        },
+        50: {
+            "factor": "Semiconductor Demand",
+            "bullets": ["Semiconductor record orders", "Telecom satellite partnerships", "Power grid expansions"],
+            "impacts": {"TSMC": 1.08, "SAMSUNG": 1.08, "SPACEX": 1.05, "RELIANCE": 1.02}
+        },
+        62: {
+            "factor": "Interest Rates",
+            "bullets": ["Institutions buy growth stocks", "Central bank surprises with rate hike", "Defence stocks weak"],
+            "impacts": {"DKNG": 1.05, "TSMC": 0.96, "SAMSUNG": 0.96, "HDFC": 0.90, "LMT": 0.95}
+        },
+        74: {
+            "factor": "Regulatory Risk",
+            "bullets": ["MAJOR DROP: AI firms default on loans", "Credit lines freeze", "Rotation to healthcare and gold"],
+            "impacts": {"TSMC": 0.80, "SAMSUNG": 0.80, "HDFC": 0.85, "PFE": 1.10, "GOLD": 1.08, "DKNG": 0.90}
+        },
+        86: {
+            "factor": "Investor Confidence",
+            "bullets": ["Equity funds see massive outflows", "Oil prices ease", "Freeze in new defence orders"],
+            "impacts": {"DKNG": 0.92, "OIL": 0.90, "LMT": 0.90, "TSMC": 0.95, "SAMSUNG": 0.95}
+        },
+        98: {
+            "factor": "Healthcare",
+            "bullets": ["Borrowing costs hold high", "Pharma successful late-stage trial", "Healthcare demand steady"],
+            "impacts": {"HDFC": 0.95, "PFE": 1.15}
+        },
+        110: {
+            "factor": "Credit",
+            "bullets": ["Emergency credit lines confirmed", "Regulators use lighter touch", "Bank stocks rally"],
+            "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
+        }
+    },
+    1: {
+        2: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["Round 2: War Intro", "Chinese naval activity intensifies", "U.S. Space Force accelerates contracts"],
+            "impacts": {"TSMC": 0.85, "LMT": 1.10, "SPACEX": 1.10, "OIL": 1.05}
+        },
+        14: {
+            "factor": "Inflation Reaction",
+            "bullets": ["Chinese drills restrict shipping", "Fed flags inflation risk", "Space Force classified contract"],
+            "impacts": {"TSMC": 0.90, "SPACEX": 1.15, "GOLD": 1.02}
+        },
+        26: {
+            "factor": "Technological Developments",
+            "bullets": ["Rare earth export limits", "DraftKings record volume", "Russian oil deal in India"],
+            "impacts": {"LITHIUM": 1.20, "TSMC": 0.95, "DKNG": 1.10, "OIL": 0.92}
+        },
+        38: {
+            "factor": "Aero",
+            "bullets": ["Vessel collision in Taiwan Strait", "Pentagon expedites munitions order", "Retaliatory tariffs threatened"],
+            "impacts": {"TSMC": 0.85, "LMT": 1.15, "FERRARI": 0.90}
+        },
+        50: {
+            "factor": "Healthcare",
+            "bullets": ["Joint naval patrols announced", "Medical stockpiles expanded", "Chip foundries diversify"],
+            "impacts": {"PFE": 1.10, "SAMSUNG": 1.08, "TSMC": 0.95}
+        },
+        62: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["China extends blockade", "Unidentified space signal detected", "Bank of England emergency session"],
+            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
+        },
+        74: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["WAR ANNOUNCEMENT: Blockade declared", "Shipping volumes collapse", "Signal confirmed non-terrestrial"],
+            "impacts": {"TSMC": 0.60, "SAMSUNG": 0.70, "OIL": 1.25, "SPACEX": 1.20, "GOLD": 1.15, "DKNG": 0.75, "HDFC": 0.80}
+        },
+        86: {
+            "factor": "Aero",
+            "bullets": ["Shipping war-risk premiums hit record", "Defence and Pharma capacity constraints", "Swap-line eases funding"],
+            "impacts": {"OIL": 1.10, "LMT": 1.15, "PFE": 1.12, "HDFC": 1.05}
+        },
+        98: {
+            "factor": "Technological Developments",
+            "bullets": ["Signal is genuine propulsion breakthrough", "Oil futures drop on substitution fears", "Lawmakers audit contractors"],
+            "impacts": {"SPACEX": 1.40, "OIL": 0.85, "TSMC": 1.15, "SAMSUNG": 1.15, "LMT": 0.90}
+        },
+        110: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["Partial ceasefire reports circulate", "Export controls on new tech", "Consumer sentiment improves"],
+            "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
+        }
+    }
+}
 
 def build_game():
-    import sys
-    if len(sys.argv) > 1:
-        seed = int(sys.argv[1])
-    else:
-        seed = random.randint(0, 2**31 - 1)
-    eng = MarketEngine(seed=seed)
-
     universe = []
     for c in TICKER_CONFIG:
         universe.append({
@@ -198,7 +148,7 @@ def build_game():
     start_prices = {c['ticker']: c['start_price'] for c in TICKER_CONFIG}
     
     meta = {
-        'seed': seed,
+        'seed': 0, # deterministic
         'sessions': SESSIONS,
         'ticks_per_session': TICKS_PER_SESSION,
         'tick_seconds': TICK_SECONDS,
@@ -207,14 +157,32 @@ def build_game():
     }
     
     rows = []
+    current_prices = dict(start_prices)
+    
     for s in range(SESSIONS):
         for t in range(TICKS_PER_SESSION):
-            out = eng.step(s, t)
+            news_output = []
+            if s in EVENTS and t in EVENTS[s]:
+                event = EVENTS[s][t]
+                # Apply impacts
+                for ticker, impact in event['impacts'].items():
+                    current_prices[ticker] = current_prices[ticker] * impact
+                
+                news_output.append({
+                    'bullets': event['bullets'],
+                    'factor': event['factor'],
+                    'ticker': None,
+                    'score': 1.0 # default dummy score for UI
+                })
+            
+            # Format prices
+            formatted_prices = {k: round(v, 2) for k, v in current_prices.items()}
+            
             rows.append({
                 'session': s,
                 'tick': t,
-                'prices': out['prices'],
-                'news': out['news']
+                'prices': formatted_prices,
+                'news': news_output
             })
             
     game_data = {
@@ -226,7 +194,7 @@ def build_game():
     with open('game_data.json', 'w') as f:
         json.dump(game_data, f, indent=2)
         
-    print(f"Generated game_data.json with {SESSIONS} sessions and {TICKS_PER_SESSION} ticks per session. Seed used: {seed}")
+    print(f"Generated deterministic game_data.json with {SESSIONS} sessions and {TICKS_PER_SESSION} ticks per session.")
 
 if __name__ == '__main__':
     build_game()

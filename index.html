@@ -56,11 +56,21 @@
             </div>
         </div>
 
+        <!-- Waiting Room -->
+        <div class="tab-content" id="tab-waiting">
+            <div class="login-container" style="text-align: center;">
+                <div class="login-title">Waiting Room</div>
+                <div class="login-subtitle" style="margin-top: 20px;">Waiting for the Judge to start the event...</div>
+                <div style="margin-top: 30px; color: #a1a1aa; font-size: 0.9rem;">
+                    Please do not close this window. You will automatically be redirected to the trading floor once the event begins.
+                </div>
+            </div>
+        </div>
+
         <!-- Game Controls (shown after login, before game starts) -->
         <div class="game-controls-bar" id="game-controls">
             <span class="game-status" id="game-status">Waiting for Judge to start the event...</span>
             <button class="btn-start" id="btn-start-game" style="display:none;">▶ START GAME</button>
-            <button class="btn-pause" id="btn-pause-game" style="display:none;">⏸ PAUSE</button>
         </div>
 
         <!-- Trade Tab -->
@@ -72,7 +82,7 @@
                         <div class="section-title"><span class="title-dot"></span> Order Entry</div>
                         <div class="order-row">
                             <div class="order-field">
-                                <label>Ticker</label>
+                                <label>Ticker <span id="order-shares-owned" style="float: right; font-size: 0.8rem; color: var(--accent);">Owned: 0</span></label>
                                 <select id="order-ticker"></select>
                             </div>
                             <div class="order-field">
@@ -214,8 +224,8 @@
     <div class="toast" id="toast"></div>
 
     <script type="module">
-        import { initGlue, pushOrder, watchGameState } from './firebase-glue.js';
-        window.firebaseGlue = { initGlue, pushOrder, watchGameState };
+        import { initGlue, pushOrder, watchGameState, verifyTeam } from './firebase-glue.js';
+        window.firebaseGlue = { initGlue, pushOrder, watchGameState, verifyTeam };
     </script>
     <script src="app.js"></script>
 </body>

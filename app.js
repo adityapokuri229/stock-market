@@ -1,7 +1,6 @@
     // =================================================================
     // DATA & STATE
     // =================================================================
-    const TEAMS = { 'alpha': 'pass123', 'beta': 'pass456', 'gamma': 'pass789' };
     const START_CAPITAL = 1_000_000; // ₹10 Lakh
 
     let gameData = null;
@@ -97,29 +96,43 @@
 
     async function handleLogin() {
         const team = document.getElementById('team-name').value.trim().toLowerCase();
-        const pass = document.getElementById('team-password').value;
+        const pass = document.getElementById('team-password').value.trim();
         const err = document.getElementById('login-error');
 
-        if (!TEAMS[team] || TEAMS[team] !== pass) {
+        // Load game data first
+        const loaded = await loadGameData();
+        if (!loaded) return;
+
+        let verified = false;
+        if (window.firebaseGlue && window.firebaseGlue.verifyTeam) {
+            try {
+                verified = await window.firebaseGlue.verifyTeam(team, pass);
+            } catch (error) {
+                console.error(error);
+                err.textContent = 'System error: Could not verify credentials via Firebase';
+                err.style.display = 'block';
+                return;
+            }
+        } else {
+            err.textContent = 'Firebase is not initialized for login';
+            err.style.display = 'block';
+            return;
+        }
+
+        if (!verified) {
             err.textContent = 'Invalid team name or password';
             err.style.display = 'block';
             return;
         }
 
-        // Load game data
-        const loaded = await loadGameData();
-        if (!loaded) return;
-
         isAuthenticated = true;
         currentTeam = team;
         err.style.display = 'none';
 
-        // Show UI
+        // Show UI elements
         document.getElementById('user-badge').classList.add('show');
         document.getElementById('user-badge-name').textContent = team.charAt(0).toUpperCase() + team.slice(1);
         document.getElementById('user-avatar').textContent = team.charAt(0).toUpperCase();
-        document.getElementById('main-nav').style.display = 'flex';
-        document.getElementById('game-controls').classList.add('show');
 
         // Populate dropdowns and tabs
         populateTickerDropdown();
@@ -127,25 +140,52 @@
         initEquityChart();
         renderResearch();
         buildTickerTape();
-        document.getElementById('ticker-tape').classList.add('show');
 
         // Init Firebase glue
         if (window.firebaseGlue && window.firebaseGlue.initGlue) {
             console.log("Initializing Firebase glue...");
-            window.firebaseGlue.initGlue(gameData.meta.seed, currentTeam);
+            window.firebaseGlue.initGlue(currentTeam);
             
             if (window.firebaseGlue.watchGameState) {
                 console.log("Attaching watchGameState listener...");
-                window.firebaseGlue.watchGameState(gameData.meta.seed, (status, error) => {
+                window.firebaseGlue.watchGameState((status, error) => {
                     if (error) {
                         console.error("Firebase watchGameState error:", error);
                         showToast("Connection issue - couldn't reach the judge. Please tell a judge/organizer.");
                         return;
                     }
                     console.log("Received game state from Firebase:", status);
+                    window.authorizedSession = status.currentSession || 0;
                     if (status && status.state === 'playing') {
                         console.log("Game state is playing, triggering startGame()...");
+                        document.getElementById('main-nav').style.display = 'flex';
+                        document.getElementById('game-controls').classList.add('show');
+                        document.getElementById('ticker-tape').classList.add('show');
+                        
+                        // If it was paused, resume it
+                        isPaused = false;
+                        const dot = document.getElementById('timer-dot');
+                        if (dot) dot.classList.remove('paused');
+                        const statusEl = document.getElementById('game-status');
+                        if (statusEl) statusEl.textContent = 'Market is LIVE';
+                        
+                        switchTab('trade');
                         startGame();
+                    } else if (status && status.state === 'paused') {
+                        console.log("Game state is paused!");
+                        isPaused = true;
+                        const dot = document.getElementById('timer-dot');
+                        if (dot) dot.classList.add('paused');
+                        const statusEl = document.getElementById('game-status');
+                        if (statusEl) statusEl.textContent = 'PAUSED by Judge';
+                        switchTab('trade');
+                        startGame(); // Ensure game is initialized, it will just pause ticking
+                    } else if (status && status.state === 'waiting') {
+                        console.log("Game state is waiting, showing waiting room...");
+                        document.getElementById('main-nav').style.display = 'none';
+                        document.getElementById('game-controls').classList.remove('show');
+                        document.getElementById('ticker-tape').classList.remove('show');
+                        switchTab('waiting');
                     }
                 });
             } else {
@@ -156,7 +196,6 @@
         }
 
         showToast(`Welcome, Team ${team.charAt(0).toUpperCase() + team.slice(1)}!`);
-        switchTab('trade');
     }
 
     // =================================================================
@@ -186,16 +225,12 @@
         });
     });
 
-    // =================================================================
-    // GAME CONTROLS
-    // =================================================================
-    document.getElementById('btn-pause-game').addEventListener('click', togglePause);
-
+    // Local pause removed in favor of Judge-controlled pausing
     function startGame() {
         console.log("startGame() invoked!");
         if (gameInterval) return;
         document.getElementById('btn-start-game').style.display = 'none';
-        document.getElementById('btn-pause-game').style.display = 'inline-block';
+
         document.getElementById('game-timer').classList.add('show');
         document.getElementById('game-status').textContent = 'Market is LIVE';
 
@@ -205,12 +240,26 @@
         // Then tick every 10 seconds
         gameInterval = setInterval(() => {
             if (!isPaused) {
+                // Check if the next tick violates the authorized session
+                if (currentTick + 1 < gameData.rows.length) {
+                    const nextSession = gameData.rows[currentTick + 1].session;
+                    if (nextSession > (window.authorizedSession || 0)) {
+                        document.getElementById('game-status').textContent = 'Waiting for Judge to start next round...';
+                        document.getElementById('timer-dot').classList.add('paused');
+                        return; // Halt tick progression
+                    }
+                }
+                
+                // If we get here, either we are within the authorized round or it's just normal progression
+                document.getElementById('timer-dot').classList.remove('paused');
+                document.getElementById('game-status').textContent = 'Market is LIVE';
+
                 currentTick++;
                 if (currentTick >= gameData.rows.length) {
                     clearInterval(gameInterval);
                     gameInterval = null;
                     document.getElementById('game-status').textContent = 'Game Over!';
-                    document.getElementById('btn-pause-game').style.display = 'none';
+                    document.getElementById('game-status').textContent = 'Game Over!';
                     document.getElementById('timer-dot').style.background = 'var(--text-muted)';
                     document.getElementById('timer-dot').style.animation = 'none';
                     showToast('Game Over! All sessions complete.');
@@ -236,26 +285,7 @@
         showToast('Market is now LIVE! 🔔');
     }
 
-    function togglePause() {
-        isPaused = !isPaused;
-        const btn = document.getElementById('btn-pause-game');
-        const dot = document.getElementById('timer-dot');
-        if (isPaused) {
-            btn.textContent = '▶ RESUME';
-            btn.style.background = 'var(--accent-dim)';
-            btn.style.borderColor = 'rgba(52,211,153,0.3)';
-            btn.style.color = 'var(--accent)';
-            dot.classList.add('paused');
-            document.getElementById('game-status').textContent = 'PAUSED';
-        } else {
-            btn.textContent = '⏸ PAUSE';
-            btn.style.background = 'var(--warning-dim)';
-            btn.style.borderColor = 'rgba(251,191,36,0.3)';
-            btn.style.color = 'var(--warning)';
-            dot.classList.remove('paused');
-            document.getElementById('game-status').textContent = 'Market is LIVE';
-        }
-    }
+    // The timer dot styling and isPaused logic is now controlled entirely by Firebase watchGameState
 
     // =================================================================
     // THE HEARTBEAT — PROCESS ONE TICK
@@ -411,6 +441,13 @@
         // Enable/disable confirm
         const qty = parseInt(document.getElementById('order-quantity').value);
         document.getElementById('btn-confirm').disabled = !(qty > 0 && px);
+
+        // Update Owned preview
+        const ownedSpan = document.getElementById('order-shares-owned');
+        if (ownedSpan) {
+            const h = holdings[selectedTicker];
+            ownedSpan.textContent = h ? `Owned: ${h.shares}` : 'Owned: 0';
+        }
     }
 
     document.getElementById('order-quantity').addEventListener('input', updateCurrentPrice);

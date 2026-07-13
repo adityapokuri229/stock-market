@@ -1,4 +1,4 @@
-import { watchGame, setGameState } from './firebase-glue.js';
+import { watchGame, setGameState, addTeam, watchTeams, resetGame } from './firebase-glue.js';
 
 const ADMIN_PASSWORD = "judge123";
 
@@ -17,6 +17,7 @@ const adminApp = document.getElementById("admin-app");
 const loginBtn = document.getElementById("admin-login-btn");
 const passInput = document.getElementById("admin-password");
 const loginError = document.getElementById("admin-login-error");
+const resetBtn = document.getElementById("btn-reset-everything");
 
 const scopeSelect = document.getElementById("scope-select");
 const weightR = document.getElementById("weight-r");
@@ -67,7 +68,7 @@ async function initAdmin() {
         setupCharts();
         
         // Try Firebase live connection
-        watchGame(gameData.meta.seed, (teamsData, err) => {
+        watchGame((teamsData, err) => {
             if (err) {
                 setOffline();
                 return;
@@ -175,6 +176,11 @@ function processTeamData(team) {
 // ==========================================
 // UI & Interaction
 // ==========================================
+const btnPauseEvent = document.getElementById("btn-pause-event");
+const btnStartRound2 = document.getElementById("btn-start-round-2");
+let adminIsPaused = false;
+let activeSession = 0;
+
 function setupListeners() {
     // Scope change requires full rescore
     scopeSelect.addEventListener("change", (e) => {
@@ -187,10 +193,14 @@ function setupListeners() {
         if (confirm("Are you sure you want to start the event for all teams?")) {
             startEventBtn.disabled = true;
             startEventBtn.textContent = 'STARTING...';
-            setGameState(gameData.meta.seed, 'playing')
+            activeSession = 0;
+            setGameState({ state: 'playing', currentSession: activeSession })
                 .then(() => {
                     startEventBtn.style.background = '#9ca3af';
-                    startEventBtn.textContent = 'EVENT STARTED';
+                    startEventBtn.textContent = 'ROUND 1 STARTED';
+                    btnPauseEvent.style.display = 'inline-block';
+                    btnStartRound2.style.display = 'inline-block';
+                    adminIsPaused = false;
                 })
                 .catch(err => {
                     startEventBtn.disabled = false;
@@ -199,7 +209,68 @@ function setupListeners() {
                 });
         }
     });
-    
+
+    // Start Round 2
+    btnStartRound2.addEventListener("click", () => {
+        if (confirm("Are you sure you want to unlock Round 2 for all teams?")) {
+            btnStartRound2.disabled = true;
+            btnStartRound2.textContent = 'STARTING...';
+            activeSession = 1;
+            setGameState({ state: 'playing', currentSession: activeSession })
+                .then(() => {
+                    btnStartRound2.style.background = '#9ca3af';
+                    btnStartRound2.style.color = '#fff';
+                    btnStartRound2.textContent = 'ROUND 2 STARTED';
+                    if (adminIsPaused) {
+                        adminIsPaused = false;
+                        btnPauseEvent.textContent = '⏸ PAUSE EVENT';
+                        btnPauseEvent.style.background = '#fbbf24';
+                        btnPauseEvent.style.color = '#78350f';
+                    }
+                })
+                .catch(err => {
+                    btnStartRound2.disabled = false;
+                    btnStartRound2.textContent = '▶ START ROUND 2';
+                    alert("Failed to start round 2: " + err.message);
+                });
+        }
+    });
+
+    // Pause Event
+    btnPauseEvent.addEventListener("click", () => {
+        adminIsPaused = !adminIsPaused;
+        const newState = adminIsPaused ? 'paused' : 'playing';
+        setGameState({ state: newState, currentSession: activeSession })
+            .then(() => {
+                if (adminIsPaused) {
+                    btnPauseEvent.textContent = '▶ RESUME EVENT';
+                    btnPauseEvent.style.background = '#34d399';
+                    btnPauseEvent.style.color = '#022c22';
+                } else {
+                    btnPauseEvent.textContent = '⏸ PAUSE EVENT';
+                    btnPauseEvent.style.background = '#fbbf24';
+                    btnPauseEvent.style.color = '#78350f';
+                }
+            })
+            .catch(err => {
+                adminIsPaused = !adminIsPaused; // revert local state on failure
+                alert("Failed to toggle pause: " + err.message);
+            });
+    });
+
+    // Reset button logic
+    resetBtn.addEventListener("click", () => {
+        if (confirm("WARNING! This will completely reset the game, wipe all teams, and clear all orders. Are you absolutely sure?")) {
+            resetGame().then(() => {
+                alert("Game has been completely reset.");
+                window.location.reload();
+            }).catch(e => {
+                console.error("Failed to reset game:", e);
+                alert("Failed to reset the game. Check console for details.");
+            });
+        }
+    });
+
     // Weight sliders only trigger re-blend and re-render
     function updateWeights() {
         weights.R = parseInt(weightR.value);
@@ -256,6 +327,56 @@ function setupListeners() {
         a.download = `chakravyuh_results_${gameData.meta.seed}.csv`;
         a.click();
     });
+
+    // Team Management
+    const btnAddTeam = document.getElementById("btn-add-team");
+    const inputTeamName = document.getElementById("new-team-name");
+    const inputTeamPass = document.getElementById("new-team-password");
+    const msgTeamAdd = document.getElementById("team-add-msg");
+    const registeredTeamsList = document.getElementById("registered-teams-list");
+
+    if (btnAddTeam) {
+        btnAddTeam.addEventListener("click", () => {
+            const teamName = inputTeamName.value.trim().toLowerCase();
+            const password = inputTeamPass.value.trim();
+            if (!teamName || !password) {
+                msgTeamAdd.textContent = "Please enter both name and password.";
+                msgTeamAdd.style.color = "#f87171";
+                return;
+            }
+            msgTeamAdd.textContent = "Adding...";
+            msgTeamAdd.style.color = "#a1a1aa";
+            
+            addTeam(teamName, password).then(() => {
+                msgTeamAdd.textContent = "Team added successfully!";
+                msgTeamAdd.style.color = "#34d399";
+                inputTeamName.value = "";
+                inputTeamPass.value = "";
+                setTimeout(() => { msgTeamAdd.textContent = ""; }, 3000);
+            }).catch(err => {
+                msgTeamAdd.textContent = "Error: " + err.message;
+                msgTeamAdd.style.color = "#f87171";
+            });
+        });
+
+        watchTeams((teamsObj, err) => {
+            if (err) {
+                registeredTeamsList.innerHTML = `<span style="color: #f87171;">Failed to load teams</span>`;
+                return;
+            }
+            if (!teamsObj) {
+                registeredTeamsList.innerHTML = `<span style="color: #a1a1aa;">No teams registered yet.</span>`;
+                return;
+            }
+            registeredTeamsList.innerHTML = "";
+            for (const t of Object.keys(teamsObj)) {
+                const span = document.createElement("span");
+                span.textContent = t;
+                span.style.cssText = "background: #334155; padding: 2px 8px; border-radius: 4px; display: inline-block;";
+                registeredTeamsList.appendChild(span);
+            }
+        });
+    }
 }
 
 function setOffline() {

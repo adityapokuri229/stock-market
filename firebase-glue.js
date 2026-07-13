@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, push, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 // Firebase configuration
@@ -46,9 +46,9 @@ function withTimeout(promise, ms, message) {
     return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
-export function initGlue(seed, team) {
+export function initGlue(team) {
     if (db) {
-        basePath = `games/${seed}/teams/${team}`;
+        basePath = `game/teams/${team}`;
         console.log("Firebase glue initialized for path:", basePath);
 
         // Push a presence flag so the Judge sees the team immediately upon login
@@ -71,10 +71,10 @@ export function pushOrder(order) {
     }
 }
 
-export function watchGame(seed, cb) {
+export function watchGame(cb) {
     if (db) {
         authReady.then(() => {
-            onValue(ref(db, `games/${seed}/teams`), snap => {
+            onValue(ref(db, `game/teams`), snap => {
                 cb(snap.val() || {});
             }, (error) => {
                 console.error("Firebase watchGame error:", error);
@@ -89,11 +89,11 @@ export function watchGame(seed, cb) {
     }
 }
 
-export function watchGameState(seed, cb) {
+export function watchGameState(cb) {
     if (db) {
-        console.log(`[Firebase] Watching game state for seed ${seed}`);
+        console.log(`[Firebase] Watching game state`);
         authReady.then(() => {
-            onValue(ref(db, `games/${seed}/status`), snap => {
+            onValue(ref(db, `game/status`), snap => {
                 console.log(`[Firebase] Game state update received:`, snap.val());
                 cb(snap.val() || { state: 'waiting' });
             }, (error) => {
@@ -108,16 +108,66 @@ export function watchGameState(seed, cb) {
     }
 }
 
-export function setGameState(seed, state) {
+export function setGameState(payload) {
     if (db) {
-        console.log(`[Firebase] Attempting to set game state to '${state}' for seed ${seed}`);
+        console.log(`[Firebase] Attempting to set game state to:`, payload);
         return withTimeout(
-            authReady.then(() => set(ref(db, `games/${seed}/status`), { state: state })),
+            authReady.then(() => set(ref(db, `game/status`), payload)),
             10000,
             "Timed out waiting for Firebase (check network / Firebase project status)."
-        ).then(() => console.log(`[Firebase] Successfully set game state to '${state}'`));
+        ).then(() => console.log(`[Firebase] Successfully set game state.`));
     } else {
         console.warn("[Firebase] Cannot set game state, db is not initialized.");
+        return Promise.reject(new Error("Firebase db is not initialized."));
+    }
+}
+
+export function addTeam(teamName, password) {
+    if (db) {
+        return authReady.then(() => {
+            return set(ref(db, `game/credentials/${teamName}`), password);
+        });
+    } else {
+        return Promise.reject(new Error("Firebase db is not initialized."));
+    }
+}
+
+export function watchTeams(cb) {
+    if (db) {
+        authReady.then(() => {
+            onValue(ref(db, `game/credentials`), snap => {
+                cb(snap.val() || {});
+            }, (error) => {
+                console.error("[Firebase] watchTeams error:", error);
+                cb(null, error);
+            });
+        });
+    } else {
+        console.warn("[Firebase] Cannot watch teams, db is not initialized.");
+    }
+}
+
+export function verifyTeam(teamName, password) {
+    if (db) {
+        return authReady.then(() => {
+            return get(ref(db, `game/credentials/${teamName}`)).then(snap => {
+                if (snap.exists() && snap.val() === password) {
+                    return true;
+                }
+                return false;
+            });
+        });
+    } else {
+        return Promise.reject(new Error("Firebase db is not initialized."));
+    }
+}
+
+export function resetGame() {
+    if (db) {
+        return authReady.then(() => {
+            return set(ref(db, `game`), { status: { state: 'waiting' } });
+        });
+    } else {
         return Promise.reject(new Error("Firebase db is not initialized."));
     }
 }

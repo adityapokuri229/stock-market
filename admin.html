@@ -36,6 +36,8 @@
                     </select>
                 </label>
                 <button id="btn-start-event" class="btn-primary" style="margin-left: 15px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #34d399; color: #022c22; font-weight: bold;">▶ START EVENT</button>
+                <button id="btn-start-round-2" class="btn-primary" style="margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #60a5fa; color: #1e3a8a; font-weight: bold; display: none;">▶ START ROUND 2</button>
+                <button id="btn-pause-event" class="btn-primary" style="margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #fbbf24; color: #78350f; font-weight: bold; display: none;">⏸ PAUSE EVENT</button>
             </div>
             <div class="status">
                 <span id="live-status" class="status-pill live">● LIVE — 0 teams</span>
@@ -61,6 +63,24 @@
             <div class="weight-slider">
                 <label>Hit rate <span id="val-h">30</span></label>
                 <input type="range" id="weight-h" min="0" max="100" value="30">
+            </div>
+        </div>
+
+        <!-- Team Management -->
+        <div class="team-management" style="background: #1e1e1e; padding: 15px; margin: 15px 20px; border-radius: 6px; border: 1px solid #333;">
+            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 1rem; color: #a1a1aa;">Team Management</h3>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="new-team-name" placeholder="Team Name" style="padding: 6px 10px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px;">
+                <input type="text" id="new-team-password" placeholder="Password" style="padding: 6px 10px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px;">
+                <button id="btn-add-team" class="btn-primary" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">Add Team</button>
+                <span id="team-add-msg" style="margin-left: 10px; font-size: 0.85rem; color: #34d399;"></span>
+            </div>
+            <div style="margin-top: 15px;">
+                <h4 style="margin: 0 0 5px 0; font-size: 0.85rem; color: #71717a;">Registered Teams:</h4>
+                <div id="registered-teams-list" style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem;">
+                    <!-- Populated dynamically -->
+                    <span style="color: #555;">Loading...</span>
+                </div>
             </div>
         </div>
 
@@ -121,6 +141,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Fixed Reset Button -->
+    <button id="btn-reset-everything" style="position: fixed; bottom: 20px; right: 20px; background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+        RESET EVERYTHING
+    </button>
 
     <!-- Scripts -->
     <script src="scoring.js"></script>
