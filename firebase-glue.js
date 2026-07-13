@@ -122,10 +122,10 @@ export function setGameState(payload) {
     }
 }
 
-export function addTeam(teamName, password) {
+export function addTeam(teamName, password, startingCapital) {
     if (db) {
         return authReady.then(() => {
-            return set(ref(db, `game/credentials/${teamName}`), password);
+            return set(ref(db, `game/credentials/${teamName}`), { password, startingCapital });
         });
     } else {
         return Promise.reject(new Error("Firebase db is not initialized."));
@@ -147,14 +147,36 @@ export function watchTeams(cb) {
     }
 }
 
+// Credentials were originally stored as a raw password string; new entries are
+// {password, startingCapital}. Accept both so pre-existing teams keep working.
+function credentialPassword(val) {
+    return (val && typeof val === 'object') ? val.password : val;
+}
+
 export function verifyTeam(teamName, password) {
     if (db) {
         return authReady.then(() => {
             return get(ref(db, `game/credentials/${teamName}`)).then(snap => {
-                if (snap.exists() && snap.val() === password) {
+                if (snap.exists() && credentialPassword(snap.val()) === password) {
                     return true;
                 }
                 return false;
+            });
+        });
+    } else {
+        return Promise.reject(new Error("Firebase db is not initialized."));
+    }
+}
+
+// Returns the team's configured starting capital, or null if unset/unknown
+// (e.g. a team registered before this field existed) so the caller can fall
+// back to the game's default.
+export function getTeamCapital(teamName) {
+    if (db) {
+        return authReady.then(() => {
+            return get(ref(db, `game/credentials/${teamName}/startingCapital`)).then(snap => {
+                const v = snap.val();
+                return (typeof v === 'number' && v > 0) ? v : null;
             });
         });
     } else {

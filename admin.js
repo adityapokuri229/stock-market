@@ -10,6 +10,16 @@ let currentScope = "both";
 let weights = { R: 45, D: 25, H: 30 };
 let dirtyTeams = new Set();
 let isLive = false;
+let teamCredentials = {}; // team -> {password, startingCapital} | legacy password string
+const DEFAULT_STARTING_CAPITAL = 1_000_000;
+
+// A team's configured starting capital, falling back to the default for teams
+// registered before this field existed (or before watchTeams has loaded).
+function getTeamK0(team) {
+    const cred = teamCredentials[team];
+    const capital = (cred && typeof cred === 'object') ? cred.startingCapital : null;
+    return (typeof capital === 'number' && capital > 0) ? capital : DEFAULT_STARTING_CAPITAL;
+}
 
 // DOM Elements
 const loginOverlay = document.getElementById("admin-login-overlay");
@@ -134,11 +144,11 @@ function processTeamData(team) {
     if (currentScope === "1") scopeParam = 1;
     
     // 1. Replay canonical prices
-    const rep = window.scoring.replay(orders, gameData, scopeParam);
+    const K0 = getTeamK0(team);
+    const rep = window.scoring.replay(orders, gameData, scopeParam, K0);
     cache[team].rep = rep;
-    
+
     // 2. Subscore calculation
-    const K0 = 1_000_000;
     const sub = {};
     
     // Return
@@ -426,6 +436,7 @@ function setupListeners() {
     const btnAddTeam = document.getElementById("btn-add-team");
     const inputTeamName = document.getElementById("new-team-name");
     const inputTeamPass = document.getElementById("new-team-password");
+    const inputTeamCapital = document.getElementById("new-team-capital");
     const msgTeamAdd = document.getElementById("team-add-msg");
     const registeredTeamsList = document.getElementById("registered-teams-list");
 
@@ -433,19 +444,27 @@ function setupListeners() {
         btnAddTeam.addEventListener("click", () => {
             const teamName = inputTeamName.value.trim().toLowerCase();
             const password = inputTeamPass.value.trim();
+            const capitalRaw = inputTeamCapital.value.trim();
+            const capital = capitalRaw ? Number(capitalRaw) : DEFAULT_STARTING_CAPITAL;
             if (!teamName || !password) {
                 msgTeamAdd.textContent = "Please enter both name and password.";
                 msgTeamAdd.style.color = "#f87171";
                 return;
             }
+            if (!Number.isFinite(capital) || capital <= 0) {
+                msgTeamAdd.textContent = "Starting capital must be a positive number.";
+                msgTeamAdd.style.color = "#f87171";
+                return;
+            }
             msgTeamAdd.textContent = "Adding...";
             msgTeamAdd.style.color = "#a1a1aa";
-            
-            addTeam(teamName, password).then(() => {
+
+            addTeam(teamName, password, capital).then(() => {
                 msgTeamAdd.textContent = "Team added successfully!";
                 msgTeamAdd.style.color = "#34d399";
                 inputTeamName.value = "";
                 inputTeamPass.value = "";
+                inputTeamCapital.value = String(DEFAULT_STARTING_CAPITAL);
                 setTimeout(() => { msgTeamAdd.textContent = ""; }, 3000);
             }).catch(err => {
                 msgTeamAdd.textContent = "Error: " + err.message;
@@ -462,10 +481,12 @@ function setupListeners() {
                 registeredTeamsList.innerHTML = `<span style="color: #a1a1aa;">No teams registered yet.</span>`;
                 return;
             }
+            teamCredentials = teamsObj;
+            for (const team in cache) dirtyTeams.add(team); // re-score with any updated capitals
             registeredTeamsList.innerHTML = "";
             for (const t of Object.keys(teamsObj)) {
                 const span = document.createElement("span");
-                span.textContent = t;
+                span.textContent = `${t} (₹${getTeamK0(t).toLocaleString('en-IN')})`;
                 span.style.cssText = "background: #334155; padding: 2px 8px; border-radius: 4px; display: inline-block;";
                 registeredTeamsList.appendChild(span);
             }
@@ -568,7 +589,7 @@ function renderDrillDown(team) {
     // Radar Chart -- exposure weighted by trade size (qty * canonical price / K0), same
     // weighting the real Diversification score uses (scoring.js effectiveRank), so this
     // view reflects the same exposure the score is based on rather than a raw beta count.
-    const K0 = 1_000_000;
+    const K0 = getTeamK0(team);
     const factorCounts = { "GlobalTech": 0, "GlobalRisk": 0, "RatesRupee": 0, "ConsDemand": 0, "SupplyChain": 0, "DomPolicy": 0, "Credit": 0, "CrudeOil": 0, "EnergyTx": 0, "Metals": 0 };
     for (const ord of data.rep.orders) {
         if (!betas[ord.ticker]) continue;

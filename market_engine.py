@@ -3,7 +3,7 @@ import json
 # =================================================================
 # CONSTANTS
 # =================================================================
-TICKS_PER_SESSION = 130
+TICKS_PER_SESSION = 121  # 121 ticks (0..120) x 10s = 20:00 exactly, ending right after the tick-120 news drop
 TICK_SECONDS = 10
 SESSIONS = 2
 

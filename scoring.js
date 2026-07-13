@@ -31,14 +31,16 @@ function scopeTickRange(gameData, scope) {
     return [0, gameData.rows.length - 1];
 }
 
-function replay(orders, gameData, scope) {
+function replay(orders, gameData, scope, startingCapital = 1_000_000) {
     // scope: 0 (Session 1 only), 1 (Session 2 only), or "both" (the real, continuous
     // full-game score). Positions/cash carry through the whole 240-tick game per the
     // PRD -- sessions only reshuffle news/market, they never reset the portfolio.
     // Scoping to a single session is an isolated judge-console view (fresh K0 for
     // that window), not a change to how the real "both" score is computed.
+    // startingCapital is the team's configured starting cash (defaults to ₹10L for
+    // teams that predate the per-team amount field).
     const rows = gameData.rows;
-    const K0 = 1_000_000;
+    const K0 = startingCapital;
     const [tickStart, tickEnd] = scopeTickRange(gameData, scope);
     const scopedOrders = orders.filter(o => o.tick >= tickStart && o.tick <= tickEnd);
     let cash = K0, shares = {};

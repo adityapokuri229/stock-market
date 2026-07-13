@@ -1,7 +1,7 @@
     // =================================================================
     // DATA & STATE
     // =================================================================
-    const START_CAPITAL = 1_000_000; // ₹10 Lakh
+    let START_CAPITAL = 1_000_000; // ₹10 Lakh default; overridden per-team at login if the judge set one
 
     let gameData = null;
     let currentTick = 0;
@@ -126,6 +126,19 @@
             err.style.display = 'block';
             return;
         }
+
+        // Pick up this team's judge-configured starting capital, if any.
+        if (window.firebaseGlue && window.firebaseGlue.getTeamCapital) {
+            try {
+                const capital = await window.firebaseGlue.getTeamCapital(team);
+                if (typeof capital === 'number' && capital > 0) {
+                    START_CAPITAL = capital;
+                }
+            } catch (error) {
+                console.error('Failed to fetch team starting capital, using default:', error);
+            }
+        }
+        cash = START_CAPITAL;
 
         isAuthenticated = true;
         currentTeam = team;
