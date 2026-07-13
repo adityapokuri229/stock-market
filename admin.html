@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Judge Console</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,34 +26,38 @@
 
     <div class="app-container" id="admin-app" style="display: none;">
         <!-- Top bar -->
-        <header class="top-bar">
-            <div class="brand">C | Judge Console</div>
-            <div class="controls">
-                <label>Scope: 
-                    <select id="scope-select">
+        <header class="header">
+            <div class="header-brand">
+                <img src="dps_logo.png" alt="DPS Logo" style="height: 38px; width: auto; object-fit: contain; border-radius: 4px;">
+                Chakravyuh - Nivesh Chakra | Judge Console
+            </div>
+            <div class="controls" style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">Scope: 
+                    <select id="scope-select" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; outline: none;">
                         <option value="both">Both</option>
                         <option value="0">Session 1</option>
                         <option value="1">Session 2</option>
                     </select>
                 </label>
-                <button id="btn-start-event" class="btn-primary" style="margin-left: 15px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #34d399; color: #022c22; font-weight: bold;">▶ START EVENT</button>
-                <span id="portfolio-build-timer" style="display: none; margin-left: 12px; font-size: 0.85rem; font-weight: bold; color: #fbbf24; background: rgba(251,191,36,0.12); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(251,191,36,0.3);">⏱ Portfolio Building: 5:00</span>
-                <button id="btn-start-round-1" style="display: none; margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #34d399; color: #022c22; font-weight: bold;">▶ START ROUND 1</button>
-                <button id="btn-start-round-2" class="btn-primary" style="margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #60a5fa; color: #1e3a8a; font-weight: bold; display: none;">▶ START ROUND 2</button>
-                <button id="btn-end-round-2" class="btn-primary" style="margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #f87171; color: #7f1d1d; font-weight: bold; display: none;">⏹ END ROUND 2</button>
-                <button id="btn-pause-event" class="btn-primary" style="margin-left: 10px; padding: 4px 12px; font-size: 0.85rem; border-radius: 4px; border: none; cursor: pointer; background: #fbbf24; color: #78350f; font-weight: bold; display: none;">⏸ PAUSE EVENT</button>
-                <span id="live-game-clock" style="display: none; margin-left: 12px; font-size: 0.85rem; font-weight: bold; color: #38bdf8; background: rgba(56,189,248,0.12); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.3); font-variant-numeric: tabular-nums;"></span>
+                <button id="btn-start-event" class="btn-primary">▶ START EVENT</button>
+                <span id="portfolio-build-timer" style="display: none; font-size: 0.85rem; font-weight: bold; color: #fbbf24; background: rgba(251,191,36,0.12); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3);">⏱ Portfolio Building: 5:00</span>
+                <button id="btn-start-round-1" class="btn-primary" style="display: none;">▶ START ROUND 1</button>
+                <button id="btn-start-round-2" class="btn-primary" style="display: none; background: linear-gradient(135deg, #60a5fa, #2563eb);">▶ START ROUND 2</button>
+                <button id="btn-end-round-2" class="btn-danger" style="display: none;">⏹ END ROUND 2</button>
+                <button id="btn-pause-event" class="btn-warning" style="display: none;">⏸ PAUSE EVENT</button>
+                <span id="live-game-clock" style="display: none; margin-left: 12px; font-size: 0.85rem; font-weight: bold; color: #38bdf8; background: rgba(56,189,248,0.12); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); font-variant-numeric: tabular-nums;"></span>
             </div>
-            <div class="status">
+            <div class="header-right">
                 <span id="live-status" class="status-pill live">● LIVE — 0 teams</span>
                 <input type="file" id="offline-file" style="display:none;" accept=".json">
                 <button id="offline-load-btn" class="btn-small">Load Offline</button>
                 <button id="export-csv-btn" class="btn-small">Export CSV</button>
+                <button id="btn-reset-everything" class="btn-danger" style="margin-left: 10px;">RESET EVERYTHING</button>
             </div>
         </header>
 
         <!-- Weights strip -->
-        <div class="weights-strip">
+        <div class="card weights-strip">
             <div class="weight-group">
                 <label>Scoring weights (re-ranks live)</label>
             </div>
@@ -71,14 +76,14 @@
         </div>
 
         <!-- Team Management -->
-        <div class="team-management" style="background: #1e1e1e; padding: 15px; margin: 15px 20px; border-radius: 6px; border: 1px solid #333;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 1rem; color: #a1a1aa;">Team Management</h3>
-            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                <input type="text" id="new-team-name" placeholder="Team Name" style="padding: 6px 10px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px;">
-                <input type="text" id="new-team-password" placeholder="Password" style="padding: 6px 10px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px;">
-                <input type="number" id="new-team-capital" placeholder="Starting Capital (₹)" min="1" step="1" value="1000000" style="padding: 6px 10px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px; width: 180px;">
-                <button id="btn-add-team" class="btn-primary" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">Add Team</button>
-                <span id="team-add-msg" style="margin-left: 10px; font-size: 0.85rem; color: #34d399;"></span>
+        <div class="card">
+            <div class="section-title"><span class="title-dot"></span>Team Management</div>
+            <div class="team-input-group">
+                <input type="text" id="new-team-name" placeholder="Team Name" class="admin-input">
+                <input type="text" id="new-team-password" placeholder="Password" class="admin-input">
+                <input type="number" id="new-team-capital" placeholder="Starting Capital (₹)" min="1" step="1" value="1000000" class="admin-input" style="width: 180px;">
+                <button id="btn-add-team" class="btn-primary">Add Team</button>
+                <span id="team-add-msg" style="margin-left: 10px; font-size: 0.85rem; color: var(--accent);"></span>
             </div>
             <div style="margin-top: 15px;">
                 <h4 style="margin: 0 0 5px 0; font-size: 0.85rem; color: #71717a;">Registered Teams:</h4>
@@ -90,8 +95,8 @@
         </div>
 
         <!-- Leaderboard -->
-        <div class="leaderboard-container">
-            <table class="leaderboard">
+        <div class="card leaderboard-container" style="padding: 0; overflow: hidden;">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -109,28 +114,29 @@
         </div>
 
         <!-- Drill-down -->
-        <div class="drill-down-container" id="drill-down-container" style="display:none;">
-            <div class="drill-down-header">
+        <div class="card" id="drill-down-container" style="display:none; border-color: #a855f7; background: rgba(168, 85, 247, 0.05);">
+            <div class="section-title" style="color: #a855f7;">
+                <span class="title-dot" style="background: #a855f7;"></span>
                 DRILL-DOWN (expanded team: <span id="drill-team-name"></span>)
             </div>
             <div class="drill-down-grid">
-                <div class="drill-card">
+                <div class="card drill-card" style="margin-bottom: 0;">
                     <h4>Equity vs market</h4>
                     <div class="canvas-container">
                         <canvas id="drill-equity-chart"></canvas>
                     </div>
                 </div>
-                <div class="drill-card">
+                <div class="card drill-card" style="margin-bottom: 0;">
                     <h4>Factor exposure radar</h4>
                     <div class="radar-container" id="drill-radar-container">
                         <!-- Custom radar via SVG or simple canvas -->
                         <canvas id="drill-radar-chart"></canvas>
                     </div>
                 </div>
-                <div class="drill-card">
+                <div class="card drill-card" style="margin-bottom: 0;">
                     <h4>Round-trip blotter (audit trail)</h4>
                     <div class="blotter-container">
-                        <table class="blotter-table">
+                        <table class="data-table">
                             <thead>
                                 <tr>
                                     <th>Ticker</th>
@@ -147,10 +153,7 @@
         </div>
     </div>
 
-    <!-- Fixed Reset Button -->
-    <button id="btn-reset-everything" style="position: fixed; bottom: 20px; right: 20px; background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-        RESET EVERYTHING
-    </button>
+
 
     <!-- Scripts -->
     <script src="scoring.js"></script>
