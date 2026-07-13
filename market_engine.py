@@ -3,7 +3,7 @@ import json
 # =================================================================
 # CONSTANTS
 # =================================================================
-TICKS_PER_SESSION = 120
+TICKS_PER_SESSION = 130
 TICK_SECONDS = 10
 SESSIONS = 2
 
@@ -27,6 +27,9 @@ TICKER_CONFIG = [
 
 TICKERS = [c['ticker'] for c in TICKER_CONFIG]
 
+# News drop timing: Drop 1 @ tick 2, Drop 2 @ tick 12, then every 12 ticks.
+# The Major Drop (6th event) is followed by a 24-tick gap before the next item,
+# then the cadence returns to every 12 ticks: 2, 12, 24, 36, 48, 60(Major), 84, 96, 108, 120
 EVENTS = {
     0: {
         2: {
@@ -34,47 +37,47 @@ EVENTS = {
             "bullets": ["Investor sentiment at highest level", "Aggressive capex in tech", "Semiconductors at full capacity"],
             "impacts": {"TSMC": 1.05, "SAMSUNG": 1.05, "GOLD": 0.98}
         },
-        14: {
+        12: {
             "factor": "Supply Chain",
             "bullets": ["Flooding hits mining sites", "Chipmakers scale back", "Corporate borrowing up"],
             "impacts": {"LITHIUM": 1.10, "TSMC": 0.95, "SAMSUNG": 0.95, "HDFC": 1.05}
         },
-        26: {
+        24: {
             "factor": "Oil",
             "bullets": ["OPEC talks collapse", "Ferrari orders swell", "Pharma approval delays"],
             "impacts": {"OIL": 1.15, "FERRARI": 1.08, "PFE": 0.92}
         },
-        38: {
+        36: {
             "factor": "Geopolitical Stability",
             "bullets": ["Asian port congestion worsens", "NATO expands procurement", "Banks increase gold reserves"],
             "impacts": {"TSMC": 0.97, "SAMSUNG": 0.97, "FERRARI": 0.95, "LMT": 1.06, "GOLD": 1.05}
         },
-        50: {
+        48: {
             "factor": "Semiconductor Demand",
             "bullets": ["Semiconductor record orders", "Telecom satellite partnerships", "Power grid expansions"],
             "impacts": {"TSMC": 1.08, "SAMSUNG": 1.08, "SPACEX": 1.05, "RELIANCE": 1.02}
         },
-        62: {
-            "factor": "Interest Rates",
-            "bullets": ["Institutions buy growth stocks", "Central bank surprises with rate hike", "Defence stocks weak"],
-            "impacts": {"DKNG": 1.05, "TSMC": 0.96, "SAMSUNG": 0.96, "HDFC": 0.90, "LMT": 0.95}
-        },
-        74: {
+        60: {
             "factor": "Regulatory Risk",
             "bullets": ["MAJOR DROP: AI firms default on loans", "Credit lines freeze", "Rotation to healthcare and gold"],
             "impacts": {"TSMC": 0.80, "SAMSUNG": 0.80, "HDFC": 0.85, "PFE": 1.10, "GOLD": 1.08, "DKNG": 0.90}
         },
-        86: {
+        84: {
+            "factor": "Interest Rates",
+            "bullets": ["Institutions buy growth stocks", "Central bank surprises with rate hike", "Defence stocks weak"],
+            "impacts": {"DKNG": 1.05, "TSMC": 0.96, "SAMSUNG": 0.96, "HDFC": 0.90, "LMT": 0.95}
+        },
+        96: {
             "factor": "Investor Confidence",
             "bullets": ["Equity funds see massive outflows", "Oil prices ease", "Freeze in new defence orders"],
             "impacts": {"DKNG": 0.92, "OIL": 0.90, "LMT": 0.90, "TSMC": 0.95, "SAMSUNG": 0.95}
         },
-        98: {
+        108: {
             "factor": "Healthcare",
             "bullets": ["Borrowing costs hold high", "Pharma successful late-stage trial", "Healthcare demand steady"],
             "impacts": {"HDFC": 0.95, "PFE": 1.15}
         },
-        110: {
+        120: {
             "factor": "Credit",
             "bullets": ["Emergency credit lines confirmed", "Regulators use lighter touch", "Bank stocks rally"],
             "impacts": {"HDFC": 1.15, "TSMC": 1.08, "DKNG": 1.08, "SAMSUNG": 1.05}
@@ -86,47 +89,47 @@ EVENTS = {
             "bullets": ["Round 2: War Intro", "Chinese naval activity intensifies", "U.S. Space Force accelerates contracts"],
             "impacts": {"TSMC": 0.85, "LMT": 1.10, "SPACEX": 1.10, "OIL": 1.05}
         },
-        14: {
+        12: {
             "factor": "Inflation Reaction",
             "bullets": ["Chinese drills restrict shipping", "Fed flags inflation risk", "Space Force classified contract"],
             "impacts": {"TSMC": 0.90, "SPACEX": 1.15, "GOLD": 1.02}
         },
-        26: {
+        24: {
             "factor": "Technological Developments",
             "bullets": ["Rare earth export limits", "DraftKings record volume", "Russian oil deal in India"],
             "impacts": {"LITHIUM": 1.20, "TSMC": 0.95, "DKNG": 1.10, "OIL": 0.92}
         },
-        38: {
+        36: {
             "factor": "Aero",
             "bullets": ["Vessel collision in Taiwan Strait", "Pentagon expedites munitions order", "Retaliatory tariffs threatened"],
             "impacts": {"TSMC": 0.85, "LMT": 1.15, "FERRARI": 0.90}
         },
-        50: {
+        48: {
             "factor": "Healthcare",
             "bullets": ["Joint naval patrols announced", "Medical stockpiles expanded", "Chip foundries diversify"],
             "impacts": {"PFE": 1.10, "SAMSUNG": 1.08, "TSMC": 0.95}
         },
-        62: {
-            "factor": "Geopolitical Stability",
-            "bullets": ["China extends blockade", "Unidentified space signal detected", "Bank of England emergency session"],
-            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
-        },
-        74: {
+        60: {
             "factor": "Geopolitical Stability",
             "bullets": ["WAR ANNOUNCEMENT: Blockade declared", "Shipping volumes collapse", "Signal confirmed non-terrestrial"],
             "impacts": {"TSMC": 0.60, "SAMSUNG": 0.70, "OIL": 1.25, "SPACEX": 1.20, "GOLD": 1.15, "DKNG": 0.75, "HDFC": 0.80}
         },
-        86: {
+        84: {
+            "factor": "Geopolitical Stability",
+            "bullets": ["China extends blockade", "Unidentified space signal detected", "Bank of England emergency session"],
+            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
+        },
+        96: {
             "factor": "Aero",
             "bullets": ["Shipping war-risk premiums hit record", "Defence and Pharma capacity constraints", "Swap-line eases funding"],
             "impacts": {"OIL": 1.10, "LMT": 1.15, "PFE": 1.12, "HDFC": 1.05}
         },
-        98: {
+        108: {
             "factor": "Technological Developments",
             "bullets": ["Signal is genuine propulsion breakthrough", "Oil futures drop on substitution fears", "Lawmakers audit contractors"],
             "impacts": {"SPACEX": 1.40, "OIL": 0.85, "TSMC": 1.15, "SAMSUNG": 1.15, "LMT": 0.90}
         },
-        110: {
+        120: {
             "factor": "Geopolitical Stability",
             "bullets": ["Partial ceasefire reports circulate", "Export controls on new tech", "Consumer sentiment improves"],
             "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
