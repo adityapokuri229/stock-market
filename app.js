@@ -6,11 +6,11 @@
     let gameData = null;
     let currentTick = 0;
     let gameInterval = null;
+    let clockInterval = null;  // 1s ticker driving the visible countdown clock
+    let clockSecsLeft = 0;
     let tickerPrevPrices = {};
     let prevSelectedPrice = null;
     let newsBuffer = [];
-    let lastNewsFlushTick = 0;
-    const NEWS_BUNDLE_TICKS = 12; // ~2 min at 10s/tick, per PRD Part 2.1 cadence note
     let isPaused = false;
     let isAuthenticated = false;
     let currentTeam = '';
@@ -313,6 +313,15 @@
         // Process tick 0 immediately
         processTick();
 
+        // Smooth per-second countdown -- processTick() resyncs clockSecsLeft to the
+        // true remaining time on every 10s tick; this just counts it down visibly
+        // in between so the clock doesn't sit still and then jump by 10s at once.
+        clockInterval = setInterval(() => {
+            if (isPaused) return;
+            if (clockSecsLeft > 0) clockSecsLeft--;
+            updateClockDisplay();
+        }, 1000);
+
         // Then tick every 10 seconds
         gameInterval = setInterval(() => {
             if (!isPaused) {
@@ -349,6 +358,10 @@
             clearInterval(gameInterval);
             gameInterval = null;
         }
+        if (clockInterval) {
+            clearInterval(clockInterval);
+            clockInterval = null;
+        }
         document.getElementById('game-status').textContent = 'Game Over!';
         document.getElementById('timer-dot').style.background = 'var(--text-muted)';
         document.getElementById('timer-dot').style.animation = 'none';
@@ -365,6 +378,12 @@
         a.href = URL.createObjectURL(blob);
         a.download = `chakravyuh_bundle_${currentTeam}_${gameData.meta.seed}.json`;
         a.click();
+    }
+
+    function updateClockDisplay() {
+        const mm = Math.floor(clockSecsLeft / 60).toString().padStart(2, '0');
+        const ss = (clockSecsLeft % 60).toString().padStart(2, '0');
+        document.getElementById('timer-clock').textContent = `${mm}:${ss}`;
     }
 
     // If the judge authorizes a later session while we're still mid-round, jump
@@ -393,7 +412,7 @@
         const session = row.session;
         const tickInSession = row.tick;
 
-        // If session changed, flush any pending news from the old session and reset the cadence timer.
+        // If session changed, flush any pending news from the old session.
         // Prices/portfolio carry through continuously per the PRD -- only news/market reshuffle per session.
         if (currentTick > 0 && gameData.rows[currentTick - 1].session !== session) {
             showToast(`Session ${session + 1} started!`);
@@ -401,7 +420,6 @@
                 pushNews(newsBuffer, gameData.rows[currentTick - 1].session, gameData.meta.ticks_per_session - 1);
                 newsBuffer = [];
             }
-            lastNewsFlushTick = currentTick;
             // Clear price history for new session
             gameData.meta.tickers.forEach(tk => { priceHistory[tk] = []; });
         }
@@ -411,25 +429,20 @@
             priceHistory[tk].push(row.prices[tk]);
         });
 
-        // Update timer
+        // Update timer -- resync the smooth per-second clock to this tick's true
+        // remaining time; clockInterval counts it down second-by-second in between.
         document.getElementById('timer-session').textContent = session + 1;
         document.getElementById('timer-tick').textContent = tickInSession;
         const ticksLeft = gameData.meta.ticks_per_session - tickInSession - 1;
-        const secsLeft = ticksLeft * gameData.meta.tick_seconds;
-        const mm = Math.floor(secsLeft / 60).toString().padStart(2, '0');
-        const ss = (secsLeft % 60).toString().padStart(2, '0');
-        document.getElementById('timer-clock').textContent = `${mm}:${ss}`;
+        clockSecsLeft = ticksLeft * gameData.meta.tick_seconds;
+        updateClockDisplay();
 
-        // News: collect headlines as they fire, but only surface them as one bundled
-        // alert every ~2 minutes (or at game end), per PRD Part 2.1 cadence note.
+        // News: surface each headline the instant it fires -- drops are already
+        // spaced out on a fixed schedule, so there's no need to batch/delay them.
         if (row.news && row.news.length > 0) {
             newsBuffer.push(...row.news);
-        }
-        const isLastTick = currentTick === gameData.rows.length - 1;
-        if (newsBuffer.length && (currentTick - lastNewsFlushTick >= NEWS_BUNDLE_TICKS || isLastTick)) {
             pushNews(newsBuffer, session, tickInSession);
             newsBuffer = [];
-            lastNewsFlushTick = currentTick;
         }
 
         // Update order widget current price
