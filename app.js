@@ -930,9 +930,13 @@
 
     function updateEquityChart() {
         if (!equityChart) return;
-        equityChart.data.labels = tickLabels;
-        equityChart.data.datasets[0].data = equitySeries;
-        equityChart.data.datasets[1].data = marketSeries;
+        // Force resize first — Chart.js mis-measures canvas dimensions when the
+        // portfolio tab was hidden (display:none). Without this, it redraws with
+        // a broken y-axis scale that looks like the graph is "growing downward".
+        equityChart.resize();
+        equityChart.data.labels = tickLabels.slice();
+        equityChart.data.datasets[0].data = equitySeries.slice();
+        equityChart.data.datasets[1].data = marketSeries.slice();
         equityChart.update('none');
     }
 
