@@ -227,6 +227,10 @@
                         
                         switchTab('trade');
                         startGame();
+                        // Already running (e.g. Round 1 in progress) -- if the judge just
+                        // authorized the next round, jump straight to it instead of waiting
+                        // out the rest of the current round's remaining ticks.
+                        maybeSkipToSession(window.authorizedSession);
                     } else if (status && status.state === 'paused') {
                         console.log("Game state is paused!");
                         isPaused = true;
@@ -242,6 +246,12 @@
                         document.getElementById('game-controls').classList.remove('show');
                         document.getElementById('ticker-tape').classList.remove('show');
                         switchTab('waiting');
+                    } else if (status && status.state === 'ended') {
+                        console.log("Game state is ended -- judge ended the round/event.");
+                        switchTab('trade');
+                        if (gameInterval) {
+                            endGame('Judge ended the event. Game Over!');
+                        }
                     }
                 });
             } else {
@@ -322,26 +332,7 @@
 
                 currentTick++;
                 if (currentTick >= gameData.rows.length) {
-                    clearInterval(gameInterval);
-                    gameInterval = null;
-                    document.getElementById('game-status').textContent = 'Game Over!';
-                    document.getElementById('game-status').textContent = 'Game Over!';
-                    document.getElementById('timer-dot').style.background = 'var(--text-muted)';
-                    document.getElementById('timer-dot').style.animation = 'none';
-                    showToast('Game Over! All sessions complete.');
-
-                    // Export fallback bundle
-                    const bundle = {
-                        game_seed: gameData.meta.seed,
-                        team: currentTeam,
-                        orders: orderHistory
-                    };
-                    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(blob);
-                    a.download = `chakravyuh_bundle_${currentTeam}_${gameData.meta.seed}.json`;
-                    a.click();
-
+                    endGame('Game Over! All sessions complete.');
                     return;
                 }
                 processTick();
@@ -349,6 +340,45 @@
         }, 10000);
 
         showToast('Market is now LIVE! 🔔');
+    }
+
+    // Stops the tick loop and exports the fallback order bundle. Called both when
+    // the game naturally runs out of ticks and when the judge ends the round/event early.
+    function endGame(message) {
+        if (gameInterval) {
+            clearInterval(gameInterval);
+            gameInterval = null;
+        }
+        document.getElementById('game-status').textContent = 'Game Over!';
+        document.getElementById('timer-dot').style.background = 'var(--text-muted)';
+        document.getElementById('timer-dot').style.animation = 'none';
+        showToast(message || 'Game Over! All sessions complete.');
+
+        // Export fallback bundle
+        const bundle = {
+            game_seed: gameData.meta.seed,
+            team: currentTeam,
+            orders: orderHistory
+        };
+        const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `chakravyuh_bundle_${currentTeam}_${gameData.meta.seed}.json`;
+        a.click();
+    }
+
+    // If the judge authorizes a later session while we're still mid-round, jump
+    // straight to that session's first tick instead of waiting out the remaining
+    // ticks of the current round. No-ops if we're already caught up.
+    function maybeSkipToSession(targetSession) {
+        if (!gameStarted || !gameData || targetSession == null) return;
+        const row = gameData.rows[currentTick];
+        if (!row || row.session >= targetSession) return;
+        const idx = gameData.rows.findIndex(r => r.session === targetSession);
+        if (idx === -1 || idx <= currentTick) return;
+        currentTick = idx;
+        showToast(`Judge ended the round early — Round ${targetSession + 1} is starting now!`);
+        processTick();
     }
 
     // The timer dot styling and isPaused logic is now controlled entirely by Firebase watchGameState

@@ -178,6 +178,7 @@ function processTeamData(team) {
 // ==========================================
 const btnPauseEvent = document.getElementById("btn-pause-event");
 const btnStartRound2 = document.getElementById("btn-start-round-2");
+const btnEndRound2 = document.getElementById("btn-end-round-2");
 const btnStartRound1 = document.getElementById("btn-start-round-1");
 const portfolioBuildTimer = document.getElementById("portfolio-build-timer");
 let adminIsPaused = false;
@@ -220,6 +221,12 @@ function startPortfolioBuildCountdown() {
 
 function startRound1() {
     activeSession = 0;
+    // If the judge ended Portfolio Building early, stop the countdown so it can't
+    // still pop the "5 minutes are up" prompt after Round 1 has already started.
+    if (portfolioBuildInterval) {
+        clearInterval(portfolioBuildInterval);
+        portfolioBuildInterval = null;
+    }
     setGameState({ state: 'playing', currentSession: activeSession })
         .then(() => {
             startEventBtn.textContent = 'PORTFOLIO BUILD DONE';
@@ -251,6 +258,8 @@ function setupListeners() {
                     startEventBtn.style.background = '#9ca3af';
                     startEventBtn.textContent = 'PORTFOLIO PHASE LIVE';
                     startPortfolioBuildCountdown();
+                    // Let the judge end Portfolio Building early instead of waiting for the 5-min timer
+                    btnStartRound1.style.display = 'inline-block';
                 })
                 .catch(err => {
                     startEventBtn.disabled = false;
@@ -260,14 +269,22 @@ function setupListeners() {
         }
     });
 
-    // Manual START ROUND 1 (shown after countdown expires and admin clicks Cancel on popup)
+    // Manual START ROUND 1 -- available as soon as Portfolio Building begins, so the
+    // judge can end that phase early instead of waiting for the 5-minute timer.
     btnStartRound1.addEventListener("click", () => {
-        startRound1();
+        const early = portfolioBuildInterval !== null;
+        const msg = early
+            ? "Portfolio Building isn't finished yet. End it now and start Round 1 for all teams?"
+            : "Start Round 1 now for all teams?";
+        if (confirm(msg)) {
+            startRound1();
+        }
     });
 
-    // Start Round 2
+    // Start Round 2 -- clicking this while Round 1 is still running ends Round 1
+    // early: app.js watches currentSession and fast-forwards straight to Round 2.
     btnStartRound2.addEventListener("click", () => {
-        if (confirm("Are you sure you want to unlock Round 2 for all teams?")) {
+        if (confirm("Start Round 2 now for all teams? If Round 1 hasn't finished yet, this ends it early.")) {
             btnStartRound2.disabled = true;
             btnStartRound2.textContent = 'STARTING...';
             activeSession = 1;
@@ -276,6 +293,7 @@ function setupListeners() {
                     btnStartRound2.style.background = '#9ca3af';
                     btnStartRound2.style.color = '#fff';
                     btnStartRound2.textContent = 'ROUND 2 STARTED';
+                    btnEndRound2.style.display = 'inline-block';
                     if (adminIsPaused) {
                         adminIsPaused = false;
                         btnPauseEvent.textContent = '⏸ PAUSE EVENT';
@@ -287,6 +305,27 @@ function setupListeners() {
                     btnStartRound2.disabled = false;
                     btnStartRound2.textContent = '▶ START ROUND 2';
                     alert("Failed to start round 2: " + err.message);
+                });
+        }
+    });
+
+    // End Round 2 -- ends the event early for all teams (equivalent to letting
+    // Round 2's clock run out naturally).
+    btnEndRound2.addEventListener("click", () => {
+        if (confirm("End Round 2 now for all teams? This ends the event immediately -- this cannot be undone.")) {
+            btnEndRound2.disabled = true;
+            btnEndRound2.textContent = 'ENDING...';
+            setGameState({ state: 'ended', currentSession: activeSession })
+                .then(() => {
+                    btnEndRound2.style.background = '#9ca3af';
+                    btnEndRound2.style.color = '#fff';
+                    btnEndRound2.textContent = 'ROUND 2 ENDED';
+                    btnPauseEvent.style.display = 'none';
+                })
+                .catch(err => {
+                    btnEndRound2.disabled = false;
+                    btnEndRound2.textContent = '⏹ END ROUND 2';
+                    alert("Failed to end round 2: " + err.message);
                 });
         }
     });
