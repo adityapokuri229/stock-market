@@ -2751,226 +2751,26 @@
       "session": 1,
       "tick": 2,
       "prices": {
-        "TSMC": 5160.44,
+        "TSMC": 5464.0,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": [
-        {
-          "bullets": [
-            "Round 2: War Intro",
-            "Chinese naval activity intensifies",
-            "U.S. Space Force accelerates contracts"
-          ],
-          "factor": "Geopolitical Stability",
-          "ticker": null,
-          "score": 1.0
-        }
-      ]
-    },
-    {
-      "session": 1,
-      "tick": 3,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 4,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 5,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 6,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 7,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 8,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 9,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 10,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 11,
-      "prices": {
-        "TSMC": 5160.44,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 15998.51,
-        "SAMSUNG": 14508.22,
-        "GOLD": 168160.86,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 12,
-      "prices": {
-        "TSMC": 4644.4,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
-        "HDFC": 832.07,
-        "PFE": 2681.56,
-        "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
+        "OIL": 7045.81,
         "LITHIUM": 2397.19
       },
       "news": [
         {
           "bullets": [
-            "Chinese drills restrict shipping",
-            "Fed flags inflation risk",
-            "Space Force classified contract"
+            "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
+            "Taiwan's defence ministry raises its alert status to the highest level since 1996.",
+            "The Federal Reserve's latest statement flags \"elevated geopolitical inflation risk\" in its rate-path deliberations.",
+            "U.S. Space Force finalizes an expanded classified contract for hardened satellite-constellation deployment across the Indo-Pacific."
           ],
           "factor": "Inflation Reaction",
           "ticker": null,
@@ -2980,20 +2780,222 @@
     },
     {
       "session": 1,
-      "tick": 13,
+      "tick": 3,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5464.0,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
+        "OIL": 7045.81,
         "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 4,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 5,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 6,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 7,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 8,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 9,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 10,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 11,
+      "prices": {
+        "TSMC": 5464.0,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2559.86,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 7045.81,
+        "LITHIUM": 2397.19
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 12,
+      "prices": {
+        "TSMC": 5190.8,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
+      },
+      "news": [
+        {
+          "bullets": [
+            "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
+            "India finalizes a new long-term discounted crude oil supply agreement with Russia, adding to global supply.",
+            "A major U.S. online sports-betting platform reports record quarterly betting volume.",
+            "Regulators in the United States, European Union, and Japan open inquiries into the rare-earth licensing move."
+          ],
+          "factor": "Technological Developments",
+          "ticker": null,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 13,
+      "prices": {
+        "TSMC": 5190.8,
+        "FERRARI": 36876.78,
+        "LMT": 45205.17,
+        "HDFC": 832.07,
+        "PFE": 2681.56,
+        "RELIANCE": 1336.2,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 14508.22,
+        "GOLD": 171524.08,
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3001,18 +3003,18 @@
       "session": 1,
       "tick": 14,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3020,18 +3022,18 @@
       "session": 1,
       "tick": 15,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3039,18 +3041,18 @@
       "session": 1,
       "tick": 16,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3058,18 +3060,18 @@
       "session": 1,
       "tick": 17,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3077,18 +3079,18 @@
       "session": 1,
       "tick": 18,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3096,18 +3098,18 @@
       "session": 1,
       "tick": 19,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3115,18 +3117,18 @@
       "session": 1,
       "tick": 20,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3134,18 +3136,18 @@
       "session": 1,
       "tick": 21,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3153,18 +3155,18 @@
       "session": 1,
       "tick": 22,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3172,18 +3174,18 @@
       "session": 1,
       "tick": 23,
       "prices": {
-        "TSMC": 4644.4,
+        "TSMC": 5190.8,
         "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "LMT": 45205.17,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
-        "DKNG": 2559.86,
-        "SPACEX": 18398.28,
+        "DKNG": 2815.85,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 7398.1,
-        "LITHIUM": 2397.19
+        "OIL": 6482.15,
+        "LITHIUM": 2876.62
       },
       "news": []
     },
@@ -3192,26 +3194,27 @@
       "tick": 24,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "Rare earth export limits",
-            "DraftKings record volume",
-            "Russian oil deal in India"
+            "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
+            "Taipei summons China's top diplomat in the first formal protest since the crisis began.",
+            "The Pentagon issues an expedited $2.1 billion munitions procurement order under emergency wartime authority.",
+            "Beijing threatens retaliatory tariffs on imported luxury goods from nations backing Taiwan."
           ],
-          "factor": "Technological Developments",
+          "factor": "Aero",
           "ticker": null,
           "score": 1.0
         }
@@ -3222,16 +3225,16 @@
       "tick": 25,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3241,16 +3244,16 @@
       "tick": 26,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3260,16 +3263,16 @@
       "tick": 27,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3279,16 +3282,16 @@
       "tick": 28,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3298,16 +3301,16 @@
       "tick": 29,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3317,16 +3320,16 @@
       "tick": 30,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3336,16 +3339,16 @@
       "tick": 31,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3355,16 +3358,16 @@
       "tick": 32,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3374,16 +3377,16 @@
       "tick": 33,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3393,16 +3396,16 @@
       "tick": 34,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3412,16 +3415,16 @@
       "tick": 35,
       "prices": {
         "TSMC": 4412.18,
-        "FERRARI": 36876.78,
-        "LMT": 49725.69,
+        "FERRARI": 33189.1,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2681.56,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 16725.71,
         "SAMSUNG": 14508.22,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3430,27 +3433,28 @@
       "session": 1,
       "tick": 36,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "Vessel collision in Taiwan Strait",
-            "Pentagon expedites munitions order",
-            "Retaliatory tariffs threatened"
+            "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
+            "The United States awards a new contract to expand wartime medical and pharmaceutical stockpiles.",
+            "Washington temporarily waives select export-license requirements for allied defence suppliers to accelerate wartime production.",
+            "Chip foundries outside Taiwan report a surge in emergency orders from customers seeking supply diversification."
           ],
-          "factor": "Aero",
+          "factor": "Healthcare",
           "ticker": null,
           "score": 1.0
         }
@@ -3460,17 +3464,17 @@
       "session": 1,
       "tick": 37,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3479,17 +3483,17 @@
       "session": 1,
       "tick": 38,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3498,17 +3502,17 @@
       "session": 1,
       "tick": 39,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3517,17 +3521,17 @@
       "session": 1,
       "tick": 40,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3536,17 +3540,17 @@
       "session": 1,
       "tick": 41,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3555,17 +3559,17 @@
       "session": 1,
       "tick": 42,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3574,17 +3578,17 @@
       "session": 1,
       "tick": 43,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3593,17 +3597,17 @@
       "session": 1,
       "tick": 44,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3612,17 +3616,17 @@
       "session": 1,
       "tick": 45,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3631,17 +3635,17 @@
       "session": 1,
       "tick": 46,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3650,17 +3654,17 @@
       "session": 1,
       "tick": 47,
       "prices": {
-        "TSMC": 3750.35,
+        "TSMC": 4191.57,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
-        "PFE": 2681.56,
+        "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
-        "SAMSUNG": 14508.22,
+        "SPACEX": 16725.71,
+        "SAMSUNG": 15668.87,
         "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3671,25 +3675,26 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "Joint naval patrols announced",
-            "Medical stockpiles expanded",
-            "Chip foundries diversify"
+            "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
+            "The Bank of England schedules an emergency policy session to weigh a coordinated dollar-liquidity swap-line expansion with the Fed and ECB.",
+            "A commercial satellite operator detects an unidentified signal during constellation deployment that matches no known satellite or debris signature.",
+            "Independent analysts suggest the reading could be an instrument artifact rather than a genuine detection."
           ],
-          "factor": "Healthcare",
+          "factor": "Geopolitical Stability",
           "ticker": null,
           "score": 1.0
         }
@@ -3701,15 +3706,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3720,15 +3725,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3739,15 +3744,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3758,15 +3763,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3777,15 +3782,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3796,15 +3801,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3815,15 +3820,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3834,15 +3839,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3853,15 +3858,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3872,15 +3877,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3891,15 +3896,15 @@
       "prices": {
         "TSMC": 3562.84,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 832.07,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2815.85,
-        "SPACEX": 18398.28,
+        "SPACEX": 18063.77,
         "SAMSUNG": 15668.87,
-        "GOLD": 171524.08,
-        "OIL": 6806.26,
+        "GOLD": 180100.28,
+        "OIL": 6482.15,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3910,23 +3915,28 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "WAR ANNOUNCEMENT: Blockade declared",
-            "Shipping volumes collapse",
-            "Signal confirmed non-terrestrial"
+            "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels \u2014 narrower in scope than the buildup's rhetoric had suggested.",
+            "Within hours, Chinese and U.S.-allied forces exchange fire attempting to enforce or break the blockade, marking the formal outbreak of war.",
+            "Japan, Australia, and the Philippines commit forces alongside the United States; Russia and North Korea publicly back China, while India declares formal non-alignment as a neutral trade and capital hub.",
+            "Both governments impose sweeping wartime trade and export controls within hours of the declaration.",
+            "The Taiwan and Malacca Straits see commercial shipping volumes collapse, driving oil to its sharpest single-day move in over a decade.",
+            "The Fed, ECB, Bank of Japan, and Bank of England jointly launch a $500 billion coordinated dollar swap-line facility and expanded overnight repo operations.",
+            "Amid the chaos, U.S. and Chinese space-tracking authorities jointly confirm that the unidentified signal detected days earlier is genuine and non-terrestrial in origin.",
+            "Global equity markets tumble despite the swap-line intervention, with volatility gauges spiking to session extremes."
           ],
           "factor": "Geopolitical Stability",
           "ticker": null,
@@ -3940,15 +3950,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3959,15 +3969,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3978,15 +3988,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -3997,15 +4007,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4016,15 +4026,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4035,15 +4045,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4054,15 +4064,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4073,15 +4083,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4092,15 +4102,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4111,15 +4121,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4130,15 +4140,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4149,15 +4159,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4168,15 +4178,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4187,15 +4197,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4206,15 +4216,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4225,15 +4235,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4244,15 +4254,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4263,15 +4273,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4282,15 +4292,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4301,15 +4311,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4320,15 +4330,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4339,15 +4349,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4358,15 +4368,15 @@
       "prices": {
         "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
+        "LMT": 51985.95,
         "HDFC": 665.66,
         "PFE": 2949.71,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 22077.94,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
-        "GOLD": 197252.69,
-        "OIL": 8507.82,
+        "GOLD": 207115.32,
+        "OIL": 8102.69,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4375,264 +4385,26 @@
       "session": 1,
       "tick": 84,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": [
-        {
-          "bullets": [
-            "China extends blockade",
-            "Unidentified space signal detected",
-            "Bank of England emergency session"
-          ],
-          "factor": "Geopolitical Stability",
-          "ticker": null,
-          "score": 1.0
-        }
-      ]
-    },
-    {
-      "session": 1,
-      "tick": 85,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 86,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 87,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 88,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 89,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 90,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 91,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 92,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 93,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 94,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 95,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 57184.55,
-        "HDFC": 665.66,
-        "PFE": 2949.71,
-        "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 23844.17,
-        "SAMSUNG": 10968.21,
-        "GOLD": 207115.32,
-        "OIL": 8507.82,
-        "LITHIUM": 2876.62
-      },
-      "news": []
-    },
-    {
-      "session": 1,
-      "tick": 96,
-      "prices": {
-        "TSMC": 1817.05,
-        "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "Shipping war-risk premiums hit record",
-            "Defence and Pharma capacity constraints",
-            "Swap-line eases funding"
+            "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
+            "Shipping insurers raise Indo-Pacific war-risk premiums to record levels, above prior Gulf-crisis peaks.",
+            "A preliminary technical review suggests the earlier signal detection may have involved instrument calibration errors, reviving doubts about its authenticity.",
+            "Several major defence contractors and pharmaceutical manufacturers flag capacity constraints, warning that simultaneous demand across three active fronts is straining both aerospace and medical-supply production lines."
           ],
           "factor": "Aero",
           "ticker": null,
@@ -4642,236 +4414,238 @@
     },
     {
       "session": 1,
-      "tick": 97,
+      "tick": 85,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 98,
+      "tick": 86,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 99,
+      "tick": 87,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 100,
+      "tick": 88,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 101,
+      "tick": 89,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 102,
+      "tick": 90,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 103,
+      "tick": 91,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 104,
+      "tick": 92,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 105,
+      "tick": 93,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 106,
+      "tick": 94,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 107,
+      "tick": 95,
       "prices": {
-        "TSMC": 1817.05,
+        "TSMC": 2137.7,
         "FERRARI": 33189.1,
-        "LMT": 65762.23,
+        "LMT": 59783.84,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 23844.17,
+        "SPACEX": 21676.52,
         "SAMSUNG": 10968.21,
         "GOLD": 207115.32,
-        "OIL": 9358.6,
+        "OIL": 8912.96,
         "LITHIUM": 2876.62
       },
       "news": []
     },
     {
       "session": 1,
-      "tick": 108,
+      "tick": 96,
       "prices": {
-        "TSMC": 2089.6,
+        "TSMC": 2458.36,
         "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "LMT": 53805.46,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "SPACEX": 30347.13,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 7576.01,
         "LITHIUM": 2876.62
       },
       "news": [
         {
           "bullets": [
-            "Signal is genuine propulsion breakthrough",
-            "Oil futures drop on substitution fears",
-            "Lawmakers audit contractors"
+            "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential, resolving the earlier doubts.",
+            "China moves to contest exclusive access to the infrastructure that detected it, threatening retaliation against the operator's international ground stations.",
+            "Long-term energy-substitution concerns tied to the breakthrough weigh on oil futures even as near-term shipping risk remains elevated.",
+            "Demand for next-generation computing capacity linked to the breakthrough accelerates sharply, and the Taiwan Strait conflict reaches an attritional lull as both sides pause for resupply, easing immediate market anxiety.",
+            "Meanwhile, lawmakers open a war-profiteering audit of contractors."
           ],
           "factor": "Technological Developments",
           "ticker": null,
@@ -4881,19 +4655,259 @@
     },
     {
       "session": 1,
-      "tick": 109,
+      "tick": 97,
       "prices": {
-        "TSMC": 2089.6,
+        "TSMC": 2458.36,
         "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "LMT": 53805.46,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
         "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "SPACEX": 30347.13,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 98,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 99,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 100,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 101,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 102,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 103,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 104,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 105,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 106,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 107,
+      "prices": {
+        "TSMC": 2458.36,
+        "FERRARI": 33189.1,
+        "LMT": 53805.46,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2111.89,
+        "SPACEX": 30347.13,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 7576.01,
+        "LITHIUM": 2876.62
+      },
+      "news": []
+    },
+    {
+      "session": 1,
+      "tick": 108,
+      "prices": {
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 6818.41,
+        "LITHIUM": 2876.62
+      },
+      "news": [
+        {
+          "bullets": [
+            "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
+            "A formal international export-control regime is imposed on the new propulsion/energy technology, with allied governments publicly split over access terms.",
+            "Oil futures ease further on the ceasefire reports and continued long-term substitution concerns.",
+            "Consumer sentiment surveys across major economies show their first improvement since the war began, even as commercialization of the new technology slows under the fresh restrictions."
+          ],
+          "factor": "Geopolitical Stability",
+          "ticker": null,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "tick": 109,
+      "prices": {
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
+        "HDFC": 698.94,
+        "PFE": 3303.68,
+        "RELIANCE": 1336.2,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
+        "SAMSUNG": 12613.44,
+        "GOLD": 207115.32,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4902,17 +4916,17 @@
       "session": 1,
       "tick": 110,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4921,17 +4935,17 @@
       "session": 1,
       "tick": 111,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4940,17 +4954,17 @@
       "session": 1,
       "tick": 112,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4959,17 +4973,17 @@
       "session": 1,
       "tick": 113,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4978,17 +4992,17 @@
       "session": 1,
       "tick": 114,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -4997,17 +5011,17 @@
       "session": 1,
       "tick": 115,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5016,17 +5030,17 @@
       "session": 1,
       "tick": 116,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5035,17 +5049,17 @@
       "session": 1,
       "tick": 117,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5054,17 +5068,17 @@
       "session": 1,
       "tick": 118,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5073,17 +5087,17 @@
       "session": 1,
       "tick": 119,
       "prices": {
-        "TSMC": 2089.6,
-        "FERRARI": 33189.1,
-        "LMT": 59186.0,
+        "TSMC": 2950.03,
+        "FERRARI": 36508.01,
+        "LMT": 45734.64,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2111.89,
-        "SPACEX": 33381.84,
+        "DKNG": 2323.08,
+        "SPACEX": 25795.06,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7954.81,
+        "OIL": 6818.41,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5092,17 +5106,17 @@
       "session": 1,
       "tick": 120,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": [
@@ -5122,17 +5136,17 @@
       "session": 1,
       "tick": 121,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5141,17 +5155,17 @@
       "session": 1,
       "tick": 122,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5160,17 +5174,17 @@
       "session": 1,
       "tick": 123,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5179,17 +5193,17 @@
       "session": 1,
       "tick": 124,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5198,17 +5212,17 @@
       "session": 1,
       "tick": 125,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5217,17 +5231,17 @@
       "session": 1,
       "tick": 126,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5236,17 +5250,17 @@
       "session": 1,
       "tick": 127,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5255,17 +5269,17 @@
       "session": 1,
       "tick": 128,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []
@@ -5274,17 +5288,17 @@
       "session": 1,
       "tick": 129,
       "prices": {
-        "TSMC": 2507.52,
-        "FERRARI": 36508.01,
-        "LMT": 50308.1,
+        "TSMC": 3540.03,
+        "FERRARI": 40158.81,
+        "LMT": 38874.44,
         "HDFC": 698.94,
         "PFE": 3303.68,
         "RELIANCE": 1336.2,
-        "DKNG": 2323.08,
-        "SPACEX": 28374.57,
+        "DKNG": 2555.38,
+        "SPACEX": 21925.8,
         "SAMSUNG": 12613.44,
         "GOLD": 207115.32,
-        "OIL": 7159.33,
+        "OIL": 6136.57,
         "LITHIUM": 2876.62
       },
       "news": []

@@ -130,49 +130,99 @@ EVENTS = {
     },
     1: {
         2: {
-            "factor": "Geopolitical Stability",
-            "bullets": ["Round 2: War Intro", "Chinese naval activity intensifies", "U.S. Space Force accelerates contracts"],
-            "impacts": {"TSMC": 0.85, "LMT": 1.10, "SPACEX": 1.10, "OIL": 1.05}
-        },
-        12: {
             "factor": "Inflation Reaction",
-            "bullets": ["Chinese drills restrict shipping", "Fed flags inflation risk", "Space Force classified contract"],
+            "bullets": [
+                "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
+                "Taiwan's defence ministry raises its alert status to the highest level since 1996.",
+                "The Federal Reserve's latest statement flags \"elevated geopolitical inflation risk\" in its rate-path deliberations.",
+                "U.S. Space Force finalizes an expanded classified contract for hardened satellite-constellation deployment across the Indo-Pacific."
+            ],
             "impacts": {"TSMC": 0.90, "SPACEX": 1.15, "GOLD": 1.02}
         },
-        24: {
+        12: {
             "factor": "Technological Developments",
-            "bullets": ["Rare earth export limits", "DraftKings record volume", "Russian oil deal in India"],
+            "bullets": [
+                "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
+                "India finalizes a new long-term discounted crude oil supply agreement with Russia, adding to global supply.",
+                "A major U.S. online sports-betting platform reports record quarterly betting volume.",
+                "Regulators in the United States, European Union, and Japan open inquiries into the rare-earth licensing move."
+            ],
             "impacts": {"LITHIUM": 1.20, "TSMC": 0.95, "DKNG": 1.10, "OIL": 0.92}
         },
-        36: {
+        24: {
             "factor": "Aero",
-            "bullets": ["Vessel collision in Taiwan Strait", "Pentagon expedites munitions order", "Retaliatory tariffs threatened"],
+            "bullets": [
+                "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
+                "Taipei summons China's top diplomat in the first formal protest since the crisis began.",
+                "The Pentagon issues an expedited $2.1 billion munitions procurement order under emergency wartime authority.",
+                "Beijing threatens retaliatory tariffs on imported luxury goods from nations backing Taiwan."
+            ],
             "impacts": {"TSMC": 0.85, "LMT": 1.15, "FERRARI": 0.90}
         },
-        48: {
+        36: {
             "factor": "Healthcare",
-            "bullets": ["Joint naval patrols announced", "Medical stockpiles expanded", "Chip foundries diversify"],
+            "bullets": [
+                "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
+                "The United States awards a new contract to expand wartime medical and pharmaceutical stockpiles.",
+                "Washington temporarily waives select export-license requirements for allied defence suppliers to accelerate wartime production.",
+                "Chip foundries outside Taiwan report a surge in emergency orders from customers seeking supply diversification."
+            ],
             "impacts": {"PFE": 1.10, "SAMSUNG": 1.08, "TSMC": 0.95}
+        },
+        48: {
+            "factor": "Geopolitical Stability",
+            "bullets": [
+                "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
+                "The Bank of England schedules an emergency policy session to weigh a coordinated dollar-liquidity swap-line expansion with the Fed and ECB.",
+                "A commercial satellite operator detects an unidentified signal during constellation deployment that matches no known satellite or debris signature.",
+                "Independent analysts suggest the reading could be an instrument artifact rather than a genuine detection."
+            ],
+            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
         },
         60: {
             "factor": "Geopolitical Stability",
-            "bullets": ["WAR ANNOUNCEMENT: Blockade declared", "Shipping volumes collapse", "Signal confirmed non-terrestrial"],
+            "bullets": [
+                "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels — narrower in scope than the buildup's rhetoric had suggested.",
+                "Within hours, Chinese and U.S.-allied forces exchange fire attempting to enforce or break the blockade, marking the formal outbreak of war.",
+                "Japan, Australia, and the Philippines commit forces alongside the United States; Russia and North Korea publicly back China, while India declares formal non-alignment as a neutral trade and capital hub.",
+                "Both governments impose sweeping wartime trade and export controls within hours of the declaration.",
+                "The Taiwan and Malacca Straits see commercial shipping volumes collapse, driving oil to its sharpest single-day move in over a decade.",
+                "The Fed, ECB, Bank of Japan, and Bank of England jointly launch a $500 billion coordinated dollar swap-line facility and expanded overnight repo operations.",
+                "Amid the chaos, U.S. and Chinese space-tracking authorities jointly confirm that the unidentified signal detected days earlier is genuine and non-terrestrial in origin.",
+                "Global equity markets tumble despite the swap-line intervention, with volatility gauges spiking to session extremes."
+            ],
             "impacts": {"TSMC": 0.60, "SAMSUNG": 0.70, "OIL": 1.25, "SPACEX": 1.20, "GOLD": 1.15, "DKNG": 0.75, "HDFC": 0.80}
         },
         84: {
-            "factor": "Geopolitical Stability",
-            "bullets": ["China extends blockade", "Unidentified space signal detected", "Bank of England emergency session"],
-            "impacts": {"TSMC": 0.85, "SPACEX": 1.08, "GOLD": 1.05}
-        },
-        96: {
             "factor": "Aero",
-            "bullets": ["Shipping war-risk premiums hit record", "Defence and Pharma capacity constraints", "Swap-line eases funding"],
+            "bullets": [
+                "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
+                "Shipping insurers raise Indo-Pacific war-risk premiums to record levels, above prior Gulf-crisis peaks.",
+                "A preliminary technical review suggests the earlier signal detection may have involved instrument calibration errors, reviving doubts about its authenticity.",
+                "Several major defence contractors and pharmaceutical manufacturers flag capacity constraints, warning that simultaneous demand across three active fronts is straining both aerospace and medical-supply production lines."
+            ],
             "impacts": {"OIL": 1.10, "LMT": 1.15, "PFE": 1.12, "HDFC": 1.05}
         },
-        108: {
+        96: {
             "factor": "Technological Developments",
-            "bullets": ["Signal is genuine propulsion breakthrough", "Oil futures drop on substitution fears", "Lawmakers audit contractors"],
+            "bullets": [
+                "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential, resolving the earlier doubts.",
+                "China moves to contest exclusive access to the infrastructure that detected it, threatening retaliation against the operator's international ground stations.",
+                "Long-term energy-substitution concerns tied to the breakthrough weigh on oil futures even as near-term shipping risk remains elevated.",
+                "Demand for next-generation computing capacity linked to the breakthrough accelerates sharply, and the Taiwan Strait conflict reaches an attritional lull as both sides pause for resupply, easing immediate market anxiety.",
+                "Meanwhile, lawmakers open a war-profiteering audit of contractors."
+            ],
             "impacts": {"SPACEX": 1.40, "OIL": 0.85, "TSMC": 1.15, "SAMSUNG": 1.15, "LMT": 0.90}
+        },
+        108: {
+            "factor": "Geopolitical Stability",
+            "bullets": [
+                "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
+                "A formal international export-control regime is imposed on the new propulsion/energy technology, with allied governments publicly split over access terms.",
+                "Oil futures ease further on the ceasefire reports and continued long-term substitution concerns.",
+                "Consumer sentiment surveys across major economies show their first improvement since the war began, even as commercialization of the new technology slows under the fresh restrictions."
+            ],
+            "impacts": {"TSMC": 1.20, "LMT": 0.85, "OIL": 0.90, "SPACEX": 0.85, "DKNG": 1.10, "FERRARI": 1.10}
         },
         120: {
             "factor": "Geopolitical Stability",
