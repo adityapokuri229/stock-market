@@ -178,8 +178,61 @@ function processTeamData(team) {
 // ==========================================
 const btnPauseEvent = document.getElementById("btn-pause-event");
 const btnStartRound2 = document.getElementById("btn-start-round-2");
+const btnStartRound1 = document.getElementById("btn-start-round-1");
+const portfolioBuildTimer = document.getElementById("portfolio-build-timer");
 let adminIsPaused = false;
 let activeSession = 0;
+let portfolioBuildInterval = null;
+const PORTFOLIO_BUILD_DURATION_SEC = 5 * 60; // 5 minutes
+
+function startPortfolioBuildCountdown() {
+    let remaining = PORTFOLIO_BUILD_DURATION_SEC;
+    portfolioBuildTimer.style.display = 'inline-block';
+
+    function updateDisplay() {
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        portfolioBuildTimer.textContent = `⏱ Portfolio Building: ${m}:${String(s).padStart(2, '0')}`;
+    }
+    updateDisplay();
+
+    portfolioBuildInterval = setInterval(() => {
+        remaining--;
+        updateDisplay();
+        if (remaining <= 0) {
+            clearInterval(portfolioBuildInterval);
+            portfolioBuildInterval = null;
+            portfolioBuildTimer.textContent = '⏱ Portfolio Building: DONE';
+            portfolioBuildTimer.style.color = '#34d399';
+            portfolioBuildTimer.style.borderColor = 'rgba(52,211,153,0.3)';
+            portfolioBuildTimer.style.background = 'rgba(52,211,153,0.1)';
+
+            // Show manual START ROUND 1 button immediately
+            btnStartRound1.style.display = 'inline-block';
+
+            // Popup prompt
+            if (confirm('⏱ 5 minutes are up! Start Round 1 now?\n\n(Click OK to start immediately, or Cancel to wait and click START ROUND 1 manually)')) {
+                startRound1();
+            }
+        }
+    }, 1000);
+}
+
+function startRound1() {
+    activeSession = 0;
+    setGameState({ state: 'playing', currentSession: activeSession })
+        .then(() => {
+            startEventBtn.textContent = 'PORTFOLIO BUILD DONE';
+            btnPauseEvent.style.display = 'inline-block';
+            btnStartRound2.style.display = 'inline-block';
+            btnStartRound1.style.display = 'none';
+            portfolioBuildTimer.style.display = 'none';
+            adminIsPaused = false;
+        })
+        .catch(err => {
+            alert('Failed to start Round 1: ' + err.message);
+        });
+}
 
 function setupListeners() {
     // Scope change requires full rescore
@@ -188,19 +241,16 @@ function setupListeners() {
         for (const team in cache) dirtyTeams.add(team);
     });
 
-    // Start Event
+    // Start Event (Portfolio Build phase)
     startEventBtn.addEventListener("click", () => {
-        if (confirm("Are you sure you want to start the event for all teams?")) {
+        if (confirm("Start the event? This will open a 5-minute Portfolio Building phase for all teams.")) {
             startEventBtn.disabled = true;
-            startEventBtn.textContent = 'STARTING...';
-            activeSession = 0;
-            setGameState({ state: 'playing', currentSession: activeSession })
+            startEventBtn.textContent = 'SETTING UP...';
+            setGameState({ state: 'portfolio_building', currentSession: 0 })
                 .then(() => {
                     startEventBtn.style.background = '#9ca3af';
-                    startEventBtn.textContent = 'ROUND 1 STARTED';
-                    btnPauseEvent.style.display = 'inline-block';
-                    btnStartRound2.style.display = 'inline-block';
-                    adminIsPaused = false;
+                    startEventBtn.textContent = 'PORTFOLIO PHASE LIVE';
+                    startPortfolioBuildCountdown();
                 })
                 .catch(err => {
                     startEventBtn.disabled = false;
@@ -208,6 +258,11 @@ function setupListeners() {
                     alert("Failed to start event: " + err.message + "\nCheck Firebase connection/rules and try again.");
                 });
         }
+    });
+
+    // Manual START ROUND 1 (shown after countdown expires and admin clicks Cancel on popup)
+    btnStartRound1.addEventListener("click", () => {
+        startRound1();
     });
 
     // Start Round 2

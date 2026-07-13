@@ -14,6 +14,7 @@
     let isPaused = false;
     let isAuthenticated = false;
     let currentTeam = '';
+    let pbCountdownInterval = null;  // portfolio building countdown timer
 
     // Trading state
     let cash = START_CAPITAL;
@@ -156,8 +157,57 @@
                     }
                     console.log("Received game state from Firebase:", status);
                     window.authorizedSession = status.currentSession || 0;
-                    if (status && status.state === 'playing') {
+                    if (status && status.state === 'portfolio_building') {
+                        console.log("Portfolio building phase started!");
+                        // Unlock the full UI so they can browse and trade
+                        document.getElementById('main-nav').style.display = 'flex';
+                        document.getElementById('game-controls').classList.add('show');
+                        document.getElementById('ticker-tape').classList.add('show');
+                        document.getElementById('game-status').textContent = '📦 Portfolio Building Phase';
+
+                        // Show portfolio building banner in waiting tab
+                        document.getElementById('waiting-state').style.display = 'none';
+                        document.getElementById('portfolio-building-state').style.display = 'block';
+
+                        // Switch to waiting tab to show the countdown + CTA
+                        switchTab('waiting');
+
+                        // Load tick-0 prices so the ticker and trade UI work
+                        if (gameData && !gameInterval) {
+                            processTick();
+                        }
+
+                        // Start client-side countdown (visual only — admin owns actual timing)
+                        if (!pbCountdownInterval) {
+                            let pbRemaining = 5 * 60;
+                            const pbEl = document.getElementById('pb-countdown');
+                            function updatePbDisplay() {
+                                const m = Math.floor(pbRemaining / 60);
+                                const s = pbRemaining % 60;
+                                if (pbEl) pbEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+                            }
+                            updatePbDisplay();
+                            pbCountdownInterval = setInterval(() => {
+                                pbRemaining--;
+                                updatePbDisplay();
+                                if (pbRemaining <= 0) {
+                                    clearInterval(pbCountdownInterval);
+                                    pbCountdownInterval = null;
+                                    if (pbEl) pbEl.textContent = 'Round 1 starting soon...';
+                                }
+                            }, 1000);
+                        }
+
+                    } else if (status && status.state === 'playing') {
                         console.log("Game state is playing, triggering startGame()...");
+                        // Clear portfolio building countdown if running
+                        if (pbCountdownInterval) {
+                            clearInterval(pbCountdownInterval);
+                            pbCountdownInterval = null;
+                        }
+                        document.getElementById('portfolio-building-state').style.display = 'none';
+                        document.getElementById('waiting-state').style.display = 'block';
+
                         document.getElementById('main-nav').style.display = 'flex';
                         document.getElementById('game-controls').classList.add('show');
                         document.getElementById('ticker-tape').classList.add('show');

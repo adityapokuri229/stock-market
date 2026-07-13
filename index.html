@@ -56,13 +56,25 @@
             </div>
         </div>
 
-        <!-- Waiting Room -->
+        <!-- Waiting Room / Portfolio Building -->
         <div class="tab-content" id="tab-waiting">
             <div class="login-container" style="text-align: center;">
-                <div class="login-title">Waiting Room</div>
-                <div class="login-subtitle" style="margin-top: 20px;">Waiting for the Judge to start the event...</div>
-                <div style="margin-top: 30px; color: #a1a1aa; font-size: 0.9rem;">
-                    Please do not close this window. You will automatically be redirected to the trading floor once the event begins.
+                <!-- Waiting state -->
+                <div id="waiting-state">
+                    <div class="login-title">Waiting Room</div>
+                    <div class="login-subtitle" style="margin-top: 20px;">Waiting for the Judge to start the event...</div>
+                    <div style="margin-top: 30px; color: #a1a1aa; font-size: 0.9rem;">
+                        Please do not close this window. You will automatically be redirected once the event begins.
+                    </div>
+                </div>
+                <!-- Portfolio Building state -->
+                <div id="portfolio-building-state" style="display: none;">
+                    <div class="login-title" style="color: #fbbf24;">&#x1F4BC; Portfolio Building Phase</div>
+                    <div style="margin-top: 16px; font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums; color: #fbbf24; letter-spacing: 2px;" id="pb-countdown">5:00</div>
+                    <div class="login-subtitle" style="margin-top: 12px;">Browse prices and build your initial portfolio.<br>Round 1 will begin when the Judge is ready.</div>
+                    <div style="margin-top: 24px;">
+                        <button class="btn-primary" onclick="document.querySelector('[data-tab=trade]').click()" style="font-size: 1rem; padding: 0.75rem 2rem;">Go to Trade →</button>
+                    </div>
                 </div>
             </div>
         </div>
