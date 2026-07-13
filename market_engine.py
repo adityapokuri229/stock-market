@@ -13,9 +13,8 @@ Adapted from the handover version in two deliberate ways for this site:
      every per-tick stochastic constant below is rescaled from its native
      10-second calibration so the simulated statistics over any real-time
      window are unchanged (see "TICK RESCALING" in Section 2).
-  2. Session 2 does NOT reset prices to a fresh book -- prices and the
-     mean-reversion anchor carry through continuously across sessions;
-     only the news cycle resets. (The handover version resets per session.)
+  2. Session 2 RESETS prices to a fresh book. Prices and the mean-reversion
+     anchor are reset at the session boundary.
 
 WHAT THE WEBSITE DEVELOPER NEEDS TO KNOW
 ----------------------------------------
@@ -155,90 +154,90 @@ TICKERS = list(STOCKS.keys()); NT = len(TICKERS)
 # =====================================================================
 # SECTION 5 -- THE NEWS (official factor matrices, 13 Jul version)
 # =====================================================================
-# One drop = one minute slot = one news card. Each non-zero cell becomes
-# its own decaying factor shock. Scores are TARGETS in [-1,1]; the engine
-# draws the realised score around them when the drop fires.
-def D(minute, name, scores, bullets):
-    return dict(minute=minute, name=name,
+# One drop = one news card. Timing is specified in legacy 10-second ticks
+# (e.g., legacy_tick=12 means it fires at 120 real seconds).
+# Scores are TARGETS in [-1,1]; the engine draws the realised score around them.
+def D(legacy_tick, name, scores, bullets):
+    return dict(legacy_tick=legacy_tick, name=name,
                 scores={_A[k]: v for k, v in scores.items()}, bullets=bullets)
 
 SESSION_NEWS = {
  # ---------------- SESSION 1: STOCK MARKET ROUND ----------------
  0: [
-  D(1, "Intro", dict(IR=-.30, Infl=-.45, Sem=.75, Cons=.45, InvC=.90, Tech=.75), [
+  D(0, "Intro", dict(IR=-.30, Reg=-.15, Infl=-.45, Sem=.75, Cons=.45, InvC=.90, Tech=.75), [
     "Investor sentiment reaches its highest level in years as disinflation eases pressure on central banks.",
     "Corporations pursue aggressive capital expenditure in technology, automation, and digital infrastructure; semiconductor manufacturers run near full capacity.",
     "Growth sectors outperform while a small contingent of analysts flags signs of speculative excess."]),
-  D(3, "D1", dict(Infl=.45), [
+  D(2, "D1", dict(IR=.20, Infl=.45, Sem=-.30, Aero=-.10), [
     "Heavy flooding across parts of South America has disrupted operations at several major mining sites, tightening the supply outlook for key industrial metals used in battery and electronics manufacturing.",
     "A shortage of critical components has forced several chipmakers to scale back near-term production targets.",
     "Leading international banks have reported stronger-than-expected corporate borrowing activity, and commodity traders brace for increased volatility across raw material markets."]),
-  D(5, "D2", dict(Reg=.30, Oil=.30, Infl=.45, Cons=.75, InvC=.30, Hlth=-.45), [
+  D(12, "D2", dict(Reg=.30, Oil=.30, Infl=.45, Geo=-.10, InvC=.75, Tech=.30, Hlth=-.45), [
     "OPEC talks collapse without a deal to raise output, leaving producers short of targets.",
     "Consumer confidence beats expectations across major economies, with early strength in leisure spending — Ferrari's order backlog swells as luxury demand picks up.",
     "Pharma approval delays and rising Asian electricity costs continue to pressure manufacturing."]),
-  D(7, "D3", dict(Infl=.60, Geo=-.45, Cons=-.30, InvC=-.30, Tech=.30, Aero=.75), [
+  D(24, "D3", dict(Oil=.10, Infl=.60, Geo=-.45, Cons=-.30, InvC=-.30, Tech=.30, Aero=.75), [
     "Congestion at several major East Asian ports has worsened, increasing pressure on global manufacturing supply chains and raising input costs for automakers reliant on overseas parts.",
     "NATO members have begun discussions on expanding defence procurement amid rising geopolitical tensions, with early proposals also referencing increased investment in satellite and space-based surveillance capabilities.",
     "Currency volatility increases across Asian markets, prompting several central banks to modestly increase gold reserves as a hedging measure."]),
-  D(9, "D4", dict(Sem=.90, Tech=.60, Aero=.30), [
+  D(36, "D4", dict(Reg=.10, Sem=.90, Tech=.60, Aero=.30), [
     "Semiconductor equipment manufacturers report record order books as chipmakers continue expanding production capacity, though several firms flag stretching lead times and rising customer concentration risk.",
     "Telecommunications companies accelerate investment in next-generation digital infrastructure, including expanded satellite connectivity partnerships.",
     "Governments approve large-scale power grid expansion projects to support rising industrial electricity demand."]),
-  D(11, "D5", dict(InvC=.30, Tech=.45, Aero=-.40), [
+  D(48, "D5", dict(IR=-.10, InvC=.30, Tech=.45, Aero=-.40), [
     "Institutional investors continue increasing allocations toward high-growth sectors, though analysts note valuations are beginning to look stretched relative to historical norms.",
     "Defence stocks attract comparatively weaker capital inflows despite steady government contract activity.",
     "Market volatility sits near yearly lows as venture capital announces another wave of large funding rounds.",
     "Central bank surprises everyone with a hike in interest rates."]),
-  D(13, "MAJOR", dict(IR=.90, Reg=.45, Oil=-.45, Infl=.60, Sem=-.95, Cons=-.45, InvC=-.95, Tech=-.95, Aero=.60), [
+  D(60, "MAJOR", dict(IR=.90, Reg=.45, Oil=-.45, Infl=.60, Sem=-.95, Cons=-.45, InvC=-.95, Tech=-.95, Aero=.60), [
     "Multiple mid-tier AI infrastructure and data-center firms default on loans as production is slashed across the board.",
     "These companies borrowed heavily to build server farms and chip capacity, betting enterprise AI demand would keep growing exponentially; that demand never materialized at scale.",
     "Lenders move to freeze credit lines, and semiconductor suppliers brace for a wave of order cancellations as panic spreads through the AI supply chain.",
     "Last week's rate hike is now making it far more expensive for struggling companies to borrow their way out of trouble.",
     "Rumours circulate that major banks are quietly organizing a bailout for the hardest-hit AI firms, though confidence in the plan remains low.",
     "Investors pull out of risky tech stocks and rotate into healthcare and gold, seen as insulated from the credit crunch."]),
-  D(15, "D6", dict(Oil=-.45, Sem=-.75, InvC=-.75, Tech=-.45), [
+  D(84, "D6", dict(Oil=-.45, Sem=-.75, InvC=-.75, Tech=-.45), [
     "Equity funds report their largest weekly outflows in over a year as investors pull back from speculative growth bets.",
     "Semiconductor order books thin further, with foundries confirming a handful of major clients account for most of the newly cancelled contracts.",
     "Oil prices ease as softer industrial demand forecasts offer rare relief to cost-sensitive manufacturers.",
     "The fiscal review has also led to a freeze in new defence orders."]),
-  D(17, "D7", dict(IR=.75, Oil=.30, Infl=.90, InvC=-.45, Hlth=.90), [
+  D(96, "D7", dict(IR=.75, Oil=.30, Infl=.90, InvC=-.45, Hlth=.90), [
     "Borrowing costs climb further as central banks signal no immediate reversal on tightening; regional lenders warn refinancing remains difficult for distressed borrowers.",
     "Inflation data comes in hotter than expected, driven by persistent logistics and energy costs, dampening hopes of an early policy pivot.",
     "Amid the gloom, a major pharmaceutical company reports a successful late-stage drug trial, sending shares sharply higher."]),
-  D(19, "D8", dict(IR=-.30, Reg=.75, Sem=.30, InvC=.75, Tech=.45), [
+  D(108, "D8", dict(IR=-.30, Reg=.75, Sem=.30, InvC=.75, Tech=.45), [
     "Major lenders confirm emergency credit lines for struggling AI infrastructure firms, easing fears of a wider default wave; bank stocks rally as the immediate freeze risk passes.",
     "Regulators simultaneously open a formal inquiry into risk practices at these lenders, adding a note of caution.",
     "Investor sentiment still turns broadly positive into the close."]),
  ],
  # ---------------- SESSION 2: WAR ROUND ----------------
  1: [
-  D(1, "BU1", dict(IR=.40, Infl=.40, Geo=-.50, Aero=.30), [
+  D(0, "BU1", dict(IR=.40, Infl=.40, Geo=-.50, Aero=.30), [
     "Chinese naval drills restrict commercial shipping lanes near Taiwan's western industrial ports for a third consecutive day.",
     "Taiwan's defence ministry raises its alert status to the highest level since 1996.",
     "The Federal Reserve's latest statement flags \"elevated geopolitical inflation risk\" in its rate-path deliberations.",
     "U.S. Space Force finalizes an expanded classified contract for hardened satellite-constellation deployment across the Indo-Pacific."]),
-  D(3, "BU2", dict(Reg=.50, Oil=-.40, Cons=.30), [
+  D(12, "BU2", dict(Reg=.50, Oil=-.40, Cons=.30), [
     "Beijing imposes emergency export licensing on rare-earth mineral shipments, citing domestic supply-chain priorities.",
     "India finalizes a new long-term discounted crude oil supply agreement with Russia, adding to global supply.",
     "A major U.S. online sports-betting platform reports record quarterly betting volume.",
     "Regulators in the United States, European Union, and Japan open inquiries into the rare-earth licensing move."]),
-  D(5, "BU3", dict(Geo=-.60, Cons=-.35, Aero=.60), [
+  D(24, "BU3", dict(Geo=-.60, Cons=-.35, Aero=.60), [
     "A Taiwanese coast guard vessel collides with a Chinese destroyer during a live-fire drill; both governments blame the other.",
     "Taipei summons China's top diplomat in the first formal protest since the crisis began.",
     "The Pentagon issues an expedited $2.1 billion munitions procurement order under emergency wartime authority.",
     "Beijing threatens retaliatory tariffs on imported luxury goods from nations backing Taiwan."]),
-  D(7, "BU4", dict(Reg=-.40, Sem=.50, Aero=.50, Hlth=.40), [
+  D(36, "BU4", dict(Reg=-.40, Sem=.50, Aero=.50, Hlth=.40), [
     "Japan, Australia, and the Philippines announce joint naval patrols alongside U.S. forces already deployed to the region.",
     "The United States awards a new contract to expand wartime medical and pharmaceutical stockpiles.",
     "Washington temporarily waives select export-license requirements for allied defence suppliers to accelerate wartime production.",
     "Chip foundries outside Taiwan report a surge in emergency orders from customers seeking supply diversification."]),
-  D(9, "BU5", dict(IR=.50, Geo=-.70, Tech=.25, Aero=-.30), [
+  D(48, "BU5", dict(IR=.50, Geo=-.70, Tech=.25, Aero=-.30), [
     "China extends its blockade exercise around Taiwan indefinitely, restricting all commercial shipping through the strait.",
     "The Bank of England schedules an emergency policy session to weigh a coordinated dollar-liquidity swap-line expansion with the Fed and ECB.",
     "A commercial satellite operator detects an unidentified signal during constellation deployment that matches no known satellite or debris signature.",
     "Independent analysts suggest the reading could be an instrument artifact rather than a genuine detection."]),
-  D(10, "MAJOR", dict(Reg=.50, Oil=.75, Geo=.30, InvC=-.50, Aero=.70), [
+  D(54, "MAJOR", dict(Reg=.50, Oil=.75, Geo=.30, InvC=-.50, Aero=.70), [
     "China formally declares a blockade of Taiwan, though initial terms exempt humanitarian and allied-flagged vessels — narrower in scope than the buildup's rhetoric had suggested.",
     "Within hours, Chinese and U.S.-allied forces exchange fire attempting to enforce or break the blockade, marking the formal outbreak of war.",
     "Japan, Australia, and the Philippines commit forces alongside the United States; Russia and North Korea publicly back China, while India declares formal non-alignment.",
@@ -246,18 +245,18 @@ SESSION_NEWS = {
     "The Fed, ECB, Bank of Japan, and Bank of England jointly launch a $500 billion coordinated dollar swap-line facility.",
     "U.S. and Chinese space-tracking authorities jointly confirm the unidentified signal detected days earlier is genuine and non-terrestrial in origin.",
     "Global equity markets tumble despite the swap-line intervention."]),
-  D(14, "AFT1", dict(IR=-.40, Oil=.50, Sem=-.30, Tech=-.30, Aero=-.40, Hlth=-.30), [
+  D(78, "AFT1", dict(IR=-.40, Oil=.50, Sem=-.30, Tech=-.30, Aero=-.40, Hlth=-.30), [
     "The dollar swap-line facility begins easing funding stress, and short-term interest-rate expectations pull back from their post-declaration highs.",
     "Shipping insurers raise Indo-Pacific war-risk premiums to record levels, above prior Gulf-crisis peaks.",
     "A preliminary technical review suggests the earlier signal detection may have involved instrument calibration errors, reviving doubts about its authenticity.",
     "Several major defence contractors and pharmaceutical manufacturers flag capacity constraints as demand strains production lines."]),
-  D(16, "AFT2", dict(Reg=.50, Oil=-.60, Sem=.60, InvC=.40, Tech=.60, Aero=-.40), [
+  D(90, "AFT2", dict(Reg=.50, Oil=-.60, Sem=.60, InvC=.40, Tech=.60, Aero=-.40), [
     "A follow-up analysis conclusively confirms the signal represents a genuine propulsion or energy breakthrough with major dual-use potential.",
     "China moves to contest exclusive access to the infrastructure that detected it, threatening retaliation against the operator's international ground stations.",
     "Long-term energy-substitution concerns tied to the breakthrough weigh on oil futures even as near-term shipping risk remains elevated.",
     "Demand for next-generation computing capacity accelerates sharply; the Taiwan Strait conflict reaches an attritional lull as both sides pause for resupply.",
     "Lawmakers open a war-profiteering audit of defence contractors."]),
-  D(18, "AFT3", dict(Reg=.40, Oil=-.30, Geo=.50, Cons=.30, Tech=-.35, Aero=-.60), [
+  D(102, "AFT3", dict(Reg=.40, Oil=-.30, Geo=.50, Cons=.30, Tech=-.35, Aero=-.60), [
     "Unconfirmed reports of a partial Taiwan Strait ceasefire begin circulating through diplomatic channels, causing defence contractors to slide.",
     "A formal international export-control regime is imposed on the new propulsion/energy technology, with allied governments publicly split over access terms.",
     "Oil futures ease further on the ceasefire reports and continued long-term substitution concerns.",
@@ -291,7 +290,7 @@ class MarketEngine:
         for s, drops in SESSION_NEWS.items():
             evs = []
             for drop in drops:
-                fire = (drop["minute"] - 1) * SUBTICKS
+                fire = drop["legacy_tick"] * 10  # Legacy ticks were 10s each
                 for f, tgt in drop["scores"].items():
                     g   = abs(self.rng.normal(GAIN_RAW, GAIN_TAU_FR * GAIN_RAW)) * GAIN_SCALE
                     tau = max(1.0, self.rng.normal(TAU_MIN, GAIN_TAU_FR * TAU_MIN)) * SUBTICKS

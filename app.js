@@ -39,7 +39,7 @@
     // Chart instances
     let priceChart = null;
     let equityChart = null;
-    let selectedTicker = 'TCS';
+    let selectedTicker = null;
     let chartMode = 'line'; // 'line' or 'candle'
 
     // Price history per ticker
@@ -120,10 +120,13 @@
     // =================================================================
     async function loadGameData() {
         try {
-            const resp = await fetch('game_data.json');
+            const resp = await fetch('game_data_public.json');
             gameData = await resp.json();
             // Initialize price history arrays
             gameData.meta.tickers.forEach(tk => { priceHistory[tk] = []; });
+            selectedTicker = gameData.meta.tickers[0];
+            const tickerLabel = document.getElementById('chart-ticker-label');
+            if (tickerLabel) tickerLabel.textContent = selectedTicker;
             // ticks_per_session includes one extra tick for the countdown's exact
             // 20:00 -> 0:00 display; the "total ticks" the players see is the
             // conceptual 1200, i.e. ticks_per_session - 1.
@@ -420,7 +423,8 @@
         const bundle = {
             game_seed: gameData.meta.seed,
             team: currentTeam,
-            orders: orderHistory
+            orders: orderHistory,
+            equity_curve: equitySeries
         };
         const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
@@ -524,7 +528,6 @@
         const tickInSession = row.tick;
 
         // If session changed, flush any pending news from the old session.
-        // Prices/portfolio carry through continuously per the PRD -- only news/market reshuffle per session.
         if (currentTick > 0 && gameData.rows[currentTick - 1].session !== session) {
             showToast(`Session ${session + 1} started!`);
             if (newsBuffer.length) {
@@ -662,18 +665,27 @@
         const qty = parseInt(document.getElementById('order-quantity').value);
         document.getElementById('btn-confirm').disabled = !(qty > 0 && px);
 
-        // Update Owned preview
+        // Update Owned preview (sign-aware: shows "LONG 10" or "SHORT 5")
         const ownedSpan = document.getElementById('order-shares-owned');
         if (ownedSpan) {
             const h = holdings[selectedTicker];
-            ownedSpan.textContent = h ? `Owned: ${h.shares}` : 'Owned: 0';
+            if (!h || h.shares === 0) {
+                ownedSpan.textContent = 'Owned: 0';
+                ownedSpan.style.color = '';
+            } else if (h.shares > 0) {
+                ownedSpan.textContent = `LONG ${h.shares}`;
+                ownedSpan.style.color = '#34d399';
+            } else {
+                ownedSpan.textContent = `SHORT ${Math.abs(h.shares)}`;
+                ownedSpan.style.color = '#f87171';
+            }
         }
     }
 
     document.getElementById('order-quantity').addEventListener('input', updateCurrentPrice);
 
     // =================================================================
-    // TRADING LOGIC (PRD Part 6.2)
+    // TRADING LOGIC (PRD Part 6.2) — with short selling
     // =================================================================
     document.getElementById('btn-confirm').addEventListener('click', confirmOrder);
     document.getElementById('btn-clear').addEventListener('click', () => {
@@ -682,6 +694,37 @@
         document.getElementById('order-info').style.display = 'none';
         updateCurrentPrice();
     });
+
+    // Sign-aware position update: used by BUY (+qty) and SELL (-qty).
+    // Handles extending, reducing, and crossing through zero.
+    function updatePositionOnTrade(h, signedQty, price) {
+        if (h.shares === 0 || Math.sign(signedQty) === Math.sign(h.shares)) {
+            // Extending a position (or first entry): weighted-average entry price
+            h.avgCost = (Math.abs(h.shares) * h.avgCost + Math.abs(signedQty) * price)
+                        / (Math.abs(h.shares) + Math.abs(signedQty));
+            h.shares += signedQty;
+        } else if (Math.abs(signedQty) <= Math.abs(h.shares)) {
+            // Partial/full close: entry price unchanged
+            h.shares += signedQty;
+        } else {
+            // Crossed zero: remainder is a NEW position at trade price
+            h.shares += signedQty;
+            h.avgCost = price;
+        }
+    }
+
+    // Short cap: total short exposure (market value of all negative positions)
+    // may not exceed total portfolio value (cash + net position value).
+    function canShort(addQty, price) {
+        const row = gameData.rows[currentTick];
+        let shortVal = addQty * price, posVal = 0;
+        for (const tk in holdings) {
+            const v = holdings[tk].shares * row.prices[tk];
+            posVal += v;
+            if (v < 0) shortVal += -v;
+        }
+        return shortVal <= cash + posVal;
+    }
 
     function confirmOrder() {
         const ticker = selectedTicker;
@@ -701,30 +744,38 @@
             return;
         }
 
-        // Validate against the current (Firebase-replay-derived) cash/holdings for
-        // immediate feedback. The actual cash/holdings/orderHistory update comes
-        // from the watchTeamOrders listener replaying this order back in below --
-        // that's the single source of truth, so it can't drift from what admin's
-        // scoring sees, and it's what makes a refresh restore the real portfolio.
         if (side === 'BUY') {
-            const cost = price * qty;
-            if (cost > cash) {
-                errEl.textContent = `Insufficient cash. Need ${formatINR(cost)}, have ${formatINR(cash)}`;
+            // BUY: covers shorts first (FIFO), then opens/extends a long.
+            // Cash check: buying to cover a short doesn't cost cash (it reduces
+            // the short obligation), but buying beyond the short does.
+            const h = holdings[ticker] || { shares: 0, avgCost: 0 };
+            const coverQty = (h.shares < 0) ? Math.min(qty, Math.abs(h.shares)) : 0;
+            const newLongQty = qty - coverQty;
+            const cashNeeded = newLongQty * price;
+            if (cashNeeded > cash) {
+                errEl.textContent = `Insufficient cash. Need ${formatINR(cashNeeded)}, have ${formatINR(cash)}`;
                 errEl.style.display = 'block';
                 return;
             }
-            infoEl.textContent = `✅ Bought ${qty} ${ticker} @ ${formatINR(price)} = ${formatINR(cost)}`;
-            showToast(`Bought ${qty} ${ticker} @ ${formatINR(price)}`);
+            infoEl.textContent = `✅ Bought ${qty} ${ticker} @ ${formatINR(price)} = ${formatINR(price * qty)}`;
+            if (coverQty > 0) {
+                showToast(`Covered ${coverQty} short + bought ${newLongQty} ${ticker} @ ${formatINR(price)}`);
+            } else {
+                showToast(`Bought ${qty} ${ticker} @ ${formatINR(price)}`);
+            }
         } else {
-            const h = holdings[ticker];
-            if (!h || h.shares < qty) {
-                errEl.textContent = `Not enough shares. You hold ${h ? h.shares : 0} ${ticker}`;
+            // SELL: reduces longs, then opens/extends a short.
+            const held = holdings[ticker] ? holdings[ticker].shares : 0;
+            const newShort = Math.max(qty - Math.max(held, 0), 0);
+            if (newShort > 0 && !canShort(newShort, price)) {
+                errEl.textContent = 'Short cap: total short exposure cannot exceed portfolio value';
                 errEl.style.display = 'block';
                 return;
             }
             const proceeds = price * qty;
-            infoEl.textContent = `✅ Sold ${qty} ${ticker} @ ${formatINR(price)} = ${formatINR(proceeds)}`;
-            showToast(`Sold ${qty} ${ticker} @ ${formatINR(price)}`);
+            const label = newShort > 0 ? `Sold SHORT ${newShort}` : `Sold ${qty}`;
+            infoEl.textContent = `✅ ${label} ${ticker} @ ${formatINR(price)} = ${formatINR(proceeds)}`;
+            showToast(`${label} ${ticker} @ ${formatINR(price)}`, newShort > 0 ? 'warning' : 'info');
         }
         infoEl.style.display = 'block';
 
@@ -745,22 +796,28 @@
         const sorted = [...orders].sort((a, b) => a.tick - b.tick);
         let newCash = START_CAPITAL;
         const newHoldings = {};
+        const sessionLength = gameData.meta.ticks_per_session;
+        let currentSession = 0;
+
         for (const o of sorted) {
-            const cost = o.price * o.qty;
-            if (o.side === 'BUY') {
-                const h = newHoldings[o.ticker] || { shares: 0, avgCost: 0 };
-                h.avgCost = (h.avgCost * h.shares + cost) / (h.shares + o.qty);
-                h.shares += o.qty;
-                newHoldings[o.ticker] = h;
-                newCash -= cost;
-            } else {
-                const h = newHoldings[o.ticker];
-                if (h) {
-                    h.shares -= o.qty;
-                    if (h.shares <= 0) delete newHoldings[o.ticker];
+            const oSession = Math.floor(o.tick / sessionLength);
+            if (oSession > currentSession) {
+                const lastRowPriceIdx = (currentSession + 1) * sessionLength - 1;
+                const lastRowPrices = gameData.rows[lastRowPriceIdx].prices;
+                for (const tk in newHoldings) {
+                    newCash += newHoldings[tk].shares * lastRowPrices[tk];
                 }
-                newCash += cost;
+                newCash = START_CAPITAL;
+                for (const tk in newHoldings) delete newHoldings[tk];
+                currentSession = oSession;
             }
+
+            const dir = o.side === 'BUY' ? 1 : -1;
+            newCash -= dir * o.price * o.qty;
+            const h = newHoldings[o.ticker] || { shares: 0, avgCost: 0 };
+            updatePositionOnTrade(h, dir * o.qty, o.price);
+            if (h.shares === 0) delete newHoldings[o.ticker];
+            else newHoldings[o.ticker] = h;
         }
 
         cash = newCash;
@@ -869,7 +926,7 @@
             // Candlestick via two overlapping bar datasets on plain Chart.js (no financial
             // plugin loaded): a thin "wick" bar spanning the true high/low, and a wider
             // "body" bar spanning open/close, per PRD Part 6.3 (high/low = max/min of group).
-            const candles = toCandles(prices, 6);
+            const candles = toCandles(prices, 60);
             priceChart.config.type = 'bar';
             priceChart.data.labels = candles.map((_, i) => `M${i + 1}`);
             const upColor = 'rgba(52,211,153,0.9)';
@@ -1038,7 +1095,7 @@
         setStatValue('stat-sharpe', sharpe.toFixed(3), sharpe >= 0 ? 'positive' : 'negative');
         setStatValue('stat-vsmarket', (vsMarket >= 0 ? '+' : '') + vsMarket.toFixed(2) + '%', vsMarket >= 0 ? 'positive' : 'negative');
 
-        // Holdings table
+        // Holdings table (sign-aware: shorts show as red badge)
         const holdingKeys = Object.keys(holdings);
         if (holdingKeys.length === 0) {
             document.getElementById('holdings-empty').style.display = 'block';
@@ -1051,16 +1108,23 @@
             holdingKeys.forEach(tk => {
                 const h = holdings[tk];
                 const px = row.prices[tk];
-                const pnlPct = ((px - h.avgCost) / h.avgCost * 100);
-                const val = h.shares * px;
+                const isShort = h.shares < 0;
+                // P&L: for longs (px - avg)/avg, for shorts (avg - px)/avg
+                const pnlPct = isShort
+                    ? ((h.avgCost - px) / h.avgCost * 100)
+                    : ((px - h.avgCost) / h.avgCost * 100);
+                const val = h.shares * px; // negative for shorts
+                const sharesDisplay = isShort
+                    ? `<span style="color:#f87171;font-weight:600;">SHORT ${Math.abs(h.shares)}</span>`
+                    : `${h.shares}`;
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><strong>${tk}</strong></td>
-                    <td>${h.shares}</td>
+                    <td>${sharesDisplay}</td>
                     <td>${formatINR(h.avgCost)}</td>
                     <td>${formatINR(px)}</td>
                     <td class="${pnlPct >= 0 ? 'gain-positive' : 'gain-negative'}">${pnlPct >= 0 ? '+' : ''}${pnlPct.toFixed(2)}%</td>
-                    <td>${formatINR(val)}</td>
+                    <td>${formatINR(Math.abs(val))}</td>
                 `;
                 tbody.appendChild(tr);
             });

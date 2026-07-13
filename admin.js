@@ -711,10 +711,11 @@ function renderDrillDown(team) {
     const trips = data.rep.trips;
     trips.forEach(tp => {
         const tr = document.createElement("tr");
-        const ret = ((tp.pOut - tp.pIn) / tp.pIn) * 100;
+        const side = tp.side || 'LONG';
+        const ret = ((tp.pOut - tp.pIn) / tp.pIn) * 100 * (side === 'SHORT' ? -1 : 1);
         const isHit = ret > 0;
         tr.innerHTML = `
-            <td>${tp.ticker} (qty: ${tp.qty})</td>
+            <td><span style="color:${side === 'SHORT' ? 'var(--danger)' : 'var(--success)'}; font-size: 0.8em; font-weight:bold; margin-right:4px;">${side}</span>${tp.ticker} (qty: ${tp.qty})</td>
             <td style="color: ${isHit ? 'var(--success)' : 'var(--danger)'}">${(ret > 0 ? '+' : '')}${ret.toFixed(2)}%</td>
             <td class="${isHit ? 'hit' : 'miss'}">${isHit ? 'HIT' : 'MISS'}</td>
         `;

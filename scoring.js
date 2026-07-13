@@ -33,41 +33,31 @@ function scopeTickRange(gameData, scope) {
 }
 
 function replay(orders, gameData, scope, startingCapital = 1_000_000, liveTickCap = Infinity) {
-    // scope: 0 (Session 1 only), 1 (Session 2 only), or "both" (the real, continuous
-    // full-game score). Positions/cash carry through the whole 240-tick game per the
-    // PRD -- sessions only reshuffle news/market, they never reset the portfolio.
-    // Scoping to a single session is an isolated judge-console view (fresh K0 for
-    // that window), not a change to how the real "both" score is computed.
-    // startingCapital is the team's configured starting cash (defaults to ₹10L for
-    // teams that predate the per-team amount field).
-    // liveTickCap caps replay at however far the game has actually progressed in
-    // real time (see admin.js's liveGlobalTickCap()) -- without it, a team's
-    // Return/Hit-Rate would be computed against the full precomputed price path
-    // all the way to the scope's end, revealing future price movement (and
-    // scoring trades) before that time has actually elapsed.
+    // Short-selling-aware replay. Shares are signed: positive = long, negative = short.
+    // Lots are tracked in a unified array: lots[ticker] with a 'side' property.
     const rows = gameData.rows;
     const K0 = startingCapital;
     const [tickStart, tickEndScope] = scopeTickRange(gameData, scope);
     const tickEnd = Math.min(tickEndScope, liveTickCap);
     const scopedOrders = orders.filter(o => o.tick >= tickStart && o.tick <= tickEnd);
     let cash = K0, shares = {};
-    const V = [], lots = {}, trips = [], holdingsByTick = [];
+    const V = [], lots = {}, trips = [], holdingsByTick = [], sessionReturns = [];
     let oi = 0;
+    const sessionLength = gameData.meta.ticks_per_session;
+    let currentSession = Math.floor(tickStart / sessionLength);
 
-    function forceCloseAll(lotsRef, sharesRef, endRow, tripsRef) {
-        for (const tk in sharesRef) {
-            if (sharesRef[tk] > 0 && lotsRef[tk]) {
-                const px = endRow.prices[tk];
-                for (const lot of lotsRef[tk]) {
+    // Close all remaining positions at the end of a window (force-close at last price).
+    function forceCloseAll(endRow, tripsRef) {
+        for (const tk in shares) {
+            const px = endRow.prices[tk];
+            if (lots[tk]) {
+                for (const lot of lots[tk]) {
                     if (lot.qty > 0) {
                         tripsRef.push({
-                            tickIn: lot.tick,
-                            tickOut: endRow.tick,
-                            ticker: tk,
-                            qty: lot.qty,
-                            pIn: lot.price,
-                            pOut: px,
-                            forced: true
+                            tickIn: lot.tick, tickOut: endRow.tick,
+                            ticker: tk, qty: lot.qty,
+                            pIn: lot.price, pOut: px,
+                            side: lot.side, forced: true
                         });
                     }
                 }
@@ -75,98 +65,85 @@ function replay(orders, gameData, scope, startingCapital = 1_000_000, liveTickCa
         }
     }
 
-    function addLot(lotsRef, order, tick) {
-        if (!lotsRef[order.ticker]) lotsRef[order.ticker] = [];
-        lotsRef[order.ticker].push({ qty: order.qty, price: order.price, tick: tick });
-    }
-
-    function fifoClose(lotsRef, order, tick, row, tripsRef) {
-        let remaining = order.qty;
-        if (!lotsRef[order.ticker]) return; // Cannot sell if no lots
-        
-        while (remaining > 0 && lotsRef[order.ticker].length > 0) {
-            const lot = lotsRef[order.ticker][0];
-            if (lot.qty <= remaining) {
-                // Consume entire lot
-                tripsRef.push({
-                    tickIn: lot.tick,
-                    tickOut: tick,
-                    ticker: order.ticker,
-                    qty: lot.qty,
-                    pIn: lot.price,
-                    pOut: row.prices[order.ticker],
-                    forced: false
-                });
-                remaining -= lot.qty;
-                lotsRef[order.ticker].shift(); // Remove consumed lot
-            } else {
-                // Partially consume lot
-                tripsRef.push({
-                    tickIn: lot.tick,
-                    tickOut: tick,
-                    ticker: order.ticker,
-                    qty: remaining,
-                    pIn: lot.price,
-                    pOut: row.prices[order.ticker],
-                    forced: false
-                });
-                lot.qty -= remaining;
-                remaining = 0;
-            }
-        }
-    }
-
     for (let t = tickStart; t <= tickEnd; t++) {
         const row = rows[t];
+
+        const tSession = Math.floor(t / sessionLength);
+        if (tSession > currentSession) {
+            const lastRowOfPrev = rows[(currentSession + 1) * sessionLength - 1];
+            forceCloseAll(lastRowOfPrev, trips);
+            sessionReturns.push((V[V.length - 1] - K0) / K0);
+            
+            cash = K0;
+            for (const tk in shares) delete shares[tk];
+            for (const tk in lots) delete lots[tk];
+            currentSession = tSession;
+        }
 
         while (oi < scopedOrders.length && scopedOrders[oi].tick === t) {
             const o = scopedOrders[oi++];
             const px = row.prices[o.ticker];
-            
-            // Note: The execution price used in replay is the canonical price
-            // We store the canonical price inside the order for tracking
             o.price = px;
-            
-            if (o.side === "BUY") {
-                cash -= px * o.qty;
-                addLot(lots, o, t);
-                shares[o.ticker] = (shares[o.ticker] || 0) + o.qty;
-            } else {
-                cash += px * o.qty;
-                fifoClose(lots, o, t, row, trips);
-                shares[o.ticker] -= o.qty;
-                if (shares[o.ticker] <= 0) shares[o.ticker] = 0;
+            const tk = o.ticker;
+            const curShares = shares[tk] || 0;
+
+            const dir = o.side === "BUY" ? 1 : -1;
+            cash -= dir * px * o.qty;
+            let remaining = o.qty;
+
+            if (!lots[tk]) lots[tk] = [];
+            const oppositeSide = o.side === "BUY" ? "SHORT" : "LONG";
+
+            // First: cover/close opposite side lots (FIFO)
+            if (curShares !== 0 && Math.sign(curShares) !== dir) {
+                while (remaining > 0 && lots[tk].length > 0 && lots[tk][0].side === oppositeSide) {
+                    const lot = lots[tk][0];
+                    const fill = Math.min(remaining, lot.qty);
+                    trips.push({
+                        tickIn: lot.tick, tickOut: t,
+                        ticker: tk, qty: fill,
+                        pIn: lot.price, pOut: px,
+                        side: oppositeSide, forced: false
+                    });
+                    remaining -= fill;
+                    lot.qty -= fill;
+                    if (lot.qty <= 0) lots[tk].shift();
+                }
             }
+            
+            // Remainder: open/extend new lots in current direction
+            if (remaining > 0) {
+                lots[tk].push({ qty: remaining, price: px, tick: t, side: o.side });
+            }
+            shares[tk] = curShares + (dir * o.qty);
+            if (shares[tk] === 0) delete shares[tk];
         }
         
         let pos = 0;
         const w = {};
         for (const tk in shares) {
-            if (shares[tk] > 0) {
-                const val = shares[tk] * row.prices[tk];
-                pos += val;
-                w[tk] = val / K0;
-            }
+            const val = shares[tk] * row.prices[tk]; // signed: negative for shorts
+            pos += val;
+            w[tk] = val / K0; // signed weight
         }
         V.push(cash + pos);
         holdingsByTick.push(w);
     }
 
-    // end-of-window MTM (end of game for scope "both", end of session for a
-    // single-session scope, or wherever liveTickCap froze it -- e.g. viewing a
-    // Session 2 scope before Round 2 has actually started leaves tickEnd < tickStart,
-    // meaning nothing has happened in this window yet, so skip the force-close).
+    // end-of-window MTM
     if (tickEnd >= tickStart) {
-        forceCloseAll(lots, shares, rows[tickEnd], trips);
+        forceCloseAll(rows[tickEnd], trips);
+        sessionReturns.push((V[V.length - 1] - K0) / K0);
     }
 
-    return { V, trips, orders: scopedOrders, holdingsByTick };
+    return { V, trips, orders: scopedOrders, holdingsByTick, sessionReturns };
 }
 
-function scoreReturn(V, K0, r0 = 0.04, lam = 0.075) {
-    if (!V.length) return { r: 0, sR: 0 }; // nothing has happened in this window yet
-    const r = (V[V.length-1] - K0) / K0;
-    return { r, sR: 1 / (1 + Math.exp(-(r - r0) / lam)) };
+function scoreReturn(sessionReturns, r0 = 0.04) {
+    if (!sessionReturns || !sessionReturns.length) return { r: 0, sR: 0 };
+    const avgR = sessionReturns.reduce((a, b) => a + b, 0) / sessionReturns.length;
+    const lam = avgR >= r0 ? 0.086 : 0.0289;
+    return { r: avgR, sR: 1 / (1 + Math.exp(-(avgR - r0) / lam)) };
 }
 
 function effectiveRank(orders, betas, rowsByTick, K0, Rcap = 5) {
@@ -197,15 +174,14 @@ function effectiveRank(orders, betas, rowsByTick, K0, Rcap = 5) {
     return { Reff, dRank: Math.min(Reff / Rcap, 1) };
 }
 
-function neutrality(holdingsByTick, betas, Ncap = 0.5) {
+function neutrality(holdingsByTick, betas, Ncap = 0.7) {
     let net = 0, gross = 0;
-    // holdingsByTick should be an array (for each tick) of objects: {ticker: weight_at_tick}
     for (const w of holdingsByTick) {
         for (let k = 0; k < NUM_FACTORS; k++) {
             let E = 0, Gk = 0;
             for (const tk in w) {
                 if (!betas[tk]) continue;
-                const x = w[tk] * betas[tk][k];
+                const x = w[tk] * betas[tk][k]; // w[tk] is now signed
                 E += x;
                 Gk += Math.abs(x);
             }
@@ -218,9 +194,14 @@ function neutrality(holdingsByTick, betas, Ncap = 0.5) {
     return { nu, dNeut: Math.min(nu / Ncap, 1) };
 }
 
+// Direction-aware hit definition: a trip is a hit when the price moved in
+// the direction the trader bet on (up for longs, down for shorts).
 function scoreHitRate(trips, K0, theta = 0.005, kappa = 2) {
     const q = trips.filter(tp => tp.qty * tp.pIn >= theta * K0);
-    const hits = q.filter(tp => tp.pOut > tp.pIn).length;
+    const hits = q.filter(tp => {
+        const pnl = (tp.pOut - tp.pIn) * (tp.side === 'SHORT' ? -1 : 1);
+        return pnl > 0;
+    }).length;
     if (q.length === 0) return { hits: 0, nTr: 0, sH: 0, flag: "insufficient" };
     return { hits, nTr: q.length, sH: (hits + kappa/2) / (q.length + kappa) };
 }
