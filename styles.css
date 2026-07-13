@@ -196,7 +196,7 @@
            TRADE TAB
            ======================================== */
         .trade-layout {
-            display: grid; grid-template-columns: 1fr 380px;
+            display: grid; grid-template-columns: 1fr 460px;
             gap: 20px; min-height: calc(100vh - 160px);
         }
         .trade-left { display: flex; flex-direction: column; gap: 20px; }
@@ -273,25 +273,25 @@
         }
         .news-feed {
             flex: 1; overflow-y: auto; display: flex; flex-direction: column;
-            gap: 10px; padding-right: 4px;
+            gap: 14px; padding-right: 4px;
         }
         .news-card {
-            padding: 14px 16px; border-radius: 10px;
+            padding: 16px 18px; border-radius: 10px;
             background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
             animation: newsSlide 0.4s ease both;
         }
         @keyframes newsSlide { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .news-card .news-time {
             font-size: 0.68rem; font-weight: 600; color: var(--text-muted);
-            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;
         }
         .news-card ul { list-style: none; padding: 0; }
         .news-card li {
-            padding: 4px 0 4px 16px; position: relative;
-            font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;
+            padding: 6px 0 6px 16px; position: relative;
+            font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65;
         }
         .news-card li::before {
-            content: ''; position: absolute; left: 0; top: 11px;
+            content: ''; position: absolute; left: 0; top: 14px;
             width: 5px; height: 5px; border-radius: 50%; background: var(--accent-secondary);
         }
         .news-empty {
