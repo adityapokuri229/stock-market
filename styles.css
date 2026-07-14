@@ -196,10 +196,53 @@
            TRADE TAB
            ======================================== */
         .trade-layout {
-            display: grid; grid-template-columns: 1fr 460px;
-            gap: 20px; min-height: calc(100vh - 160px);
+            display: flex;
+            gap: 0;
+            min-height: calc(100vh - 160px);
+            position: relative;
         }
-        .trade-left { display: flex; flex-direction: column; gap: 20px; }
+        .trade-left {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .trade-resizer {
+            width: 16px;
+            cursor: col-resize;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            user-select: none;
+            transition: background-color 0.2s;
+            margin: 0 4px;
+        }
+        .trade-resizer::after {
+            content: '';
+            width: 2px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 1px;
+            transition: background-color 0.2s, height 0.2s;
+        }
+        .trade-resizer:hover::after, .trade-resizer.dragging::after {
+            background: var(--accent);
+            height: 60px;
+        }
+        .trade-resizer:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .news-widget {
+            width: 460px;
+            min-width: 250px;
+            max-width: 800px;
+            flex-shrink: 0;
+        }
 
         /* Order Widget */
         .order-widget { padding: 24px; max-height: 420px; overflow-y: auto; }

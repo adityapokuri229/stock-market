@@ -29,32 +29,39 @@
         <header class="header">
             <div class="header-brand">
                 <img src="dps_logo.png" alt="DPS Logo" style="height: 38px; width: auto; object-fit: contain; border-radius: 4px;">
-                Chakravyuh - Nivesh Chakra | Judge Console
-            </div>
-            <div class="controls" style="display: flex; align-items: center; gap: 10px;">
-                <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">Scope: 
-                    <select id="scope-select" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 4px 8px; border-radius: 4px; outline: none;">
-                        <option value="both">Both</option>
-                        <option value="0">Session 1</option>
-                        <option value="1">Session 2</option>
-                    </select>
-                </label>
-                <button id="btn-start-event" class="btn-primary">▶ START EVENT</button>
-                <span id="portfolio-build-timer" style="display: none; font-size: 0.85rem; font-weight: bold; color: #fbbf24; background: rgba(251,191,36,0.12); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3);">⏱ Portfolio Building: 5:00</span>
-                <button id="btn-start-round-1" class="btn-primary" style="display: none;">▶ START ROUND 1</button>
-                <button id="btn-start-round-2" class="btn-primary" style="display: none; background: linear-gradient(135deg, #60a5fa, #2563eb);">▶ START ROUND 2</button>
-                <button id="btn-end-round-2" class="btn-danger" style="display: none;">⏹ END ROUND 2</button>
-                <button id="btn-pause-event" class="btn-warning" style="display: none;">⏸ PAUSE EVENT</button>
-                <span id="live-game-clock" style="display: none; margin-left: 12px; font-size: 0.85rem; font-weight: bold; color: #38bdf8; background: rgba(56,189,248,0.12); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); font-variant-numeric: tabular-nums;"></span>
+                Chakravyuh - Nivesh Chakra <span style="color: var(--text-muted); font-weight: 500; font-size: 0.9rem; margin-left: 8px;">| Judge Console</span>
             </div>
             <div class="header-right">
                 <span id="live-status" class="status-pill live">● LIVE — 0 teams</span>
                 <input type="file" id="offline-file" style="display:none;" accept=".json">
                 <button id="offline-load-btn" class="btn-small">Load Offline</button>
                 <button id="export-csv-btn" class="btn-small">Export CSV</button>
-                <button id="btn-reset-everything" class="btn-danger" style="margin-left: 10px;">RESET EVERYTHING</button>
+                <button id="btn-reset-everything" class="btn-danger" style="margin-left: 10px; padding: 6px 12px; font-size: 0.75rem;">RESET EVERYTHING</button>
             </div>
         </header>
+
+        <!-- Controls Sub-Header -->
+        <div class="card" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; margin-bottom: 24px;">
+            <div class="controls" style="display: flex; align-items: center; gap: 15px;">
+                <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    Scope: 
+                    <select id="scope-select" style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 6px 10px; border-radius: 6px; outline: none; cursor: pointer;">
+                        <option value="both" style="background: #111;">Both</option>
+                        <option value="0" style="background: #111;">Session 1</option>
+                        <option value="1" style="background: #111;">Session 2</option>
+                    </select>
+                </label>
+                <button id="btn-start-event" class="btn-primary">▶ START EVENT</button>
+                <button id="btn-start-round-1" class="btn-primary" style="display: none;">▶ START ROUND 1</button>
+                <button id="btn-start-round-2" class="btn-primary" style="display: none; background: linear-gradient(135deg, #60a5fa, #2563eb);">▶ START ROUND 2</button>
+                <button id="btn-end-round-2" class="btn-danger" style="display: none;">⏹ END ROUND 2</button>
+                <button id="btn-pause-event" class="btn-warning" style="display: none;">⏸ PAUSE EVENT</button>
+            </div>
+            <div class="timers" style="display: flex; align-items: center; gap: 15px;">
+                <span id="portfolio-build-timer" style="display: none; font-size: 0.85rem; font-weight: bold; color: #fbbf24; background: rgba(251,191,36,0.12); padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3); box-shadow: 0 0 10px rgba(251,191,36,0.1);">⏱ Portfolio Building: 5:00</span>
+                <span id="live-game-clock" style="display: none; font-size: 0.95rem; font-weight: bold; color: #38bdf8; background: rgba(56,189,248,0.12); padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); font-variant-numeric: tabular-nums; box-shadow: 0 0 10px rgba(56,189,248,0.1);"></span>
+            </div>
+        </div>
 
         <!-- Weights strip -->
         <div class="card weights-strip">

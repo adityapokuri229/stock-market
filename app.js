@@ -168,6 +168,7 @@
     // module script, so wait for DOMContentLoaded (which always runs after it)
     // rather than attempting this at plain top-level script execution.
     window.addEventListener('DOMContentLoaded', () => {
+        initResizer();
         const savedTeam = getCookie('chakravyuh_team');
         const savedPass = getCookie('chakravyuh_pass');
         if (savedTeam && savedPass) {
@@ -176,6 +177,44 @@
             handleLogin();
         }
     });
+
+    function initResizer() {
+        const resizer = document.getElementById('trade-resizer');
+        const leftSide = document.querySelector('.trade-left');
+        const rightSide = document.querySelector('.news-widget');
+        if (!resizer || !leftSide || !rightSide) return;
+
+        let x = 0;
+        let leftWidth = 0;
+        let rightWidth = 0;
+
+        const mouseDownHandler = function(e) {
+            x = e.clientX;
+            leftWidth = leftSide.getBoundingClientRect().width;
+            rightWidth = rightSide.getBoundingClientRect().width;
+            resizer.classList.add('dragging');
+
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+            e.preventDefault();
+        };
+
+        const mouseMoveHandler = function(e) {
+            const dx = e.clientX - x;
+            const newRightWidth = rightWidth - dx;
+            if (newRightWidth >= 250 && newRightWidth <= 800) {
+                rightSide.style.width = `${newRightWidth}px`;
+            }
+        };
+
+        const mouseUpHandler = function() {
+            resizer.classList.remove('dragging');
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
+
+        resizer.addEventListener('mousedown', mouseDownHandler);
+    }
 
     async function handleLogin() {
         const team = document.getElementById('team-name').value.trim().toLowerCase();
@@ -926,7 +965,7 @@
             // Candlestick via two overlapping bar datasets on plain Chart.js (no financial
             // plugin loaded): a thin "wick" bar spanning the true high/low, and a wider
             // "body" bar spanning open/close, per PRD Part 6.3 (high/low = max/min of group).
-            const candles = toCandles(prices, 60);
+            const candles = toCandles(prices, 10);
             priceChart.config.type = 'bar';
             priceChart.data.labels = candles.map((_, i) => `M${i + 1}`);
             const upColor = 'rgba(52,211,153,0.9)';
@@ -968,7 +1007,7 @@
         const scrollEl = document.getElementById('price-chart-scroll');
         const innerEl = document.getElementById('price-chart-inner');
         if (scrollEl && innerEl) {
-            const pxPerPoint = chartMode === 'line' ? 6 : 16;
+            const pxPerPoint = chartMode === 'line' ? 15 : 45;
             const desiredWidth = Math.max(scrollEl.clientWidth, pointCount * pxPerPoint);
             const wasNearRightEdge = scrollEl.scrollWidth - scrollEl.scrollLeft - scrollEl.clientWidth < 40;
             innerEl.style.width = desiredWidth + 'px';
