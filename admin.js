@@ -727,8 +727,6 @@ function renderDrillDown(team) {
     
     // Radar Chart -- exposure weighted by trade size (qty * canonical price / K0), same
     // weighting the real Diversification score uses (scoring.js effectiveRank), so this
-    // view reflects the same exposure the score is based on rather than a raw beta count.
-    const K0 = getTeamK0(team);
     const factorExposure = new Float64Array(window.scoring.FACTORS.length);
     for (const ord of data.rep.orders) {
         if (!betas[ord.ticker]) continue;
