@@ -236,7 +236,7 @@ const btnEndRound2 = document.getElementById("btn-end-round-2");
 const btnStartRound1 = document.getElementById("btn-start-round-1");
 const portfolioBuildTimer = document.getElementById("portfolio-build-timer");
 const liveGameClock = document.getElementById("live-game-clock");
-const PORTFOLIO_BUILD_DURATION_SEC = 5 * 60; // 5 minutes
+const PORTFOLIO_BUILD_DURATION_SEC = 8 * 60; // 8 minutes
 
 // The authoritative game/status fields, kept in sync via watchGameState (not just
 // written by this panel) -- so refreshing the judge's own browser mid-game re-syncs
@@ -246,7 +246,7 @@ let liveSession = 0;
 let livePhaseStartedAt = 0;
 let livePausedAccumMs = 0;
 let livePausedAt = null;
-let portfolioBuildPrompted = false; // guards the one-time "5 minutes are up" popup
+let portfolioBuildPrompted = false; // guards the one-time "8 minutes are up" popup
 
 // Every game/status write goes through here so the anchor fields are always
 // included consistently -- this is what all teams AND this panel derive the
@@ -291,7 +291,7 @@ function tickLiveDisplays() {
             portfolioBuildTimer.style.background = 'rgba(52,211,153,0.1)';
             if (!portfolioBuildPrompted) {
                 portfolioBuildPrompted = true;
-                if (confirm('⏱ 5 minutes are up! Start Round 1 now?\n\n(Click OK to start immediately, or Cancel to wait and click START ROUND 1 manually)')) {
+                if (confirm('⏱ 8 minutes are up! Start Round 1 now?\n\n(Click OK to start immediately, or Cancel to wait and click START ROUND 1 manually)')) {
                     startRound1();
                 }
             }
@@ -381,7 +381,7 @@ function setupListeners() {
 
     // Start Event (Portfolio Build phase)
     startEventBtn.addEventListener("click", () => {
-        if (confirm("Start the event? This will open a 5-minute Portfolio Building phase for all teams.")) {
+        if (confirm("Start the event? This will open an 8-minute Portfolio Building phase for all teams.")) {
             startEventBtn.disabled = true;
             startEventBtn.textContent = 'SETTING UP...';
             portfolioBuildPrompted = false;
@@ -394,7 +394,7 @@ function setupListeners() {
     });
 
     // Manual START ROUND 1 -- available as soon as Portfolio Building begins, so the
-    // judge can end that phase early instead of waiting for the 5-minute timer.
+    // judge can end that phase early instead of waiting for the 8-minute timer.
     btnStartRound1.addEventListener("click", () => {
         const remaining = PORTFOLIO_BUILD_DURATION_SEC - Math.floor((now() - livePhaseStartedAt) / 1000);
         const msg = remaining > 0

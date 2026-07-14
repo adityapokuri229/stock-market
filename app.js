@@ -482,7 +482,7 @@
     // (visual only -- the judge panel owns actual timing) so it survives a
     // refresh mid-countdown instead of restarting from 5:00.
     function syncPortfolioBuildDisplay() {
-        const PB_DURATION_SEC = 5 * 60;
+        const PB_DURATION_SEC = 8 * 60;
         const pbEl = document.getElementById('pb-countdown');
         const remaining = Math.max(0, PB_DURATION_SEC - Math.floor((window.firebaseGlue.now() - livePhaseStartedAt) / 1000));
         if (remaining > 0) {
@@ -1287,15 +1287,78 @@
     });
 
     const businessDescriptions = [
-        { key: 'TSMC', text: 'Taiwan Semiconductor Manufacturing Company Limited, together with its subsidiaries, manufactures, packages, tests, and sells integrated circuits and other semiconductor devices in Taiwan, China, Europe, the Middle East, Africa, Japan, the United States, and internationally. It provides various wafer fabrication processes, such as processes to manufacture complementary metal- oxide-semiconductor (CMOS) logic, mixed-signal, radio frequency, embedded memory, bipolar CMOS mixed-signal, and others. The company also involved in providing customer and engineering support services; manufacturing of masks; investment in technology start-up companies; research, designing, developing, manufacturing, packaging, testing, and sale of color filters; and investment activities. Its products are used in high performance computing, smartphones, Internet of things, automotive, and digital consumer electronics. Taiwan Semiconductor Manufacturing Company Limited was incorporated in 1987 and is headquartered in Hsinchu City, Taiwan.' },
-        { key: 'Ferrari', text: 'Ferrari N.V., through its subsidiaries, engages in design, engineering, production, and sale of luxury performance sports cars worldwide. It offers sports, track, one-off, and road cars, as well as supercars. The company also provides spare parts and engines, as well as after sales, repair, maintenance, and restoration services for cars; and licenses its Ferrari brand to various producers and retailers of luxury and lifestyle goods. In addition, it operates Ferrari museums in Modena and Maranello; Il Cavallino restaurant in Maranello; and theme parks in Abu Dhabi and Spain. Further, the company provides direct or indirect finance and leasing services; range of financial and ancillary services; special financing arrangements; and operates franchised and owned Ferrari stores. The company was founded in 1947 and is headquartered in Maranello, Italy.' },
-        { key: 'Lockheed Martin', text: 'Lockheed Martin Corporation, an aerospace and defense company, engages in the research, design, development, manufacture, integration, and sustainment of technology systems, products, and services in the United States, Europe, Asia, the Middle East, and internationally. The company operates through four segments: Aeronautics; Missiles and Fire Control (MFC); Rotary and Mission Systems (RMS); and Space. The Aeronautics segment offers combat and air mobility aircraft, unmanned air vehicles, and related technologies. The MFC segment provides air and missile defense systems; tactical missiles and precision strike weapon systems; logistics; fire control systems; mission operations support, readiness, engineering support, and integration services; and ground vehicles. The RMS segment offers military and commercial helicopters, surface ships, sea- and land-based missile defense systems, radar and laser systems, sea- and air-based mission and combat systems, command and control mission solutions, cyber solutions, simulation and training solutions, and services and support for surface ships. The Space segment provides satellites; space transportation systems; strategic, advanced strike, and defensive systems; and classified systems and services in support of national security systems. This segment also provides network-enabled situational awareness; and integrates space and ground global systems to help its customers gather, analyze, and securely distribute critical intelligence data. It primarily serves the U.S. government and international customers, as well as foreign military sales contracted through the U.S. government. The company was formerly known as The Lockheed Corporation and changed its name to Lockheed Martin Corporation in March 1995. Lockheed Martin Corporation was founded in 1912 and is based in Bethesda, Maryland.' },
-        { key: 'HDFC', text: 'HDFC Bank Limited provides banking and financial products and services to individuals and businesses in India, Bahrain, Hong Kong, Singapore, and Dubai. The company operates through Treasury, Retail Banking, Wholesale Banking, Other Banking Business, Insurance Business, and Other segments. It offers savings, salary, current, rural, public provident fund, pension, and demat accounts; fixed and recurring deposits; and safe deposit lockers, as well as offshore accounts and deposits, and overdrafts against fixed deposits. The company also provides personal, home, car and pre owned car, marriage, two-wheeler, business, doctor, educational, gold, consumer, and rural loans; loans against properties, securities, mutual funds, and car; loans for professionals; government sponsored programs; and loans on credit card, as well as working capital, term loans, supply chain management, project finance, export finance, commercial vehicle / equipment finance, tractor finance, infrastructure, and agriculture finance. In addition, it offers credit, debit, prepaid, forex, and kisan gold cards; payment and collection, export, import, remittance, bank guarantee, letter of credit, trade, hedging, and merchant and cash management services; and insurance and investment products. Further, the company provides short term finance, bill discounting, structured finance, export credit, loan repayment, custodial, and documents collection services; online, mobile, and phone banking services; unified payment interface, immediate payment, national electronic funds transfer, and real time gross settlement services; channel financing, vendor financing, money market, derivatives, employee trusts, cash surplus corporates, tax payment, and bankers to rights/public issue services; and financial solutions for supply chain partners and agricultural customers. It operates branches and automated teller machines in various cities/towns. The company was incorporated in 1994 and is headquartered in Mumbai, India.' },
-        { key: 'Pfizer', text: 'Pfizer Inc. discovers, develops, manufactures, markets, distributes, and sells biopharmaceutical products in the United States and internationally. It operates in three segments: Biopharma, PC1, and Pfizer Ignite. The company offers internal medicine products, including cardiovascular metabolic diseases products under the Eliquis brand; migraine products under the Nurtec ODT/Vydura and Zavzpret brand; vaccines under the Prevnar family, Abrysvo, Nimenrix, FSME/IMMUN-TicoVac, and Trumenba brands; and Paxlovid for the treatment of COVID-19. It also provides inflammation and immunology products, such as Xeljanz, Enbrel, Cibinqo, Litfulo, Eucrisa, and Velsipity; rare disease products for therapeutic areas comprising amyloidosis, hemophilia, and endocrine diseases under the Vyndaqel family, Genotropin, BeneFIX, Xyntha, Somavert, Ngenla, and Hympavzi brands; and anti-infective and immunoglobulin medicines under the Zavicefta, Octagam, and Panzyga brands. In addition, the company offers oncology products comprising ADCs, small molecules, bispecific, and other immunotherapies for the treatment of cancers, including breast cancer, genitourinary cancer, and hematologic malignancies, as well as melanoma, gastrointestinal, gynecological, and lung cancer under the Ibrance, Xtandi, Padcev, Adcetris, Inlyta, Lorbrena, Bosulif, Tukysa, Braftovi, Mektovi, Orgovyx, Elrexfio, Tivdak, and Talzenna brands. Further, it provides biosimilars under the Inflectra brand; oncology biosimilars comprising Retacrit, Ruxience, Zirabev, Trazimera and Nivestym, and other biosimilars; and sterile injectables, such as Sulperazon, Atgam, Fragmin, Solu Medrol, Solu Cortef, and Bicillin. The company has collaboration agreements with Bristol-Myers Squibb Company; Astellas Pharma US, Inc.; Merck KGaA; and BioNTech SE, as well as a strategic collaboration with Boltz, PBC to develop and deploy biomolecular AI foundation models. Pfizer Inc. was founded in 1849 and is headquartered in New York, New York.' },
-        { key: 'Reliance', text: 'Reliance Industries Limited engages in hydrocarbon exploration and production, petroleum refining and marketing, petrochemicals, advanced materials and composites, renewable, financial services, retail, and digital services worldwide. It operates through the Oil to Chemicals, Oil and Gas, Retail, Digital Services, and Others segments. The company is involved in refining and marketing products, including liquefied petroleum gas, propylene, naphtha, gasoline, jet/aviation turbine fuel, kerosine oil, diesel, sulfur, and petroleum coke. It also provides polymers comprising high-density and low-density polyethylene (PE), linear low-density PE, homopolymer, random and impact copolymer, and polyvinyl chloride; fiber intermediates that include purified terephthalic acid, and ethylene glycols and oxide; aromatics, such as paraxylene, ortho xylene, benzene, and linear alkyl benzene and paraffin; and textiles that consist of fabrics, apparel, and auto furnishings. In addition, the company offers elastomers, such as polybutadiene rubber, styrene butadiene rubber, and butyl rubber; fiber and yarn polyesters; and bioenergy solutions, including compressed biogas, and pellets and briquettes. Further, it engages in oil and gas exploration and production activities; operation of various stores comprising supermarkets, hypermarket, wholesale cash and carry, specialty, and online stores; operation of media and entertainment platforms, and Network18 and television channels; and publishing of magazines. Additionally, the company provides highway hospitality and fleet management services, as well as digital services, such as connectivity, fiber, mobile devices, apps, business, and other digital solutions. Reliance Industries Limited was founded in 1957 and is based in Mumbai, India.' },
-        { key: 'Draft Kings', text: 'DraftKings Inc. operates as a digital sports entertainment and gaming company in the United States and internationally. The company offers online and retail sports betting, daily fantasy sports, digital lottery couriers, prediction markets, and other products, as well as retails sportsbooks. It also provides iGaming, or online casino products, which includes blackjack, roulette, baccarat and slot machines. In addition, the company engages in the design and development of sports betting and casino gaming software for online and retail sportsbooks, and iGaming operators. DraftKings Inc. was founded in 2011 and is headquartered in Boston, Massachusetts.' },
-        { key: 'SpaceX', text: 'Space Exploration Technologies Corp. provides satellite-based broadband services in the United States, Ireland, Canada, and internationally. The company\'s Connectivity segment operates a high-speed, low-latency broadband network powered by various Starlink satellites in low-earth orbit, delivering connectivity to various consumer, enterprise, and government customers through its Starlink offering. Its Space segment designs, manufactures, and launches reusable rockets to provide access to space. It offers launch services for the deployment of payloads to intended orbits for commercial and government customers utilizing Falcon 9 and Falcon Heavy; and launch and development for the development of spacecraft and the provision of launch and mission services for government agency space programs utilizing Falcon 9, Falcon Heavy, Starship, and Dragon. The company\'s AI segment operates a vertically integrated AI platform spanning a frontier LLM Grok; AI solutions for consumer and enterprise customers; X, a real-time information, entertainment, and free speech platform; and AI computational infrastructure. The company was founded in 2002 and is based in Starbase, Texas.' },
-        { key: 'Samsung', text: 'Samsung Electronics Co., Ltd. engages in the consumer electronics, information technology and mobile communications, and device solutions businesses worldwide. The company operates through four divisions: Device eXperience (DX), Device Solutions (DS), SDC, and Harman. The company offers smartphones, tablets, audio sounds, watches, switches, and accessories; TVs, and sound devices; appliances, including refrigerators, washing machines and dryers, vacuum cleaners, cooking appliances, dishwashers, air conditioners, and air purifiers; monitors and memory storage products; displays, and smart and LED signages; and other accessories. It also engages in venture capital investments, cloud services, network devices installation, semiconductor equipment services, digital advertising platforms, marketing, consulting, connected services provider, logistics, financing, and software design activities. In addition, the company provides toll processing and sales of semiconductors and display panels; development and sale of network solutions; manufacture of semiconductors and food; the provision of repair services for electronic devices; and development and supply of semiconductor process defect and quality control software, as well as digital televisions, foundry, system large scale integration (LSI). Further, it provides connected car systems, audio and visual products, enterprise automation solutions, and connected services. Samsung Electronics Co., Ltd. was incorporated in 1969 and is based in Suwon-si, South Korea.' }
+        { 
+            key: 'TSMC', 
+            production: 'Taiwan', 
+            market: 'United States', 
+            sectors: 'Semiconductors', 
+            hq: 'Hsinchu, Taiwan', 
+            overview: 'TSMC is the world’s leading semiconductor foundry, fabricating chips for global tech giants. Major revenue stems from selling advanced nodes (7nm and below) for high-performance computing and smartphones. In mid-2026, exponential AI chip demand drove a 30% year-over-year revenue surge. Consequently, TSMC accelerated expansion plans backed by an immense $52 billion capital expenditure budget.'
+        },
+        { 
+            key: 'Ferrari', 
+            production: 'Maranello, Italy', 
+            market: 'Europe', 
+            sectors: 'Automotive (Aluminium required)', 
+            hq: 'Maranello, Italy', 
+            overview: 'Ferrari designs, engineers, and manufactures world-class high-performance luxury sports cars. Primary revenues derive from premium vehicle sales, extensive personalization options, and lucrative Formula 1 sponsorships. Operational performance remains highly resilient with net profits exceeding 1.6 billion Euros heading into 2026. Recent milestone activity includes the multi-phase global unveiling of the "Ferrari Luce," the brand\'s pioneering fully electric sports car.'
+        },
+        { 
+            key: 'Lockheed Martin', 
+            production: 'United States', 
+            market: 'United States', 
+            sectors: 'Aerospace (Titanium required)', 
+            hq: 'Bethesda, Maryland', 
+            overview: 'Lockheed Martin is a premier global security, aerospace, and defence technology contractor. The business draws its major revenue from government defence procurement contracts for tactical aircraft and advanced missile systems. Production is anchored by the massive F-35 fighter program. Recently, in June 2026, the company secured a landmark $35 billion contract to quadruple production of critical THAAD missile interceptors.'
+        },
+        { 
+            key: 'HDFC', 
+            production: 'India', 
+            market: 'India', 
+            sectors: 'Banking (Hardware required)', 
+            hq: 'Mumbai, India', 
+            overview: 'HDFC Bank is India\'s largest private sector financial institution, providing retail and wholesale banking services. Major revenue sources include net interest income from loans and fee-based transactional services. Financial metrics remained strong with full-year net revenues hitting 1,912 billion rupees. However, recent mid-2026 activity reveals significant stock pressure, with shares sliding 25% following governance concerns and internal marketing expenditure probes.'
+        },
+        { 
+            key: 'Pfizer', 
+            production: 'United States', 
+            market: 'United States', 
+            sectors: 'Pharmaceuticals (APIs required)', 
+            hq: 'New York, USA', 
+            overview: 'Pfizer is a premier research-based global biopharmaceutical corporation creating innovative medicines and vaccines. Major revenue streams are anchored by blockbusters like Eliquis alongside high-growth specialized oncology therapeutics. The business is successfully transitioning its portfolio beyond legacy COVID products. Recent mid-2026 activity highlights include initiating twenty new pivotal clinical trials and securing landmark FDA approval for its expanded Ibrance therapeutic regimen.'
+        },
+        { 
+            key: 'Reliance', 
+            production: 'Jamnagar, India', 
+            market: 'India', 
+            sectors: 'Conglomerate (Crude oil required)', 
+            hq: 'Mumbai, India', 
+            overview: 'Reliance Industries is India’s dominant conglomerate spanning energy, retail networks, and telecommunications infrastructure. Major revenue sources are split between legacy Oil-to-Chemicals refining assets and rapidly scaling retail and Jio digital platforms. Financial execution delivered record revenues exceeding 11.75 lakh crore rupees. Recent mid-2026 activity includes advancing a massive global carbon fibre plant at Hazira and collaborating with Meta on an AI-enabled data centre.'
+        },
+        { 
+            key: 'Draft Kings', 
+            production: 'United States', 
+            market: 'United States', 
+            sectors: 'Online Sports Betting & iGaming', 
+            hq: 'Boston, Massachusetts', 
+            overview: 'DraftKings is a leading U.S. digital sports betting and iGaming company, operating a mobile sportsbook platform alongside a newer sports prediction/exchange business. Major revenue stems from sports wagering and online casino gaming. In early 2026, strong customer engagement and improved betting margins drove a 17% year-over-year revenue increase in Q1. Consequently, DraftKings raised its full-year 2026 revenue guidance to a range of $6.5–$6.9 billion and is investing further to build out its Predictions business.'
+        },
+        { 
+            key: 'SpaceX', 
+            production: 'United States', 
+            market: 'United States', 
+            sectors: 'Aerospace, Satellite Internet', 
+            hq: 'Hawthorne, California', 
+            overview: 'SpaceX is a leading aerospace and satellite internet company, known for its reusable Falcon 9 rockets and its Starlink broadband service. Major revenue now stems primarily from Starlink subscriptions rather than launches, with the segment generating $11.39 billion in revenue in 2025, accounting for 61% of total sales. Consequently, SpaceX completed its long-anticipated IPO in June 2026, one of the largest public listings on record, as it continues investing heavily in expanding its satellite constellation and newer AI-related ventures.'
+        },
+        { 
+            key: 'Samsung', 
+            production: 'South Korea', 
+            market: 'United States', 
+            sectors: 'Semiconductors, Consumer Electronics', 
+            hq: 'Suwon, South Korea', 
+            overview: 'Samsung Electronics is a global technology conglomerate spanning memory chips, smartphones, and displays, though its semiconductor division has become the overwhelming profit driver. Major revenue stems from memory chips like HBM and DRAM sold to AI server customers, alongside smartphones and consumer electronics. In Q1 2026, surging AI-driven memory demand pushed semiconductor operating profit up roughly 48-fold year-over-year, briefly making Samsung the world\'s most profitable tech company. Consequently, Samsung is ramping up capital spending across its Korean and U.S. fabs to keep pace with next-generation chip demand.'
+        }
     ];
 
     // Research Modal
@@ -1305,20 +1368,26 @@
         document.getElementById('modal-title').textContent = `${u.ticker} — ${u.company}`;
 
         // Match business description
-        let desc = "No business description available for this instrument.";
+        let bData = null;
         for (let b of businessDescriptions) {
             if (u.company.toLowerCase().includes(b.key.toLowerCase()) || u.ticker.toLowerCase().includes(b.key.toLowerCase())) {
-                desc = b.text;
+                bData = b;
                 break;
             }
         }
 
-        // SECURITY: factor sensitivities are judge/scoring-only data and must
-        // never be shown to contestants -- only company/price/type here.
         let bodyHTML = `<p style="margin-bottom:16px;color:var(--text-primary);font-weight:600;">${u.company}</p>`;
         bodyHTML += `<p style="margin-bottom:8px;">Start Price: <strong>${formatINR(u.start_price)}</strong> · Type: <strong>${u.type}</strong></p>`;
-        if (u.type && u.type.toLowerCase() === 'equity') {
-            bodyHTML += `<div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; font-size:0.9rem; line-height:1.5; color:var(--text-secondary);">${desc}</div>`;
+        
+        if (u.type && u.type.toLowerCase() === 'equity' && bData) {
+            bodyHTML += `<div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; font-size:0.9rem; line-height:1.5; color:var(--text-secondary);">`;
+            bodyHTML += `<p style="margin-bottom:8px;"><strong>Largest Production Location:</strong> ${bData.production}</p>`;
+            bodyHTML += `<p style="margin-bottom:8px;"><strong>Biggest Market Location:</strong> ${bData.market}</p>`;
+            bodyHTML += `<p style="margin-bottom:8px;"><strong>Key Sectors:</strong> ${bData.sectors}</p>`;
+            bodyHTML += `<p style="margin-bottom:16px;"><strong>Headquarters Location:</strong> ${bData.hq}</p>`;
+            bodyHTML += `<h4 style="color:var(--text-primary);margin-bottom:8px;">Overview</h4>`;
+            bodyHTML += `<p>${bData.overview}</p>`;
+            bodyHTML += `</div>`;
         }
         bodyHTML += `<p style="margin-top:20px;color:var(--text-muted);font-size:0.8rem;">Use news headlines to judge this stock's likely price movement.</p>`;
 
