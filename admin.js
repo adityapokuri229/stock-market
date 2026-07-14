@@ -196,7 +196,7 @@ function processTeamData(team) {
     const sub = {};
     
     // Return
-    const sr = window.scoring.scoreReturn(rep.V, K0);
+    const sr = window.scoring.scoreReturn(rep.sessionReturns);
     sub.sR = sr.sR;
     sub.rawR = sr.r;
     
@@ -335,7 +335,8 @@ function reconcileControlButtons() {
     btnStartRound1.style.display = liveState === 'portfolio_building' ? 'inline-block' : 'none';
 
     const started = liveState === 'playing' || liveState === 'paused' || liveState === 'ended';
-    btnPauseEvent.style.display = (started && liveState !== 'ended') ? 'inline-block' : 'none';
+    const eventActive = liveState === 'portfolio_building' || liveState === 'playing' || liveState === 'paused' || liveState === 'ended';
+    btnPauseEvent.style.display = (eventActive && liveState !== 'ended') ? 'inline-block' : 'none';
     if (liveState === 'paused') {
         btnPauseEvent.textContent = '▶ RESUME EVENT';
         btnPauseEvent.style.background = '#34d399';
@@ -439,9 +440,11 @@ function setupListeners() {
     btnPauseEvent.addEventListener("click", () => {
         if (liveState === 'paused') {
             const resumedPausedAccumMs = livePausedAccumMs + (livePausedAt != null ? (now() - livePausedAt) : 0);
-            writeGameState('playing', liveSession, { pausedAccumMs: resumedPausedAccumMs, pausedAt: null })
+            const targetState = window._liveResumeState || 'playing';
+            writeGameState(targetState, liveSession, { pausedAccumMs: resumedPausedAccumMs, pausedAt: null })
                 .catch(err => alert("Failed to resume: " + err.message));
         } else {
+            window._liveResumeState = liveState; // store locally for the admin who paused it, or we could store in FB but local is fine for a quick resume
             writeGameState('paused', liveSession, { pausedAt: now() })
                 .catch(err => alert("Failed to pause: " + err.message));
         }
