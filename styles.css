@@ -427,6 +427,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-content {
             max-width: 560px; width: 90%; padding: 32px;
+            max-height: 85vh; overflow-y: auto;
             background: var(--bg-secondary); border: 1px solid var(--glass-border);
             border-radius: var(--radius-lg); animation: modalSlide 0.3s ease;
         }
