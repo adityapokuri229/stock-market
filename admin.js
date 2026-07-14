@@ -656,8 +656,14 @@ function setupCharts() {
     const eqCtx = document.getElementById("drill-equity-chart").getContext("2d");
     equityChart = new Chart(eqCtx, {
         type: 'line',
-        data: { labels: [], datasets: [{ label: 'Equity', data: [], borderColor: '#38bdf8', borderWidth: 2, pointRadius: 0, tension: 0 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        data: {
+            labels: [],
+            datasets: [
+                { label: 'Equity', data: [], borderColor: '#38bdf8', borderWidth: 2, pointRadius: 0, tension: 0 },
+                { label: 'Market', data: [], borderColor: '#f87171', borderWidth: 2, pointRadius: 0, tension: 0 }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, labels: { color: 'rgba(255,255,255,0.7)' } } } }
     });
     
     const rdCtx = document.getElementById("drill-radar-chart").getContext("2d");
@@ -686,10 +692,37 @@ function renderDrillDown(team) {
     drillTeamName.textContent = team;
     const data = cache[team];
     
+    const K0 = getTeamK0(team);
+
     // Update Equity Chart
     const ticks = Array.from({length: data.rep.V.length}, (_, i) => i);
     equityChart.data.labels = ticks;
     equityChart.data.datasets[0].data = data.rep.V;
+
+    if (gameData && gameData.meta && gameData.meta.tickers) {
+        const tickers = gameData.meta.tickers;
+        const startPrices = gameData.meta.start_prices;
+        const marketData = [];
+        
+        for (let i = 0; i < data.rep.V.length; i++) {
+            const row = gameData.rows[i];
+            let mktReturn = 0;
+            if (row && row.prices) {
+                tickers.forEach(tk => {
+                    mktReturn += (row.prices[tk] / startPrices[tk]);
+                });
+                mktReturn /= tickers.length;
+            } else {
+                mktReturn = 1;
+            }
+            marketData.push(mktReturn * K0);
+        }
+        
+        if (equityChart.data.datasets.length > 1) {
+            equityChart.data.datasets[1].data = marketData;
+        }
+    }
+
     equityChart.update();
     
     // Radar Chart -- exposure weighted by trade size (qty * canonical price / K0), same
