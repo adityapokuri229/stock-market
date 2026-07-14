@@ -70,13 +70,6 @@ function replay(orders, gameData, scope, startingCapital = 1_000_000, liveTickCa
 
         const tSession = Math.floor(t / sessionLength);
         if (tSession > currentSession) {
-            const lastRowOfPrev = rows[(currentSession + 1) * sessionLength - 1];
-            forceCloseAll(lastRowOfPrev, trips);
-            sessionReturns.push((V[V.length - 1] - K0) / K0);
-            
-            cash = K0;
-            for (const tk in shares) delete shares[tk];
-            for (const tk in lots) delete lots[tk];
             currentSession = tSession;
         }
 

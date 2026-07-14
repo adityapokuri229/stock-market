@@ -622,7 +622,7 @@
     function buildTickerTape() {
         const track = document.getElementById('ticker-track');
         let html = '';
-        for (let rep = 0; rep < 3; rep++) {
+        for (let rep = 0; rep < 10; rep++) {
             gameData.meta.tickers.forEach(tk => {
                 const u = gameData.universe.find(u => u.ticker === tk);
                 html += `<div class="ticker-item" data-ticker="${tk}">
@@ -841,13 +841,6 @@
         for (const o of sorted) {
             const oSession = Math.floor(o.tick / sessionLength);
             if (oSession > currentSession) {
-                const lastRowPriceIdx = (currentSession + 1) * sessionLength - 1;
-                const lastRowPrices = gameData.rows[lastRowPriceIdx].prices;
-                for (const tk in newHoldings) {
-                    newCash += newHoldings[tk].shares * lastRowPrices[tk];
-                }
-                newCash = START_CAPITAL;
-                for (const tk in newHoldings) delete newHoldings[tk];
                 currentSession = oSession;
             }
 

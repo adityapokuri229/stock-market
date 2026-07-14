@@ -124,7 +124,7 @@
         }
         .ticker-track {
             display: flex; white-space: nowrap; overflow: hidden;
-            animation: tickerScroll 40s linear infinite;
+            animation: tickerScroll 120s linear infinite;
         }
         @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .ticker-item {
