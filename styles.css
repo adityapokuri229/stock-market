@@ -123,8 +123,8 @@
             animation: pulse 2s infinite;
         }
         .ticker-track {
-            display: flex; white-space: nowrap; overflow: hidden;
-            animation: tickerScroll 120s linear infinite;
+            display: flex; white-space: nowrap;
+            animation: tickerScroll 60s linear infinite;
         }
         @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .ticker-item {

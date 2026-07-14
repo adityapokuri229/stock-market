@@ -622,7 +622,7 @@
     function buildTickerTape() {
         const track = document.getElementById('ticker-track');
         let html = '';
-        for (let rep = 0; rep < 10; rep++) {
+        for (let rep = 0; rep < 2; rep++) {
             gameData.meta.tickers.forEach(tk => {
                 const u = gameData.universe.find(u => u.ticker === tk);
                 html += `<div class="ticker-item" data-ticker="${tk}">
@@ -645,10 +645,7 @@
             const isUp = chg >= 0;
             const priceEl = el.querySelector('.ticker-price');
             priceEl.textContent = formatINR(px);
-            const prevPx = tickerPrevPrices[tk];
-            if (prevPx !== undefined && prevPx !== px) {
-                flashPrice(priceEl, px >= prevPx);
-            }
+            // No flash on ticker tape — just smooth colour updates
             tickerPrevPrices[tk] = px;
             const changeEl = el.querySelector('.ticker-up, .ticker-down');
             changeEl.className = isUp ? 'ticker-up' : 'ticker-down';
@@ -1320,7 +1317,7 @@
         // never be shown to contestants -- only company/price/type here.
         let bodyHTML = `<p style="margin-bottom:16px;color:var(--text-primary);font-weight:600;">${u.company}</p>`;
         bodyHTML += `<p style="margin-bottom:8px;">Start Price: <strong>${formatINR(u.start_price)}</strong> · Type: <strong>${u.type}</strong></p>`;
-        if (u.type && u.type.toLowerCase() === 'stock') {
+        if (u.type && u.type.toLowerCase() === 'equity') {
             bodyHTML += `<div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; font-size:0.9rem; line-height:1.5; color:var(--text-secondary);">${desc}</div>`;
         }
         bodyHTML += `<p style="margin-top:20px;color:var(--text-muted);font-size:0.8rem;">Use news headlines to judge this stock's likely price movement.</p>`;
