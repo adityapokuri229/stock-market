@@ -45,28 +45,17 @@ All the core underlying quantitative models, economic formulas, company betas, m
 * Python 3.8+ installed.
 * Optional: `numpy` (only required if generating new game scenarios with `market_engine.py`).
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env`:
+### 2. Running Locally
+Since modern browsers enforce CORS for local file reads (like `game_data.json` and ES modules), serve the directory with a web server:
 ```bash
-cp .env.example .env
+python -m http.server 8000
 ```
-Update `.env` with your Firebase credentials (if using Firebase for live real-time sync across multiple devices).
-
-> **Note**: For local or offline events, the game runs out-of-the-box in standalone/offline mode.
-
-### 3. Start the Server
-Run the included development server, which loads your `.env` configuration securely without committing keys to Git:
-```bash
-python server.py
-```
-Or specify a custom port:
-```bash
-PORT=8080 python server.py
-```
-
-Access the interfaces:
+Then visit:
 * **Student Trading Portal**: [http://localhost:8000/index.html](http://localhost:8000/index.html)
 * **Judge / Admin Console**: [http://localhost:8000/admin.html](http://localhost:8000/admin.html)
+
+### 3. Deploying to Netlify / Static Hosting
+This repository is completely static and can be deployed directly to Netlify, Vercel, or GitHub Pages. The trading client and admin console communicate directly with Firebase Realtime Database in real time.
 
 ---
 
