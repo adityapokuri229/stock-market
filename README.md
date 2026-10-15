@@ -1,17 +1,26 @@
 # Chakravyuh - Nivesh Chakra (Stock Market Simulation)
 
-An institutional-grade, multi-factor real-time stock market trading simulation and competition platform. 
+An institutional-grade, multi-factor real-time stock market trading simulation and competition platform.
 
-> **Context & Origin**: This project was essentially created for the **Chakravyuh** flagship event. It allows administrators to host an interactive trading game where teams trade equities in real-time under macro-factor news shocks, market drift, and company-specific sensitivities.
+> **Context & Origin**: This platform was created specifically for the **Chakravyuh** flagship event. It enables administrators and judges to run a live, interactive market simulation where student teams analyze news headlines, factor shocks, and equity sensitivities to trade in real-time.
+
+---
+
+## 🌐 Live Deployments
+
+The platform is deployed live and fully functional on Netlify:
+* **Student Trading Portal**: [https://dpsstockmarket.netlify.app](https://dpsstockmarket.netlify.app)
+* **Judge / Admin Console**: [https://dpsstockmarket.netlify.app/admin.html](https://dpsstockmarket.netlify.app/admin.html)
+  * **Admin Password**: `judge123`
 
 ---
 
 ## 📚 Economic Foundation & Prerequisites
 
-All the core underlying quantitative models, economic formulas, company betas, macro factor matrices, and design specifications are housed in the [`PRD/`](file:///home/adityapokuri/Documents/DEVELOPMENT/Stock%20Market/stock-market/PRD) folder:
-* **`PRD/Chakravyuh Trading Game - Developer Handover (v5).docx`**: The core economic stochastic engine specifications (Geometric Brownian Motion with mean-reversion, news decay, and jump shocks).
-* **`PRD/Chakravyuh - Nivesh Chakra - Developer Handover.pdf`**: Equities universe, factor definitions, starting financials, and game rules.
-* **`PRD/Chakravyuh Judge Console - Full Implementation Handover (v2).pdf`**: Quantitative scoring algorithms (composite Return, Diversification/Risk, and Hedging/Macro alignment).
+All quantitative economic formulas, stochastic engine mathematics, company betas, macro factor matrices, and design specifications are documented in the [`PRD/`](file:///home/adityapokuri/Documents/DEVELOPMENT/Stock%20Market/stock-market/PRD) directory:
+* **`PRD/Chakravyuh Trading Game - Developer Handover (v5).docx`**: Detailed mathematical specification of the stochastic price engine (Geometric Brownian Motion with drift, sector betas, mean reversion, news decay, and jump shocks).
+* **`PRD/Chakravyuh - Nivesh Chakra - Developer Handover.pdf`**: Equities universe, macro factor definitions, starting financials, and competition guidelines.
+* **`PRD/Chakravyuh Judge Console - Full Implementation Handover (v2).pdf`**: Quantitative evaluation framework covering Return ($R$), Diversification/Risk ($D$), and Factor Hedging ($H$).
 * **`PRD/UI Schem 1.jpeg`, `2.jpeg`, `3.jpeg`**: Visual schematics and UI layout specifications.
 
 ---
@@ -22,8 +31,8 @@ All the core underlying quantitative models, economic formulas, company betas, m
   * Real-time tick-by-tick charts (Line and Candlestick modes).
   * Live ticker tape and breaking news feed with synthesized Web Audio alert chimes.
   * Instant order entry (Market & Limit orders, Long positions, and Short selling).
-  * Real-time portfolio valuation, cash tracking, P&L, and trade execution blotter.
-  * Comprehensive Stock Research modal with business models, headquarters, and supply chain footprints.
+  * Real-time portfolio valuation, cash balance, P&L, and trade execution blotter.
+  * Stock Research modal detailing business models, headquarters, and supply chain footprints.
   * Offline fallback mode (auto-generates bundle `.json` download for manual submission).
 
 * **Judge & Admin Console (`admin.html` / `admin.js`)**:
@@ -39,35 +48,30 @@ All the core underlying quantitative models, economic formulas, company betas, m
 
 ---
 
-## 🛠️ Setup & Running the Platform
+## 🛠️ Running Locally
 
-### 1. Prerequisites
-* Python 3.8+ installed.
-* Optional: `numpy` (only required if generating new game scenarios with `market_engine.py`).
+Because modern web browsers enforce CORS restrictions on local `file:///` requests for JSON data and ES modules, run the project with any local HTTP server:
 
-### 2. Running Locally
-Since modern browsers enforce CORS for local file reads (like `game_data.json` and ES modules), serve the directory with a web server:
 ```bash
+# Using Python
 python -m http.server 8000
 ```
-Then visit:
+
+Then open in your browser:
 * **Student Trading Portal**: [http://localhost:8000/index.html](http://localhost:8000/index.html)
 * **Judge / Admin Console**: [http://localhost:8000/admin.html](http://localhost:8000/admin.html)
-
-### 3. Deploying to Netlify / Static Hosting
-This repository is completely static and can be deployed directly to Netlify, Vercel, or GitHub Pages. The trading client and admin console communicate directly with Firebase Realtime Database in real time.
 
 ---
 
 ## 👨‍⚖️ How to Run the Event via the Admin Panel
 
 1. **Log in to Admin Console**:
-   * Navigate to `http://localhost:8000/admin.html`.
-   * Enter the admin passkey (Default: `judge123`).
+   * Navigate to [`https://dpsstockmarket.netlify.app/admin.html`](https://dpsstockmarket.netlify.app/admin.html) (or `http://localhost:8000/admin.html` locally).
+   * Enter the admin passkey: **`judge123`**.
 
 2. **Register Teams & Set Capital**:
    * Under **Team Management**, enter the Team Name, Password, and Starting Capital (e.g., ₹10,00,000).
-   * Click **Add Team**. Teams can now log into their student trading terminals.
+   * Click **Add Team**. Teams can now log into their student trading terminals using their assigned credentials.
 
 3. **Phase Progression**:
    * **Start Event / Portfolio Building**: Puts all teams into the 5-minute portfolio preparation countdown where students analyze equities and establish initial holdings.
