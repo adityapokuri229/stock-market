@@ -94,10 +94,10 @@ The economic model is driven by an Euler-Maruyama discretized jump-diffusion mod
 
 ```mermaid
 flowchart TD
-    A["News Drop / Macro Shock Event (k)"] -->|Score * Gain * exp(-Δt/τ)| B["Factor Shock Vector F_t (11 Factors)"]
+    A["News Drop / Macro Shock Event (k)"] -->|"Score * Gain * exp(-Δt / τ)"| B["Factor Shock Vector F_t (11 Factors)"]
     C["Cholesky Factor Correlation L @ Z_t"] --> B
-    B -->|β Matrix Multiplication| D["Stock News Shock N_t = β · F_t"]
-    E["Market Noise M_t"] -->|Market Beta β_mkt| F["Market Return Component"]
+    B -->|"β Matrix Multiplication"| D["Stock News Shock N_t = β · F_t"]
+    E["Market Noise M_t"] -->|"Market Beta β_mkt"| F["Market Return Component"]
     G["Anchor / Fair Value: A_t = A_{t-1} * exp(0.35 * N_t)"] --> H["Mean Reversion R_t = κ(ln A_t - ln P_{t-1})"]
     I["Idiosyncratic Noise ε_t"] --> J["Total Log Return r_t"]
     D --> J
@@ -167,19 +167,15 @@ $$F_t = (L \cdot Z_t) \odot \sigma_F + \sum_{e \in \text{Events}} S_e \cdot g_e 
 
 ### 5. Macro Factor Cross-Correlation Matrix ($\mathbf{C}$)
 
-```mermaid
-classDiagram
-    direction LR
-    class MacroCorrelations {
-        InterestRates <--> InflationReaction : +0.35
-        Oil <--> InflationReaction : +0.30
-        Semiconductors <--> TechDevelopments : +0.35
-        InvestorConfidence <--> ConsumerDiscretionary : +0.30
-        GeopoliticalStability <--> Oil : -0.25
-        Aerospace <--> GeopoliticalStability : -0.30
-        InterestRates <--> InvestorConfidence : -0.20
-    }
-```
+| Factor Pair | Correlation Coefficient ($r$) | Economic Rationalization |
+| :--- | :---: | :--- |
+| **InterestRates $\longleftrightarrow$ InflationReaction** | `+0.35` | Central bank rate hikes respond directly to elevated headline inflation prints. |
+| **Oil $\longleftrightarrow$ InflationReaction** | `+0.30` | Energy input costs pass through into aggregate consumer price indices. |
+| **SemiconductorDemand $\longleftrightarrow$ TechDevelopments** | `+0.35` | Compute infrastructure and AI advances drive fab volume demand. |
+| **InvestorConfidence $\longleftrightarrow$ ConsumerDisc** | `+0.30` | Household optimism expands high-margin discretionary expenditures. |
+| **GeopoliticalStability $\longleftrightarrow$ Oil** | `-0.25` | Geopolitical conflict disrupts trade routes and restricts crude supply. |
+| **Aerospace $\longleftrightarrow$ GeopoliticalStability** | `-0.30` | Heightened defense contracting offsets civil airline declines during instability. |
+| **InterestRates $\longleftrightarrow$ InvestorConfidence** | `-0.20` | Tightening monetary policy dampens risk asset multiples and liquidity. |
 
 The correlation matrix $\mathbf{C}$ is repaired using positive semi-definite (PSD) eigenvalue clipping ($\min(\lambda_i, 10^{-6})$) to guarantee mathematical stability during Cholesky decomposition:
 
