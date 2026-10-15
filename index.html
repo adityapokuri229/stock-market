@@ -243,6 +243,9 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+    <!-- Dynamic / Environment Configuration -->
+    <script src="firebase-env.js"></script>
+
     <script type="module">
         import { initGlue, pushOrder, watchGameState, verifyTeam, getTeamCapital, now, watchTeamOrders } from './firebase-glue.js';
         window.firebaseGlue = { initGlue, pushOrder, watchGameState, verifyTeam, getTeamCapital, now, watchTeamOrders };

@@ -1,18 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, push, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCgqu5sk6S1-R4BW3eMAJWBU5qg6bjHmfk",
-    authDomain: "chakravyuh-stock-market.firebaseapp.com",
-    databaseURL: "https://chakravyuh-stock-market-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "chakravyuh-stock-market",
-    storageBucket: "chakravyuh-stock-market.firebasestorage.app",
-    messagingSenderId: "298006582192",
-    appId: "1:298006582192:web:e5dd52ef7552178a4bbc75",
-    measurementId: "G-3RFQ6GLPBZ"
-};
+import { firebaseConfig } from "./firebase-config.js";
 
 // Initialize Firebase only if config is provided
 let app, db, basePath = null;
@@ -22,7 +11,7 @@ let app, db, basePath = null;
 let authReady = Promise.resolve(false);
 
 try {
-    if (firebaseConfig.apiKey !== "AIzaSy_YOUR_API_KEY_HERE") {
+    if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "AIzaSy_YOUR_API_KEY_HERE") {
         app = initializeApp(firebaseConfig);
         db = getDatabase(app);
         authReady = signInAnonymously(getAuth(app))
