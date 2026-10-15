@@ -179,7 +179,9 @@ $$F_t = (L \cdot Z_t) \odot \sigma_F + \sum_{e \in \text{Events}} S_e \cdot g_e 
 
 The correlation matrix $\mathbf{C}$ is repaired using positive semi-definite (PSD) eigenvalue clipping ($\min(\lambda_i, 10^{-6})$) to guarantee mathematical stability during Cholesky decomposition:
 
-$$\mathbf{C}_{\text{PSD}} = \mathbf{V} \operatorname{diag}(\max(\lambda_i, 10^{-6})) \mathbf{V}^T$$
+$$\mathbf{C}_{\text{PSD}} = \mathbf{V} \cdot \text{diag}(\max(\lambda_i, 10^{-6})) \cdot \mathbf{V}^T$$
+
+Where $\text{diag}(...)$ constructs the diagonal matrix of clipped eigenvalues $\lambda_i \ge 10^{-6}$.
 
 ---
 
@@ -212,10 +214,14 @@ Combines Effective Factor Rank ($d_{\text{Rank}}$) and Portfolio Neutrality ($d_
 $$S_D = 0.6 \cdot d_{\text{Rank}} + 0.4 \cdot d_{\text{Neut}}$$
 
 1. **Effective Factor Rank ($R_{\text{eff}}$)**: Measures the diversity of independent factor exposures using the Gram matrix $\mathbf{G} = \sum_t (\mathbf{w}_t \odot \boldsymbol{\beta})^T (\mathbf{w}_t \odot \boldsymbol{\beta})$:
-   $$R_{\text{eff}} = \frac{(\operatorname{Tr}(\mathbf{G}))^2}{\|\mathbf{G}\|_F^2}, \quad d_{\text{Rank}} = \min\left(\frac{R_{\text{eff}}}{5.0}, 1.0\right)$$
+
+$$R_{\text{eff}} = \frac{(\text{Tr}(\mathbf{G}))^2}{\|\mathbf{G}\|_F^2}, \quad d_{\text{Rank}} = \min\left(\frac{R_{\text{eff}}}{5.0}, 1.0\right)$$
+
+*(Calculated directly from `scoring.js` as `Reff = (tr * tr) / fro2` where `fro2` is the squared Frobenius norm $\sum_{k,l} G_{k,l}^2$ and `tr` is $\sum_k G_{k,k}$)*.
 
 2. **Factor Neutrality ($\nu$)**: Penalizes unhedged one-sided macro bets:
-   $$\nu = 1 - \frac{\sum_k |\sum_i w_i \beta_{i,k}|}{\sum_k \sum_i |w_i \beta_{i,k}|}, \quad d_{\text{Neut}} = \min\left(\frac{\nu}{0.70}, 1.0\right)$$
+
+$$\nu = 1 - \frac{\sum_k |\sum_i w_i \beta_{i,k}|}{\sum_k \sum_i |w_i \beta_{i,k}|}, \quad d_{\text{Neut}} = \min\left(\frac{\nu}{0.70}, 1.0\right)$$
 
 #### C. Macro Awareness & Hit Rate ($S_H$)
 Measures trading precision on qualifying trades ($|\text{trade value}| \ge 0.5\% \cdot K_0$) with Bayesian Laplace smoothing ($\kappa = 2$):
